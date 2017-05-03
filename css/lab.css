@@ -1,0 +1,52 @@
+#lab {
+  background-color:#44546A;
+  color:white;
+}
+ #lab .Menu {
+   background-color: Sienna;
+ }
+ #lab .Parameters {
+   background-color: Sienna ;
+ }
+ #lab .Check {
+   background-color: Sienna;
+ }
+ #lab .Amb\. {
+   background-color: Sienna;
+ }
+ #lab .Ramp {
+   background-color: Sienna;
+ }
+ #lab .Strain {
+   background-color: darkgreen;
+ }
+ #lab .Switchable {
+   background-color: yellow;
+     color:black;
+ }
+ #lab .NotSwitchable {
+   background-color: brown;
+ }
+ #lab .STL {
+   background-color: Sienna;
+ }
+ #lab .Load {
+   background-color: darkgreen;
+ }
+ #lab .Stop {
+   background-color: darkred;
+ }
+ #lab .Report {
+   background-color: gray;
+ }
+ #lab .Send {
+   background-color: dimgray;
+ }
+
+
+ a:hover, a:focus {
+     color: orange;
+ }
+ a {
+     color: white;
+ }

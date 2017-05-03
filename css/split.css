@@ -1,0 +1,76 @@
+[class*="col-"], footer {
+  background-color: dimgray;
+  border: 1px solid black;
+ /* border-radius: 6px;
+  line-height: 40px;*/
+  text-align: center;
+}
+.splitCenter div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+.jobTop div{
+  color:white;
+  background-color: rgb(31, 78, 121);
+  text-align: left;
+}
+.splitBot div{
+  color:white;
+  background-color: rgb(91, 155, 213);
+  text-align: left;
+}
+.jobTop .commentaire2{
+  color: inherit;
+  background-color: inherit;
+  text-align: left;
+  border: 0px;
+  width:100%;
+}
+.splitBot .commentaire, .jobTop .commentaire{
+  color: inherit;
+  background-color: inherit;
+  text-align: left;
+  border: 0px;
+  resize:none;
+  height:70%;
+  width:100%;
+}
+.splitBot .commentaireEditable{
+  color: white;
+  background-color: dimgray;
+  text-align: left;
+  border: 0px;
+  resize:none;
+  height:70%;
+  width:100%;
+}
+#job{
+  font-weight:  bold;
+  font-size: x-large;
+}
+#compagnie{
+  font-weight:  bold;
+  font-size: large;
+}
+.titre{
+  color:lightblue;
+}
+.commentaire{
+
+}
+.split-bouton{
+  padding-left: 0px;
+}
+
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th {
+  padding: 0px;
+}
+
+#check{
+  background-color: darkgreen;
+}
+#check.check0{
+  background-color: darkred;
+  cursor: pointer;
+}

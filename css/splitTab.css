@@ -1,0 +1,10 @@
+#exTab3 .nav-pills {
+  margin-top: 5px;
+}
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+#exTab3 .tab-content {
+  color : white;
+  background-color: rgb(91, 155, 213);
+}

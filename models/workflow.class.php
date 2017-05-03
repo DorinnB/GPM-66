@@ -1,0 +1,73 @@
+<?php
+class WORKFLOW
+{
+
+protected $db;
+private $id;
+
+public function __construct($db,$id)
+{
+    $this->db = $db;
+    $this->id = $id;
+}
+
+    public function getAllEprouvettes() {
+
+		$req = 'SELECT eprouvettes.id_eprouvette, master_eprouvettes.id_master_eprouvette,
+          master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, master_eprouvettes.id_dwg, dessins.dessin, eprouvettes.id_job as id_tbljob,
+          n_fichier
+
+        FROM eprouvettes
+        LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+
+        LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
+
+        WHERE master_eprouvettes.id_info_job = (SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id.')
+        AND master_eprouvette_actif=1 AND eprouvette_actif=1';
+          //echo $req;
+        return $this->db->getAll($req);
+    }
+
+    public function getAllSplit() {
+
+    $req = 'SELECT id_tbljob, test_type, test_type_abbr, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep
+
+        FROM tbljobs
+        LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
+        LEFT JOIN master_eprouvettes on master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+        LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+        WHERE tbljobs.id_info_job = (SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id.')
+          AND tbljob_actif=1
+          AND master_eprouvette_actif=1
+        GROUP BY id_tbljob
+        ORDER BY phase ASC';
+        //echo $req;
+        return $this->db->getAll($req);
+    }
+
+
+    public function getEmptySplit() {
+
+    $req = 'SELECT id_tbljob, sum(if(eprouvette_actif=1,1,0)) as nbep
+
+        FROM tbljobs
+        LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
+        WHERE tbljobs.id_info_job = (SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id.')
+          AND tbljob_actif=1
+        GROUP BY id_tbljob';
+        //echo $req;
+        return $this->db->getAll($req);
+    }
+
+
+    public function delSplit($idsplit) {
+        $reqDel='UPDATE tbljobs SET tbljob_actif=0 WHERE id_tbljob='.$idsplit;
+        echo $reqDel.'<br/>';
+        $this->db->execute($reqDel);
+        echo ' split detruit .';
+
+    }
+
+
+}

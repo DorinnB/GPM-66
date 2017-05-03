@@ -1,0 +1,20 @@
+.title
+{
+    display: block;
+    padding: 4px 6px;
+    color: white;
+    margin-bottom: 13px;
+    clear:both;
+}
+.title .date { float:right }
+.title .name { float:left }
+
+.load10 {
+  background-color: lightgreen;
+}
+.load100 {
+  background-color: lightgreen;
+}
+.load250 {
+  background-color: lightgreen;
+}
