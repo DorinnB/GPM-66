@@ -211,8 +211,8 @@ $style_gray = array(
           'J30' => ($oEprouvette->MAX()-$oEprouvette->MIN())/2*$area/1000,
           'J31' => $oEprouvette->MIN()*$area/1000,
 
-          'B29' => $oEprouvette->MAX()*$area/1000+abs(($oEprouvette->MAX()*$area/1000<10)?0.5:$oEprouvette->MAX()*$area/1000*5/100),
-          'D29' => $oEprouvette->MIN()*$area/1000-abs(($oEprouvette->MAX()*$area/1000<10)?0.5:$oEprouvette->MAX()*$area/1000*5/100)
+          'B29' => $oEprouvette->MAX()*$area/1000+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5),
+          'D29' => $oEprouvette->MIN()*$area/1000-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)
         );
       }
       Elseif ($essai['c_unite']=="kN")	{
@@ -222,8 +222,8 @@ $style_gray = array(
           'J30' => ($oEprouvette->MAX()-$oEprouvette->MIN())/2,
           'J31' => $oEprouvette->MIN(),
 
-          'B29' => $oEprouvette->MAX()+abs($oEprouvette->MAX()*5/100),
-          'D29' => $oEprouvette->MIN()-abs($oEprouvette->MAX()*5/100)
+          'B29' => $oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5),
+          'D29' => $oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)
         );
       }
       Else	{
@@ -571,7 +571,7 @@ else {
     //exit;
 
     $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
-    $objPHPExcel->getActiveSheet()->getProtection()->setPassword("");
+    $objPHPExcel->getActiveSheet()->getProtection()->setPassword("metcut44");
 
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
