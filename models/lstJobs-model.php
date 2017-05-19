@@ -36,7 +36,7 @@ class LstJobsModel
         $reqfiltre='';
       }
       else {
-        $reqfiltre='AND local=1 AND etape != 100';
+        $reqfiltre='AND final=1 AND etape <95';
       }
 
 
@@ -44,15 +44,15 @@ class LstJobsModel
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color,
 
-          statut, max(contacts.compagnie) as compagnie,
+          statut, max(entreprise_abbr) as entreprise_abbr, max(entreprise) as entreprise,
           po_number, instruction,
           customer, job, split,
-					test_type_abbr,
+					test_type_abbr, final,
           etape, matiere,
           GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
           test_leadtime,
-					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(n_fichier) as nbtest, CONVERT((count(n_fichier)/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
+					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest, CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
 					IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
 
 
@@ -71,14 +71,13 @@ class LstJobsModel
 				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
 				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
-          LEFT JOIN contacts ON info_jobs.customer=contacts.ref_customer
+          LEFT JOIN entreprises ON info_jobs.customer=entreprises.id_entreprise
           LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
           LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
           LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
 
 
 				WHERE tbljob_actif=1
-        AND contact_actif=1
 
         '.$reqfiltre.'
         GROUP BY tbljobs.id_tbljob

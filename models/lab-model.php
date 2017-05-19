@@ -46,7 +46,7 @@ class LabModel
         LEFT JOIN techniciens t2 ON t2.id_technicien=enregistrementessais.id_controleur
 
         WHERE currentBlock="Check" OR (Cycle_final>0 AND id_controleur=0)
-        order by n_fichier';
+        order by machine';
         //echo $req;
         return $this->db->getAll($req);
     }
@@ -63,7 +63,7 @@ class LabModel
         LEFT JOIN machines ON machines.id_machine=postes.id_machine
 
         WHERE check_rupture=0
-          AND d_checked!=0
+          
         order by machine';
         //echo $req;
         return $this->db->getAll($req);
