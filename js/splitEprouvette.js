@@ -111,13 +111,15 @@ function checked(e) {
 
 
 function dChecked(e) {
+
   $.ajax({
     type: "POST",
     url: 'controller/updateDCheckEp.php',
     dataType: "json",
     data:  {
       idEp : e.attr('data-idepdchecked'),
-      dchecked : e.attr('data-dchecked')
+      dchecked : e.attr('data-dchecked'),
+      iduser: iduser
     }
     ,
     success : function(data, statut){
@@ -148,7 +150,7 @@ function dChecked(e) {
 function flagQualite(e) {
   if (e.attr('data-flagQualite')>0) {
 
-    var confirmation = confirm('Unflag this test ?');
+    var confirmation = confirm('Unflag this test ? Only Quality Manager should do this');
     if (confirmation) {
 
       $.ajax({

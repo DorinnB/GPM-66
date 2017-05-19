@@ -570,6 +570,9 @@ else {
 
     //exit;
 
+    $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
+    $objPHPExcel->getActiveSheet()->getProtection()->setPassword("");
+
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
     $objWriter->save('../lib/PHPExcel/files/FT-'.$essai['n_fichier'].'.xlsx');

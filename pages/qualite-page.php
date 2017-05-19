@@ -11,7 +11,7 @@
 				<div class="col-md-6" style="height:100%; overflow: auto;"></div>
 			</div>
 			<div class="row" style="height:50%;">
-				<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'controller/checkList-controller.php'; ?></div>
+				<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'controller/qualiteList-controller.php'; ?></div>
 				<div class="col-md-6" style="height:100%">carré 4</div>
 			</div>
 		</div>

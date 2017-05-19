@@ -133,6 +133,9 @@ foreach ($val2Xls as $key => $value) {
 
 //exit;
 
+$objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
+$objPHPExcel->getActiveSheet()->getProtection()->setPassword("");
+
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('../lib/PHPExcel/files/Prestart-'.$_GET['id_prestart'].'.xlsx');

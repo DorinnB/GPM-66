@@ -7,12 +7,13 @@ $db = new db(); // create a new object, class db()
 include_once 'models/lab-model.php';
 // Création d'une instance
 $oTest = new LabModel($db);
+
 $test=$oTest->getCheckList();
-
-
-
-
-
 // Affichage du résultat
 include 'views/checkList-view.php';
+
+
+$checkRupture=$oTest->getCheckRuptureList();
+// Affichage du résultat
+include 'views/checkRuptureList-view.php';
 ?>

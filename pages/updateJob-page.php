@@ -28,3 +28,4 @@ include('controller/updateJob-controller.php');
 		</div>
 	</div>
 </div>
+<?php require('views/login-view.php');	?>

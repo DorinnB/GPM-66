@@ -28,6 +28,7 @@
 <!--modal gestion ep ici pour avoir un fond gris sur toute la page-->
 <?php
 require('views/splitGestionEpBlank-view.php');
+require('views/login-view.php');
 ?>
 
 

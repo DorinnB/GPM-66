@@ -137,6 +137,76 @@ function cancelTest(id_ep, id_tbljob) {
 
 
 
+$("#check_rupture").click(function(e) {
+  //si le user n'est pas celui qui a inseré le dernier rupture/fracture, il peut valider
+  if ($("#check_rupture").attr('data-dTechnicien')!=iduser) {
+    $.ajax({
+      type: "POST",
+      url: 'controller/updateCheckRupture.php',
+      dataType: "json",
+      data:  {
+        idEp:$("#idEp").val(),
+        iduser:iduser
+      }
+      ,
+      success : function(data, statut){
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+      }
+    });
+  }
+});
+
+$("#flagQualite").click(function(e) {
+  flagQualite($("#flagQualite"));
+  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$("#idEp").val());
+});
+
+$("#flecheUp").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextTest.php',
+    dataType: "json",
+    data:  {
+      idEp:$("#idEp").val(),
+      sens:'<'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_eprouvette']!== undefined) {
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+data['id_eprouvette']);
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche d\'essai. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});
+$("#flecheDown").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextTest.php',
+    dataType: "json",
+    data:  {
+      idEp:$("#idEp").val(),
+      sens:'>'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_eprouvette']!== undefined) {
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+data['id_eprouvette']);
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche d\'essai. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});
 
 $("#save_d_commentaire").click(function(e) {
 
@@ -144,9 +214,9 @@ $("#save_d_commentaire").click(function(e) {
   //$('#d_commentaire').val($('#d_commentaire_content').html());
   $.ajax({
     type: "POST",
-    url: 'controller/update_d_commentaire.php',
+    url: 'controller/updateDCcommentaire.php',
     dataType: "json",
-    data:  $("#update_d_commentaire").serialize()
+    data: $("#update_d_commentaire").serialize() + "&iduser=" + iduser
     ,
     success : function(data, statut){
       $('#gestionEp').modal('hide');

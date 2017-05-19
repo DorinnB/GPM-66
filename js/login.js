@@ -47,6 +47,10 @@ $(function() {
             iduser = data['id_technicien'];				;
             //on affiche en haut le nom de l'opérateur
             document.getElementById('user').innerHTML = user;
+            document.getElementById('iduser').innerHTML = iduser;
+            //rafraichissement de gestionEp avec le nouvel user
+            $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
+
 
             //affichage du cooldown
             if (!$lg_remember_me) {
@@ -68,7 +72,10 @@ $(function() {
                   seconds: 0
                 },
                 beforeStart: function(){},
-                end: function(){document.getElementById('user').innerHTML = 'Disconnected';}
+                end: function(){
+                  document.getElementById('user').innerHTML = 'Disconnected';
+                  document.getElementById('iduser').innerHTML = '0';
+                }
               });
             }
             $("#login-modal").modal("toggle");

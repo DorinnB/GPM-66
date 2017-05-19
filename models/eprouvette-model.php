@@ -65,7 +65,7 @@ class EprouvetteModel
     master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
     c_type_1_val, c_type_2_val,
     Cycle_min, runout, cycle_estime, c_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3,
-    d_commentaire, currentBlock,
+    d_commentaire, currentBlock, check_rupture, d_technicien, flag_qualite, checked,
     n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Cycle_STL, Cycle_final, Rupture, Fracture,
     tbljobs.waveform AS c_waveform,enregistrementessais.id_controleur, enregistrementessais.id_operateur,
     techniciens.technicien, info_jobs.job, info_jobs.customer, split, test_type, eprouvettes.id_master_eprouvette, id_job, prestart.id_prestart,
@@ -98,7 +98,7 @@ class EprouvetteModel
       //On insert l'enregistrementessais
       $reqInsert='INSERT INTO enregistrementessais (id_acquisition ,id_eprouvette ,id_prestart ,date ,id_operateur ,id_controleur)
       VALUES (7, '.$this->id.', '.$this->id_prestart.', "'.date('Y-m-d H:i:s').'", '.$this->id_operateur.', '.$this->id_controleur.')';
-//echo $reqInsert;
+      //echo $reqInsert;
       $this->db->execute($reqInsert);
 
 
@@ -132,20 +132,20 @@ class EprouvetteModel
   }
 
   public function newTestCheck() {
-      //On update l'eprouvette avec ce checkeur
-      $reqUpdate='UPDATE enregistrementessais
-      SET id_controleur = '.$this->id_controleur.'
-      WHERE id_eprouvette = '.$this->id;
+    //On update l'eprouvette avec ce checkeur
+    $reqUpdate='UPDATE enregistrementessais
+    SET id_controleur = '.$this->id_controleur.'
+    WHERE id_eprouvette = '.$this->id;
 
-      //echo $reqUpdate;
-      $this->db->execute($reqUpdate);
+    //echo $reqUpdate;
+    $this->db->execute($reqUpdate);
   }
 
 
   public function copyEp() {
 
     $eprouvette=$this->getEprouvette();
-    //on extrait les valeurs dans une variables, puis on le ajoute au attribut de l'objet. Cela permet de remettre les null ou les guillemet pour le text.
+    //on extrait les valeurs dans une variables, puis ON le ajoute au attribut de l'objet. Cela permet de remettre les null ou les guillemet pour le text.
     $this->id_master=$eprouvette['id_master_eprouvette'];
     $this->id_job=$eprouvette['id_job'];
     $this->c_temperature=$eprouvette['c_temperature'];
@@ -188,7 +188,7 @@ class EprouvetteModel
       $this->db->execute($reqInsert);
     }
 
-  public function delEp() {
+    public function delEp() {
 
       $reqUpdate='UPDATE eprouvettes
       SET eprouvette_actif = 0
@@ -198,7 +198,7 @@ class EprouvetteModel
       $this->db->execute($reqUpdate);
     }
 
-  public function cancelTest() {
+    public function cancelTest() {
 
       $reqUpdate='UPDATE eprouvettes
       SET n_essai  = NULL
@@ -208,7 +208,7 @@ class EprouvetteModel
       $this->db->execute($reqUpdate);
 
       $reqUpdateEnregistrementEssai='UPDATE enregistrementessais
-      SET id_eprouvette  = 0
+      SET id_eprouvette  = NULL
       WHERE id_eprouvette = '.$this->id;
 
       //echo $reqUpdateEnregistrementEssai;
@@ -216,7 +216,7 @@ class EprouvetteModel
 
     }
 
-  public function updateCheck(){
+    public function updateCheck(){
       $reqUpdate='UPDATE `eprouvettes` SET
       `c_checked` = '.$_COOKIE['id_user'].'
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
@@ -227,7 +227,7 @@ class EprouvetteModel
       echo json_encode($maReponse);
     }
 
-  public function updateRemoveCheck(){
+    public function updateRemoveCheck(){
       $reqUpdate='UPDATE `eprouvettes` SET
       `c_checked` = 0
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
@@ -238,20 +238,20 @@ class EprouvetteModel
       echo json_encode($maReponse);
     }
 
-  public function updateDCheck(){
+    public function updateDCheck($iduser){
       $reqUpdate='UPDATE `eprouvettes` SET
-      `d_checked` = '.$_COOKIE['id_user'].'
+      `d_checked` = '.$iduser.'
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
 
-      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $_COOKIE['id_user']);
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $iduser);
       echo json_encode($maReponse);
     }
 
-  public function updateRemoveDCheck(){
+    public function updateRemoveDCheck($iduser){
       $reqUpdate='UPDATE `eprouvettes` SET
-      `d_checked` = 0
+      `d_checked` = IF(check_rupture=0,'.$iduser.',0)
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -260,7 +260,51 @@ class EprouvetteModel
       echo json_encode($maReponse);
     }
 
-  public function addFlagQualite(){
+    public function updateCheckRupture($iduser){
+      $reqUpdate='UPDATE `eprouvettes` SET
+      `check_rupture` = IF(check_rupture=0,'.$iduser.',0)
+      WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
+      //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $iduser);
+      echo json_encode($maReponse);
+    }
+
+
+    public function previousNextTest($sens){
+      $reqSelect='SELECT eprouvettes.id_eprouvette, n_essai, id_machine, id_job
+      FROM `eprouvettes`
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
+      LEFT JOIN postes ON postes.id_poste=prestart.id_poste
+      WHERE eprouvettes.id_eprouvette='.$this->id;
+
+      $infoPrevious=$this->db->getOne($reqSelect);
+      $req='SELECT eprouvettes.id_eprouvette FROM `eprouvettes`
+
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
+      LEFT JOIN postes ON postes.id_poste=prestart.id_poste
+
+
+      WHERE id_job='.$infoPrevious['id_job'].'
+      AND n_essai'.$sens.$infoPrevious['n_essai'].'
+      AND id_machine='.$infoPrevious['id_machine'].'
+      ORDER BY n_essai '.(($sens=="<")?"DESC":"ASC").'
+      LIMIT 1;';
+
+      //echo $req2;
+      $result = $this->db->isOne($req);
+
+      $maReponse =  $result;
+      echo json_encode($maReponse);
+    }
+
+
+    public function addFlagQualite(){
       $reqUpdate='UPDATE `eprouvettes` SET
       `flag_qualite` = '.$_COOKIE['id_user'].'
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
@@ -271,7 +315,7 @@ class EprouvetteModel
       echo json_encode($maReponse);
     }
 
-  public function removeFlagQualite(){
+    public function removeFlagQualite(){
       $reqUpdate='UPDATE `eprouvettes` SET
       `flag_qualite` = 0
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
@@ -282,21 +326,54 @@ class EprouvetteModel
       echo json_encode($maReponse);
     }
 
-    public function update_d_commentaire(){
-        $reqUpdate='UPDATE `eprouvettes` SET
-        `Rupture` = '.$this->Rupture.',
-        `Fracture` = '.$this->Fracture.',
-        `d_commentaire` = '.$this->d_commentaire.'
-        WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
-        //echo $reqUpdate;
-        $result = $this->db->query($reqUpdate);
 
-        $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $_COOKIE['id_user']);
-        echo json_encode($maReponse);
-      }
+    public function update_Rupture()  {
+
+      $reqUpdate='UPDATE `eprouvettes` SET
+      `Rupture` = '.$this->Rupture.',
+      `d_technicien` = '.$this->iduser.'
+      WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
+
+      $result = $this->db->execute($reqUpdate);
+
+      $maReponse_Rupture = array('result' => 'Rupture', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $this->iduser);
+
+      //echo json_encode($maReponse);
+    }
+
+    public function update_Fracture()  {
+
+      $reqUpdate='UPDATE `eprouvettes` SET
+      `Fracture` = '.$this->Fracture.',
+      `d_technicien` = '.$this->iduser.'
+      WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
+
+      $result = $this->db->execute($reqUpdate);
+
+      $maReponse_Fracture = array('result' => 'Fracture', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $this->iduser);
+
+      //echo json_encode($maReponse);
+    }
 
 
-  public function getTest() {
+
+
+
+
+    public function update_d_commentaire()  {
+
+      $reqUpdate='UPDATE `eprouvettes` SET
+      `d_commentaire` = '.$this->d_commentaire.'
+      WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
+      //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $this->iduser);
+      echo json_encode($maReponse);
+    }
+
+
+    public function getTest() {
 
       $req = 'SELECT eprouvettes.id_eprouvette,
       master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
@@ -365,21 +442,21 @@ class EprouvetteModel
 
 
 
-public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
-  $req = 'SELECT denomination_1, denomination_2, denomination_3, calcul_area
-    FROM dessin_types
-    WHERE id_dessin_type='.$id_dessin_type;
-  //echo $req.'<br/><br/>';
-  $return = $this->db->getOne($req);
+    public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
+      $req = 'SELECT denomination_1, denomination_2, denomination_3, calcul_area
+      FROM dessin_types
+      WHERE id_dessin_type='.$id_dessin_type;
+      //echo $req.'<br/><br/>';
+      $return = $this->db->getOne($req);
 
-  $calcul_area=$return['calcul_area'];
-  eval( "\$return['area'] = $calcul_area;" );
+      $calcul_area=$return['calcul_area'];
+      eval( "\$return['area'] = $calcul_area;" );
 
-  return $return;
-}
+      return $return;
+    }
 
 
-  public function dimension($format, $dim1, $dim2, $dim3){
+    public function dimension($format, $dim1, $dim2, $dim3){
       if ($format=="Cylindrique")	{
         $this->_dimDenomination=array("Diam.");
         $this->_area=$dim1*$dim1*pi()/4;
@@ -402,7 +479,7 @@ public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
       }
     }
 
-  public function niveaumaxmin($consigne_type_1, $consigne_type_2, $consigne_type_1_val, $consigne_type_2_val){
+    public function niveaumaxmin($consigne_type_1, $consigne_type_2, $consigne_type_1_val, $consigne_type_2_val){
 
       $this->_R="";
       $this->_R=($consigne_type_1=="R")?$consigne_type_1_val:$this->_R;
@@ -437,7 +514,7 @@ public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
       }
 
 
-      //Si on a $this->_R (et donc $this->_A), on calcule les autres valeurs selon la 2eme reference
+      //Si ON a $this->_R (et donc $this->_A), ON calcule les autres valeurs selon la 2eme reference
 
       If ($this->_R != "") {
         If ($this->_MAX != "") {
@@ -467,7 +544,7 @@ public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
         }
 
       }
-      //Si l'on a pas $this->_R (et donc ni $this->_A), on calcule les autres valeurs selon les 2 references
+      //Si l'on a pas $this->_R (et donc ni $this->_A), ON calcule les autres valeurs selon les 2 references
       ElseIf ($this->_R == "") {
         If (($this->_MAX != "") And ($this->_MIN != "")) {
           $this->_MEAN = ($this->_MAX + $this->_MIN) / 2;
@@ -509,9 +586,9 @@ public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
     }
 
 
-  public function getWorkflow(){
+    public function getWorkflow(){
       $reqUpdate='SELECT GROUP_CONCAT(
-      IF(d_commentaire ="", "",CONCAT("(",split, ")", d_commentaire))
+        IF(d_commentaire ="", "",CONCAT("(",split, ")", d_commentaire))
         ORDER BY phase ASC) as comm,
         SUM(IF(local = 1  AND d_checked = 0, 1, 0)) AS local,
         SUM(IF(ST = 1  AND d_checked = 0, 1, 0)) AS ST
@@ -519,18 +596,18 @@ public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
         FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
         LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
-        LEFT join test_type on test_type.id_test_type=tbljobs.id_type_essai
+        LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
         WHERE eprouvettes.eprouvette_actif=1
         AND id_master_eprouvette=(SELECT id_master_eprouvette FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
         AND phase <(SELECT phase FROM eprouvettes LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job  WHERE id_eprouvette=' .$this->id.')
         GROUP BY id_master_eprouvette
         ;';
-      //echo $reqUpdate.'<br/>';
+        //echo $reqUpdate.'<br/>';
 
-      return $this->db->getOne($reqUpdate);
+        return $this->db->getOne($reqUpdate);
 
 
+
+      }
 
     }
-
-  }

@@ -18,6 +18,8 @@
 			<li><a href="index.php?page=main"><acronym title="Main View">ALL</acronym></a></li>
 			<li><a href="#">MFG</a></li>
 			<li><a href="index.php?page=labo"><acronym title="LAB View">LAB</acronym></a></li>
+			<li><a href="index.php?page=qualite"><acronym title="QUALITY View">Quality</acronym></a></li>
+			<li><a href="index.php?page=followup"><acronym title="Follow UP">Follow UP</acronym></a></li>			
 			<li><a href="index.php?page=subC"><acronym title="SubC View">SubC</acronym></a></li>
 			<li><a href="#">Finan</a></li>
 			<li><a href="#">Cust.</a></li>
@@ -25,10 +27,9 @@
 		<ul class="nav navbar-nav navbar-right">
 			<!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
 
-			<li><a href="#" id="login"><span class="glyphicon glyphicon-log-in"></span> <span id="user">Login</span></a></li>
+			<li><a href="#" id="login"><span class="glyphicon glyphicon-log-in"></span> <span id="user">Login</span></a><div id="iduser" style="display:none;"><?= (isset($_COOKIE['id_user'])?$_COOKIE['id_user'].'<script>iduser='.$_COOKIE['id_user'].';</script>':0)	?></div></li>
 			<li><div class="timer" style="margin-right:50px;"></div></li>
 
 		</ul>
 	</div>
 </nav>
-<?php	include('views/login-view.php');	?>

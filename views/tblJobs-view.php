@@ -10,8 +10,8 @@
 				<tr>
 					<th><acronym title="Delai">D</acronym></th>
 					<th><acronym title="Phase">Ph</acronym></th>
-					<th><acronym title="Number of Specimen">N S</acronym></th>
 					<th><acronym title="Number of Test">N T</acronym></th>
+					<th><acronym title="Number of Specimen">N S</acronym></th>
 					<th><acronym title="Percentage of Test done">T %</acronym></th>
 					<th><acronym title="Customer">Cust.</acronym></th>
 					<th><acronym title="Job">Job</acronym></th>
@@ -23,8 +23,8 @@
 				<tr>
 					<th>D</th>
 					<th>Ph</th>
-					<th>N S</th>
 					<th>N T</th>
+					<th>N S</th>
 					<th>T %</th>
 					<th>Cust.</th>
 					<th>Job</th>
@@ -37,13 +37,14 @@
 					<tr data-id_tbljob="<?= $row['id_tbljob'] ?>">
 						<td class="delay<?= $row['delay'] ?>"><?= $row['delay'] ?></td>
 						<td style="background-color : <?= $row['statut_color'] ?>"><?= $row['id_statut'] ?></td>
-						<td><?= $row['nbep'] ?></td>
 						<td><?= $row['nbtest'] ?></td>
+						<td><?= $row['nbep'] ?></td>
 						<td color-statut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></td>
 						<td><?= $row['customer'] ?></td>
 						<td><?= $row['job'] ?></td>
 						<td><?= $row['split'] ?></td>
 						<td><?= $row['test_type_abbr'] ?></td>
+					</tr>
 					<?php endforeach ?>
 				</tbody>
 			</table>

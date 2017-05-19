@@ -87,3 +87,11 @@
 .radio  {
   margin-top:5px;
 }
+
+#check_rupture{
+  background-color: darkgreen !important;
+}
+#check_rupture.check0{
+  background-color: darkred !important;
+  cursor: pointer;
+}

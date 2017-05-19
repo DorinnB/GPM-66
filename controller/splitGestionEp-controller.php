@@ -97,6 +97,9 @@ if (!isset($_COOKIE['id_user'])) {
   document.getElementById("newTest").style.display = "none";
   document.getElementById("1a").style.display = "none";
 
+  document.getElementById("1e").style.display = "none";
+  document.getElementById("eval").style.display = "none";
+
   document.getElementById("logon").style.display = "block";
   document.getElementById("document").style.display = "none";
   document.getElementById("retest").style.display = "none";
@@ -105,6 +108,17 @@ if (!isset($_COOKIE['id_user'])) {
   </script>';
 }
 
+
+//choix de l'ione du flag qualité
+if ($eprouvette['flag_qualite']>0) {
+   $iconeFlagQualite="red";
+ }
+ elseif ($eprouvette['flag_qualite']<0) {
+   $iconeFlagQualite="orange";
+ }
+ else {
+   $iconeFlagQualite="blue";
+ }
 
 
 
