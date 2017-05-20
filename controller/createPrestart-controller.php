@@ -134,7 +134,7 @@ foreach ($val2Xls as $key => $value) {
 //exit;
 
 $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
-$objPHPExcel->getActiveSheet()->getProtection()->setPassword("");
+$objPHPExcel->getActiveSheet()->getProtection()->setPassword("metcut44");
 
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');

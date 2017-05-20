@@ -211,8 +211,8 @@ $style_gray = array(
           'J30' => ($oEprouvette->MAX()-$oEprouvette->MIN())/2*$area/1000,
           'J31' => $oEprouvette->MIN()*$area/1000,
 
-          'B29' => $oEprouvette->MAX()*$area/1000+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5),
-          'D29' => $oEprouvette->MIN()*$area/1000-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)
+          'B29' => $oEprouvette->MAX()*$area/1000+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5),
+          'D29' => $oEprouvette->MIN()*$area/1000-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5)
         );
       }
       Elseif ($essai['c_unite']=="kN")	{
