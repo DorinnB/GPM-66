@@ -45,8 +45,8 @@
 
 
  a:hover, a:focus {
-     color: orange;
+     color: inherit;
  }
  a {
-     color: white;
+     color: inherit;
  }

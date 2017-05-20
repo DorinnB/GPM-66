@@ -46,7 +46,14 @@ Require("connection.php");
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<?php	include('views/sidebar'.(isset($_GET['page'])?'-'.$_GET['page']:"-main").'-view.php');	?>
+		<?php
+
+		if(file_exists('views/sidebar'.(isset($_GET['page'])?'-'.$_GET['page']:"-main").'-view.php'))
+		include('views/sidebar'.(isset($_GET['page'])?'-'.$_GET['page']:"-main").'-view.php');
+		else
+			include('views/sidebar-main-view.php');
+
+		?>
 
 		<!-- Page Content -->
 		<?php

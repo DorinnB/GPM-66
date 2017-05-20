@@ -10,66 +10,77 @@ $oTest = new LabModel($db);
 $test=$oTest->getTest();
 
 
-
-$bgcolor=array();
+//variable des etats des machines (run, stop, wip) pour la vue lab
+$runStop=array();
 
 
 foreach ($test as $value) {
   $poste[$value['poste']]=$value;
 
   //initialisation couleur
-$poste[$value['poste']]['background-color']='#536E94';
-$poste[$value['poste']]['color']='white';
+  $poste[$value['poste']]['background-color']='#536E94';
+  $poste[$value['poste']]['color']='white';
 
-//recuperation des couleurs des blocs
+  //recuperation des couleurs des blocs
   if ($value['currentBlock']=='Menu') {
     $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
   elseif ($value['currentBlock']=='Parameters') {
     $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
   elseif ($value['currentBlock']=='Adv.') {
     $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
   elseif ($value['currentBlock']=='Check') {
     $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
   elseif ($value['currentBlock']=='Amb.') {
     $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
   elseif ($value['currentBlock']=='Ramp') {
     $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
   elseif ($value['currentBlock']=='Strain') {
     $poste[$value['poste']]['background-color']='darkgreen';
+    $runStop[]="RUN";
   }
   elseif ($value['currentBlock']=='Switchable') {
     $poste[$value['poste']]['background-color']='yellow';
     $poste[$value['poste']]['color']='black';
+    $runStop[]="RUN";
   }
-  elseif ($value['currentBlock']=='NotSwitchable') {
+  elseif ($value['currentBlock']=='Not') {
     $poste[$value['poste']]['background-color']='brown';
+    $runStop[]="RUN";
   }
   elseif ($value['currentBlock']=='STL') {
     $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
   elseif ($value['currentBlock']=='Load') {
     $poste[$value['poste']]['background-color']='darkgreen';
+    $runStop[]="RUN";
   }
   elseif($value['currentBlock']=='Stop') {
     $poste[$value['poste']]['background-color']='darkred';
+    $runStop[]="STOP";
   }
   elseif($value['currentBlock']=='Report') {
     $poste[$value['poste']]['background-color']='gray';
-    }
+    $runStop[]="STOP";
+  }
   elseif($value['currentBlock']=='Send') {
     $poste[$value['poste']]['background-color']='dimgray';
+    $runStop[]="STOP";
   }
 
-$bgcolor[]=$poste[$value['poste']]['background-color'];
-
-
-
+  //$runStop[]=$poste[$value['poste']]['background-color'];
 
 
 
@@ -81,8 +92,6 @@ $bgcolor[]=$poste[$value['poste']]['background-color'];
     $frequence=$value['c_frequence'];
     $frequenceSTL=$value['c_frequence_STL'];
   }
-
-
 
   if ($value['c_cycle_STL']>0) {
     if ($value['Cycle_final']<$value['c_cycle_STL']) {
@@ -103,13 +112,14 @@ $bgcolor[]=$poste[$value['poste']]['background-color'];
   else {
     if($value['runout']>0)  {
       $poste[$value['poste']]['tempsRestant']=round(($value['runout']-$value['Cycle_final'])/$frequence/3600, 1);
-        //$poste[$value['poste']]['tempsRestant']='pas de STL prevu';
+      //$poste[$value['poste']]['tempsRestant']='pas de STL prevu';
     }
     else {
       $poste[$value['poste']]['tempsRestant']='&infin;';
-        //$poste[$value['poste']]['tempsRestant']='pas de STL prevu';
+      //$poste[$value['poste']]['tempsRestant']='pas de STL prevu';
     }
   }
+
 
 
 

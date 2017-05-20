@@ -188,14 +188,11 @@
   <div class="row">
     <div class="col-md-6">
       <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-2">
         </div>
-        <div class="col-md-10">
-          green:<?= array_count_values($bgcolor)['darkgreen'];  ?>
-          <?php
-
-
-          //var_dump(array_count_values($bgcolor)); ?>
+        <div class="col-md-9">
+          <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Frame Running : '.array_count_values($runStop)['RUN'].'</div>':'') ?>
+          <?= (isset(array_count_values($runStop)['WIP'])?'<div style="background-color:Sienna;border: 1px solid black;"> Frame WIP : '.array_count_values($runStop)['WIP'].'</div>':'') ?>
         </div>
         <div class="col-md-1">
         </div>
