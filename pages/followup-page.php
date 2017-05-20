@@ -101,7 +101,7 @@
 						<td><?= round($row['temperature'],1) ?></td>
 						<td><?= $row['matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
-						<td><i>2017-05-10</i></td>
+						<td></td>
 						<td><?= $row['previousDyT'] ?></td>
 						<td><?= $row['test_leadtime'] ?></td>
 					</tr>

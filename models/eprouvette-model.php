@@ -331,7 +331,8 @@ class EprouvetteModel
 
       $reqUpdate='UPDATE `eprouvettes` SET
       `Rupture` = '.$this->Rupture.',
-      `d_technicien` = '.$this->iduser.'
+      `d_technicien` = '.$this->iduser.',
+      check_rupture = 0
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
 
       $result = $this->db->execute($reqUpdate);
@@ -345,7 +346,8 @@ class EprouvetteModel
 
       $reqUpdate='UPDATE `eprouvettes` SET
       `Fracture` = '.$this->Fracture.',
-      `d_technicien` = '.$this->iduser.'
+      `d_technicien` = '.$this->iduser.',
+      check_rupture = 0
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
 
       $result = $this->db->execute($reqUpdate);
