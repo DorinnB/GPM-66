@@ -12,7 +12,7 @@
       </a>
     </div>
 
-    <div class="col-md-12 foreCast" style="border:1px solid black; margin:5px 0px;background-color:indigo;color:white;display:<?=  ($poste[$n_poste]['currentBlock']=='Send')?'block':'none'  ?>;">
+    <div class="col-md-12 foreCast" style="border:1px solid black; margin:5px 0px;background-color:#536E94;color:white;display:<?=  ($poste[$n_poste]['currentBlock']=='Send')?'block':'none'  ?>;">
       <div class="col-md-3">
         <img src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 30px;">
       </div>
@@ -22,7 +22,7 @@
       <div class="col-md-3">
         <img src="img/medal_<?= $poste[$n_poste]['prio_machine_forcast']  ?>" style="width: auto;max-height: 30px;">
       </div>
-      <textarea disabled readonly style="resize: none; background-color:indigo; width:100%; border:0px;"><?= $poste[$n_poste]['texte_machine_forcast'] ?></textarea>
+      <textarea disabled readonly style="resize: none; background-color:#536E94; width:100%; border:0px;"><?= $poste[$n_poste]['texte_machine_forcast'] ?></textarea>
     </div>
 
   <?php endif ?>
