@@ -15,19 +15,19 @@ DataTables\Editor\Upload,
 DataTables\Editor\Validate;
 
 // Build our Editor instance and process the data coming from _POST
-Editor::inst( $db, 'machine_forcasts' )
-->pkey( 'machine_forcasts.id_machine_forcast' )
+Editor::inst( $db, 'machine_forecasts' )
+->pkey( 'machine_forecasts.id_machine_forecast' )
 ->fields(
-  Field::inst( 'machine_forcasts.id_machine_forcast')
+  Field::inst( 'machine_forecasts.id_machine_forecast')
   ->options( Options::inst()
       ->table( 'machines' )
       ->value( 'id_machine' )
       ->label( 'machine' )
   ),
     Field::inst( 'machines.machine' ),
-  Field::inst( 'machine_forcasts.texte_machine_forcast'),
-  Field::inst( 'machine_forcasts.prio_machine_forcast'),
-  Field::inst( 'machine_forcasts.id_icone_machine_forcast' )
+  Field::inst( 'machine_forecasts.texte_machine_forecast'),
+  Field::inst( 'machine_forecasts.prio_machine_forecast'),
+  Field::inst( 'machine_forecasts.id_icone_machine_forecast' )
       ->options( Options::inst()
           ->table( 'icones' )
           ->value( 'id_icone' )
@@ -37,8 +37,8 @@ Editor::inst( $db, 'machine_forcasts' )
   Field::inst( 'icones.icone_file' )  
 
   )
-  ->leftJoin( 'machines',     'machines.id_machine',          '=', 'machine_forcasts.id_machine_forcast' )
-  ->leftJoin( 'icones',     'icones.id_icone',          '=', 'machine_forcasts.id_icone_machine_forcast' )
+  ->leftJoin( 'machines',     'machines.id_machine',          '=', 'machine_forecasts.id_machine_forecast' )
+  ->leftJoin( 'icones',     'icones.id_icone',          '=', 'machine_forecasts.id_icone_machine_forecast' )
 
 
 

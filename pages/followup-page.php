@@ -65,7 +65,7 @@
 
 						<td><?= $row['nbtest'] ?></td>
 						<td><?= $row['nbep'] ?></td>
-						<td><?= $row['nbpercent'] ?></td>
+						<td color-statut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></td>
 						<td><?= $row['customer'] ?></td>
 						<td><a href="index.php?page=labo&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
 						<td><?= $row['split'] ?></td>

@@ -36,7 +36,7 @@
 				<?php foreach ($lstJobs->getAllJobs($filtre, $symbol, $value) as $row): ?>
 					<tr data-id_tbljob="<?= $row['id_tbljob'] ?>">
 						<td class="delay<?= $row['delay'] ?>"><?= $row['delay'] ?></td>
-						<td style="background-color : <?= $row['statut_color'] ?>"><?= $row['id_statut'] ?></td>
+						<td style="background-color : <?= $row['statut_color'] ?>"><?= $row['etape'] ?></td>
 						<td><?= $row['nbtest'] ?></td>
 						<td><?= $row['nbep'] ?></td>
 						<td color-statut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></td>

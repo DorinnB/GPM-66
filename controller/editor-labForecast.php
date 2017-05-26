@@ -15,12 +15,12 @@ DataTables\Editor\Upload,
 DataTables\Editor\Validate;
 
 // Build our Editor instance and process the data coming from _POST
-Editor::inst( $db, 'lab_forcasts' )
-->pkey( 'lab_forcasts.id_lab_forcast' )
+Editor::inst( $db, 'lab_forecasts' )
+->pkey( 'lab_forecasts.id_lab_forecast' )
 ->fields(
-  Field::inst( 'lab_forcasts.texte_lab_forcast'),
-  Field::inst( 'lab_forcasts.prio_lab_forcast'),
-  Field::inst( 'lab_forcasts.id_icone_lab_forcast' )
+  Field::inst( 'lab_forecasts.texte_lab_forecast'),
+  Field::inst( 'lab_forecasts.prio_lab_forecast'),
+  Field::inst( 'lab_forecasts.id_icone_lab_forecast' )
       ->options( Options::inst()
           ->table( 'icones' )
           ->value( 'id_icone' )
@@ -30,7 +30,7 @@ Editor::inst( $db, 'lab_forcasts' )
   Field::inst( 'icones.icone_file' )
 
   )
-  ->leftJoin( 'icones',     'icones.id_icone',          '=', 'lab_forcasts.id_icone_lab_forcast' )
+  ->leftJoin( 'icones',     'icones.id_icone',          '=', 'lab_forecasts.id_icone_lab_forecast' )
 
 
 

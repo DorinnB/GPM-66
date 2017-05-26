@@ -16,7 +16,7 @@ $(document).ready(function() {
       $(this).closest('.lab').children('.machine').css('display','block')
     });
   });
-  //pour chaque machine, si on click sur la machine, on affiche le forcast
+  //pour chaque machine, si on click sur la machine, on affiche le forecast
   $( ".machine" ).each(function(index) {
     $(this).on("click", function(){
       $(this).css('display','none');

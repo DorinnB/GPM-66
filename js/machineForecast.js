@@ -5,17 +5,17 @@ $(document).ready(function() {
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
-      url : "controller/editor-machineForcast.php",
+      url : "controller/editor-machineforecast.php",
       type: "POST"
     },
-    table: "#table_machineForcast",
+    table: "#table_machineforecast",
     fields: [
       { label: "Machine",       name: "machines.machine", type:  "readonly"     },
-      { label: "Forcast Message",       name: "machine_forcasts.texte_machine_forcast", type: "textarea" },
-      { label: "Text Icon:",              name: "machine_forcasts.id_icone_machine_forcast",
+      { label: "forecast Message",       name: "machine_forecasts.texte_machine_forecast", type: "textarea" },
+      { label: "Text Icon:",              name: "machine_forecasts.id_icone_machine_forecast",
           type: "select"
       },
-      { label: "Priority",       name: "machine_forcasts.prio_machine_forcast",
+      { label: "Priority",       name: "machine_forecasts.prio_machine_forecast",
       type:  "radio",
           options: [
               { label: "1", value: 1},
@@ -28,16 +28,16 @@ $(document).ready(function() {
 
 
 
-  var table = $('#table_machineForcast').DataTable( {
+  var table = $('#table_machineforecast').DataTable( {
     dom: "Bfrtip",
     ajax: {
-      url : "controller/editor-machineForcast.php",
+      url : "controller/editor-machineforecast.php",
       type: "POST"
     },
     order: [[ 0, "asc" ]],
     columns: [
         { data: "machines.machine" },
-        { data: "machine_forcasts.texte_machine_forcast" },
+        { data: "machine_forecasts.texte_machine_forecast" },
         {
                         data: "icones.icone_file",
                         render: function ( icone_file ) {
@@ -46,10 +46,10 @@ $(document).ready(function() {
                                                'No image';
                                        }
                     },
-        { data: "machine_forcasts.prio_machine_forcast",
-        render: function ( prio_machine_forcast ) {
-                           return prio_machine_forcast ?
-                               '<img src="img/medal_'+prio_machine_forcast+'.png" style="width: auto;max-height: 30px;">' :
+        { data: "machine_forecasts.prio_machine_forecast",
+        render: function ( prio_machine_forecast ) {
+                           return prio_machine_forecast ?
+                               '<img src="img/medal_'+prio_machine_forecast+'.png" style="width: auto;max-height: 30px;">' :
                                '-';
                        } }
       ],
@@ -125,5 +125,5 @@ $(document).ready(function() {
   $("#wrapper").addClass("toggled");
   $("#wrapper").one(transitionEvent,
     function(event) {
-      $('#table_machineForcast').DataTable().draw();
+      $('#table_machineforecast').DataTable().draw();
     });

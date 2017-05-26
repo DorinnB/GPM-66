@@ -11,7 +11,7 @@ class LabModel
     public function getTest() {
       $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, currentBlock, eprouvettes.Cycle_final, split, machine, poste, id_job, n_essai,
         c_frequence, c_frequence_STL, c_cycle_STL, d_frequence, d_frequence_STL, Cycle_STL, runout, c_temperature,
-        texte_machine_forcast, icone_file, icone_name, prio_machine_forcast
+        texte_machine_forecast, icone_file, icone_name, prio_machine_forecast
         FROM enregistrementessais
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
@@ -20,8 +20,8 @@ class LabModel
         LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
         LEFT JOIN postes ON postes.id_poste=prestart.id_poste
         LEFT JOIN machines ON machines.id_machine=postes.id_machine
-        LEFT JOIN machine_forcasts ON machine_forcasts.id_machine_forcast=machines.id_machine
-        LEFT JOIN icones ON icones.id_icone=machine_forcasts.id_icone_machine_forcast
+        LEFT JOIN machine_forecasts ON machine_forecasts.id_machine_forecast=machines.id_machine
+        LEFT JOIN icones ON icones.id_icone=machine_forecasts.id_icone_machine_forecast
 
         WHERE n_fichier in (SELECT max(n_fichier)
         FROM `enregistrementessais`
@@ -77,12 +77,12 @@ class LabModel
 
 
     public function getTodoLab() {
-      $req='SELECT texte_lab_forcast, prio_lab_forcast, icone_file, icone_name
-        FROM lab_forcasts
-        LEFT JOIN icones ON icones.id_icone=lab_forcasts.id_icone_lab_forcast
+      $req='SELECT texte_lab_forecast, prio_lab_forecast, icone_file, icone_name
+        FROM lab_forecasts
+        LEFT JOIN icones ON icones.id_icone=lab_forecasts.id_icone_lab_forecast
 
         order by
-        if(prio_lab_forcast = 0,1,0), prio_lab_forcast asc, texte_lab_forcast asc';
+        if(prio_lab_forecast = 0,1,0), prio_lab_forecast asc, texte_lab_forecast asc';
         //echo $req;
         return $this->db->getAll($req);
     }

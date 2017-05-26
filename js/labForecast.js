@@ -5,16 +5,16 @@ $(document).ready(function() {
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
-      url : "controller/editor-labForcast.php",
+      url : "controller/editor-labforecast.php",
       type: "POST"
     },
-    table: "#table_labForcast",
+    table: "#table_labforecast",
     fields: [
-      { label: "Forcast Message",       name: "lab_forcasts.texte_lab_forcast", type: "textarea" },
-      { label: "Text Icon:",              name: "lab_forcasts.id_icone_lab_forcast",
+      { label: "forecast Message",       name: "lab_forecasts.texte_lab_forecast", type: "textarea" },
+      { label: "Text Icon:",              name: "lab_forecasts.id_icone_lab_forecast",
           type: "select"
       },
-      { label: "Priority",       name: "lab_forcasts.prio_lab_forcast",
+      { label: "Priority",       name: "lab_forecasts.prio_lab_forecast",
       type:  "radio",
           options: [
               { label: "1", value: 1},
@@ -27,15 +27,15 @@ $(document).ready(function() {
 
 
 
-  var table = $('#table_labForcast').DataTable( {
+  var table = $('#table_labforecast').DataTable( {
     dom: "Bfrtip",
     ajax: {
-      url : "controller/editor-labForcast.php",
+      url : "controller/editor-labforecast.php",
       type: "POST"
     },
     order: [[ 0, "asc" ]],
     columns: [
-        { data: "lab_forcasts.texte_lab_forcast" },
+        { data: "lab_forecasts.texte_lab_forecast" },
         {
                         data: "icones.icone_file",
                         render: function ( icone_file ) {
@@ -44,10 +44,10 @@ $(document).ready(function() {
                                                'No image';
                                        }
                     },
-        { data: "lab_forcasts.prio_lab_forcast",
-        render: function ( prio_lab_forcast ) {
-                           return prio_lab_forcast ?
-                               '<img src="img/medal_'+prio_lab_forcast+'.png" style="width: auto;max-height: 30px;">' :
+        { data: "lab_forecasts.prio_lab_forecast",
+        render: function ( prio_lab_forecast ) {
+                           return prio_lab_forecast ?
+                               '<img src="img/medal_'+prio_lab_forecast+'.png" style="width: auto;max-height: 30px;">' :
                                '-';
                        } }
       ],
@@ -122,5 +122,5 @@ $(document).ready(function() {
     $("#wrapper").addClass("toggled");
     $("#wrapper").one(transitionEvent,
       function(event) {
-        $('#table_labForcast').DataTable().draw();
+        $('#table_labforecast').DataTable().draw();
       });

@@ -13,8 +13,8 @@ foreach ($todoLab as $key => $value) :
   ?>
   <tr>
   <td><img src="img/<?= $value['icone_file'] ?>" style="width: auto;max-height: 30px;background-color:white;"></td>
-  <td><?= $value['texte_lab_forcast'] ?></td>
-  <td><img src="img/medal_<?= $value['prio_lab_forcast'] ?>.png" style="width: auto;max-height: 20px;"></td>
+  <td><?= $value['texte_lab_forecast'] ?></td>
+  <td><img src="img/medal_<?= $value['prio_lab_forecast'] ?>.png" style="width: auto;max-height: 20px;"></td>
 </tr>
   <?php
 endforeach

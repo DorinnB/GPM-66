@@ -10,7 +10,7 @@ class LstJobsModel
 
     public function getAllJobs($filtre="1", $symbol="=", $value="1") {
 		$req = 'SELECT id_tbljob,
-					tbljobs.id_statut, statut_color, customer,
+					tbljobs.id_statut, statut_color, customer, statuts.etape,
 					job,
 					split,
 					test_type_abbr,
@@ -36,7 +36,7 @@ class LstJobsModel
         $reqfiltre='';
       }
       else {
-        $reqfiltre='AND final=1 AND etape <95';
+        $reqfiltre='AND final=1 AND etape <90';
       }
 
 

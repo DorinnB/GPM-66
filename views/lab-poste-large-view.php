@@ -2,7 +2,7 @@
   <?php if (isset($poste[$n_poste])): ?>
 
 
-    <div class="col-md-12 machine" style="border:1px solid black; margin:5px 0px;background-color:<?= $poste[$n_poste]['background-color'] ?>;color:<?= $poste[$n_poste]['color'] ?>;display:<?=  ($poste[$n_poste]['currentBlock']=='Send')?'noneXXXXXX':'block'  ?>;">
+    <div class="col-md-12 machine" style="border:1px solid black; margin:5px 0px;background-color:<?= $poste[$n_poste]['background-color'] ?>;color:<?= $poste[$n_poste]['color'] ?>;display:<?=  ($poste[$n_poste]['currentBlock']=='Send')?'none':'block'  ?>;">
 
 
 
@@ -17,7 +17,7 @@
     </div>
 
 
-<!--
+
     <div class="col-md-12 foreCast" style="border:1px solid black; margin:5px 0px;background-color:#536E94;color:white;display:<?=  ($poste[$n_poste]['currentBlock']=='Send')?'block':'none'  ?>;">
       <div class="col-md-3">
         <img src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 30px;">
@@ -26,11 +26,11 @@
         <b><?= $poste[$n_poste]['machine']  ?></b>
       </div>
       <div class="col-md-3">
-        <img src="img/medal_<?= $poste[$n_poste]['prio_machine_forcast']  ?>" style="width: auto;max-height: 30px;">
+        <img src="img/medal_<?= $poste[$n_poste]['prio_machine_forecast']  ?>" style="width: auto;max-height: 30px;">
       </div>
-      <textarea disabled readonly style="resize: none; background-color:#536E94; width:100%; border:0px;"><?= $poste[$n_poste]['texte_machine_forcast'] ?></textarea>
+      <textarea disabled readonly style="resize: none; background-color:#536E94; width:100%; border:0px;"><?= $poste[$n_poste]['texte_machine_forecast'] ?></textarea>
     </div>
--->
+
 
 
   <?php endif ?>
