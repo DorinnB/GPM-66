@@ -53,9 +53,10 @@ $(document).ready(function() {
                                '-';
                        } }
       ],
-      scrollY: '70vh',
+      scrollY: '30vh',
       scrollCollapse: true,
       paging: false,
+      searching: false,
       select: {
         style:    'os',
         blurable: true

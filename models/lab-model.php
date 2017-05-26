@@ -68,8 +68,21 @@ class LabModel
         LEFT JOIN machines ON machines.id_machine=postes.id_machine
 
         WHERE check_rupture=0
+          AND currentBlock="Send"
 
         order by machine';
+        //echo $req;
+        return $this->db->getAll($req);
+    }
+
+
+    public function getTodoLab() {
+      $req='SELECT texte_lab_forcast, prio_lab_forcast, icone_file, icone_name
+        FROM lab_forcasts
+        LEFT JOIN icones ON icones.id_icone=lab_forcasts.id_icone_lab_forcast
+
+        order by
+        if(prio_lab_forcast = 0,1,0), prio_lab_forcast asc, texte_lab_forcast asc';
         //echo $req;
         return $this->db->getAll($req);
     }

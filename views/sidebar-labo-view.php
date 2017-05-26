@@ -4,7 +4,10 @@
 		<li class="sidebar-brand">
 			MENU
 		</li>
-				<li>
+		<li>
+			<a href="index.php?page=forecast">Forecast</a>
+		</li>
+		<li>
 			<a href="index.php?page=gestionPoste">Frame Management</a>
 		</li>
 		<li>
@@ -17,7 +20,7 @@
 
 	<?php
 	//include('pages/tbljobs.php');
-$filtre="test_type_abbr"; $symbol="not like"; $value=".%";
+	$filtre="test_type_abbr"; $symbol="not like"; $value=".%";
 	include('controller/tblJobs-controller.php');
 	?>
 

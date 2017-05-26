@@ -5,7 +5,7 @@
 			MENU
 		</li>
 		<li>
-			<a href="index.php?page=machineForcast">Machine ForCast</a>
+			<a href="index.php?page=forecast">Forecast</a>
 		</li>
 		<li>
 			<a href="index.php?page=gestionPoste">Frame Management</a>
