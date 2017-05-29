@@ -8,7 +8,7 @@ class LstJobsModel
         $this->db = $db;
     }
 
-    public function getAllJobs($filtre="1", $symbol="=", $value="1") {
+    public function getAllJobs($filtre="") {
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color, customer, statuts.etape,
 					job,
@@ -22,11 +22,11 @@ class LstJobsModel
 				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
 				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
-				WHERE tbljob_actif=1
-        AND '.$filtre.' '.$symbol.' "'.$value.'"
+				WHERE tbljob_actif=1 AND eprouvette_actif=1
+        '.$filtre.'
         GROUP BY tbljobs.id_tbljob
 				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
-        LIMIT 100';
+        LIMIT 1000';
         return $this->db->getAll($req);
     }
 

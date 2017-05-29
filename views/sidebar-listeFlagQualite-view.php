@@ -24,7 +24,7 @@
 
 	<?php
 	//include('pages/tbljobs.php');
-	$filtre="1"; $symbol="="; $value="1";
+	$filtre="";
 	include('controller/tblJobs-controller.php');
 	?>
 

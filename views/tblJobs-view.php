@@ -33,7 +33,7 @@
 				</tr>
 			</tfoot>
 			<tbody>
-				<?php foreach ($lstJobs->getAllJobs($filtre, $symbol, $value) as $row): ?>
+				<?php foreach ($lstJobs->getAllJobs($filtre) as $row): ?>
 					<tr data-id_tbljob="<?= $row['id_tbljob'] ?>">
 						<td class="delay<?= $row['delay'] ?>"><?= $row['delay'] ?></td>
 						<td style="background-color : <?= $row['statut_color'] ?>"><?= $row['etape'] ?></td>

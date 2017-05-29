@@ -20,7 +20,7 @@
 
 	<?php
 	//include('pages/tbljobs.php');
-	$filtre="test_type_abbr"; $symbol="not like"; $value=".%";
+	$filtre="AND test_type_abbr not like '.%' AND etape < 90";
 	include('controller/tblJobs-controller.php');
 	?>
 

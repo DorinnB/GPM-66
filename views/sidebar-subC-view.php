@@ -17,7 +17,7 @@
 
 	<?php
 	//include('pages/tbljobs.php');
-	$filtre="test_type_abbr"; $symbol="like"; $value=".%";
+	$filtre="AND test_type_abbr like '.%'";
 	include('controller/tblJobs-controller.php');
 	?>
 

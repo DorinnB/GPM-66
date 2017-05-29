@@ -18,11 +18,6 @@
 		</li>
 	</ul>
 
-	<?php
-	//include('pages/tbljobs.php');
-	$filtre="test_type_abbr"; $symbol="not like"; $value=".%";
-	include('controller/tblJobs-controller.php');
-	?>
 
 
 
@@ -30,7 +25,7 @@
 <!-- /#sidebar-wrapper -->
 <!-- Menu Toggle Script -->
 <script>
-$("#tools-nav").hide();
+
 
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
@@ -40,19 +35,6 @@ $("#menu-toggle").click(function(e) {
 	else if ($("#wrapper").hasClass("toggled")) {
 		$("#wrapper").removeClass("toggled");
 	}
-	$("#tools-nav").show();
-	$("#tbljob-nav").hide();
 });
 
-$("#tbljob-toggle").click(function(e) {
-	e.preventDefault();
-	if (($("#tbljob-nav").is(":visible")) && ($("#wrapper:not(.toggled)"))) {
-		$("#wrapper").toggleClass("toggled");
-	}
-	else if ($("#wrapper").hasClass("toggled")) {
-		$("#wrapper").removeClass("toggled");
-	}
-	$("#tools-nav").hide();
-	$("#tbljob-nav").show();
-});
 </script>
