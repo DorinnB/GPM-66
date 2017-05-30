@@ -32,92 +32,6 @@ $oEprouvette->niveaumaxmin($essai['c_1_type'], $essai['c_2_type'], $essai['c_typ
 
 
 
-if (isset($essai['split']))		//groupement du nom du job avec ou sans indice
-$jobcomplet= $essai['customer'].'-'.$essai['job'].'-'.$essai['split'];
-else
-$jobcomplet= $essai['customer'].'-'.$essai['job'];
-
-if (isset($essai['prefixe']))		//groupement du nom d eprouvette avec ou sans préfixe
-$identification= $essai['prefixe'].'-'.$essai['nom_eprouvette'];
-else
-$identification= $essai['nom_eprouvette'];
-
-if (isset($essai['compresseur']) AND $essai['compresseur']==1)
-$compresseur="n";
-else
-$compresseur="o";
-
-$essai['ind_temp_top'] = (isset($essai['ind_temp_top']))? $essai['ind_temp_top'] : "";
-$essai['ind_temp_strap'] = (isset($essai['ind_temp_strap']))? $essai['ind_temp_strap'] : "";
-$essai['ind_temp_bot'] = (isset($essai['ind_temp_bot']))? $essai['ind_temp_bot'] : "";
-if ($essai['ind_temp_top'] == $essai['ind_temp_bot'] )	{		//groupement des ind.temp.
-  if ($essai['ind_temp_top'] == $essai['ind_temp_strap'])
-  $ind_temp = $essai['ind_temp_top'];
-  else
-  $ind_temp = $essai['ind_temp_top'].'/'.$essai['ind_temp_strap'];
-}
-else
-$ind_temp = $essai['ind_temp_top'].'/'.$essai['ind_temp_strap'].'/'.$essai['ind_temp_bot'];
-
-if (isset($essai['type_chauffage']) AND $essai['type_chauffage']=="Coil")	//chauffage coil
-$coil=$essai['chauffage'];
-else
-$coil="";
-
-if (isset($essai['type_chauffage']) AND $essai['type_chauffage']=="Four")	//chauffage coil
-$four=$essai['chauffage'];
-else
-$four="";
-
-if (isset($essai['c_cycle_STL']) AND $essai['c_cycle_STL']!="0")	//STL
-$STL=$essai['c_cycle_STL'];
-else
-$STL="";
-
-if (isset($essai['c_frequence_STL']) AND $essai['c_frequence_STL']!="0")	//STL
-$F_STL=$essai['c_frequence_STL'];
-else
-$F_STL="";
-
-if (isset($essai['runout']) AND $essai['runout']!="0")	//Runout
-$runout=$essai['runout'];
-else
-$runout="RTF";
-
-
-
-if ($essai['signal_true']=="1")	//chauffage coil
-$true='T-';
-else
-$true='';
-if ($essai['signal_tapered']=="1")	//chauffage coil
-$tapered='-T';
-else
-$tapered='';
-
-
-
-
-
-
-//cas particulier de la dim2
-if (!isset($essai['dim2']) OR $essai['dim2']=='')	//Runout
-$essai['dim2']=' ';
-//cas particulier de la dim3
-if (!isset($essai['dim3']) OR $essai['dim3']=='')	//Runout
-$essai['dim3']=' ';
-
-
-
-//	if (isset($essai['Cycle_min']) AND $essai['Cycle_min']!="0")	//STL
-//		$essai['Cycle_min']=$essai['Cycle_min'];
-//	else
-//		$essai['Cycle_min']="-";
-
-
-
-
-
 
 
 /** Error reporting */
@@ -135,6 +49,8 @@ require_once '../lib/PHPExcel/PHPExcel.php';
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
 $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+$wizard = new PHPExcel_Helper_HTML;
+
 
 
 $style_gray = array(
@@ -147,6 +63,126 @@ $style_gray = array(
       'type' => PHPExcel_Style_Fill::FILL_SOLID,
       'color' => array('rgb'=>'000000'))
     );
+
+
+
+
+
+
+    if (isset($essai['split']))		//groupement du nom du job avec ou sans indice
+    $jobcomplet= $essai['customer'].'-'.$essai['job'].'-'.$essai['split'];
+    else
+    $jobcomplet= $essai['customer'].'-'.$essai['job'];
+
+
+
+
+
+    $essai['nom_eprouvette']=($essai['retest']!=1)?$essai['nom_eprouvette'].'<sup>'.$essai['retest'].'</sup>':$essai['nom_eprouvette'];
+
+    if (isset($essai['prefixe']))		//groupement du nom d eprouvette avec ou sans préfixe
+    $identification2= $essai['prefixe'].'-'.$essai['nom_eprouvette'];
+    else
+    $identification2= $essai['nom_eprouvette'];
+
+    $identification = $wizard->toRichTextObject('<b>'.$identification2.'</b>');
+
+
+
+
+
+    if (isset($essai['compresseur']) AND $essai['compresseur']==1)
+    $compresseur="n";
+    else
+    $compresseur="o";
+
+    $essai['ind_temp_top'] = (isset($essai['ind_temp_top']))? $essai['ind_temp_top'] : "";
+    $essai['ind_temp_strap'] = (isset($essai['ind_temp_strap']))? $essai['ind_temp_strap'] : "";
+    $essai['ind_temp_bot'] = (isset($essai['ind_temp_bot']))? $essai['ind_temp_bot'] : "";
+    if ($essai['ind_temp_top'] == $essai['ind_temp_bot'] )	{		//groupement des ind.temp.
+      if ($essai['ind_temp_top'] == $essai['ind_temp_strap'])
+      $ind_temp = $essai['ind_temp_top'];
+      else
+      $ind_temp = $essai['ind_temp_top'].'/'.$essai['ind_temp_strap'];
+    }
+    else
+    $ind_temp = $essai['ind_temp_top'].'/'.$essai['ind_temp_strap'].'/'.$essai['ind_temp_bot'];
+
+    if (isset($essai['type_chauffage']) AND $essai['type_chauffage']=="Coil")	//chauffage coil
+    $coil=$essai['chauffage'];
+    else
+    $coil="";
+
+    if (isset($essai['type_chauffage']) AND $essai['type_chauffage']=="Four")	//chauffage coil
+    $four=$essai['chauffage'];
+    else
+    $four="";
+
+    if (isset($essai['c_cycle_STL']) AND $essai['c_cycle_STL']!="0")	//STL
+    $STL=$essai['c_cycle_STL'];
+    else
+    $STL="";
+
+    if (isset($essai['c_frequence_STL']) AND $essai['c_frequence_STL']!="0")	//STL
+    $F_STL=$essai['c_frequence_STL'];
+    else
+    $F_STL="";
+
+    if (isset($essai['runout']) AND $essai['runout']!="0")	//Runout
+    $runout=$essai['runout'];
+    else
+    $runout="RTF";
+
+
+
+    if ($essai['signal_true']=="1")	//chauffage coil
+    $true='T-';
+    else
+    $true='';
+    if ($essai['signal_tapered']=="1")	//chauffage coil
+    $tapered='-T';
+    else
+    $tapered='';
+
+
+
+
+
+
+    //cas particulier de la dim2
+    if (!isset($essai['dim2']) OR $essai['dim2']=='')	//Runout
+    $essai['dim2']=' ';
+    //cas particulier de la dim3
+    if (!isset($essai['dim3']) OR $essai['dim3']=='')	//Runout
+    $essai['dim3']=' ';
+
+
+
+    //	if (isset($essai['Cycle_min']) AND $essai['Cycle_min']!="0")	//STL
+    //		$essai['Cycle_min']=$essai['Cycle_min'];
+    //	else
+    //		$essai['Cycle_min']="-";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -520,6 +556,8 @@ $style_gray = array(
         'J56' => $essai['Cycle_min'],
         'J59' => $runout
       );
+
+
 
       //affichage du checkeur temperature uniquement si temperature
       if ($essai['c_temperature']>=50) {

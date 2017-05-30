@@ -123,10 +123,10 @@
     <tbody>
       <?php for($k=0;$k < count($ep);$k++): ?>
         <tr>
-          <td><?= $ep[$k]['id_master_eprouvette'] ?></td>          
+          <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
           <td class="dispo-<?= $ep[$k]['dispo'] ?> open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" ><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
-          <td><?= $ep[$k]['nom_eprouvette'] ?></td>
+          <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td><?= $ep[$k]['c_temp'] ?></td>
           <td><?= $ep[$k]['c_frequence'] ?></td>
           <td><?= $ep[$k]['c_cycle_STL'] ?></td>
