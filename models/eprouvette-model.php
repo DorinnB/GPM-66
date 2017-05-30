@@ -431,6 +431,7 @@ class EprouvetteModel
       LEFT JOIN annexe_iqc ON annexe_iqc.id_annexe_iqc=eprouvettes.id_eprouvette
       WHERE id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes WHERE id_eprouvette='.$this->id.')
       AND id_type_essai=20
+      AND eprouvette_actif=1
       ORDER BY phase DESC
       LIMIT 1 )
 
