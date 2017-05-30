@@ -28,6 +28,7 @@ class LabModel
         LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
         LEFT JOIN postes ON postes.id_poste=prestart.id_poste
         GROUP BY postes.id_machine)
+        AND machine is not null
         order by machine';
         //echo $req;
         return $this->db->getAll($req);

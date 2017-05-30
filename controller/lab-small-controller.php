@@ -75,7 +75,7 @@ foreach ($test as $value) {
     $poste[$value['poste']]['background-color']='gray';
     $runStop[]="STOP";
   }
-  elseif($value['currentBlock']=='Send') {
+  elseif($value['currentBlock']=='Send' OR $value['currentBlock']=='send') {
     $poste[$value['poste']]['background-color']='dimgray';
     $runStop[]="STOP";
   }

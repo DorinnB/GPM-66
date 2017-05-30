@@ -18,7 +18,12 @@ $(document).ready(function() {
   });
   //pour chaque machine, si on click sur la machine, on affiche le forecast
   $( ".machine" ).each(function(index) {
-    $(this).on("click", function(){
+    $(this).on("click", function(evt){
+      //For descendants of machineNoClick being clicked, remove this check if you do not want to put constraint on descendants.
+      if($(evt.target).closest('.machineNoClick').length)
+         return;
+
+
       $(this).css('display','none');
       $(this).closest('.lab').children('.foreCast').css('display','block')
     });
