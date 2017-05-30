@@ -13,7 +13,7 @@ $(document).ready(function() {
       { label: "Customer",       name: "info_jobs.customer", type:  "readonly"     },
       { label: "Job",       name: "info_jobs.job", type:  "readonly" },
       { label: "Split",       name: "tbljobs.split", type:  "readonly" },
-      { label: "File Number",       name: "enregistrementessais.n_fichier", type:  "readonly" },
+      //{ label: "File Number",       name: "enregistrementessais.n_fichier", type:  "readonly" },
       { label: "Frame",       name: "machines.machine", type:  "readonly" },
       { label: "Lab Comments",       name: "eprouvettes.d_commentaire", type: "textarea" },
       { label: "Quality Comment",       name: "eprouvettes.q_commentaire",  type: "textarea"},
