@@ -42,6 +42,7 @@ $(document).ready(function() {
     paging:         false,
     info: false,
     fixedColumns:   {leftColumns: 4},
+    order: [[ 0, "asc" ],[3, "asc" ]],
     columnDefs: [
             {
                 "targets": [ 0 ],

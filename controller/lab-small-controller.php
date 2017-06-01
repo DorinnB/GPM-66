@@ -42,6 +42,10 @@ foreach ($test as $value) {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
+  elseif ($value['currentBlock']=='ET') {
+    $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
+  }
   elseif ($value['currentBlock']=='Ramp') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";

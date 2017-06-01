@@ -77,8 +77,7 @@ class LstJobsModel
           LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
 
 
-				WHERE tbljob_actif=1
-
+				WHERE tbljob_actif=1 AND eprouvette_actif=1
         '.$reqfiltre.'
         GROUP BY tbljobs.id_tbljob
 				ORDER BY id_statut ASC, job DESC, split ASC
