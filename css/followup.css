@@ -52,3 +52,18 @@ a {
   background-color: #44546A;
   color : white;
 }
+
+.progress{
+    width: 10px;
+    background-color: inherit;
+}
+progress{
+    display: inline-block;
+    width: 100%;
+    background: black;
+}
+/*
+progress::-moz-progress-bar { background: red; }
+progress::-webkit-progress-value { background: red; }
+progress { color: red; }
+*/

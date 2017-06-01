@@ -96,14 +96,14 @@ $(document).ready(function() {
 
 
 
-    $('#table_followup tr td').each(function() {
+    $('progress').each(function() {
 
-          if ($(this).attr("color-statut") >= 100) $(this).css('background-color', 'darkgreen');
-          if ($(this).attr("color-statut") <=99) $(this).css('background-color', 'olivedrab');
-          if ($(this).attr("color-statut") <= 75) $(this).css('background-color', '#FFF380');
-          if ($(this).attr("color-statut") <= 50) $(this).css('background-color', 'orange');
-          if ($(this).attr("color-statut") <=25) $(this).css('background-color', 'darkred');
-          if ($(this).attr("color-statut") < 1) $(this).css('background-color', 'inherit');          
+          if ($(this).attr("color-statut") >= 100) $(this).css('background', 'darkgreen');
+          if ($(this).attr("color-statut") <=99) $(this).css('background', 'olivedrab');
+          if ($(this).attr("color-statut") <= 75) $(this).css('background', '#FFF380');
+          if ($(this).attr("color-statut") <= 50) $(this).css('background', 'orange');
+          if ($(this).attr("color-statut") <=25) $(this).css('background', 'darkred');
+          if ($(this).attr("color-statut") < 1) $(this).css('background', 'inherit');
 
 
     });

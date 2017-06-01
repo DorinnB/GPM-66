@@ -1,6 +1,5 @@
 <h3 style="color:white;">
-  Todo List [WIP]
-  ne pas tenir compte des infos
+  LAB Todo List
 </h3>
 <table class="table-condensed table-bordered" style="color:white; margin: auto;">
   <tr>

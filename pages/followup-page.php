@@ -65,7 +65,7 @@
 
 						<td><?= $row['nbtest'] ?></td>
 						<td><?= $row['nbep'] ?></td>
-						<td color-statut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></td>
+						<td class="progress"><progress value="<?= $row['nbpercent'] ?>" min="0" max="100" color-sttut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></progress></td>
 						<td><?= $row['customer'] ?></td>
 						<td><a href="index.php?page=labo&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
 						<td><?= $row['split'] ?></td>
