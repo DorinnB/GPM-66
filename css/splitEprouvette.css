@@ -56,6 +56,10 @@ table td.flag_qualite:not([data-flagQualite="0"])  {
   color:#b96500;
   background-color:#b96500;
 }
+table td.flag_qualite[data-flagQualite="-4"]  {
+  color:sienna;
+  background-color:sienna;
+}
 
 table td.IQC[data-value="1"]  {
   color:darkgreen;
