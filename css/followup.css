@@ -56,12 +56,21 @@ a {
 .progress{
     width: 10px;
     background-color: inherit;
+    border-radius: 0px;
 }
-progress{
+meter{
     display: inline-block;
     width: 100%;
-    background: black;
+    background: inherit;
 }
+/*
+meter::-webkit-meter-optimum-value {
+  background: red;
+}
+meter::-moz-meter-bar {
+  background: red;
+}
+
 /*
 progress::-moz-progress-bar { background: red; }
 progress::-webkit-progress-value { background: red; }
