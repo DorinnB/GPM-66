@@ -61,7 +61,7 @@ foreach ($test as $value) {
     $runStop[]="RUN";
   }
   elseif ($value['currentBlock']=='Not') {
-    $poste[$value['poste']]['background-color']='brown';
+    $poste[$value['poste']]['background-color']='#108800';
     $runStop[]="RUN";
   }
   elseif ($value['currentBlock']=='STL') {
