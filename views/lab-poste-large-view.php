@@ -29,16 +29,16 @@
 
 
     <div class="col-md-12 foreCast" style="border:1px solid black; margin:5px 0px;background-color:#536E94;color:white;display:<?=  ($poste[$n_poste]['currentBlock']=='Send' or $poste[$n_poste]['currentBlock']=='send')?'block':'none'  ?>;">
-      <div class="col-md-3">
-        <img src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 30px;">
+      <div class="col-md-3 icone" data-id="<?= $poste[$n_poste]['id_machine']  ?>">
+        <img id="icone_<?= $poste[$n_poste]['id_machine']   ?>" src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 30px;">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 nMachine">
         <b><?= $poste[$n_poste]['machine']  ?></b>
       </div>
-      <div class="col-md-3">
-        <img src="img/medal_<?= $poste[$n_poste]['prio_machine_forecast']  ?>" style="width: auto;max-height: 30px;">
+      <div class="col-md-3 priorite" data-id="<?= $poste[$n_poste]['id_machine']  ?>">
+        <img id="priorite_<?= $poste[$n_poste]['id_machine']   ?>" src="img/medal_<?= $poste[$n_poste]['prio_machine_forecast']  ?>" style="width: auto;max-height: 30px;">
       </div>
-      <textarea disabled readonly  rows=3 style="resize: none; background-color:#536E94; width:100%; border:0px;"><?= $poste[$n_poste]['texte_machine_forecast'] ?></textarea>
+      <textarea class="commentaire" data-id="<?= $poste[$n_poste]['id_machine']  ?>" rows=3 style="resize: none; background-color:#536E94; width:100%; border:0px;"><?= $poste[$n_poste]['texte_machine_forecast'] ?></textarea>
     </div>
 
 

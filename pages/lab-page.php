@@ -218,3 +218,42 @@
 
 
 </div>
+
+
+
+
+
+
+
+<script type="text/javascript" src="js/lab-poste-large.js"></script>
+
+
+
+
+<div class='icone-menu custom-menu'>
+</div>
+<div class='priorite-menu custom-menu'>
+</div>
+
+<style>
+.custom-menu {
+display: none;
+z-index: 1000;
+position: absolute;
+overflow: hidden;
+border: 1px solid #CCC;
+white-space: nowrap;
+font-family: sans-serif;
+background: #FFF;
+color: #333;
+border-radius: 5px;
+}
+
+.custom-menu li {
+cursor: pointer;
+}
+
+.custom-menu li:hover {
+background-color: #DEF;
+}
+</style>

@@ -11,9 +11,9 @@ $(document).ready(function() {
 
   //pour chaque machine, si on click sur le forecast, on affiche l'etat ctuel
   $( ".foreCast" ).each(function(index) {
-    $(this).on("click", function(){
-      $(this).css('display','none');
-      $(this).closest('.lab').children('.machine').css('display','block')
+    $(this).children('.nMachine').on("click", function(){
+      $(this).parent('.foreCast').css('display','none');
+      $(this).parent('.foreCast').closest('.lab').children('.machine').css('display','block')
     });
   });
   //pour chaque machine, si on click sur la machine, on affiche le forecast

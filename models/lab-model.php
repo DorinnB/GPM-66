@@ -9,7 +9,7 @@ class LabModel
     }
 
     public function getTest() {
-      $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, currentBlock, eprouvettes.Cycle_final, split, machine, poste, id_job, n_essai,
+      $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, currentBlock, eprouvettes.Cycle_final, split, machine, postes.id_machine, poste, id_job, n_essai,
         c_frequence, c_frequence_STL, c_cycle_STL, d_frequence, d_frequence_STL, Cycle_STL, runout, c_temperature,
         texte_machine_forecast, icone_file, icone_name, prio_machine_forecast
         FROM enregistrementessais
