@@ -36,10 +36,10 @@ class IconeModel
     }
 
     public function updateCommentaire($idMachine, $commentaire) {
-      $reqUpdate='UPDATE machine_forecasts SET texte_machine_forecast="'.$commentaire.'" WHERE id_machine_forecast='.$idMachine;
+      $reqUpdate='UPDATE machine_forecasts SET texte_machine_forecast='.$this->db->quote($commentaire).' WHERE id_machine_forecast='.$idMachine;
       //echo $reqUpdate;
 
-      $result = $this->db->execute($reqUpdate);
+      $result = $this->db->query($reqUpdate);
 
       $maReponse = array('req'=> $reqUpdate);
       echo json_encode($maReponse);

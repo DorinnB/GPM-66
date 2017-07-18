@@ -35,6 +35,6 @@ require('views/login-view.php');
 
 <?php //affichage du job directement depuis l'url
 if (isset($_GET['id_tbljob'])) {
-	echo "<script> goto('split','id_tbljob',".$_GET['id_tbljob'].",'noModif');</script>";
+	echo "<script> goto('inOut','id_tbljob',".$_GET['id_tbljob'].",'noModif');</script>";
 }
  ?>

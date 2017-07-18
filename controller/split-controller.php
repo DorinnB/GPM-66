@@ -29,7 +29,13 @@ if (file_exists($filenameData)) {
   $splitData_ctrl=$filenameData;
 }
 else{
+  if (substr($split['test_type_abbr'],0,1)==".") {
+  $splitData_ctrl=  '../controller/splitData_.default-controller.php';
+  }
+  else {
   $splitData_ctrl=  '../controller/splitData_default-controller.php';
+  }
+
 }
 
 // Affichage des EPROUVETTES selon le type de test
@@ -51,7 +57,13 @@ if (file_exists($filenameEPView)) {
   $splitEp_View=$filenameEPView;
 }
 else{
+    if (substr($split['test_type_abbr'],0,1)==".") {
+  $splitEp_View= '../views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_.default-view.php';
+    }
+    else {
   $splitEp_View= '../views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_default-view.php';
+    }
+
 }
 
 

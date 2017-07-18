@@ -108,7 +108,7 @@ $(document).ready(function() {
   $('#table_ep').on( 'click', 'tbody td', function (e) {
           var index = $(this).index();
 
-          if ( index === 12 ) {
+          if ( index === 11 ) {
               editor.bubble( this,
                  ['eprouvettes.c_commentaire'],
                   { title: 'Order Comments :' ,
