@@ -33,6 +33,12 @@ class LstJobsModel
     public function getAllFollowup($filtreFollowup="final") {
 
       if ($filtreFollowup=='ALL') {
+        $reqfiltre='AND etape <90';
+      }
+      elseif ($filtreFollowup=='SubC') {
+        $reqfiltre='AND test_type_abbr like ".%" AND etape <90';
+      }
+      elseif ($filtreFollowup=='SuNoTimebC') {
         $reqfiltre='';
       }
       else {

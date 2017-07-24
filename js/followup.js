@@ -14,7 +14,6 @@ $(document).ready(function() {
         scrollY: '79vh',
         scrollCollapse: true,
         paging: false,
-        info: false,
         scrollX: true,
 
                 select: true,

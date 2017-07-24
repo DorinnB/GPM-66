@@ -17,7 +17,7 @@ public function __construct($db,$id)
           master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, master_eprouvettes.id_dwg, dessins.dessin, eprouvettes.id_job as id_tbljob,
           n_fichier,
           eprouvette_inOut_A, eprouvette_inOut_B, master_eprouvette_inOut_A, master_eprouvette_inOut_B,
-          d_checked
+          d_checked,report_creation_date, enregistrementessais.date as enregistrementessais_date
 
         FROM eprouvettes
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette

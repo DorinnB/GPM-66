@@ -1,4 +1,4 @@
-<link href="css/splitEprouvette.css" rel="stylesheet">
+<link href="css/inOutEprouvette.css" rel="stylesheet">
 <div class="col-md-12" style="height:100%">
   <table id="table_ep" data-idJob="<?php echo $split['id_tbljob'];	?>" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
     <thead>
@@ -57,26 +57,41 @@
           <td><?= $line['prefixe'] ?></td>
           <td><?= $line['nom_eprouvette'] ?></td>
           <td><?= $line['dessin'] ?></td>
-          <td><?= $line['master_eprouvette_inOut_A'] ?></td>
-
+          <td class="selectable" data-idMaster="<?=  $line['id_master_eprouvette'] ?>" data-IO="master_eprouvette_inOut_A"><?= $line['master_eprouvette_inOut_A'] ?></td>
 
           <?php  foreach ($splits as $splitInOut): ?>
-            <td class="color-<?= ((isset($line[$splitInOut['id_tbljob']]))?(($line[$splitInOut['id_tbljob']]==1)?1:2):0)   ?> row-<?= $splitInOut['phase']-1 ?>" name="existingEp_<?= $line['id_master_eprouvette'] ?>-existingSplit_<?= $splitInOut['id_tbljob']  ?>">
-              <?= ((isset($line[$splitInOut['id_tbljob']]))?$epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A']:"X")   ?>
-            </td>
-            <td class="d_checked" <?=  ((isset($line[$splitInOut['id_tbljob']]))?'data-id="'.$epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'].'"':"") ?>>
-              <?= ((isset($line[$splitInOut['id_tbljob']]))?$epA[$line[$splitInOut['id_tbljob']]]['d_checked']:"X")  ?>
-            </td>
-            <td>
-              <?= ((isset($line[$splitInOut['id_tbljob']]))?$epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']:"X")   ?>
-            </td>
-
+            <?php if (isset($line[$splitInOut['id_tbljob']])) : ?>
+              <?php if (substr( $splitInOut['test_type_abbr'], 0, 1 ) === ".") :  ?>
+                <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_A">
+                  <?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A'] ?>
+                </td>
+                <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>">
+                  <?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>
+                </td>
+                <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_B">
+                  <?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?>
+                </td>
+              <?php else: ?>
+                <td>
+                  <?= $epA[$line[$splitInOut['id_tbljob']]]['enregistrementessais_date'] ?>
+                </td>
+                <td class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>">
+                  <?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>
+                </td>
+                <td>
+                  <?= ($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']>0)?date('Y-m-d',($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']-25569)*86400):""   ?>
+                </td>
+              <?php endif ?>
+            <?php else: ?>
+              <td class="noInOut"></td>
+              <td class="noInOut"></td>
+              <td class="noInOut"></td>
+            <?php endif ?>
           <?php  endforeach  ?>
 
+          <td  class="selectable" data-idMaster="<?=  $line['id_master_eprouvette'] ?>" data-IO="master_eprouvette_inOut_B"><?= $line['master_eprouvette_inOut_B'] ?></td>
 
-          <td><?= $line['master_eprouvette_inOut_B'] ?></td>
         </tr>
-
       <?php endforeach ?>
 
     </tbody>
@@ -85,4 +100,4 @@
 
 </div>
 
-<script type="text/javascript" src="js/splitEprouvette.js"></script>
+<script type="text/javascript" src="js/inOutEprouvette.js"></script>

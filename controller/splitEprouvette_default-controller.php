@@ -161,7 +161,7 @@ $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
   //Formatage des données
   //!empty($ep[$k]['Nf75'])?number_format($ep[$k]['Nf75'], 0, '.', ' '):""
   $ep[$k]['c_temp']=!empty($ep[$k]['c_temp'])?number_format($ep[$k]['c_temp'], 1,'.', ' '):'';
-  $ep[$k]['c_frequence']=!empty($ep[$k]['c_frequence'])?number_format($ep[$k]['c_frequence'], 1,'.', ' '):'';
+  $ep[$k]['c_frequence']=!empty($ep[$k]['c_frequence'])?(is_numeric($ep[$k]['c_frequence'])?number_format($ep[$k]['c_frequence'], 1,'.', ' '):$ep[$k]['c_frequence']):'';
   $ep[$k]['c_cycle_STL']=!empty($ep[$k]['c_cycle_STL'])?number_format($ep[$k]['c_cycle_STL'], 1,'.', ' '):'';
   $ep[$k]['c_frequence_STL']=!empty($ep[$k]['c_frequence_STL'])?number_format($ep[$k]['c_frequence_STL'], 1,'.', ' '):'';
 //  $ep[$k]['c_type_1_val']=!empty($ep[$k]['c_type_1_val'])?number_format($ep[$k]['c_type_1_val'], 3,'.', ' '):'';
