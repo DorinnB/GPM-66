@@ -1,28 +1,28 @@
-table td.dispo-0 {
+table td.dispo[data-dispo="0"] {
   color:darkred;
   background-color:darkred;
 }
-table td.dispo-1 {
+table td.dispo[data-dispo="1"] {
   color:brown;
   background-color:brown;
 }
-table td.dispo-2 {
+table td.dispo[data-dispo="2"] {
   color:chocolate;
   background-color:chocolate;
 }
-table td.dispo-3 {
+table td.dispo[data-dispo="3"] {
   color:darkgreen;
   background-color:darkgreen;
 }
-table td.dispo-4 {
+table td.dispo[data-dispo="4"] {
   color:gray;
   background-color:gray;
 }
-table td.dispo-5 {
+table td.dispo[data-dispo="5"] {
   color:dimgray;
   background-color:dimgray;
 }
-table td.dispo-6 {
+table td.dispo[data-dispo="6"] {
   color:black;
   background-color:black;
 }
@@ -44,7 +44,7 @@ table td.dCheckEp {
   color:darkgreen;
   background-color:darkgreen;
 }
-table td.dCheckEp[data-dchecked="0"]  {
+table td.dCheckEp[data-dchecked = "0"]  {
   color:darkred;
   background-color:darkred;
 }

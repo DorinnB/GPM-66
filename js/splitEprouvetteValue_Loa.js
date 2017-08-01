@@ -50,7 +50,6 @@ $(document).ready(function() {
       {       label: 'Rupture',       name: 'eprouvettes.Rupture'     },
       {       label: 'Fracture',       name: 'eprouvettes.Fracture'     },
       {       label: 'Test Duration',       name: 'eprouvettes.temps_essais'     },
-      {       label: 'currentBlock',       name: 'eprouvettes.currentBlock'     },      
       {       label:     "Check Value:",
                   name:      "eprouvettes.d_checked",
                   type:      "checkbox",

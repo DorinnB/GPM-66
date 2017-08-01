@@ -50,7 +50,7 @@
     <tbody>
       <?php for($k=0;$k < count($ep);$k++): ?>
         <tr>
-          <td><?= $ep[$k]['id_master_eprouvette'] ?></td>          
+          <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
           <td class="dispo-<?= $ep[$k]['dispo'] ?> selectable"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?></td>
@@ -94,7 +94,7 @@
           <td class="IQC" data-value="<?= $ep[$k]['revetement'] ?>"><?= $ep[$k]['revetement'] ?></td>
           <td class="IQC" data-value="<?= $ep[$k]['protection'] ?>"><?= $ep[$k]['protection'] ?></td>
           <td><?= $ep[$k]['autre'] ?></td>
-          <td class="dCheckEp selectable" data-dchecked="<?= $ep[$k]['d_checked'] ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
+          <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 
         </tr>
       <?php endfor ?>

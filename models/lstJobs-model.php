@@ -11,10 +11,10 @@ class LstJobsModel
     public function getAllJobs($filtre="") {
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color, customer, statuts.etape,
-					job,
-					split,
-					test_type_abbr,
-					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(n_fichier) as nbtest, CONVERT((count(n_fichier)/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
+					job, split, test_type_abbr,
+					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
+          if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
+          CONVERT((if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
 					IF(tbljobs.test_leadtime>NOW(),0,1) as delay
 				FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
@@ -57,18 +57,12 @@ class LstJobsModel
           etape, matiere,
           GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
-          test_leadtime,
+          DyT_expected, test_leadtime,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest, CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
 					IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
 
 
-          min((select test_leadtime from eprouvettes ep
-           left join tbljobs tbl on tbl.id_tbljob=ep.id_job
-           where ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
-           and tbl.phase< tbljobs.phase
-               order by phase desc
-           limit 1
-         )) as previousDyT
+          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available
 
 
 				FROM eprouvettes

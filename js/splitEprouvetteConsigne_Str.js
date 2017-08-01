@@ -29,6 +29,8 @@ $(document).ready(function() {
       {       label: "eprouvettes.n_essai",       name: "eprouvettes.n_essai"     },
       {       label: "eprouvettes.c_temperature",       name: "eprouvettes.c_temperature"     },
       {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
+      {       label: "eprouvettes.c_cycle_STL",       name: "eprouvettes.c_cycle_STL"     },
+      {       label: "eprouvettes.c_frequence_STL",       name: "eprouvettes.c_frequence_STL"     },
       {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val"     },
       {       label: "eprouvettes.c_type_2_val",       name: "eprouvettes.c_type_2_val"     },
       {       label: "eprouvettes.Cycle_min",       name: "eprouvettes.Cycle_min"     },
@@ -40,6 +42,7 @@ $(document).ready(function() {
       {       label: "machines.machine",       name: "machines.machine"     },
       {       label: "enregistrementessais.date",       name: "enregistrementessais.date"     },
       {       label: "eprouvettes.waveform",       name: "eprouvettes.waveform"     },
+      {       label: "eprouvettes.Cycle_STL",       name: "eprouvettes.Cycle_STL"     },
       {       label: "eprouvettes.Cycle_final",       name: "eprouvettes.Cycle_final"     },
       {       label: "eprouvettes.Rupture",       name: "eprouvettes.Rupture"     },
       {       label: "eprouvettes.Fracture",       name: "eprouvettes.Fracture"     }
@@ -59,6 +62,8 @@ $(document).ready(function() {
       { data: "master_eprouvettes.nom_eprouvette" },
       { data: "eprouvettes.c_temperature" },
       { data: "eprouvettes.c_frequence" },
+      { data: "eprouvettes.c_cycle_STL" },
+      { data: "eprouvettes.c_frequence_STL" },
       { data: "eprouvettes.c_type_1_val" },
       { data: "eprouvettes.c_type_2_val" },
       { data: "eprouvettes.Cycle_min" },
@@ -87,11 +92,11 @@ $(document).ready(function() {
         }
     ],
     autoFill: {
-      columns: [3, 4, 5, 6, 7, 8, 9],
+      columns: [3, 4, 5, 6, 7, 8, 9, 10, 11],
       editor:  editor
     },
     keys: {
-      columns: [3, 4, 5, 6, 7, 8, 9],
+      columns: [3, 4, 5, 6, 7, 8, 9, 10, 11],
       editor:  editor
     },
     select: {
@@ -103,7 +108,7 @@ $(document).ready(function() {
   $('#table_ep').on( 'click', 'tbody td', function (e) {
           var index = $(this).index();
 
-          if ( index === 9 ) {
+          if ( index === 11 ) {
               editor.bubble( this,
                  ['eprouvettes.c_commentaire'],
                   { title: 'Order Comments :' ,

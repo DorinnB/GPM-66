@@ -38,105 +38,108 @@ $(document).ready(function() {
 } );
 
 
+//hachurage des eprouvettes ayant la date de l'history en hover
+$('.dateHighlight').hover(function(){
+  val=$(this).attr('data-date');
+  $('.selectable').each(function() {
+      if ($(this).attr('data-oldvalue')==val) {
+        $(this).toggleClass('highlight');
+      }
+ });
+})
 
-
-
-
+//pour chaque click ou selection, on update la date
 $('#table_ep').selectable ({
   filter:"td.selectable",
   distance:0,
   selected: function( event, ui ) {
     if ($(ui.selected).attr('data-id')) {
-      alert($(ui.selected).attr('data-id')+$(ui.selected).attr('data-IO'));
-      //dChecked($(ui.selected));
+      if ($(ui.selected).html()==$('#dateInOut').val()) {
+        if ($(ui.selected).attr('data-oldValue')==$('#dateInOut').val()) {
+          $(ui.selected).html('').css("background-color", "rgb(128, 0, 128)");
+        }
+        else {
+          $(ui.selected).html($(ui.selected).attr('data-oldValue')).css("background-color", "inherit");
+        }
+      }
+      else {
+        if ($(ui.selected).attr('data-oldValue')==$('#dateInOut').val()) {
+          $(ui.selected).html($('#dateInOut').val()).css("background-color", "inherit");
+        }
+        else {
+          $(ui.selected).html($('#dateInOut').val()).css("background-color", "rgb(128, 0, 128)");
+        }
+      }
     }
-    else if ($(ui.selected).attr('data-idMaster')) {
-      alert($(ui.selected).attr('data-idMaster')+$(ui.selected).attr('data-IO'));
-if ($(ui.selected).val()=="") {
-  $(ui.selected).attr('data-newEntry',1);
-  $(ui.selected).val('test');
-}
-else {
-    $(ui.selected).attr('data-newEntry',0);
-      $(ui.selected).val('');
-}
-      //updateInOutMaster($(ui.selected));
+    else if ($(ui.selected).attr('data-idMaster')) {      if ($(ui.selected).html()==$('#dateInOut').val()) {
+      if ($(ui.selected).attr('data-oldValue')==$('#dateInOut').val()) {
+        $(ui.selected).html('').css("background-color", "rgb(128, 0, 128)");
+      }
+      else {
+        $(ui.selected).html($(ui.selected).attr('data-oldValue')).css("background-color", "inherit");
+      }
+    }
+    else {
+      if ($(ui.selected).attr('data-oldValue')==$('#dateInOut').val()) {
+        $(ui.selected).html($('#dateInOut').val()).css("background-color", "inherit");
+      }
+      else {
+        $(ui.selected).html($('#dateInOut').val()).css("background-color", "rgb(128, 0, 128)");
+      }
     }
   }
+}
 
 });
 
 
-// Flag Qualité
-function updateInOutMaster(e) {
-  if (e.val()!="") {
 
-    var confirmation = confirm('Unflag this test ? Only Quality Manager should do this');
-    if (confirmation) {
-
-      $.ajax({
-        type: "POST",
-        url: 'controller/updatexxxxxxxFlagQualite.php',
-        dataType: "json",
-        data:  {
-          idEp : e.attr('data-idepflagqualite'),
-          flagQualite : e.attr('data-flagQualite')
-        }
-        ,
-        success : function(data, statut){
-          if(data['id_user']==0)  {
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#44546A");
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#44546A");
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html("0");
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user']);
-          }
-          else {
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#b96500");
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#b96500");
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html(data['id_user']);
-            $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user'] );
-          }
-
-        },
-        error : function(resultat, statut, erreur) {
-          console.log(Object.keys(resultat));
-          alert('ERREUR lors de la modification du flag qualité de l\'eprouvette. Veuillez prevenir au plus vite le responsable SI.');
-        }
-      });
+$("#save").css('cursor', 'pointer');
+$("#save").click(function(e) {
+  //on recupere (en serialize) la liste des eprouvettes, leur nom et les splits associés
+  var formInOutMaster = $.param($('td').map(function() {
+    if ($(this).attr('data-idmaster')){
+      if ($(this).css("background-color")=="rgb(128, 0, 128)"){
+        return {
+          name: $(this).attr('data-io'),
+          value: $(this).attr('data-idmaster') + '_' + $(this).html()
+        };
+      }
     }
-  }
-  else {
-
-    $.ajax({
-      type: "POST",
-      url: 'controller/updatexxxxxxFlagQualite.php',
-      dataType: "json",
-      data:  {
-        idEp : e.attr('data-idepflagqualite'),
-        flagQualite : e.attr('data-flagQualite')
+  }));
+  var formInOutEp = $.param($('td').map(function() {
+    if ($(this).attr('data-id')){
+      if ($(this).css("background-color")== "rgb(128, 0, 128)"){
+        return {
+          name: $(this).attr('data-io'),
+          value: $(this).attr('data-id') + '_' + $(this).html()
+        };
       }
-      ,
-      success : function(data, statut){
-        if(data['id_user']==0)  {
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#44546A");
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#44546A");
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html("0");
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user']);
-        }
-        else {
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#b96500");
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#b96500");
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html(data['id_user']);
-          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user'] );
-        }
+    }
+  }));
 
-      },
-      error : function(resultat, statut, erreur) {
-        console.log(Object.keys(resultat));
-        alert('ERREUR lors de la modification du flag qualité de l\'eprouvette. Veuillez prevenir au plus vite le responsable SI.');
-      }
-    });
+  e.preventDefault();
 
-  }
-
-}
+  $.ajax({
+    type: "POST",
+    url: 'controller/updateInOut.php',
+    dataType: "json",
+    data: {
+      formInOutMaster : formInOutMaster,
+      formInOutEp : formInOutEp,
+      inOut_commentaire : $('#inOut_commentaire').val(),
+      inOut_recommendation : $('#inOut_recommendation').val(),
+      dateInOut: $('#dateInOut').val(),
+      id_info_job: $('#id_info_job').val(),
+      id_tbljob: $('#id_tbljob').val()
+    },
+    success : function(data, statut){
+      //alert('yes');
+      goto('inOut','id_tbljob',data['id_tbljob']);
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});

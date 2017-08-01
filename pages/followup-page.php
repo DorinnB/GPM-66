@@ -102,8 +102,8 @@
 						<td><?= $row['matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
 						<td></td>
-						<td><?= $row['previousDyT'] ?></td>
-						<td><?= $row['test_leadtime'] ?></td>
+						<td><?= $row['available'] ?></td>
+						<td><?= $row['DyT_expected'] ?></td>
 					</tr>
 				<?php endforeach ?>
 			</tbody>

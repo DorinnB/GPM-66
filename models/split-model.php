@@ -27,8 +27,8 @@ private $id;
 
     public function getSplit() {
 //ADD AFFICHAGE DESSIN en concat
-		$req = 'SELECT id_tbljob,
-          customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire,
+		$req = 'SELECT id_tbljob, tbljobs.id_info_job,
+          customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,
           contacts.genre, contacts.lastname, contacts.surname, contacts.compagnie,
           contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2,
           contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3,
@@ -38,7 +38,69 @@ private $id;
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
           type1.id_consigne_type as id_c_type_1, type2.id_consigne_type as id_c_type_2,
-          test_leadtime, checked, comments, contacts.adresse
+          test_leadtime, DyT_expected,
+          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available,
+          checked, comments, contacts.adresse,
+          count(distinct master_eprouvettes.id_master_eprouvette) as nbep,
+          count(distinct id_eprouvette) as nbtest,
+          count(n_essai) as nbtestdone,
+          sum(temps_essais) as tpstest,
+          sum(if(temps_essais is null,null,if(temps_essais>24, temps_essais-24,0))) as hrsup,
+          sum(if(temps_essais is null,
+
+                      if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
+                        if(Cycle_STL is null and c_cycle_STL is null,
+                          eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
+                          if(Cycle_STL is null,
+                             if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
+                              (eprouvettes.Cycle_final/c_frequence)/3600)
+                            ,if(eprouvettes.Cycle_final>cycle_STL,
+                                (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
+                                (eprouvettes.Cycle_final/c_frequence)/3600)
+
+                          )),
+                      0)
+                           ,temps_essais)) as tpscalc,
+
+                    sum(if(if(temps_essais is null,
+                      if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
+                        if(Cycle_STL is null and c_cycle_STL is null,
+                          eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
+                          if(Cycle_STL is null,
+                             if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
+                              (eprouvettes.Cycle_final/c_frequence)/3600)
+                            ,if(eprouvettes.Cycle_final>cycle_STL,
+                                (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
+                                (eprouvettes.Cycle_final/c_frequence)/3600)
+                          )),
+                      "")
+                           ,temps_essais)>24,
+                           if(temps_essais is null,
+                      if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
+                        if(Cycle_STL is null and c_cycle_STL is null,
+                          eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
+                          if(Cycle_STL is null,
+                             if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
+                              (eprouvettes.Cycle_final/c_frequence)/3600)
+                            ,if(eprouvettes.Cycle_final>cycle_STL,
+                                (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
+                                (eprouvettes.Cycle_final/c_frequence)/3600)
+                          )),
+                      "")
+                           ,temps_essais)-24,
+                          if(temps_essais is null,
+                      if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
+                        if(Cycle_STL is null and c_cycle_STL is null,
+                          eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
+                          if(Cycle_STL is null,
+                             if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
+                              (eprouvettes.Cycle_final/c_frequence)/3600)
+                            ,if(eprouvettes.Cycle_final>cycle_STL,
+                                (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
+                                (eprouvettes.Cycle_final/c_frequence)/3600)
+                          )),
+                      "")
+                           ,temps_essais))) as tpssupcalc
 
 				FROM tbljobs
 				LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
@@ -112,6 +174,17 @@ private $id;
       			echo json_encode($maReponse);
     }
 
+    public function DyT_expected(){
+      $reqUpdate='UPDATE `tbljobs` SET
+        `DyT_expected` = '.$this->DyT_expected.'
+       WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+//echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+      			//echo json_encode($maReponse);
+    }
+
     public function updateCommentaire(){
       $reqUpdate='UPDATE `tbljobs` SET
         `tbljob_commentaire` = '.$this->tbljob_commentaire.'
@@ -159,5 +232,33 @@ echo $reqUpdate;
       $this->db->query($reqUpdate);
 
     }
+
+    public function findStatut(){
+      $req='SELECT sum(if(master_eprouvette_inOut_A is null,0,1)) as nbInOut_A,
+          count(distinct master_eprouvettes.id_master_eprouvette) as nbMasterEp,
+          count(master_eprouvettes.id_master_eprouvette) as nbEp,
+          sum(if(c_type_1_val is null OR c_type_2_val is null,0,1)) as npCons,
+          sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null,0,1)) as npConsLeft,
+          if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
+          sum(if(d_checked>0,1,0)) as nbDChecked,
+          sum(if(n_fichier is not null and check_rupture <=0,1,0)) as running
+
+        FROM eprouvettes
+        LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+        LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+
+        WHERE tbljobs.id_tbljob= '. $this->id.'
+        AND master_eprouvette_actif=1
+        AND eprouvette_actif=1
+        GROUP BY tbljobs.id_tbljob
+        ';
+
+//echo $reqUpdate;
+      $this->db->query($reqUpdate);
+
+    }
+
 
 }

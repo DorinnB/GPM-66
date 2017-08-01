@@ -22,3 +22,9 @@ $("#check.check0").click(function(e) {
   }
 
 });
+
+
+//Un click sur le bouton InOut ouvre le split correspondant
+$("#inOutLoad").click(function() {
+  goto('inOut','id_tbljob',$('#id_tbljob').val());
+});

@@ -31,15 +31,31 @@
   </p>
 
   <p class="title">
-    <span class="name">Qty :</span>
-    <span class="date"><?= $splitEp['nbep'] ?></span>
+    <span class="name"><acronym title="Nb specimen / Test done / Test planned">Qty :</acronym></span>
+    <span class="date"><?= $split['nbep'].' / '.$split['nbtestdone'].' / '.$split['nbtest'] ?></span>
   </p>
   <p class="title">
-    <span class="name">Specimen Recept :</span>
-    <span class="date"><i>part</i></span>
+    <span class="name">Available :</span>
+    <span class="date"><?= (($split['available']=="")?'Undefined':$split['available']) ?></span>
   </p>
   <p class="title">
-    <span class="name">Est test days :</span>
+    <span class="name"><acronym title="Test duration (Calc)/ 'Heures Sup' (Calc)">Test (hrs) :</acronym></span>
+
+    <span class="date"><?=
+    (($split['tpstest']=="")?'N/A':number_format($split['tpstest'], 1, '.', ' ')).
+    ' <i style="font-size:75%">('.
+    (($split['tpscalc']=="")?'N/A':number_format($split['tpscalc'], 1, '.', ' ')).
+    ')</i> / '.
+    (($split['hrsup']=="")?'N/A':number_format($split['hrsup'], 1, '.', ' ')).
+      ' <i style="font-size:75%">('.
+    (($split['tpssupcalc']=="")?'N/A':number_format($split['tpssupcalc'], 1, '.', ' ')).
+    ')</i>'
+    ?></span>
+
+  </p>
+
+  <p class="title">
+    <span class="name">Est test days left :</span>
     <span class="date"><i>est day</i></span>
   </p>
   <p class="title">

@@ -50,7 +50,7 @@ $(document).ready(function() {
         if ($(this).attr("color-statut") < 30) $(this).css('background-color', 'rgb(204, 112, 37)');
         if ($(this).attr("color-statut") < 30) $(this).css('background-color', 'rgb(204, 112, 37)');
         if ($(this).attr("color-statut") < 20) $(this).css('background-color', 'rgb(204, 72, 37)');
-        if ($(this).attr("color-statut") <= 10) $(this).css('background-color', 'rgb(255, 15, 0)');
+        if ($(this).attr("color-statut") <= 10) $(this).css('background-color', 'darkred');
     });
 
 });

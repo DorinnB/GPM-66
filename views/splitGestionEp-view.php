@@ -46,9 +46,9 @@
             <div class="tab-content clearfix" style="height:100%;">
 
               <div class="tab-pane" id="1a" style="height:100%;">
-                <h3 style="height:100%;">
+
                   <form class="form-group" style="height:100%;" id="newTestForm">
-                    <div style="height:25%;">
+
                       <label for="id_prestart">Machine :
                         <button type="button" class="btn btn-default btn-sm" id="openPrestart">
                           <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
@@ -57,21 +57,19 @@
                       <select class="form-control" id="id_prestart" name="id_prestart">
                         <option value="0">No Prestart Recorded</option>
                         <?php foreach ($lstPoste->getAllPrestartSplit($_GET['idEp']) as $row): ?>
-                          <option value="<?= $row['id_prestart'] ?>" <?=  ((isset($_COOKIE['id_machine']) and ($_COOKIE['id_machine']==$row['id_machine']))?"selected":"" )  ?>><?= $row['machine'] ?></option>
+                          <option data-customFrequency="<?= $row['custom_frequency'] ?>" value="<?= $row['id_prestart'] ?>" <?=  ((isset($_COOKIE['id_machine']) and ($_COOKIE['id_machine']==$row['id_machine']))?"selected":"" )  ?>><?= $row['machine'] ?></option>
                         <?php endforeach ?>
                       </select>
-                    </div>
-                    <div style="height:25%;">
+
+
                       <label for="user">Operator :</label>
                       <input type="text" class="form-control" name="user" value="<?= $_COOKIE['technicien'] ?>" readonly>
-                    </div>
 
 
-                    <div style="height:25%;">
-                      <?php if ($eprouvette['c_checked']==0 OR $eprouvette['checked']==0) :  ?>
-                        <p style="color:red; padding-top:10px;">
-                          <?= ($eprouvette['c_checked']==0)?'Consigne Unchecked !':'' ?>
-                          <?= ($eprouvette['checked']==0)?'<br/>Job Unchecked !':'' ?>
+                      <?php if ($eprouvette['c_checked']<=0 OR $eprouvette['checked']<=0) :  ?>
+                        <p style="color:red; padding-top:10px; font-size:150%; font-weight: bold;">
+                          <?= ($eprouvette['c_checked']<=0)?'Consigne Unchecked !':'' ?>
+                          <?= ($eprouvette['checked']<=0)?'<br/>Job Unchecked !':'' ?>
                         </p>
                         <input type="hidden" name="checker" value="0">
                       <?php else :  ?>
@@ -86,14 +84,20 @@
                         </script>
 
                       <?php endif ?>
-                    </div>
-                    <div style="height:25%;">
+
+
+<div style="height:20%; padding:5px" id="customFreq">
+  <label for="custom_frequency">Custom Frequency (Hz) :</label>
+  <input style="width:20%; display:inline;" class="form-control" id="custom_frequency" name="custom_frequency" value="<?= $eprouvette['c_frequence']  ?>">
+</div>
+
+
+                    <div style="height:20%;">
                       <button type="submit" class="btn btn-default" id="submit_newTest" disabled="disabled">Record Test Number</button>
                     </div>
                     <input type="hidden" id="idEp" name="idEp" value="<?=  $_GET['idEp'] ?>">
                     <input type="hidden" name="id_user" value="<?=  $_COOKIE['id_user'] ?>">
                   </form>
-                </h3>
               </div>
 
               <div class="tab-pane" id="1b" style="height:100%;">

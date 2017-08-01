@@ -9,6 +9,8 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
@@ -30,10 +32,28 @@
         <th>Machine</th>
         <th>Date</th>
         <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="STL Cycles">STL</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
+        <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
+        <th><acronym title="suite">E RT</acronym></th>
+        <th><acronym title="suite">E 1th</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&sigma; max</acronym></th>
+        <th><acronym title="suite">&sigma; min</acronym></th>
+        <th><acronym title="suite">Cy half life</acronym></th>
+        <th><acronym title="suite">E</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon;</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; e</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; p</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; pm</acronym></th>
+        <th><acronym title="suite">Ni</acronym></th>
+        <th><acronym title="suite">NF 75%</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </thead>
@@ -42,14 +62,16 @@
       <tr>
         <th>id</th>
         <th><acronym title="Availability">A</acronym></th>
-        <th>Prefixe</th>
+        <th class="prefixe">Prefixe</th>
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
-        <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
-        <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
+        <th><acronym title="Lab Max">Max (<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?>)</acronym></th>
+        <th><acronym title="Lab Min">Min (<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?>)</acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
@@ -67,10 +89,33 @@
         <th>Machine</th>
         <th>Date</th>
         <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="STL Cycles">STL</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>
-        <th><acronym title="Rupture">Rupt</acronym></th>
-        <th><acronym title="Fracture">Fract.</acronym></th>
+        <th>Rupture</th>
+        <th>Fracture</th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
+
+
+        <th><acronym title="suite">Dilatation</acronym></th>
+        <th><acronym title="suite">E RT</acronym></th>
+
+        <th><acronym title="suite">E 1th</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&sigma; max</acronym></th>
+        <th><acronym title="suite">&sigma; min</acronym></th>
+
+        <th><acronym title="suite">Cy half life</acronym></th>
+        <th><acronym title="suite">E</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon;</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; e</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; p</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; pm</acronym></th>
+
+        <th><acronym title="suite">Ni</acronym></th>
+        <th><acronym title="suite">NF 75%</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </tfoot>
@@ -79,11 +124,13 @@
       <?php for($k=0;$k < count($ep);$k++): ?>
         <tr>
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
-          <td class="dispo-<?= $ep[$k]['dispo'] ?> open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" ><?= $ep[$k]['dispo'] ?></td>
+          <td class="dispo open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td><?= $ep[$k]['c_temp'] ?></td>
           <td><?= $ep[$k]['c_frequence'] ?></td>
+          <td><?= $ep[$k]['c_cycle_STL'] ?></td>
+          <td><?= $ep[$k]['c_frequence_STL'] ?></td>
           <td><?= $ep[$k]['c_type_1_val'] ?></td>
           <td><?= $ep[$k]['c_type_2_val'] ?></td>
           <td><?= $ep[$k]['max'] ?></td>
@@ -132,10 +179,35 @@
           <td><?= $ep[$k]['machine'] ?></td>
           <td><?= $ep[$k]['date'] ?></td>
           <td><?= $ep[$k]['waveform'] ?></td>
+          <td><?= $ep[$k]['Cycle_STL'] ?></td>
           <td><?= $ep[$k]['Cycle_final'] ?></td>
           <td><?= $ep[$k]['Rupture'] ?></td>
           <td><?= $ep[$k]['Fracture'] ?></td>
           <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>
+
+          <td><?= $ep[$k]['dilatation'] ?></td>
+
+          <td><?= $ep[$k]['E_RT'] ?></td>
+
+          <td><?= $ep[$k]['c1_E_montant'] ?></td>
+          <td><?= $ep[$k]['c1_max_strain'] ?></td>
+          <td><?= $ep[$k]['c1_min_strain'] ?></td>
+          <td><?= $ep[$k]['c1_max_stress'] ?></td>
+          <td><?= $ep[$k]['c1_min_stress'] ?></td>
+
+          <td><?= $ep[$k]['c2_cycle'] ?></td>
+          <td><?= $ep[$k]['c2_E_montant'] ?></td>
+          <td><?= $ep[$k]['c2_max_stress'] ?></td>
+          <td><?= $ep[$k]['c2_min_stress'] ?></td>
+          <td><?= $ep[$k]['c2_delta_strain'] ?></td>
+          <td><?= $ep[$k]['c2_strain_e'] ?></td>
+          <td><?= $ep[$k]['c2_calc_inelastic_strain'] ?></td>
+          <td><?= $ep[$k]['c2_meas_inelastic_strain'] ?></td>
+
+
+          <td><?= $ep[$k]['Ni'] ?></td>
+          <td><?= $ep[$k]['Nf75'] ?></td>
+
 
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 

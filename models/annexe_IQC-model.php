@@ -172,7 +172,9 @@ class AnnexeIQCModel
 
       $reqUpdate='UPDATE eprouvettes
       SET
-      d_commentaire='.$this->observation.'
+      d_commentaire='.$this->observation.',
+      eprouvette_inOut_A = "'.date('Y-m-d H:i:s').'",
+      eprouvette_inOut_B = "'.date('Y-m-d H:i:s').'"
       WHERE id_eprouvette = '.$idIQC;
 
     //  echo $reqUpdate.'<br/><br/>';;

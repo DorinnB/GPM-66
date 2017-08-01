@@ -33,3 +33,14 @@ $( function() {
   });
 
 } );
+$( function() {
+
+  $( "#DyT_expected" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+
+} );

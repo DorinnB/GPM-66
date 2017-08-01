@@ -36,7 +36,7 @@ for($k=0;$k < count($ep);$k++)	{
 
 $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
 
-
+$cycleEstimeAVG=$oEp->getEstimatedTime();
 
 
 
@@ -64,7 +64,7 @@ $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
   elseif (isset($workflow['local']) & $workflow['local']>0) {
     $ep[$k]['dispo']='1';
   }
-  elseif ($ep[$k]['c_checked']==0) {
+  elseif ($ep[$k]['c_checked']<=0) {
     $ep[$k]['dispo']='2';
   }
   elseif ($ep[$k]['c_checked']>0) {
@@ -170,7 +170,11 @@ $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
 //  $ep[$k]['min']=(is_numeric($ep[$k]['min']) && !empty($ep[$k]['min']))?number_format($ep[$k]['min'], 3,'.', ' '):'';
   $ep[$k]['Cycle_min']=!empty($ep[$k]['Cycle_min'])?number_format($ep[$k]['Cycle_min'], 0,'.', ' '):'';
   $ep[$k]['runout']=!empty($ep[$k]['runout'])?number_format($ep[$k]['runout'], 0,'.', ' '):'';
-  $ep[$k]['cycle_estime']=!empty($ep[$k]['cycle_estime'])?number_format($ep[$k]['cycle_estime'], 0,'.', ' '):'';
+
+
+  $ep[$k]['cycle_estime']=!empty($ep[$k]['cycle_estime'])?number_format($ep[$k]['cycle_estime'], 0,'.', ' '):(!empty($cycleEstimeAVG['cycle_estime'])?'<i style="font-size : 75%;">'.number_format($cycleEstimeAVG['cycle_estime'], 0,'.', ' ').'</i>':'');
+
+
   $ep[$k]['dim1'] =!empty($ep[$k]['dim1'] )?number_format($ep[$k]['dim1'] , 3,'.', ' '):'';
   $ep[$k]['dim2'] =!empty($ep[$k]['dim2'] )?number_format($ep[$k]['dim2'] , 3,'.', ' '):'';
   $ep[$k]['dim3'] =!empty($ep[$k]['dim3'] )?number_format($ep[$k]['dim3'] , 3,'.', ' '):'';
@@ -193,7 +197,8 @@ $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
   $ep[$k]['c2_meas_inelastic_strain']=!empty($ep[$k]['c2_meas_inelastic_strain'])?number_format($ep[$k]['c2_meas_inelastic_strain'], 2,'.', ' '):'';
   $ep[$k]['Ni']=!empty($ep[$k]['Ni'])?number_format($ep[$k]['Ni'], 0,'.', ' '):'';
   $ep[$k]['Nf75']=!empty($ep[$k]['Nf75'])?number_format($ep[$k]['Nf75'], 0,'.', ' '):'';
-  $ep[$k]['tps essais']=!empty($ep[$k]['tps essais'])?number_format($ep[$k]['tps essais'], 1,'.', ' '):'';
+
+  $ep[$k]['temps_essais']=(!empty($ep[$k]['temps_essais'] AND is_numeric($ep[$k]['temps_essais'])))?number_format($ep[$k]['temps_essais'], 1,'.', ' '):$ep[$k]['temps_essais'];
 
   $ep[$k]['prefixe']=$ep[$k]['prefixe'];
   $ep[$k]['nom_eprouvette']=$ep[$k]['nom_eprouvette'];

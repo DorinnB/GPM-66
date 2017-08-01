@@ -46,4 +46,4 @@
 
 </div>
 
-<script type="text/javascript" src="js/splitEprouvetteConsigne.js"></script>
+<script type="text/javascript" src="js/splitEprouvetteConsigne_Loa.js"></script>

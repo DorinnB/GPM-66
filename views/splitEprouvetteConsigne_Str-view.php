@@ -9,6 +9,8 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
@@ -28,6 +30,8 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
@@ -46,4 +50,4 @@
 
 </div>
 
-<script type="text/javascript" src="js/splitEprouvetteConsigne.js"></script>
+<script type="text/javascript" src="js/splitEprouvetteConsigne_Str.js"></script>

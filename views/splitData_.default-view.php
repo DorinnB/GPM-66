@@ -22,15 +22,12 @@
 
 
   <p class="title">
-    <span class="name">Dy T Availlable :</span>
-    <span class="date"><?= (($split['test_leadtime']=="")?'Undefined':$split['test_leadtime']) ?></span>
+    <span class="name">Dy T expected :</span>
+    <span class="date"><?= (($split['DyT_expected']=="")?'Undefined':$split['DyT_expected']) ?></span>
   </p>
-  modif depuis split ou directement ici ?
-  recheck split ? (non)
   <p class="title">
     <span class="name">Dy T Req. :</span>
     <span class="date"><?= (($split['test_leadtime']=="")?'Undefined':$split['test_leadtime']) ?></span>
   </p>
-fixe en debut de job, sujet a check split ?
 
 </div>

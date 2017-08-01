@@ -74,3 +74,7 @@
   background-color: darkred;
   cursor: pointer;
 }
+
+.flip {
+  display:none;
+}

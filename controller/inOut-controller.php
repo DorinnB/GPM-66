@@ -30,6 +30,11 @@ for($i=0;$i < count($eprouvettes);$i++)  {
 }
 
 
+// Rendre votre modèle accessible
+include '../models/inOut-model.php';
+// Création d'une instance
+$oInOut = new INOUT($db);
+$lstInOut=$oInOut->getAllInOut($_GET['id_tbljob']);
 
 // Affichage du résultat
 include '../views/inOut-view.php';

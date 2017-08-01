@@ -19,7 +19,15 @@ table td[data-idmaster]  {
 
 td .ui-selecting { background-color: #FECA40; }
 
-
+table td.highlight  {
+background: repeating-linear-gradient(
+  -45deg,
+  #606dbc,
+  #606dbc 10px,
+  #465298 10px,
+  #465298 20px
+) !important;
+}
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #5B9BD5;

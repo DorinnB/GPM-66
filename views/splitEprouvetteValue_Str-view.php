@@ -30,6 +30,8 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
@@ -47,10 +49,28 @@
         <th>Machine</th>
         <th>Date</th>
         <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="STL Cycles">STL</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
+        <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
+        <th><acronym title="suite">E RT</acronym></th>
+        <th><acronym title="suite">E 1th</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&sigma; max</acronym></th>
+        <th><acronym title="suite">&sigma; min</acronym></th>
+        <th><acronym title="suite">Cy half life</acronym></th>
+        <th><acronym title="suite">E</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon;</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; e</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; p</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; pm</acronym></th>
+        <th><acronym title="suite">Ni</acronym></th>
+        <th><acronym title="suite">NF 75%</acronym></th>
       </tr>
     </thead>
     <tfoot>
@@ -60,6 +80,8 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
@@ -77,10 +99,28 @@
         <th>Machine</th>
         <th>Date</th>
         <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="STL Cycles">STL</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
+        <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
+        <th><acronym title="suite">E RT</acronym></th>
+        <th><acronym title="suite">E 1th</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&sigma; max</acronym></th>
+        <th><acronym title="suite">&sigma; min</acronym></th>
+        <th><acronym title="suite">Cy half life</acronym></th>
+        <th><acronym title="suite">E</acronym></th>
+        <th><acronym title="suite">&epsilon; max</acronym></th>
+        <th><acronym title="suite">&epsilon; min</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon;</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; e</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; p</acronym></th>
+        <th><acronym title="suite">&Delta;&epsilon; pm</acronym></th>
+        <th><acronym title="suite">Ni</acronym></th>
+        <th><acronym title="suite">NF 75%</acronym></th>
       </tr>
     </tfoot>
 
@@ -89,4 +129,4 @@
 
 </div>
 
-<script type="text/javascript" src="js/splitEprouvetteValue.js"></script>
+<script type="text/javascript" src="js/splitEprouvetteValue_Str.js"></script>

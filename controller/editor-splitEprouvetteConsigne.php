@@ -19,7 +19,7 @@ Editor::inst( $db, 'eprouvettes' )
 ->pkey( 'eprouvettes.id_eprouvette' )
 ->fields(
   Field::inst( 'eprouvettes.id_eprouvette'),
-  Field::inst( 'master_eprouvettes.id_master_eprouvette'),  
+  Field::inst( 'master_eprouvettes.id_master_eprouvette'),
   Field::inst( 'master_eprouvettes.prefixe'),
   Field::inst( 'master_eprouvettes.nom_eprouvette'),
   Field::inst( 'eprouvettes.n_essai'),
@@ -66,7 +66,7 @@ Editor::inst( $db, 'eprouvettes' )
     ->on( 'preEdit', function ( $editor, $values ) {
         $editor
             ->field( 'eprouvettes.c_checked' )
-            ->setValue( 0 );
+            ->setValue( -$_COOKIE['id_user'] );
     } )
 
 

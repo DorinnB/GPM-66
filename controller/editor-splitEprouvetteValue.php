@@ -19,7 +19,7 @@ Editor::inst( $db, 'eprouvettes' )
 ->pkey( 'eprouvettes.id_eprouvette' )
 ->fields(
   Field::inst( 'eprouvettes.id_eprouvette'),
-  Field::inst( 'master_eprouvettes.id_master_eprouvette'),    
+  Field::inst( 'master_eprouvettes.id_master_eprouvette'),
   Field::inst( 'master_eprouvettes.prefixe')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'master_eprouvettes.nom_eprouvette'),
   Field::inst( 'eprouvettes.c_temperature')->setFormatter( 'Format::nullEmpty' ),
@@ -66,6 +66,7 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.Ni')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.Nf75')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.d_checked')->setFormatter( 'Format::nullEmpty' ),
+    Field::inst( 'eprouvettes.currentBlock')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.d_modif' )->set( Field::SET_EDIT )
 
   )

@@ -117,9 +117,10 @@ class EprouvetteModel
 
 
 
-      //On update l'eprouvette avec ce n_essai
+      //On update l'eprouvette avec ce n_essai et la frequence
       $reqUpdate='UPDATE eprouvettes
-      SET n_essai = ('.$n_essai['nextNEssai'].')
+      SET n_essai = '.$n_essai['nextNEssai'].',
+      c_frequence = '.$this->custom_frequency.'
       WHERE id_eprouvette = '.$this->id;
 
       //echo $reqUpdate;
@@ -229,7 +230,7 @@ class EprouvetteModel
 
     public function updateRemoveCheck(){
       $reqUpdate='UPDATE `eprouvettes` SET
-      `c_checked` = 0
+      `c_checked` = -'.$_COOKIE['id_user'].'
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -251,7 +252,7 @@ class EprouvetteModel
 
     public function updateRemoveDCheck($iduser){
       $reqUpdate='UPDATE `eprouvettes` SET
-      `d_checked` = IF(check_rupture=0,'.$iduser.',0)
+      `d_checked` = -'.$_COOKIE['id_user'].'
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -394,6 +395,26 @@ class EprouvetteModel
       ind_temps_top.ind_temp as ind_temp_top,
       ind_temps_strap.ind_temp as ind_temp_strap,
       ind_temps_bot.ind_temp as ind_temp_bot,
+
+      if(temps_essais is null,
+        CONCAT("<i style=\"font-size : 75%;\">",
+            if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
+              TRUNCATE(
+
+              if(Cycle_STL is null and c_cycle_STL is null,
+                eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
+                if(Cycle_STL is null,
+                   if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
+                    (eprouvettes.Cycle_final/c_frequence)/3600)
+                  ,if(eprouvettes.Cycle_final>cycle_STL,
+                      (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
+                      (eprouvettes.Cycle_final/c_frequence)/3600)
+
+                )),1),
+            ""),
+          "</i>"),
+        temps_essais
+      ) as temps_essais,
 
       (SELECT count(*) FROM eprouvettes eps WHERE eps.id_eprouvette<='.$this->id.' AND eps.id_master_eprouvette=eprouvettes.id_master_eprouvette and eps.id_job=eprouvettes.id_job and eps.eprouvette_actif=1) AS retest
 
@@ -585,9 +606,21 @@ class EprouvetteModel
         }
       }
 
-
     }
 
+
+    public function getEstimatedTime(){
+      $req='SELECT AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)) AS cycle_estime, c_type_1_val, c_type_2_val
+        FROM eprouvettes
+        WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+        AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+        AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+          AND cycle_final IS NOT NULL
+        GROUP by id_job, c_type_1_val, c_type_2_val';
+
+        //echo $req.'<br/><br/>';
+        return $this->db->getOne($req);
+    }
 
     public function getWorkflow(){
       $reqUpdate='SELECT GROUP_CONCAT(
@@ -608,9 +641,6 @@ class EprouvetteModel
         //echo $reqUpdate.'<br/>';
 
         return $this->db->getOne($reqUpdate);
-
-
-
       }
 
     }

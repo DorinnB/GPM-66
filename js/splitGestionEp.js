@@ -20,9 +20,19 @@ $(document).ready(function(){
     }
   });
 
-  $('#newTestForm > div > select').change(function() {
+  $('#id_prestart').change(function() {
+    if ($('#id_prestart').find(':selected').attr('data-customFrequency')==1) {
+      document.getElementById("customFreq").style.display = "block";
+    }
+    else {
+      document.getElementById("customFreq").style.display = "none";
+    }
+  }).change();
+
+
+  $('#newTestForm >  select').change(function() {
     var empty = false;
-    $('#newTestForm > div > select').each(function() {
+    $('#newTestForm >  select').each(function() {
       if ($(this).val() == '0') {
         empty = true;
       }

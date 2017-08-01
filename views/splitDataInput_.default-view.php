@@ -10,6 +10,10 @@
 
 
 
+    <div class="form-group">
+      <label for="DyT_expected">DyT_expected :</label>
+      <input type="text" class="form-control" name="DyT_expected" id="DyT_expected" value="<?= $split['DyT_expected'] ?>">
+    </div>
 
     <div class="form-group">
       <label for="Dy T">Dy T :</label>

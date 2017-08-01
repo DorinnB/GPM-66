@@ -57,30 +57,18 @@
           <td><?= $line['prefixe'] ?></td>
           <td><?= $line['nom_eprouvette'] ?></td>
           <td><?= $line['dessin'] ?></td>
-          <td class="selectable" data-idMaster="<?=  $line['id_master_eprouvette'] ?>" data-IO="master_eprouvette_inOut_A"><?= $line['master_eprouvette_inOut_A'] ?></td>
+          <td class="selectable" data-idMaster="<?=  $line['id_master_eprouvette'] ?>" data-IO="master_eprouvette_inOut_A" data-oldValue="<?= $line['master_eprouvette_inOut_A']   ?>"><?= $line['master_eprouvette_inOut_A'] ?></td>
 
           <?php  foreach ($splits as $splitInOut): ?>
             <?php if (isset($line[$splitInOut['id_tbljob']])) : ?>
               <?php if (substr( $splitInOut['test_type_abbr'], 0, 1 ) === ".") :  ?>
-                <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_A">
-                  <?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A'] ?>
-                </td>
-                <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>">
-                  <?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>
-                </td>
-                <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_B">
-                  <?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?>
-                </td>
+                <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_A"  data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A'] ?></td>
+                <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>
+                <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_B" data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?></td>
               <?php else: ?>
-                <td>
-                  <?= $epA[$line[$splitInOut['id_tbljob']]]['enregistrementessais_date'] ?>
-                </td>
-                <td class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>">
-                  <?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>
-                </td>
-                <td>
-                  <?= ($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']>0)?date('Y-m-d',($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']-25569)*86400):""   ?>
-                </td>
+                <td><?= $epA[$line[$splitInOut['id_tbljob']]]['enregistrementessais_date'] ?></td>
+                <td class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>
+                <td><?= ($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']>0)?date('Y-m-d',($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']-25569)*86400):""   ?></td>
               <?php endif ?>
             <?php else: ?>
               <td class="noInOut"></td>
@@ -89,7 +77,7 @@
             <?php endif ?>
           <?php  endforeach  ?>
 
-          <td  class="selectable" data-idMaster="<?=  $line['id_master_eprouvette'] ?>" data-IO="master_eprouvette_inOut_B"><?= $line['master_eprouvette_inOut_B'] ?></td>
+          <td  class="selectable" data-idMaster="<?=  $line['id_master_eprouvette'] ?>" data-IO="master_eprouvette_inOut_B" data-oldValue="<?= $line['master_eprouvette_inOut_B']   ?>"><?= $line['master_eprouvette_inOut_B'] ?></td>
 
         </tr>
       <?php endforeach ?>
