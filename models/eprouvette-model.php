@@ -616,7 +616,7 @@ class EprouvetteModel
         WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
         AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
         AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-          AND cycle_final IS NOT NULL
+          AND cycle_final IS NOT NULL AND d_checked > 0
         GROUP by id_job, c_type_1_val, c_type_2_val';
 
         //echo $req.'<br/><br/>';
