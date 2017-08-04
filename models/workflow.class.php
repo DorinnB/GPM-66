@@ -33,7 +33,7 @@ public function __construct($db,$id)
 
     public function getAllSplit() {
 
-    $req = 'SELECT id_tbljob, test_type, test_type_abbr, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep
+    $req = 'SELECT id_tbljob, test_type, test_type_abbr, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire
 
         FROM tbljobs
         LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob

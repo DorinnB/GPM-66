@@ -51,7 +51,7 @@
       <?php for($k=0;$k < count($ep);$k++): ?>
         <tr>
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
-          <td class="dispo-<?= $ep[$k]['dispo'] ?> selectable"><?= $ep[$k]['dispo'] ?></td>
+          <td class="dispo selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?></td>
           <?php for($i=1;$i <= count($dimDenomination);$i++): ?>

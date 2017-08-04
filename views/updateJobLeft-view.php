@@ -109,6 +109,13 @@
           </select>
         </div>
       </div>
+
+      <div class="bs-example available_expected" data-example-id="basic-forms">
+        <div class="form-group">
+          <input type="text" class="form-control" id="available_expected" name="available_expected" value="<?= $job['available_expected'] ?>">
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="row">

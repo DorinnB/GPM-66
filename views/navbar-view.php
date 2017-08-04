@@ -23,9 +23,20 @@
 			<li><a href="index.php?page=subC"><acronym title="SubC View">SubC</acronym></a></li>
 			<li><a href="#">Finan</a></li>
 			<li><a href="#">Cust.</a></li>
-			<li><a href="index.php?page=IT"><acronym title="IT Managment">IT</acronym></a></li>			
+			<li><a href="index.php?page=IT"><acronym title="IT Managment">IT</acronym></a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<form class="navbar-form" role="search">
+					<div class="input-group">
+						<input type="hidden" class="form-control"name="page" value="searchInfo">
+						<input type="text" class="form-control" placeholder="Search Info" name="searchInfo">
+						<div class="input-group-btn">
+							<button class="glyphicon glyphicon-search btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+			</li>
 			<!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
 
 			<li><a href="#" id="login"><span class="glyphicon glyphicon-log-in"></span> <span id="user">Login</span></a><div id="iduser" style="display:none;"><?= (isset($_COOKIE['id_user'])?$_COOKIE['id_user'].'<script>iduser='.$_COOKIE['id_user'].';</script>':0)	?></div></li>

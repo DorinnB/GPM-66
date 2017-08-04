@@ -65,7 +65,8 @@ class AnnexeIQCModel
     nominal_2, tolerance_plus_2, tolerance_moins_2,
     nominal_3, tolerance_plus_3, tolerance_moins_3,
     c_checked, d_checked, flag_qualite, type,
-    c_commentaire, d_commentaire, q_commentaire, date_IQC, id_tech, technicien
+    c_commentaire, d_commentaire, q_commentaire, date_IQC, id_tech, technicien,
+    master_eprouvette_inOut_A
     FROM eprouvettes
     LEFT JOIN annexe_IQC ON annexe_IQC.id_annexe_iqc=eprouvettes.id_eprouvette
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
@@ -124,7 +125,20 @@ class AnnexeIQCModel
     $result = $this->db->query($reqUpdate);
 
     if ($result) {
-      $reqUpdate='UPDATE annexe_IQC SET
+      $reqUpdate='UPDATE annexe_IQC
+      LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=annexe_IQC.id_annexe_iqc
+      SET
+      date_IQC='.date('Y-m-d H:i:s').',
+      eprouvette_inOut_A = "'.date('Y-m-d H:i:s').'",
+      eprouvette_inOut_B = "'.date('Y-m-d H:i:s').'",
+      id_tech = '.$this->id_tech.'
+      WHERE id_annexe_iqc = '.$idIQC;
+
+  //    echo $reqUpdate.'<br/><br/>';;
+
+      $result = $this->db->query($reqUpdate);
+
+      $reqUpdate='UPDATE eprouvettes SET
       date_IQC="'.date('Y-m-d H:i:s').'",
       id_tech = '.$this->id_tech.'
       WHERE id_annexe_iqc = '.$idIQC;

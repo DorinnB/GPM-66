@@ -24,6 +24,7 @@ class INOUT
   public function getAllInOut($id){
     $req='SELECT * from inOut_ep
     WHERE id_info_job = (SELECT id_info_job FROM tbljobs WHERE id_tbljob = '.$id.')
+      AND inOut_actif = 1
     ORDER BY InOut_date DESC, id_inOut DESC
     ';
     //echo $req;
@@ -60,12 +61,23 @@ class INOUT
   }
 
   public function updateinOutEp($type, $id, $date){
-    $reqUpdate='UPDATE eprouvettes
-    SET '.$type.' = '.$date.',
-    d_checked = '.(($type=='eprouvette_inOut_B' AND $date!="NULL")?'1':'0').'
-    WHERE id_eprouvette = '.$id;
+    if ($type=='eprouvette_inOut_A') {
+      $reqUpdate='UPDATE eprouvettes
+      SET '.$type.' = '.$date.'
+      WHERE id_eprouvette = '.$id;
+    }
+    elseif ($type=='eprouvette_inOut_B') {
+      $reqUpdate='UPDATE eprouvettes
+      SET '.$type.' = '.$date.',
+      d_checked = '.(($date!="NULL")?'1':'0').'
+      WHERE id_eprouvette = '.$id;
+    }
+    else {
+      $reqUpdate = 'erreur de type de modif !';
+    }
+
   //echo $reqUpdate;
-        $result = $this->db->execute($reqUpdate);
+    $result = $this->db->execute($reqUpdate);
   }
 
 
@@ -101,10 +113,12 @@ class INOUT
       FROM tbljobs
       LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
       LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+      LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
       WHERE ABS(DATEDIFF(DyT_expected, NOW())) < 7
         AND info_job_actif=1
         AND tbljob_actif=1
         AND ST = 1
+        AND etape < 90
       ORDER BY job DESC
     ';
     return $this->db->getAll($req);

@@ -70,6 +70,7 @@ $(document).ready(function() {
       {       label: 'c2_meas_inelastic_strain',       name: 'eprouvettes.c2_meas_inelastic_strain'     },
       {       label: 'Ni',       name: 'eprouvettes.Ni'     },
       {       label: 'Nf75',       name: 'eprouvettes.Nf75'     },
+      {       label: 'CurrentBlock',       name: 'eprouvettes.currentBlock'     },      
       {       label:     "Check Value:",
                   name:      "eprouvettes.d_checked",
                   type:      "checkbox",

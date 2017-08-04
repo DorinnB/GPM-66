@@ -256,3 +256,16 @@ $(document).ready(function() {
 $("#table_id >tbody > tr").click(function(e) {
   window.location = "index.php?page=updateJob&id_tbljob=" + $(this).data("id_tbljob");
 });
+
+
+$( function() {
+
+  $( "#available_expected" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+
+} );

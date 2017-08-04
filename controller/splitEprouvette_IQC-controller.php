@@ -21,7 +21,8 @@ $ep=$oEp->getAllIQC($split['id_tbljob']);
 
 //declaration des variables calculées
 for($k=0;$k < count($ep);$k++)	{
-
+  $oEp = new EprouvetteModel($db,$ep[$k]['id_eprouvette']);
+  $workflow=$oEp->getWorkflow();
 
 
 
@@ -34,20 +35,22 @@ for($k=0;$k < count($ep);$k++)	{
 
 
 
-  //disponibilite eprouvette
-  if ($ep[$k]['c_checked']>0)  {
-    if ($ep[$k]['dim1']>0) {
-      $ep[$k]['dispo']=2;
-    }
-    else {
-      $ep[$k]['dispo']=0;
-    }
-  }
-  else {
-    $ep[$k]['dispo']=1;
-  }
 
 
+$ep[$k]['dispo']='0';
+    //disponibilite eprouvette
+    if ($ep[$k]['d_checked']>0) {
+      $ep[$k]['dispo']='6';
+    }
+    elseif (isset($workflow['ST']) & $workflow['ST']>0) {
+      $ep[$k]['dispo']='0';
+    }
+    elseif (isset($workflow['local']) & $workflow['local']>0) {
+      $ep[$k]['dispo']='1';
+    }
+    elseif (isset($ep[$k]['master_eprouvette_inOut_A']) & $ep[$k]['master_eprouvette_inOut_A']>0) {
+      $ep[$k]['dispo']='3';
+    }
 
 
 

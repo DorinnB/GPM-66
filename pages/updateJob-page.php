@@ -1,4 +1,5 @@
 <script type="text/javascript" src="jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<link href="jquery/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
 <link href="css/updateJob.css" rel="stylesheet">
 <?php
 include('controller/updateJob-controller.php');

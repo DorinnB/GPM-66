@@ -91,3 +91,6 @@ padding: 6px 12px;
 .customer:before  {
   content: "customer";
 }
+.available_expected:before  {
+  content: "AVAILABLE EXPECTED";
+}

@@ -88,19 +88,7 @@ private $id;
                           )),
                       "")
                            ,temps_essais)-24,
-                          if(temps_essais is null,
-                      if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
-                        if(Cycle_STL is null and c_cycle_STL is null,
-                          eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
-                          if(Cycle_STL is null,
-                             if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
-                              (eprouvettes.Cycle_final/c_frequence)/3600)
-                            ,if(eprouvettes.Cycle_final>cycle_STL,
-                                (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
-                                (eprouvettes.Cycle_final/c_frequence)/3600)
-                          )),
-                      "")
-                           ,temps_essais))) as tpssupcalc
+                          0)) as tpssupcalc
 
 				FROM tbljobs
 				LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai

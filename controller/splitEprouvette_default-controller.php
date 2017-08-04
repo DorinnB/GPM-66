@@ -70,6 +70,9 @@ $cycleEstimeAVG=$oEp->getEstimatedTime();
   elseif ($ep[$k]['c_checked']>0) {
     $ep[$k]['dispo']='3';
   }
+  elseif (isset($ep[$k]['master_eprouvette_inOut_A']) & $ep[$k]['master_eprouvette_inOut_A']>0) {
+    $ep[$k]['dispo']='3';
+  }
 
 /*
   if ($ep[$k]['c_checked']>0)  {

@@ -395,6 +395,7 @@ class EprouvetteModel
       ind_temps_top.ind_temp as ind_temp_top,
       ind_temps_strap.ind_temp as ind_temp_strap,
       ind_temps_bot.ind_temp as ind_temp_bot,
+      master_eprouvette_inOut_A,
 
       if(temps_essais is null,
         CONCAT("<i style=\"font-size : 75%;\">",

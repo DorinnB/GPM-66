@@ -36,7 +36,8 @@ private $id;
           id_contact2, id_contact3, id_contact4,
           ref_matiere, id_matiere_std, matiere,
           po_number, devis, info_jobs.pricing,
-          instruction, commentaire, info_job_actif
+          instruction, commentaire, info_job_actif,
+          available_expected
 
 				FROM info_jobs
 				LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
@@ -71,6 +72,7 @@ private $id;
         `devis` = '.$this->devis.',
         `instruction` = '.$this->instruction.',
         `commentaire` = '.$this->commentaire.',
+        `available_expected` = '.$this->available_expected.',
         `info_job_actif` = '.$this->info_job_actif.'
        WHERE id_info_job = '.$this->getInfoJob()['id_info_job'].';';
 //echo $reqUpdate;

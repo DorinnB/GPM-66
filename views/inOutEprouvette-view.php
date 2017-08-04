@@ -61,10 +61,14 @@
 
           <?php  foreach ($splits as $splitInOut): ?>
             <?php if (isset($line[$splitInOut['id_tbljob']])) : ?>
-              <?php if (substr( $splitInOut['test_type_abbr'], 0, 1 ) === ".") :  ?>
+              <?php if ($splitInOut['ST'] == 1) :  ?>
                 <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_A"  data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A'] ?></td>
                 <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>
                 <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_B" data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?></td>
+              <?php elseif ($splitInOut['auxilaire'] == 1) :  ?>
+                  <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_A"  data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A'] ?></td>
+                  <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>
+                  <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_B" data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?></td>
               <?php else: ?>
                 <td><?= $epA[$line[$splitInOut['id_tbljob']]]['enregistrementessais_date'] ?></td>
                 <td class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>

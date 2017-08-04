@@ -47,7 +47,7 @@ $(document).ready(function(){
     } else {
       $('#submit_newTest').removeAttr('disabled');
     }
-  });
+  }).change();
 });
 
 

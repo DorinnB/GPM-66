@@ -61,8 +61,10 @@ class LstJobsModel
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest, CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
 					IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
 
-
-          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available
+          IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
+            available_expected,
+            (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
+            ) AS available
 
 
 				FROM eprouvettes
@@ -85,5 +87,102 @@ class LstJobsModel
         return $this->db->getAll($req);
     }
 
+    public function searchJob($searchInfo="") {
+		$req = 'SELECT id_tbljob,
+					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					job, split, test_type_abbr,
+          po_number, instruction
+				FROM eprouvettes
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+          LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				WHERE tbljob_actif=1 AND eprouvette_actif=1 AND info_job_actif=1
+        AND job LIKE '.$this->db->quote('%'.$searchInfo.'%').'
+        GROUP BY tbljobs.id_tbljob
+				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+        ';
+        return $this->db->getAll($req);
+    }
 
+    public function searchPO($searchInfo="") {
+		$req = 'SELECT id_tbljob,
+					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					job, split, test_type_abbr,
+          po_number, instruction
+				FROM eprouvettes
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+          LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				WHERE tbljob_actif=1 AND eprouvette_actif=1
+        AND po_number LIKE '.$this->db->quote('%'.$searchInfo.'%').'
+        GROUP BY tbljobs.id_tbljob
+				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+        ';
+        return $this->db->getAll($req);
+    }
+
+    public function searchInst($searchInfo="") {
+		$req = 'SELECT id_tbljob,
+					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					job, split, test_type_abbr,
+          po_number, instruction
+				FROM eprouvettes
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+          LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				WHERE tbljob_actif=1 AND eprouvette_actif=1
+        AND instruction LIKE '.$this->db->quote('%'.$searchInfo.'%').'
+        GROUP BY tbljobs.id_tbljob
+				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+        ';
+        return $this->db->getAll($req);
+    }
+
+    public function searchEp($searchInfo="") {
+
+      $req = 'SELECT eprouvettes.id_eprouvette,
+      master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette,
+      n_essai, n_fichier, id_tbljob,
+      info_jobs.job, info_jobs.customer, split, test_type, eprouvettes.id_master_eprouvette, id_job,
+      po_number, instruction,test_type_abbr
+
+      FROM eprouvettes
+      LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+      LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+
+      WHERE master_eprouvettes.nom_eprouvette LIKE '.$this->db->quote('%'.$searchInfo.'%').'
+       AND tbljob_actif=1 AND eprouvette_actif=1 AND info_job_actif=1';
+      //echo $req;
+      return $this->db->getALL($req);
+    }
+
+    public function searchPrefixe($searchInfo="") {
+
+      $req = 'SELECT eprouvettes.id_eprouvette,
+      master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette,
+      n_essai, n_fichier, id_tbljob,
+      info_jobs.job, info_jobs.customer, split, test_type, eprouvettes.id_master_eprouvette, id_job,
+      po_number, instruction,test_type_abbr
+
+      FROM eprouvettes
+      LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+      LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+
+      WHERE master_eprouvettes.prefixe LIKE '.$this->db->quote('%'.$searchInfo.'%').'
+       AND tbljob_actif=1 AND eprouvette_actif=1 AND info_job_actif=1';
+      //echo $req;
+      return $this->db->getALL($req);
+    }
 }
