@@ -34,22 +34,41 @@ class LstJobsModel
 
       if ($filtreFollowup=='ALL') {
         $reqfiltre='AND etape <90';
+        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
+        IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
+          available_expected,
+          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
+          ) AS available';
+        $limit='LIMIT 1000';
       }
       elseif ($filtreFollowup=='SubC') {
         $reqfiltre='AND test_type_abbr like ".%" AND etape <90';
+        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
+        IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
+          available_expected,
+          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
+          ) AS available';
+        $limit='LIMIT 1000';
       }
-      elseif ($filtreFollowup=='SuNoTimebC') {
+      elseif ($filtreFollowup=='ALLNoTime') {
         $reqfiltre='';
+        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay, "" as available';
+        $limit='';
       }
       else {
         $reqfiltre='AND final=1 AND etape <90';
+        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
+        IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
+          available_expected,
+          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
+          ) AS available';
+        $limit='LIMIT 1000';
       }
 
 
 
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color,
-
           statut, max(entreprise_abbr) as entreprise_abbr, max(entreprise) as entreprise,
           po_number, instruction,
           customer, job, split,
@@ -58,14 +77,9 @@ class LstJobsModel
           GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
           DyT_expected, test_leadtime,
-					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest, CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
-					IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
-
-          IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
-            available_expected,
-            (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
-            ) AS available
-
+					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest,
+          CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent
+          '.$DyT.'
 
 				FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
@@ -78,12 +92,11 @@ class LstJobsModel
           LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
           LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
 
-
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         '.$reqfiltre.'
         GROUP BY tbljobs.id_tbljob
 				ORDER BY id_statut ASC, job DESC, split ASC
-        LIMIT 1000';
+        '.$limit;
         return $this->db->getAll($req);
     }
 
