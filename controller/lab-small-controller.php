@@ -16,10 +16,10 @@ foreach ($test as $value) {
   $poste[$value['poste']]=$value;
 
 
-
   //initialisation couleur
-  $poste[$value['poste']]['background-color']='#536E94';
+  $poste[$value['poste']]['background-color']='Yellow';
   $poste[$value['poste']]['color']='white';
+
 
   //recuperation des couleurs des blocs
   if ($value['currentBlock']=='Menu') {
@@ -60,7 +60,7 @@ foreach ($test as $value) {
     $runStop[]="RUN";
   }
   elseif ($value['currentBlock']=='Not') {
-    $poste[$value['poste']]['background-color']='brown';
+    $poste[$value['poste']]['background-color']='#108800';
     $runStop[]="RUN";
   }
   elseif ($value['currentBlock']=='STL') {
@@ -82,6 +82,14 @@ foreach ($test as $value) {
   elseif($value['currentBlock']=='Send' OR $value['currentBlock']=='send') {
     $poste[$value['poste']]['background-color']='dimgray';
     $runStop[]="STOP";
+  }
+  elseif($value['currentBlock']=='Analysis') {
+    $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
+  }
+  elseif($value['currentBlock']=='') {
+    $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
   }
 
 }
