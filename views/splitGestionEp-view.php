@@ -106,8 +106,8 @@
                   <p>Test:  <?= $eprouvette ['n_essai'] ?></p>
                   <?php if ($eprouvette['c_checked']==0 OR $eprouvette['checked']==0) :  ?>
                     <p style="color:red; padding-top:10px;">
-                      <?= ($eprouvette['c_checked']==0)?'Consigne Unchecked !':'' ?>
-                      <?= ($eprouvette['checked']==0)?'<br/>Job Unchecked !':'' ?>
+                      <?= ($eprouvette['c_checked']<=0)?'Consigne Unchecked !':'' ?>
+                      <?= ($eprouvette['checked']<=0)?'<br/>Job Unchecked !':'' ?>
                     </p>
                   <?php endif  ?>
                 </h3>
