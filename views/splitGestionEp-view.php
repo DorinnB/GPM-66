@@ -104,7 +104,7 @@
                 <h3>
                   <p>File:  <?= $eprouvette ['n_fichier'] ?></p>
                   <p>Test:  <?= $eprouvette ['n_essai'] ?></p>
-                  <?php if ($eprouvette['c_checked']==0 OR $eprouvette['checked']==0) :  ?>
+                  <?php if ($eprouvette['c_checked']<=0 OR $eprouvette['checked']<=0) :  ?>
                     <p style="color:red; padding-top:10px;">
                       <?= ($eprouvette['c_checked']<=0)?'Consigne Unchecked !':'' ?>
                       <?= ($eprouvette['checked']<=0)?'<br/>Job Unchecked !':'' ?>
