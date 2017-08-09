@@ -150,7 +150,15 @@ var table = $('#table_ep').DataTable( {
           "visible": false,
           "searchable": false
       }
-  ],  
+  ],
+  autoFill: {
+    columns: [11,12,13,14,15,16],
+    editor:  editor
+  },
+  keys: {
+    columns: [3, 4, 5, 10,11,12,13,14,15],
+    editor:  editor
+  },
   select: {
     style:    'os',
     selector: 'td',

@@ -41,6 +41,7 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
+        <th><acronym title="suite">marquage</acronym></th>
         <th><acronym title="suite">surface</acronym></th>
         <th><acronym title="suite">grenaillage</acronym></th>
         <th><acronym title="suite">revetement</acronym></th>

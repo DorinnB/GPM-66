@@ -11,6 +11,7 @@
           <th><?= $dimTexte  ?></th>
         <?php  endforeach  ?>
         <th><acronym title="Order Comment">Com.</acronym></th>
+        <th><acronym title="Quality Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
@@ -34,6 +35,7 @@
           <th><?= $dimTexte  ?></th>
         <?php  endforeach  ?>
         <th><acronym title="Order Comment">Com.</acronym></th>
+        <th><acronym title="Quality Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
@@ -67,6 +69,7 @@
               </div>
             <?php endif ?>
           </td>
+          <td class="checkEp selectable" data-checked="<?= max(0,$ep[$k]['c_checked']) ?>" data-idepchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['c_checked'] ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['d_commentaire']=="")?"":substr($ep[$k]['d_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['d_commentaire'] !=""):  ?>
               <div class="head hide">Lab Observation</div>
