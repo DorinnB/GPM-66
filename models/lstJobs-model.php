@@ -198,4 +198,25 @@ class LstJobsModel
       //echo $req;
       return $this->db->getALL($req);
     }
+
+    public function searchFile($searchInfo="") {
+
+      $req = 'SELECT eprouvettes.id_eprouvette,
+      master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette,
+      n_essai, n_fichier, id_tbljob,
+      info_jobs.job, info_jobs.customer, split, test_type, eprouvettes.id_master_eprouvette, id_job,
+      po_number, instruction,test_type_abbr
+
+      FROM eprouvettes
+      LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+      LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+
+      WHERE n_fichier = '.$this->db->quote($searchInfo).'
+       AND tbljob_actif=1 AND eprouvette_actif=1 AND info_job_actif=1';
+      //echo $req;
+      return $this->db->getALL($req);
+    }
 }

@@ -12,4 +12,5 @@ $searchPO=$oJobs->searchPO($_GET['searchInfo']);
 $searchInst=$oJobs->searchInst($_GET['searchInfo']);
 $searchEprouvettes=$oJobs->searchEp($_GET['searchInfo']);
 $searchPrefixe=$oJobs->searchPrefixe($_GET['searchInfo']);
+$searchFile=$oJobs->searchFile($_GET['searchInfo']);
 ?>

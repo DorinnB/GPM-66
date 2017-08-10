@@ -76,6 +76,7 @@
 							<th><acronym title="nom_eprouvette">ID</acronym></th>
 							<th><acronym title="PO Number">PO</acronym></th>
 							<th><acronym title="Customer Instruction">Cust. Inst.</acronym></th>
+							<th><acronym title="N File">File N°</acronym></th>
 						</tr>
 					</thead>
 				<tbody style="border-top:5px solid white;">
@@ -89,6 +90,7 @@
 							<td class="titre"><?=	$value['nom_eprouvette']	?></td>
 							<td><?=	$value['po_number']	?></td>
 							<td><?=	$value['instruction']	?></td>
+							<td><?=	$value['n_fichier']	?></td>
 						</tr>
 					<?php endforeach  ?>
 				</tbody>
@@ -103,6 +105,22 @@
 							<td><?=	$value['nom_eprouvette']	?></td>
 							<td><?=	$value['po_number']	?></td>
 							<td><?=	$value['instruction']	?></td>
+							<td><?=	$value['n_fichier']	?></td>
+						</tr>
+					<?php endforeach  ?>
+				</tbody>
+				<tbody style="border-top:5px solid white;">
+					<?php foreach ($searchFile as $key => $value) : ?>
+						<tr onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+							<td><?=	$value['customer']	?></td>
+							<td><?=	$value['job']	?></td>
+							<td><?=	$value['split']	?></td>
+							<td><?=	$value['test_type_abbr']	?></td>
+							<td><?=	$value['prefixe']	?></td>
+							<td><?=	$value['nom_eprouvette']	?></td>
+							<td><?=	$value['po_number']	?></td>
+							<td><?=	$value['instruction']	?></td>
+							<td class="titre"><?=	$value['n_fichier']	?></td>
 						</tr>
 					<?php endforeach  ?>
 				</tbody>
