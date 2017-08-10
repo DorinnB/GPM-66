@@ -17,3 +17,21 @@ function updateStatut(id_tbljob, id_statut){
     }
   });
 }
+
+function findStatut(id_tbljob){
+  $.ajax({
+		type: "POST",
+		url: 'controller/findStatut-controller.php',
+		dataType: "json",
+    data: {
+      id_tbljob : id_tbljob
+    },
+    success : function(data, statut){
+      alert(data['statut']);
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR');
+    }
+  });
+}

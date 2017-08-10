@@ -222,14 +222,44 @@ echo $reqUpdate;
     }
 
     public function findStatut(){
-      $req='SELECT sum(if(master_eprouvette_inOut_A is null,0,1)) as nbInOut_A,
+      $req='SELECT
+sum(if(master_eprouvette_inOut_A is null,0,1)) as nbInOut_A,
+if(checked>0,1,0) as checked,
+count(eprouvettes.id_eprouvette) - if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbTestLeft,
+sum(if(n_fichier is not null and check_rupture <=0,1,0)) as running,
+          sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null,0,1)) as nbConsLeft,
+sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null OR master_eprouvette_inOut_A is null,0,1)) as nbConsLeftAndInOut_A,
+
+
+sum(if(master_eprouvette_inOut_A is not null AND
+  (SELECT ST FROM eprouvettes ep
+    LEFT JOIN tbljobs ON tbljobs.id_tbljob=ep.id_job
+    LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
+    WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
+      AND ep.eprouvette_inOut_B is null
+      AND ep.eprouvette_actif=1
+      ORDER BY phase asc
+      LIMIT 1)=1,1,0)) as nbSubC,
+
+
+  sum(if(master_eprouvette_inOut_A is not null AND
+    (SELECT local FROM eprouvettes ep
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=ep.id_job
+      LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
+      WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
+        AND ep.eprouvette_inOut_B is null
+        AND ep.eprouvette_actif=1
+        ORDER BY phase asc
+        LIMIT 1)=1
+    ,1,0)) as nbLocal,
+
           count(distinct master_eprouvettes.id_master_eprouvette) as nbMasterEp,
           count(master_eprouvettes.id_master_eprouvette) as nbEp,
-          sum(if(c_type_1_val is null OR c_type_2_val is null,0,1)) as npCons,
-          sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null,0,1)) as npConsLeft,
+          count(eprouvettes.id_eprouvette) as nbTestPlanned,
+
+          sum(if(c_type_1_val is null OR c_type_2_val is null,0,1)) as nbCons,
           if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
-          sum(if(d_checked>0,1,0)) as nbDChecked,
-          sum(if(n_fichier is not null and check_rupture <=0,1,0)) as running
+          sum(if(d_checked>0,0,1)) as nbUnDChecked
 
         FROM eprouvettes
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
@@ -243,8 +273,8 @@ echo $reqUpdate;
         GROUP BY tbljobs.id_tbljob
         ';
 
-//echo $reqUpdate;
-      $this->db->query($reqUpdate);
+//echo $req;
+      return $this->db->getOne($req);
 
     }
 

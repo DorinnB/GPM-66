@@ -9,6 +9,7 @@
       	<li  style="background-color : <?= $row['statut_color'] ?>" onclick="<?php if (isset($_COOKIE['id_user'])): ?>updateStatut('<?= $split['id_tbljob'] ?>', '<?= $row['id_statut'] ?>');<?php else: ?>alert('Please Login then refresh the browser');<?php endif; ?>"><a href="#"><?= $row['statut'] ?></a></li>
       <?php endforeach ?>
     </ul>
+     <span class="glyphicon glyphicon-education" id="findStatut" onclick="findStatut('<?= $split['id_tbljob'] ?>')"></span>
   </div>
   <div class="btn-group btnstatut" role="group" aria-label="..." style="width:100%;">
     <button type="button" class="btn btn-default" style="width:30%;" onclick="<?php if (isset($_COOKIE['id_user'])): ?>goto('split','id_tbljob','<?= $split['id_tbljob'] ?>','dataInput');<?php else: ?>alert('Please Login then refresh the browser');<?php endif; ?>">Split</button>
