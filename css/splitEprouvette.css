@@ -123,7 +123,8 @@ div.DTE_Bubble_Liner [class*="col-"], div.DTE [class*="col-"] {
 }
 div.DTE .form-control {
   border-radius: 4px;
-    color:red  !important;
+    color:yellow  !important;
+    font-weight:bold;
 }
 
 .splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
