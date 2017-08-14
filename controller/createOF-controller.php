@@ -670,8 +670,58 @@ ElseIf ($split['test_type_abbr']=="PssssssS")	{
 
 
 }
+ElseIf ($split['test_type_abbr']==".Res")	{
+
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OF_.Res.xlsx");
+
+      $page=$objPHPExcel->getSheetByName('Res Stress Req');
+
+      $val2Xls = array(
+
+        'D3' => $jobcomplet,
+        'D5'=> $split['po_number'],
+        'D5'=> $split['po_number'],
+        'D6'=> $split['DyT requested'],
+        'A9'=> $split['commentaire'],
+        'G3'=> $split['material'],
+        'G4'=> $split['dessin'],
+        'A12'=> $split['specification']
+      );
+
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $page->setCellValue($key, $value);
+      }
+
+
+      $row = 16; // 1-based index
+      $col = 0;
+
+      foreach ($ep as $key => $value) {
+        //copy des styles des colonnes
+        for ($row = 6; $row <= 47; $row++) {
+          $style = $page->getStyleByColumnAndRow(3, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+          $page->duplicateStyle($style, $dstCell);
+        }
+
+
+        $page->setCellValueByColumnAndRow($col, 6, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+
+        $page->setCellValueByColumnAndRow($col, 7, $value['n_essai']);
+
+        $col++;
+      }
+
+      //zone d'impression
+      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+      $page->getPageSetup()->setPrintArea('A1:'.$colString.($max_row_q+50));
+
+
+        }
+
 else {
-  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT INCONNU.xlsx");
+  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OF INCONNU.xlsx");
 }
 
 
