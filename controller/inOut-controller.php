@@ -21,6 +21,9 @@ $eprouvettes=$oWorkflow->getAllEprouvettes();
   //var_dump($eprouvettes);
 for($i=0;$i < count($eprouvettes);$i++)  {
   $epA[$eprouvettes[$i]['id_eprouvette']]=$eprouvettes[$i];
+
+$epA[$eprouvettes[$i]['id_eprouvette']]['d_checked']=max(0,$epA[$eprouvettes[$i]['id_eprouvette']]['d_checked']);
+
   //on ajoute a $ep la liste des id_tbljobs où cette ep est présente
   $ep[$eprouvettes[$i]['id_master_eprouvette']][$eprouvettes[$i]['id_tbljob']]=$eprouvettes[$i]['id_eprouvette'];
   //On ajoute les données de l'ep sur ce array
