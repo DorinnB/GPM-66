@@ -55,4 +55,5 @@ $("#tbljob-toggle").click(function(e) {
 	$("#tools-nav").hide();
 	$("#tbljob-nav").show();
 });
+
 </script>

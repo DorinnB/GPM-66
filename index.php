@@ -43,7 +43,7 @@ Require("connection.php");
 	<!--Navbar-->
 	<?php	include('controller/navbar-controller.php');	?>
 
-	<div id="wrapper">
+	<div id="wrapper" class="toggled">
 
 		<!-- Sidebar -->
 		<?php

@@ -38,6 +38,37 @@ $(document).ready(function() {
 
     document.getElementById("table_id_filter").style.display = "none";
 
+
+
+    //Selon le navigateur utilisé, on detecte le style de transition utilisé
+    function whichTransitionEvent(){
+      var t,
+          el = document.createElement("fakeelement");
+
+      var transitions = {
+        "transition"      : "transitionend",
+        "OTransition"     : "oTransitionEnd",
+        "MozTransition"   : "transitionend",
+        "WebkitTransition": "webkitTransitionEnd"
+      }
+
+      for (t in transitions){
+        if (el.style[t] !== undefined){
+          return transitions[t];
+        }
+      }
+    }
+
+    var transitionEvent = whichTransitionEvent();
+
+    //On retracte le tbl des jobs, et une fois retracté, on redessine le tableau history
+      $("#wrapper").on(transitionEvent,
+                  function(event) {
+        $('#table_id').DataTable().draw();
+      });
+
+
+
     $('#table_id tr td').each(function() {
         if ($(this).attr("color-statut") >= 100) $(this).css('background-color', 'rgb(37, 204, 134)');
         if ($(this).attr("color-statut") < 100) $(this).css('background-color', 'rgb(37, 204, 134)');
