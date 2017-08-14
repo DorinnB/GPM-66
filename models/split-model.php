@@ -41,6 +41,8 @@ private $id;
           test_leadtime, DyT_expected,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available,
           checked, comments, contacts.adresse,
+contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.lastname as lastnameST, contactST.surname as surnameST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
+
           count(distinct master_eprouvettes.id_master_eprouvette) as nbep,
           count(distinct id_eprouvette) as nbtest,
           count(n_essai) as nbtestdone,
@@ -100,6 +102,8 @@ private $id;
         LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
         LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
         LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
+LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
         LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
         LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
         LEFT JOIN consigne_types as type1 ON type1.id_consigne_type=tbljobs.c_1
@@ -144,6 +148,7 @@ private $id;
 
     public function updateData(){
       $reqUpdate='UPDATE `tbljobs` SET
+        `id_contactST` = '.$this->id_contactST.',
         `specification` = '.$this->specification.',
         `waveform` = '.$this->waveform.',
         `c_1` = '.$this->c_type_1.',
@@ -164,13 +169,14 @@ private $id;
 
     public function DyT_expected(){
       $reqUpdate='UPDATE `tbljobs` SET
-        `DyT_expected` = '.$this->DyT_expected.'
+        `DyT_expected` = '.$this->DyT_expected.',
+        `refSubC` = '.$this->refSubC.'
        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
 //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
 
       $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
-      			//echo json_encode($maReponse);
+      			echo json_encode($maReponse);
     }
 
     public function updateCommentaire(){
@@ -223,40 +229,44 @@ echo $reqUpdate;
 
     public function findStatut(){
       $req='SELECT
-sum(if(master_eprouvette_inOut_A is null,0,1)) as nbInOut_A,
-if(checked>0,1,0) as checked,
-count(eprouvettes.id_eprouvette) - if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbTestLeft,
-sum(if(n_fichier is not null and check_rupture <=0,1,0)) as running,
-          sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null,0,1)) as nbConsLeft,
-sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null OR master_eprouvette_inOut_A is null,0,1)) as nbConsLeftAndInOut_A,
-
-
-sum(if(master_eprouvette_inOut_A is not null AND
-  (SELECT ST FROM eprouvettes ep
-    LEFT JOIN tbljobs ON tbljobs.id_tbljob=ep.id_job
-    LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
-    WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
-      AND ep.eprouvette_inOut_B is null
-      AND ep.eprouvette_actif=1
-      ORDER BY phase asc
-      LIMIT 1)=1,1,0)) as nbSubC,
-
-
-  sum(if(master_eprouvette_inOut_A is not null AND
-    (SELECT local FROM eprouvettes ep
-      LEFT JOIN tbljobs ON tbljobs.id_tbljob=ep.id_job
-      LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
-      WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
-        AND ep.eprouvette_inOut_B is null
-        AND ep.eprouvette_actif=1
-        ORDER BY phase asc
-        LIMIT 1)=1
-    ,1,0)) as nbLocal,
+          sum(if(master_eprouvette_inOut_A is null,0,1)) as nbInOut_A,
+          if(checked>0,1,0) as checked,
 
           count(distinct master_eprouvettes.id_master_eprouvette) as nbMasterEp,
           count(master_eprouvettes.id_master_eprouvette) as nbEp,
           count(eprouvettes.id_eprouvette) as nbTestPlanned,
 
+          count(eprouvettes.id_eprouvette) - if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbTestLeft,
+
+          sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null,0,1)) as nbConsLeft,
+          sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null OR master_eprouvette_inOut_A is null,0,1)) as nbConsLeftAndInOut_A,
+
+          sum(if(c_checked>0 AND d_checked <=0,1,0)) as nbConsLeftAux,
+          sum(if(c_checked>0 AND d_checked <=0 AND master_eprouvette_inOut_A is not null,1,0)) as nbConsLeftAndInOut_AAux,
+
+          sum(if(master_eprouvette_inOut_A is not null AND
+            (SELECT ST FROM eprouvettes ep
+              LEFT JOIN tbljobs ON tbljobs.id_tbljob=ep.id_job
+              LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
+              WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
+                AND ep.eprouvette_inOut_B is null
+                AND ep.eprouvette_actif=1
+                ORDER BY phase asc
+                LIMIT 1)=1,1,0)) as nbSubC,
+          sum(if(master_eprouvette_inOut_A is not null AND
+              (SELECT local FROM eprouvettes ep
+                LEFT JOIN tbljobs tbljoblocal ON tbljoblocal.id_tbljob=ep.id_job
+                LEFT JOIN test_type on test_type.id_test_type=tbljoblocal.id_type_essai
+                WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
+                  AND ep.eprouvette_inOut_B is null
+                  AND ep.eprouvette_actif=1
+                  AND tbljoblocal.phase<tbljobs.phase
+                  ORDER BY tbljoblocal.phase asc
+                  LIMIT 1)=1
+              ,1,0)) as nbLocal,
+
+
+          sum(if(n_fichier is not null and check_rupture <=0,1,0)) as running,
           sum(if(c_type_1_val is null OR c_type_2_val is null,0,1)) as nbCons,
           if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
           sum(if(d_checked>0,0,1)) as nbUnDChecked
@@ -265,6 +275,7 @@ sum(if(master_eprouvette_inOut_A is not null AND
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
         LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+        LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
         LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
 
         WHERE tbljobs.id_tbljob= '. $this->id.'

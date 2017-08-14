@@ -6,7 +6,7 @@ $("#save").click(function(e) {
 
   $.ajax({
     type: "POST",
-    url: 'controller/updateDataInput.php',
+    url: 'controller/updateData.php',
     dataType: "json",
     data:  $("#updateData").serialize()
     ,
@@ -20,19 +20,21 @@ $("#save").click(function(e) {
   });
 });
 
+$("#subCRef").click(function(e) {
+  $('#refSubC').toggleClass('flip');
+  $('#refSubC_alt').toggleClass('flip');
+
+  $('#refSubC_alt').html($('#refSubC').val());
+});
+$("#DyT_expectedFlip").click(function(e) {
+  $('#DyT_expected').toggleClass('flip');
+  $('#DyT_expected_alt').toggleClass('flip');
+
+  $('#DyT_expected_alt').html($('#DyT_expected').val());
+});
 
 
-$( function() {
 
-  $( "#test_leadtime" ).datepicker({
-    showWeek: true,
-    firstDay: 1,
-    showOtherMonths: true,
-    selectOtherMonths: true,
-    dateFormat: "yy-mm-dd"
-  });
-
-} );
 $( function() {
 
   $( "#DyT_expected" ).datepicker({
