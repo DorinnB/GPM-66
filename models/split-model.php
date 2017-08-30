@@ -33,7 +33,7 @@ private $id;
           contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2,
           contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3,
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4,
-          tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite,
+          tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning,
           tbljobs.id_statut, statut, etape, statut_color, test_type_abbr,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
@@ -210,6 +210,17 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
 
       $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
       			echo json_encode($maReponse);
+    }
+
+    public function updatePlanning($planning){
+      $reqUpdate='UPDATE `tbljobs` SET
+        `planning` = '.$planning.'
+       WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+    //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+            echo json_encode($maReponse);
     }
 
     public function newSplit(){

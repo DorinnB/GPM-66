@@ -23,6 +23,28 @@ $("#check.check0").click(function(e) {
 
 });
 
+$("#planning").click(function(e) {
+  var confirmation = confirm('Update Planning Insertion?');
+  if (confirmation) {
+    $.ajax({
+      type: "POST",
+      url: 'controller/updatePlanning.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#table_ep').attr('data-idJob'),
+        id_planning : $('#planning').attr('data-planning')
+      }
+      ,
+      success : function(data, statut){
+        goto('split','id_tbljob',data['id_tbljob']);
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de l insertion au planning. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+      }
+    });
+}
+});
 
 //Un click sur le bouton InOut ouvre le split correspondant
 $("#inOutLoad").click(function() {

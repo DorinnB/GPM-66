@@ -74,7 +74,13 @@
   background-color: darkred;
   cursor: pointer;
 }
-
+#planning{
+  background-color: darkgreen;
+}
+#planning.planning0{
+  background-color: darkred;
+  cursor: pointer;
+}
 .flip {
   display:none;
 }
