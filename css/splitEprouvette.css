@@ -31,6 +31,9 @@ table td.dispo[data-dispo="6"] {
   max-width: 100%;
 }
 
+.flagMini  {
+  color:lightsalmon;
+}
 
 table td.checkEp {
   color:darkgreen;
