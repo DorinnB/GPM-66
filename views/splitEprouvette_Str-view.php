@@ -180,7 +180,7 @@
           <td><?= $ep[$k]['date'] ?></td>
           <td><?= $ep[$k]['waveform'] ?></td>
           <td><?= $ep[$k]['Cycle_STL'] ?></td>
-          <td><?= $ep[$k]['Cycle_final'] ?></td>
+          <td class="<?= (intval($ep[$k]['Cycle_final'])<intval($ep[$k]['Cycle_min']) AND intval($ep[$k]['Cycle_min'])>0)?'flagMini':'' ?>"><?= $ep[$k]['Cycle_final'] ?></td>
           <td><?= $ep[$k]['Rupture'] ?></td>
           <td><?= $ep[$k]['Fracture'] ?></td>
           <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>
