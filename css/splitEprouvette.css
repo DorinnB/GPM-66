@@ -126,10 +126,12 @@ div.DTE_Bubble_Liner [class*="col-"], div.DTE [class*="col-"] {
 }
 div.DTE .form-control {
   border-radius: 4px;
-    color:yellow  !important;
+    color:yellow;
     font-weight:bold;
 }
-
+div.DTE textarea {
+    color:darkblue !important;
+}
 .splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #536E94 !important;
 }

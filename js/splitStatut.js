@@ -18,6 +18,13 @@ function updateStatut(id_tbljob, id_statut){
   });
 }
 
+$("#end").click(function() {
+  if ($("#end").attr("data-etape")!=100) {
+    updateStatut($("#id_tbljob").val(), 200);
+    goto('split','id_tbljob',$('#id_tbljob').val());
+  }
+});
+
 function findStatut(id_tbljob){
   $.ajax({
 		type: "POST",
