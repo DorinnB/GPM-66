@@ -33,7 +33,8 @@ private $id;
           contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2,
           contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3,
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4,
-          tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning,
+          tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
+          createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
           tbljobs.id_statut, statut, etape, statut_color, test_type_abbr,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
@@ -108,6 +109,9 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
         LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
         LEFT JOIN consigne_types as type1 ON type1.id_consigne_type=tbljobs.c_1
         LEFT JOIN consigne_types as type2 ON type2.id_consigne_type=tbljobs.c_2
+        LEFT JOIN techniciens as t1 on t1.id_technicien=tbljobs.modif
+        LEFT JOIN techniciens as t2 on t2.id_technicien=tbljobs.checked
+
 
 				WHERE id_tbljob='.$this->id.'
         AND eprouvette_actif=1
