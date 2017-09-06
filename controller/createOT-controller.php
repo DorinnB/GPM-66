@@ -552,7 +552,7 @@ $objReader->setIncludeCharts(TRUE);
         'D5'=> $split['po_number'],
         'D6'=> $split['DyT_expected'],
         'A9'=> $split['tbljob_commentaire'],
-        'H4'=> $split['matiere'],
+        'H4'=> $split['ref_matiere'],
         'A14'=> $split['tbljob_instruction']
       );
 
