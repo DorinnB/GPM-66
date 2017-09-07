@@ -38,22 +38,22 @@
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
         <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
-        <th><acronym title="suite">E RT</acronym></th>
-        <th><acronym title="suite">E 1th</acronym></th>
-        <th><acronym title="suite">&epsilon; max</acronym></th>
-        <th><acronym title="suite">&epsilon; min</acronym></th>
-        <th><acronym title="suite">&sigma; max</acronym></th>
-        <th><acronym title="suite">&sigma; min</acronym></th>
-        <th><acronym title="suite">Cy half life</acronym></th>
-        <th><acronym title="suite">E</acronym></th>
-        <th><acronym title="suite">&epsilon; max</acronym></th>
-        <th><acronym title="suite">&epsilon; min</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon;</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; e</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; p</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; pm</acronym></th>
-        <th><acronym title="suite">Ni</acronym></th>
-        <th><acronym title="suite">NF 75%</acronym></th>
+        <th><acronym title="Round Temp. Modulus">E RT</acronym></th>
+        <th><acronym title="First Cycle Modulus">E 1th</acronym></th>
+        <th><acronym title="First Cycle Stress Max">&sigma; max</acronym></th>
+        <th><acronym title="First Cycle Stress Min">&sigma; min</acronym></th>
+        <th><acronym title="First Cycle Strain M">&sigma; max</acronym></th>
+        <th><acronym title="First Cycle Strain M">&sigma; min</acronym></th>
+        <th><acronym title="Half Life Cycle">Cy half life</acronym></th>
+        <th><acronym title="Half Life Cycle Modulus">E</acronym></th>
+        <th><acronym title="Half Life Cycle Stress Max">&sigma; max</acronym></th>
+        <th><acronym title="Half Life Cycle Stress Min">&sigma; min</acronym></th>
+        <th><acronym title="Half Life Cycle Delta Strain">&Delta;&epsilon;</acronym></th>
+        <th><acronym title="Half Life Cycle Elastic Strain">&Delta;&epsilon; e</acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Calculated">&Delta;&epsilon; p</acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Measured">&Delta;&epsilon; pm</acronym></th>
+        <th><acronym title="Ni">Ni</acronym></th>
+        <th><acronym title="NF 75%">NF 75%</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </thead>
@@ -62,7 +62,7 @@
       <tr>
         <th>id</th>
         <th><acronym title="Availability">A</acronym></th>
-        <th class="prefixe">Prefixe</th>
+        <th>Prefixe</th>
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
@@ -70,8 +70,8 @@
         <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
-        <th><acronym title="Lab Max">Max (<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?>)</acronym></th>
-        <th><acronym title="Lab Min">Min (<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?>)</acronym></th>
+        <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
+        <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
@@ -91,31 +91,26 @@
         <th><acronym title="Waveform">Wave.</acronym></th>
         <th><acronym title="STL Cycles">STL</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>
-        <th>Rupture</th>
-        <th>Fracture</th>
+        <th><acronym title="Rupture">Rupt</acronym></th>
+        <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
-
-
-        <th><acronym title="suite">Dilatation</acronym></th>
-        <th><acronym title="suite">E RT</acronym></th>
-
-        <th><acronym title="suite">E 1th</acronym></th>
-        <th><acronym title="suite">&epsilon; max</acronym></th>
-        <th><acronym title="suite">&epsilon; min</acronym></th>
-        <th><acronym title="suite">&sigma; max</acronym></th>
-        <th><acronym title="suite">&sigma; min</acronym></th>
-
-        <th><acronym title="suite">Cy half life</acronym></th>
-        <th><acronym title="suite">E</acronym></th>
-        <th><acronym title="suite">&epsilon; max</acronym></th>
-        <th><acronym title="suite">&epsilon; min</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon;</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; e</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; p</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; pm</acronym></th>
-
-        <th><acronym title="suite">Ni</acronym></th>
-        <th><acronym title="suite">NF 75%</acronym></th>
+        <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
+        <th><acronym title="Round Temp. Modulus">E RT</acronym></th>
+        <th><acronym title="First Cycle Modulus">E 1th</acronym></th>
+        <th><acronym title="First Cycle Stress Max">&sigma; max</acronym></th>
+        <th><acronym title="First Cycle Stress Min">&sigma; min</acronym></th>
+        <th><acronym title="First Cycle Strain M">&sigma; max</acronym></th>
+        <th><acronym title="First Cycle Strain M">&sigma; min</acronym></th>
+        <th><acronym title="Half Life Cycle">Cy half life</acronym></th>
+        <th><acronym title="Half Life Cycle Modulus">E</acronym></th>
+        <th><acronym title="Half Life Cycle Stress Max">&sigma; max</acronym></th>
+        <th><acronym title="Half Life Cycle Stress Min">&sigma; min</acronym></th>
+        <th><acronym title="Half Life Cycle Delta Strain">&Delta;&epsilon;</acronym></th>
+        <th><acronym title="Half Life Cycle Elastic Strain">&Delta;&epsilon; e</acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Calculated">&Delta;&epsilon; p</acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Measured">&Delta;&epsilon; pm</acronym></th>
+        <th><acronym title="Ni">Ni</acronym></th>
+        <th><acronym title="NF 75%">NF 75%</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </tfoot>
@@ -180,7 +175,7 @@
           <td><?= $ep[$k]['date'] ?></td>
           <td><?= $ep[$k]['waveform'] ?></td>
           <td><?= $ep[$k]['Cycle_STL'] ?></td>
-          <td class="<?= (intval($ep[$k]['Cycle_final'])<intval($ep[$k]['Cycle_min']) AND intval($ep[$k]['Cycle_min'])>0)?'flagMini':'' ?>"><?= $ep[$k]['Cycle_final'] ?></td>
+          <td class="<?= $ep[$k]['Cycle_min_nonAtteint']  ?>"><?= $ep[$k]['Cycle_final'] ?></td>
           <td><?= $ep[$k]['Rupture'] ?></td>
           <td><?= $ep[$k]['Fracture'] ?></td>
           <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>

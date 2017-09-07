@@ -33,6 +33,7 @@ for($k=0;$k < count($ep);$k++)	{
   $ep[$k]=$oEp->getTest();
   $workflow=$oEp->getWorkflow();
 
+  //$tempCorrected=$oEp->getTempCorrected();
 
 $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
 
@@ -171,6 +172,9 @@ $cycleEstimeAVG=$oEp->getEstimatedTime();
 //  $ep[$k]['c_type_2_val']=!empty($ep[$k]['c_type_2_val'])?number_format($ep[$k]['c_type_2_val'], 3,'.', ' '):'';
 //  $ep[$k]['max']=(is_numeric($ep[$k]['max']) && !empty($ep[$k]['max']))?number_format($ep[$k]['max'], 3,'.', ' '):'';
 //  $ep[$k]['min']=(is_numeric($ep[$k]['min']) && !empty($ep[$k]['min']))?number_format($ep[$k]['min'], 3,'.', ' '):'';
+
+$ep[$k]['Cycle_min_nonAtteint']=(!empty($ep[$k]['Cycle_min']) AND $ep[$k]['Cycle_final']<$ep[$k]['Cycle_min'] AND strtolower($ep[$k]['currentBlock'])=='send' )?'flagMini':'a';
+//$ep[$k]['Cycle_min_nonAtteint']=(!empty($ep[$k]['Cycle_min']) AND $ep[$k]['Cycle_final']<$ep[$k]['Cycle_min'] AND $ep[$k]['d_checked']>0 )?'flagMini':'a';
   $ep[$k]['Cycle_min']=!empty($ep[$k]['Cycle_min'])?number_format($ep[$k]['Cycle_min'], 0,'.', ' '):'';
   $ep[$k]['runout']=!empty($ep[$k]['runout'])?number_format($ep[$k]['runout'], 0,'.', ' '):'';
 
