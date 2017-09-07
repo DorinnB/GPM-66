@@ -32,6 +32,7 @@ class PrestartModel
         valid_temperature_line,
         signal_true,
         signal_tapered,
+        id_temperature_correction_parameter,
         operateur
       )
 
@@ -47,6 +48,7 @@ class PrestartModel
         '.$this->valid_temperature_line.',
         '.$this->signal_true.',
         '.$this->signal_tapered.',
+        (SELECT max(id_temperature_correction_parameter) FROM temperature_correction_parameters),
         '.$this->operateur.'
       );';
 

@@ -652,4 +652,48 @@ class EprouvetteModel
         return $this->db->getOne($reqUpdate);
       }
 
-    }
+      public function getTempCorrected(){
+
+        $reqInfo = 'SELECT c_temperature, id_temperature_correction_parameter
+          FROM eprouvettes
+          LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+          LEFT JOIN prestart ON enregistrementessais.id_prestart=prestart.id_prestart
+          WHERE eprouvettes.id_eprouvette='.$this->id.'
+          AND id_temperature_correction_parameter is not null
+          ';
+        $infoTemperature = $this->db->isOne($reqInfo);
+
+        //On cherche la temperature corrigé uniquement si l'essai est enregistré
+        if ($infoTemperature) {
+
+          $reqMin = 'SELECT temperature, correction
+            FROM temperature_corrections
+            WHERE id_temperature_correction_parameter='.$infoTemperature['id_temperature_correction_parameter'].'
+            AND temperature < "'.$infoTemperature['c_temperature'].'"
+            ORDER by temperature DESC
+            LIMIT 1
+            ';
+          $tMin = $this->db->getOne($reqMin);
+
+          $reqMax = 'SELECT temperature, correction
+            FROM temperature_corrections
+            WHERE id_temperature_correction_parameter='.$infoTemperature['id_temperature_correction_parameter'].'
+            AND temperature > "'.$infoTemperature['c_temperature'].'"
+            ORDER by temperature ASC
+            LIMIT 1
+            ';
+          //echo $req.'<br/><br/>';
+          $tMax = $this->db->getOne($reqMax);
+
+          if (($tMax['temperature']-$tMin['temperature'])!=0) {
+            $temperatureCorrected=($infoTemperature['c_temperature']-$tMin['temperature'])*($tMax['correction']-$tMin['correction'])/($tMax['temperature']-$tMin['temperature'])+$tMin['temperature'];
+            return $temperatureCorrected;
+          }
+          else {
+            return '';
+          }
+        }
+
+      }
+
+}

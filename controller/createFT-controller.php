@@ -24,7 +24,7 @@ $area = $oEprouvette->area();
 
 $oEprouvette->niveaumaxmin($essai['c_1_type'], $essai['c_2_type'], $essai['c_type_1_val'], $essai['c_type_2_val']);
 
-
+$tempCorrected=$oEprouvette->getTempCorrected();
 
 
 
@@ -217,6 +217,7 @@ $style_gray = array(
 
         'J17' => $essai['operateur'],
         'K20' => $essai['c_temperature'],
+        'K21' => $tempCorrected,
         'K22' => $oEprouvette->R(),
         'K23' => $essai['c_frequence'],
         'I22' => $oEprouvette->A(),
@@ -328,6 +329,7 @@ $style_gray = array(
 
         'J17' => $essai['operateur'],
         'K20' => $essai['c_temperature'],
+        'K21' => $tempCorrected,
         'K22' => $oEprouvette->R(),
         'K23' => $essai['c_frequence'],
         'I22' => $oEprouvette->A(),
@@ -444,6 +446,7 @@ $style_gray = array(
         'I12' => $essai['controleur'],
         'J16' => $essai['operateur'],
         'K18' => $essai['c_temperature'],
+        'K20' => $tempCorrected,
         'K21' => $oEprouvette->R(),
         'K22' => $essai['c_frequence'],
         'I21' => $oEprouvette->A(),

@@ -45,4 +45,13 @@ class QualiteModel
         //echo $req;
         return $this->db->getAll($req);
     }
+
+    public function getTemperatureCorrectionParameters() {
+      $req='SELECT *
+        FROM temperature_correction_parameters
+        ORDER BY date_temperature_correction_parameter DESC
+        LIMIT 20';
+        //echo $req;
+        return $this->db->getAll($req);
+    }
 }
