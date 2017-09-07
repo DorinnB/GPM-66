@@ -686,7 +686,12 @@ class EprouvetteModel
           $tMax = $this->db->getOne($reqMax);
 
           if (($tMax['temperature']-$tMin['temperature'])!=0) {
-            $temperatureCorrected=($infoTemperature['c_temperature']-$tMin['temperature'])*($tMax['correction']-$tMin['correction'])/($tMax['temperature']-$tMin['temperature'])+$tMin['temperature'];
+
+$temperatureCorrected=
+(($tMax['correction']-$tMin['correction'])/($tMax['temperature']-$tMin['temperature']))
+*($infoTemperature['c_temperature']-$tMax['temperature'])+$tMax['correction'];
+
+
             return $temperatureCorrected;
           }
           else {

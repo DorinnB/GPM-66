@@ -33,7 +33,7 @@ for($k=0;$k < count($ep);$k++)	{
   $ep[$k]=$oEp->getTest();
   $workflow=$oEp->getWorkflow();
 
-  //$tempCorrected=$oEp->getTempCorrected();
+  $tempCorrected=$oEp->getTempCorrected();
 
 $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
 
