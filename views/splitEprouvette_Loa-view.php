@@ -17,7 +17,7 @@
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
-        <th><acronym title="Quality Check">Chk</acronym></th>
+        <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
@@ -34,7 +34,8 @@
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
-        <th><acronym title="Value Check">Valid</acronym></th>
+        <th><acronym title="Rupture Check">R.Chk</acronym></th>
+        <th><acronym title="Data Check">D.Chk</acronym></th>
       </tr>
     </thead>
 
@@ -54,7 +55,7 @@
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
-        <th><acronym title="Quality Check">Chk</acronym></th>
+        <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
@@ -71,7 +72,8 @@
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
-        <th><acronym title="Value Check">Valid</acronym></th>
+        <th><acronym title="Rupture Check">R.Chk</acronym></th>
+        <th><acronym title="Data Check">D.Chk</acronym></th>
       </tr>
     </tfoot>
 
@@ -136,7 +138,7 @@
           <td><?= $ep[$k]['Rupture'] ?></td>
           <td><?= $ep[$k]['Fracture'] ?></td>
           <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>
-
+          <td class="dCheckEp" data-dchecked="<?= max(0,$ep[$k]['check_rupture']) ?>" ><?= $ep[$k]['check_rupture'] ?></td>
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 
         </tr>

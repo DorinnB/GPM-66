@@ -17,7 +17,7 @@
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
-        <th><acronym title="Quality Check">Chk</acronym></th>
+        <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
@@ -54,7 +54,7 @@
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
-        <th><acronym title="Quality Check">Chk</acronym></th>
+        <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
