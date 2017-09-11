@@ -47,6 +47,8 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
           count(distinct master_eprouvettes.id_master_eprouvette) as nbep,
           count(distinct id_eprouvette) as nbtest,
           count(n_essai) as nbtestdone,
+          COUNT(DISTINCT CASE WHEN n_essai is null THEN master_eprouvettes.id_master_eprouvette END) nbepleft,
+
           sum(temps_essais) as tpstest,
           sum(if(temps_essais is null,null,if(temps_essais>24, temps_essais-24,0))) as hrsup,
           sum(if(temps_essais is null,

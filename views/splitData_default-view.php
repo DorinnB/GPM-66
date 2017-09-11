@@ -1,67 +1,89 @@
 <link href="css/splitData.css" rel="stylesheet">
 
-<div class="col-md-12" style="height:85%">
-  <p class="title">
-    <span class="name">Spec :</span>
-    <span class="date"><?= $split['specification'] ?></span>
-  </p>
-  <p class="title">
-    <span class="name">Dwg :</span>
-    <span class="date"><?= $split['dessin'] ?></span>
-  </p>
-  <p class="title">
-    <span class="name">Signal :</span>
-    <span class="date"><?= $split['waveform'] ?></span>
-  </p>
-  <p class="title">
-    <span class="name">Temp :</span>
-    <span class="date"><?= $splitEp['temperature'] ?></span>
-  </p>
-  <p class="title">
-    <span class="name">Grip :</span>
-    <span class="date"><i>taillegrip</i></span>
-  </p>
-  <p class="title">
-    <span class="name">Load :</span>
-    <span class="date">
-        <button type="button" id="load10" class="btn-group-xs">10</button>
-        <button type="button" id="load100" class="btn-group-xs">100</button>
-        <button type="button" id="load250" class="btn-group-xs">250</button>
-    </span>
-  </p>
+<div class="col-md-12" id="splitData" style="height:85%">
 
-  <p class="title">
-    <span class="name"><acronym title="Nb specimen / Test done / Test planned">Qty :</acronym></span>
-    <span class="date"><?= $split['nbep'].' / '.$split['nbtestdone'].' / '.$split['nbtest'] ?></span>
-  </p>
-  <p class="title">
-    <span class="name">Available :</span>
-    <span class="date"><?= (($split['available']=="")?'Undefined':$split['available']) ?></span>
-  </p>
-  <p class="title">
-    <span class="name"><acronym title="Test duration (Calc)/ 'Heures Sup' (Calc)">Test (hrs) :</acronym></span>
+  <div class="bs-example designation" data-example-id="basic-forms">
+    <p class="title">
+      <span class="name">Specification :</span>
+      <span class="value"><?= $split['specification'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Waveform :</span>
+      <span class="value"><?= $split['waveform'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Frequency :</span>
+      <span class="value"><?= isset($split['tbljob_frequence '])?$split['tbljob_frequence ']:"" ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Temperature :</span>
+      <span class="value"><?= $splitEp['temperature'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Drawing :</span>
+      <span class="value"><?= $split['dessin'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Grip/Thread :</span>
+      <span class="value"><i>taillegrip</i></span>
+    </p>
+    <p class="title">
+      <span class="name">Load Cell :</span>
+      <span class="value">
+          <button type="button" id="load10" class="btn-group-xs">10</button>
+          <button type="button" id="load100" class="btn-group-xs">100</button>
+          <button type="button" id="load250" class="btn-group-xs">250</button>
+      </span>
+    </p>
+    <p class="title">
+      <span class="name">Raw Data :</span>
+      <span class="value"><i>Type</i></span>
+    </p>
+  </div>
 
-    <span class="date"><?=
-    (($split['tpstest']=="")?'N/A':number_format($split['tpstest'], 1, '.', ' ')).
-    ' <i style="font-size:75%">('.
-    (($split['tpscalc']=="")?'N/A':number_format($split['tpscalc'], 1, '.', ' ')).
-    ')</i> / '.
-    (($split['hrsup']=="")?'N/A':number_format($split['hrsup'], 1, '.', ' ')).
-      ' <i style="font-size:75%">('.
-    (($split['tpssupcalc']=="")?'N/A':number_format($split['tpssupcalc'], 1, '.', ' ')).
-    ')</i>'
-    ?></span>
+  <div class="bs-example avancement" data-example-id="basic-forms">
+    <p class="title">
+      <span class="name">Specimen Nb:</span>
+      <span class="value"><?= $split['nbep'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Specimen Untested</span>
+      <span class="value"><?= $split['nbepleft'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Test Planned :</span>
+      <span class="value"><?= $split['nbtest'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Tests Done :</span>
+      <span class="value"><?= $split['nbtestdone'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name"><acronym title="Test Duration / Supplementary Hours">Test (hrs) :</acronym></span>
+      <span class="value">
+        <?=
+        (($split['tpscalc']=="")?'N/A':number_format($split['tpscalc'], 1, '.', ' ')).
+        '  / '.
+        (($split['tpssupcalc']=="")?'N/A':number_format($split['tpssupcalc'], 1, '.', ' '))
+        ?>
+      </span>
+    </p>
+  </div>
 
-  </p>
-
-  <p class="title">
-    <span class="name">Est test days left :</span>
-    <span class="date"><i>est day</i></span>
-  </p>
-  <p class="title">
-    <span class="name">Dy T :</span>
-    <span class="date"><?= (($split['DyT_Cust']=="")?'Undefined':$split['DyT_Cust']) ?></span>
-  </p>
+  <div class="bs-example planning" data-example-id="basic-forms">
+    <p class="title">
+      <span class="name">Availability :</span>
+      <span class="value"><?= $split['available'] ?></span>
+    </p>
+    <p class="title">
+      <span class="name">Estimated Day Left</span>
+      <span class="value">???</span>
+    </p>
+    <p class="title">
+      <span class="name">DyT Cust :</span>
+      <span class="value"><?= $split['DyT_Cust'] ?></span>
+    </p>
+  </div>
 
 
 
