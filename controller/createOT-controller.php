@@ -42,18 +42,18 @@ for($k=0;$k < count($ep);$k++)	{
 
 
 
-		//groupement du nom du job avec ou sans indice
+  //groupement du nom du job avec ou sans indice
   if (isset($ep[$k]['split']))
-    $jobcomplet= $ep[$k]['customer'].'-'.$ep[$k]['job'].'-'.$ep[$k]['split'];
+  $jobcomplet= $ep[$k]['customer'].'-'.$ep[$k]['job'].'-'.$ep[$k]['split'];
   else
-    $jobcomplet= $ep[$k]['customer'].'-'.$ep[$k]['job'];
+  $jobcomplet= $ep[$k]['customer'].'-'.$ep[$k]['job'];
 
 
   //recherche si le split a été fait avec un coil ou un four
   if (isset($ep[$k]['type_chauffage']) AND $ep[$k]['type_chauffage']=="Coil")
-    $coil="x";
+  $coil="x";
   if (isset($ep[$k]['type_chauffage']) AND $ep[$k]['type_chauffage']=="Four")
-    $four="x";
+  $four="x";
 
 }
 
@@ -84,16 +84,16 @@ $objReader->setIncludeCharts(TRUE);
 
 
 
-  $style_gray = array(
-    'fill' => array(
-      'type' => PHPExcel_Style_Fill::FILL_SOLID,
-      'color' => array('rgb'=>'C0C0C0'))
+$style_gray = array(
+  'fill' => array(
+    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    'color' => array('rgb'=>'C0C0C0'))
   );
   $style_white = array(
     'fill' => array(
       'type' => PHPExcel_Style_Fill::FILL_SOLID,
       'color' => array('rgb'=>'000000'))
-  );
+    );
 
 
 
@@ -585,8 +585,87 @@ $objReader->setIncludeCharts(TRUE);
 
       //zone d'impression
       //$colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
-        $page->getPageSetup()->setPrintArea('A1:I'.($row-1));
+      $page->getPageSetup()->setPrintArea('A1:I'.($row-1));
 
+
+    }
+    ElseIf ($split['test_type_abbr']=="IQC")	{
+
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_IQC.xlsx");
+
+      $page=$objPHPExcel->getSheetByName('Res Stress Req');
+
+      // Rendre votre modèle accessible
+      include '../models/annexe_IQC-model.php';
+
+      $oEp = new AnnexeIQCModel($db);
+      $epIQC=$oEp->getAllIQC($_GET['id_tbljob']);
+
+      $IQC=$oEp->getGlobalIQC($split['id_dessin']);
+
+      $val2Xls = array(
+
+        'A5' => $split['id_tbljob'],
+
+        'C5' => $split ['customer'].'-'.$split ['job']. '-'.$split ['split'],
+        'C6' => $split['dessin'],
+        'C7' => $split['ref_matiere'].' ('.$split['matiere'].')',
+
+        'N5' =>  $split['comments'],
+        'N6' => date("Y-m-d"),
+        'N7' => $split['specification'],
+
+        'B10' => $split['tbljob_instruction'],
+        'F10' => $split['tbljob_commentaire'],
+        'N10' => $split['tbljob_commentaire_qualite'],
+
+        'R1' => $IQC['nominal_1'],
+        'R2' => $IQC['tolerance_plus_1'],
+        'R3' => $IQC['tolerance_moins_1'],
+        'R4' => $IQC['nominal_2'],
+        'R5' => $IQC['tolerance_plus_2'],
+        'R6' => $IQC['tolerance_moins_2'],
+        'R7' => $IQC['nominal_3'],
+        'R8' => $IQC['tolerance_plus_3'],
+        'R9' => $IQC['tolerance_moins_3']
+      );
+
+      $row = 15; // 1-based index
+      $col = 0;
+
+      $oldData=$objPHPExcel->getSheetByName('OldData');
+      $data=$objPHPExcel->getSheetByName('INSPECTION QUALITE DIM INSTRUM');
+
+      foreach ($epIQC as $key => $value) {
+        $oldData->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
+        //  $data->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
+        $oldData->setCellValueByColumnAndRow(1, $row, $value['prefixe']);
+        //$data->setCellValueByColumnAndRow(1, $row, $value['prefixe']);
+        $oldData->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
+        //$data->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
+        $oldData->setCellValueByColumnAndRow(3, $row, $value['dim1']);
+        $oldData->setCellValueByColumnAndRow(4, $row, $value['dim2']);
+        $oldData->setCellValueByColumnAndRow(5, $row, $value['dim3']);
+
+        $oldData->setCellValueByColumnAndRow(7, $row, $value['marquage']);
+        $oldData->setCellValueByColumnAndRow(8, $row, $value['surface']);
+        $oldData->setCellValueByColumnAndRow(9, $row, $value['grenaillage']);
+        $oldData->setCellValueByColumnAndRow(10, $row, $value['revetement']);
+        $oldData->setCellValueByColumnAndRow(11, $row, $value['protection']);
+        $oldData->setCellValueByColumnAndRow(12, $row, $value['autre']);
+
+        $oldData->setCellValueByColumnAndRow(13, $row, $ep[$key]['d_commentaire']);
+        $oldData->setCellValueByColumnAndRow(14, $row, $value['date_IQC']);
+
+        $oldData->setCellValueByColumnAndRow(15, $row, $value['technicien']);
+
+        $row++;
+      }
+
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $data->setCellValue($key, $value);
+      }
 
     }
 
@@ -606,7 +685,7 @@ $objReader->setIncludeCharts(TRUE);
 
     // Redirect output to a client’s web browser (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="Report-'.$_GET['id_tbljob'].'.xlsx"');
+    header('Content-Disposition: attachment;filename="OT-'.$_GET['id_tbljob'].'.xlsx"');
     header('Cache-Control: max-age=0');
     // If you're serving to IE 9, then the following may be needed
     header('Cache-Control: max-age=1');
