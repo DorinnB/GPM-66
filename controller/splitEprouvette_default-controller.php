@@ -198,8 +198,14 @@ $ep[$k]['Cycle_min_nonAtteint']=(!empty($ep[$k]['Cycle_min']) AND $ep[$k]['Cycle
   $ep[$k]['c2_E_montant']=!empty($ep[$k]['c2_E_montant'])?number_format($ep[$k]['c2_E_montant'], 1,'.', ' '):'';
   $ep[$k]['c2_max_stress']=!empty($ep[$k]['c2_max_stress'])?number_format($ep[$k]['c2_max_stress'], 1,'.', ' '):'';
   $ep[$k]['c2_min_stress']=!empty($ep[$k]['c2_min_stress'])?number_format($ep[$k]['c2_min_stress'], 1,'.', ' '):'';
-  $ep[$k]['c2_delta_strain']=!empty($ep[$k]['c2_delta_strain'])?number_format($ep[$k]['c2_delta_strain'], 2,'.', ' '):'';
-  $ep[$k]['c2_strain_e']=!empty($ep[$k]['c2_strain_e'])?number_format($ep[$k]['c2_strain_e'], 2,'.', ' '):'';
+
+//  $ep[$k]['c2_delta_strain']=!empty($ep[$k]['c2_meas_inelastic_strain'])?number_format($ep[$k]['c2_meas_inelastic_strain'], 2,'.', ' '):'';
+//  $ep[$k]['c2_strain_e']=!empty($ep[$k]['c2_meas_inelastic_strain'])?number_format($ep[$k]['c2_meas_inelastic_strain'], 2,'.', ' '):'';
+  $ep[$k]['c2_delta_strain']=!empty($ep[$k]['c2_max_strain'])?number_format($ep[$k]['c2_max_strain'], 2,'.', ' '):'';
+  $ep[$k]['c2_strain_e']=!empty($ep[$k]['c2_min_strain'])?number_format($ep[$k]['c2_min_strain'], 2,'.', ' '):'';
+
+
+
   $ep[$k]['c2_calc_inelastic_strain']=!empty($ep[$k]['c2_calc_inelastic_strain'])?number_format($ep[$k]['c2_calc_inelastic_strain'], 2,'.', ' '):'';
   $ep[$k]['c2_meas_inelastic_strain']=!empty($ep[$k]['c2_meas_inelastic_strain'])?number_format($ep[$k]['c2_meas_inelastic_strain'], 2,'.', ' '):'';
   $ep[$k]['Ni']=!empty($ep[$k]['Ni'])?number_format($ep[$k]['Ni'], 0,'.', ' '):'';
