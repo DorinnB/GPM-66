@@ -26,6 +26,12 @@ $("#subCRef").click(function(e) {
 
   $('#refSubC_alt').html($('#refSubC').val());
 });
+$("#DyT_SubCFlip").click(function(e) {
+  $('#DyT_SubC').toggleClass('flip');
+  $('#DyT_SubC_alt').toggleClass('flip');
+
+  $('#DyT_SubC_alt').html($('#DyT_SubC').val());
+});
 $("#DyT_expectedFlip").click(function(e) {
   $('#DyT_expected').toggleClass('flip');
   $('#DyT_expected_alt').toggleClass('flip');
@@ -36,7 +42,13 @@ $("#DyT_expectedFlip").click(function(e) {
 
 
 $( function() {
-
+  $( "#DyT_SubC" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
   $( "#DyT_expected" ).datepicker({
     showWeek: true,
     firstDay: 1,
@@ -44,5 +56,4 @@ $( function() {
     selectOtherMonths: true,
     dateFormat: "yy-mm-dd"
   });
-
 } );

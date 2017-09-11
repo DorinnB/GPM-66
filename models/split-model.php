@@ -39,7 +39,7 @@ private $id;
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
           type1.id_consigne_type as id_c_type_1, type2.id_consigne_type as id_c_type_2,
-          DyT_Cust, DyT_expected,
+          DyT_SubC, DyT_expected, DyT_Cust,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available,
           checked, comments, contacts.adresse,
 contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.lastname as lastnameST, contactST.surname as surnameST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
@@ -48,6 +48,7 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
           count(distinct id_eprouvette) as nbtest,
           count(n_essai) as nbtestdone,
           COUNT(DISTINCT CASE WHEN n_essai is null THEN master_eprouvettes.id_master_eprouvette END) nbepleft,
+          COUNT(DISTINCT CASE WHEN d_checked <=0 THEN master_eprouvettes.id_master_eprouvette END) nbepCheckedleft,
 
           sum(temps_essais) as tpstest,
           sum(if(temps_essais is null,null,if(temps_essais>24, temps_essais-24,0))) as hrsup,
@@ -152,7 +153,7 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
     }
 
 
-    public function updateData(){
+    public function updateDataInput(){
       $reqUpdate='UPDATE `tbljobs` SET
         `id_contactST` = '.$this->id_contactST.',
         `specification` = '.$this->specification.',
@@ -160,9 +161,11 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
         `c_1` = '.$this->c_type_1.',
         `c_2` = '.$this->c_type_2.',
         `c_unite` = '.$this->c_unite.',
+        `tbljob_frequence` = '.$this->tbljob_frequence.',
         `DyT_Cust` = '.$this->DyT_Cust.',
         `tbljob_instruction` = '.$this->tbljob_instruction.',
         `comments` = '.$this->comments.',
+        `DyT_expected` = '.$this->DyT_expected.',
         `checked` = 0,
         `modif` = '.$_COOKIE['id_user'].'
        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
@@ -173,10 +176,12 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
       			echo json_encode($maReponse);
     }
 
-    public function DyT_expected(){
+    public function updateData(){
       $reqUpdate='UPDATE `tbljobs` SET
-        `DyT_expected` = '.$this->DyT_expected.',
-        `refSubC` = '.$this->refSubC.'
+        `refSubC` = '.$this->refSubC.',
+        `DyT_SubC` = '.$this->DyT_SubC.',
+        `DyT_expected` = '.$this->DyT_expected.'
+
        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
 //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);

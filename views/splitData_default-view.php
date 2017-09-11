@@ -13,7 +13,7 @@
     </p>
     <p class="title">
       <span class="name">Frequency :</span>
-      <span class="value"><?= isset($split['tbljob_frequence '])?$split['tbljob_frequence ']:"" ?></span>
+      <span class="value"><?= isset($split['tbljob_frequence'])?$split['tbljob_frequence']:"" ?></span>
     </p>
     <p class="title">
       <span class="name">Temperature :</span>

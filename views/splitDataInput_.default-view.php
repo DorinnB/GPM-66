@@ -4,6 +4,10 @@
   <form type="GET" action="controller/updateData.php" id="updateData">
     <input type="hidden" name="id_tbljob" value="<?= $split['id_tbljob'] ?>">
 
+    <div class="form-group">
+      <label for="Spec">Specification :</label>
+      <input type="text" class="form-control" name="specification" value="<?= $split['specification'] ?>">
+    </div>
 
     <div class="form-group">
       <label for="ref_customerST">Cust. #</label>
@@ -19,23 +23,9 @@
         <option>Please choose from above</option>
       </select>
     </div>
-    <div class="form-group">
-      <label for="refSubC">Ref SubC :</label>
-      <input type="text" class="form-control" name="refSubC" value="<?= $split['refSubC'] ?>">
-    </div>
 
     <div class="form-group">
-      <label for="Spec">Spec :</label>
-      <input type="text" class="form-control" name="specification" value="<?= $split['specification'] ?>">
-    </div>
-
-    <div class="form-group">
-      <label for="DyT_expected">DyT_expected :</label>
-      <input type="text" class="form-control" name="DyT_expected" id="DyT_expected" value="<?= $split['DyT_expected'] ?>">
-    </div>
-
-    <div class="form-group">
-      <label for="Dy T">Dy T :</label>
+      <label for="Dy T">DyT Cust :</label>
       <input type="text" class="form-control" name="DyT_Cust" id="DyT_Cust" value="<?= $split['DyT_Cust'] ?>">
     </div>
 

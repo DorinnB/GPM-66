@@ -3,9 +3,24 @@
 <div class="col-md-12" style="height:85%">
   <form type="GET" action="controller/updateData.php" id="updateData">
     <input type="hidden" name="id_tbljob" value="<?= $split['id_tbljob'] ?>">
+
     <div class="form-group">
-      <label for="Spec">Spec :</label>
+      <label for="Spec">Specification :</label>
       <input type="text" class="form-control" name="specification" value="<?= $split['specification'] ?>">
+    </div>
+
+    <div class="form-group">
+      <label for="Waveform">Waveform :</label>
+      <select class="form-control" name="waveform">
+        <option value="Sinus" <?=  ($split['waveform']=="Sinus")?'selected':'' ?>>Sinus</option>
+        <option value="Triangle" <?=  ($split['waveform']=="Triangle")?'selected':'' ?>>Triangle</option>
+        <option value="Rampe" <?=  ($split['waveform']=="Rampe")?'selected':'' ?>>Rampe</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="tbljob_frequence">Frequency :</label>
+      <input type="text" class="form-control" name="tbljob_frequence" value="<?= $split['tbljob_frequence'] ?>">
     </div>
 
 
@@ -36,14 +51,7 @@
       </select>
     </div>
 
-    <div class="form-group">
-      <label for="Waveform">Waveform :</label>
-      <select class="form-control" name="waveform">
-        <option value="Sinus" <?=  ($split['waveform']=="Sinus")?'selected':'' ?>>Sinus</option>
-        <option value="Triangle" <?=  ($split['waveform']=="Triangle")?'selected':'' ?>>Triangle</option>
-        <option value="Rampe" <?=  ($split['waveform']=="Rampe")?'selected':'' ?>>Rampe</option>
-      </select>
-    </div>
+
 
     <div class="form-group">
       <label for="Dy T">Dy T :</label>

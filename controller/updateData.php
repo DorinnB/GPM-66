@@ -14,9 +14,9 @@ $oSplit = new LstSplitModel($db,$_POST['id_tbljob']);
 
 $oSplit->refSubC=isset($_POST['refSubC'])?$_POST['refSubC']:"";
 
-$oSplit->DyT_Cust=isset($_POST['DyT_Cust'])?$_POST['DyT_Cust']:"NULL";
+$oSplit->DyT_SubC=isset($_POST['DyT_SubC'])?$_POST['DyT_SubC']:"";
 $oSplit->DyT_expected=(isset($_POST['DyT_expected']) AND $_POST['DyT_expected']!="")?$_POST['DyT_expected']:(isset($_POST['DyT_Cust'])?$_POST['DyT_Cust']:"NULL");
 
 
-$oSplit->DyT_expected();
+$oSplit->updateData();
 ?>
