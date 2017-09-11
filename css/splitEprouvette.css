@@ -122,6 +122,7 @@ div.DTE_Bubble_Table  {
 }
 div.DTE_Bubble_Liner [class*="col-"], div.DTE [class*="col-"] {
   background-color:transparent !important;
+      color:gray;
   border: none !important;
 }
 div.DTE .form-control {
@@ -131,8 +132,11 @@ div.DTE .form-control {
 }
 .modal div.DTE .form-control {
   border-radius: 4px;
-    color:gray;
+    color:darkblue;
     font-weight:bold;
+}
+div.DTE_Form_Content .form-control {
+    color:darkblue;
 }
 div.DTE textarea {
     color:darkblue !important;
