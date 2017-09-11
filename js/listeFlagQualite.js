@@ -57,9 +57,9 @@ $(document).ready(function() {
         { data: "tbljobs.split" },
         { data: "enregistrementessais.n_fichier" },
         { data: "machines.machine" },
-        { data: "eprouvettes.d_commentaire" },
+        { data: "eprouvettes.d_commentaire", width: "40%" },
         { data: "eprouvettes.flag_qualite" },
-        { data: "eprouvettes.q_commentaire" },
+        { data: "eprouvettes.q_commentaire", width: "30%" },
         { data: "incident_causes", render: "[, ].incident_cause" }
       ],
       scrollY: '70vh',
