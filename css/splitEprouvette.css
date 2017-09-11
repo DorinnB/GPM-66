@@ -129,6 +129,11 @@ div.DTE .form-control {
     color:yellow;
     font-weight:bold;
 }
+.modal div.DTE .form-control {
+  border-radius: 4px;
+    color:gray;
+    font-weight:bold;
+}
 div.DTE textarea {
     color:darkblue !important;
 }
