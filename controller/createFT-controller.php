@@ -447,6 +447,7 @@ $style_gray = array(
         'J16' => $essai['operateur'],
         'K18' => $essai['c_temperature'],
         'K20' => $tempCorrected,
+        'J47' => $tempCorrected,
         'K21' => $oEprouvette->R(),
         'K22' => $essai['c_frequence'],
         'I21' => $oEprouvette->A(),
