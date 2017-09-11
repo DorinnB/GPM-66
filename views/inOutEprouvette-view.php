@@ -34,9 +34,9 @@
         <th>Prefixe</th>
         <th>ID</th>
         <th>Dwg</th>
-        <th>Initiale</th>
+        <th>Initial</th>
         <?php  foreach ($splits as $splitInOut): ?>
-          <?php if (substr( $splitInOut['test_type_abbr'], 0, 1 ) === ".") :  ?>
+          <?php if ($splitInOut['ST'] == 1) :  ?>
             <th>Sent</th>
             <th><?= $splitInOut['test_type_abbr']  ?></th>
             <th>Return</th>
@@ -46,7 +46,7 @@
             <th>End <?= $splitInOut['test_type_abbr']  ?></th>
           <?php endif ?>
         <?php  endforeach  ?>
-        <th>Finale</th>
+        <th>Final</th>
       </tr>
     </tfoot>
 
