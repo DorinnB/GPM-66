@@ -48,7 +48,7 @@
 
     <p class="title">
       <span class="name">Dy T Req. :</span>
-      <span class="date"><?= (($split['test_leadtime']=="")?'Undefined':$split['test_leadtime']) ?></span>
+      <span class="date"><?= (($split['DyT_Cust']=="")?'Undefined':$split['DyT_Cust']) ?></span>
     </p>
   </form>
 </div>

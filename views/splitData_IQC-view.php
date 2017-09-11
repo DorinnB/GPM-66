@@ -35,7 +35,7 @@
 
   <p class="title">
     <span class="name">Dy T :</span>
-    <span class="date"><?= (($split['test_leadtime']=="")?'Undefined':$split['test_leadtime']) ?></span>
+    <span class="date"><?= (($split['DyT_Cust']=="")?'Undefined':$split['DyT_Cust']) ?></span>
   </p>
 
 

@@ -15,7 +15,7 @@ class LstJobsModel
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
           if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
           CONVERT((if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
-					IF(tbljobs.test_leadtime>NOW(),0,1) as delay
+					IF(tbljobs.DyT_Cust>NOW(),0,1) as delay
 				FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
@@ -34,7 +34,7 @@ class LstJobsModel
 
       if ($filtreFollowup=='ALL') {
         $reqfiltre='AND etape <90';
-        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
+        $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
         IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
           available_expected,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
@@ -43,7 +43,7 @@ class LstJobsModel
       }
       elseif ($filtreFollowup=='SubC') {
         $reqfiltre='AND test_type_abbr like ".%" AND etape <90';
-        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
+        $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
         IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
           available_expected,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
@@ -52,12 +52,12 @@ class LstJobsModel
       }
       elseif ($filtreFollowup=='ALLNoTime') {
         $reqfiltre='';
-        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay, "" as available';
+        $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay, "" as available';
         $limit='';
       }
       else {
         $reqfiltre='AND final=1 AND etape <90';
-        $DyT=', IF(tbljobs.test_leadtime>NOW(),0,1) as delay,
+        $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
         IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
           available_expected,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
@@ -76,7 +76,7 @@ class LstJobsModel
           etape, matiere,
           GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
-          DyT_expected, test_leadtime,
+          DyT_expected, DyT_Cust,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest,
           CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent
           '.$DyT.'

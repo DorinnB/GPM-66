@@ -24,7 +24,7 @@ $("#save").click(function(e) {
 
 $( function() {
 
-  $( "#test_leadtime" ).datepicker({
+  $( "#DyT_Cust" ).datepicker({
     showWeek: true,
     firstDay: 1,
     showOtherMonths: true,

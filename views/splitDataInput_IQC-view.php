@@ -15,7 +15,7 @@
 
     <div class="form-group">
       <label for="Dy T">Dy T :</label>
-      <input type="text" class="form-control" name="test_leadtime" id="test_leadtime" value="<?= $split['test_leadtime'] ?>">
+      <input type="text" class="form-control" name="DyT_Cust" id="DyT_Cust" value="<?= $split['DyT_Cust'] ?>">
     </div>
 
   </form>
