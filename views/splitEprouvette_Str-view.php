@@ -5,31 +5,31 @@
       <tr>
         <th>id</th>
         <th><acronym title="Availability">A</acronym></th>
-        <th>Prefixe</th>
-        <th>ID</th>
+        <th><acronym title="Specimen Prefix">Prefix</acronym></th>
+        <th><acronym title="Specimen Name">ID</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
-        <th>Freq</th>
+        <th><acronym title="Frequency">F.</acronym></th>
         <th><acronym title="Switch To Load">STL</acronym></th>
-        <th><acronym title="Load Frequency">F.STL</acronym></th>
+        <th><acronym title="Load Frequency">F.<SUB>STL</SUB></acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
-        <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
+        <th><acronym title="Estimated Cycle">Est.<SUB>Cy</SUB></acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
-        <th><acronym title="Current Block">Block</acronym></th>
+        <th><acronym title="Current Block">State</acronym></th>
         <th><acronym title="Test Number">Test</acronym></th>
         <th><acronym title="Files Number">Files</acronym></th>
         <?php  foreach ($dimDenomination as $dimTexte): ?>
           <th><?= $dimTexte  ?></th>
         <?php  endforeach  ?>
-        <th>Machine</th>
+        <th>Frame</th>
         <th>Date</th>
         <th><acronym title="Waveform">Wave.</acronym></th>
         <th><acronym title="STL Cycles">STL</acronym></th>
@@ -40,22 +40,22 @@
         <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
         <th><acronym title="Round Temp. Modulus">E RT</acronym></th>
         <th><acronym title="First Cycle Modulus">E 1th</acronym></th>
-        <th><acronym title="First Cycle Stress Max">&sigma; max</acronym></th>
-        <th><acronym title="First Cycle Stress Min">&sigma; min</acronym></th>
-        <th><acronym title="First Cycle Strain M">&sigma; max</acronym></th>
-        <th><acronym title="First Cycle Strain M">&sigma; min</acronym></th>
-        <th><acronym title="Half Life Cycle">Cy half life</acronym></th>
+        <th><acronym title="First Cycle Stress Max">&sigma; M</acronym></th>
+        <th><acronym title="First Cycle Stress Min">&sigma; m</acronym></th>
+        <th><acronym title="First Cycle Strain M">&sigma; M</acronym></th>
+        <th><acronym title="First Cycle Strain M">&sigma; m</acronym></th>
+        <th><acronym title="Half Life Cycle">HL Cy</acronym></th>
         <th><acronym title="Half Life Cycle Modulus">E</acronym></th>
-        <th><acronym title="Half Life Cycle Stress Max">&sigma; max</acronym></th>
-        <th><acronym title="Half Life Cycle Stress Min">&sigma; min</acronym></th>
+        <th><acronym title="Half Life Cycle Stress Max">&sigma; M</acronym></th>
+        <th><acronym title="Half Life Cycle Stress Min">&sigma; m</acronym></th>
         <th><acronym title="Half Life Cycle Delta Strain">&Delta;&epsilon;</acronym></th>
-        <th><acronym title="Half Life Cycle Elastic Strain">&Delta;&epsilon; e</acronym></th>
-        <th><acronym title="Half Life Cycle Inelastic Strain Calculated">&Delta;&epsilon; p</acronym></th>
-        <th><acronym title="Half Life Cycle Inelastic Strain Measured">&Delta;&epsilon; pm</acronym></th>
+        <th><acronym title="Half Life Cycle Elastic Strain">&Delta;&epsilon;<SUB>e</SUB></acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Calculated">&Delta;&epsilon;<SUB>p</SUB></acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Measured">&Delta;&epsilon;<SUB>pm</SUB></acronym></th>
         <th><acronym title="Ni">Ni</acronym></th>
-        <th><acronym title="NF 75%">NF 75%</acronym></th>
-        <th><acronym title="Rupture Check">R.Chk</acronym></th>
-        <th><acronym title="Data Check">D.Chk</acronym></th>
+        <th><acronym title="NF 75%">NF<SUB>75%</SUB></acronym></th>
+        <th><acronym title="Rupture Check">R.</acronym></th>
+        <th><acronym title="Data Check">D.</acronym></th>
       </tr>
     </thead>
 

@@ -21,5 +21,7 @@
 			</div>
 		</div>
 	</div>
+
+	<?php include('../controller/splitChart-controller.php'); ?>
 </div>
 <script type="text/javascript" src="js/split.js"></script>

@@ -7,7 +7,15 @@
 
 		<div class="row" style="height:100%">
 			<div class="col-md-4" style="height:33%">
-				<label>Graph</label>
+				<acronym title="Chart">
+					<a href="#myModal" role="button" data-toggle="modal"  data-target=".bs-example-modal-lg">
+						Graph<!--
+						<img type="image" src="img/chart.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+						-->
+					</a>
+				</acronym>
+
+
 			</div>
 			<div class="col-md-4" style="height:33%">
 				<label>?</label>
@@ -64,7 +72,7 @@
 		</div>
 		<div class="col-md-4" id="end" data-etape="<?=	$split['etape']	?>" style="height:33%; cursor:pointer;">
 			<acronym title="End of Job">
-					<img type="image" src="img/sign-<?=	($split['etape']==100)?'close':'open'	?>" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;"  />
+				<img type="image" src="img/sign-<?=	($split['etape']==100)?'close':'open'	?>" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;"  />
 			</acronym>
 		</div>
 	</div>

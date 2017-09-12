@@ -22,7 +22,7 @@ if (($split['c_type_2']=="R") OR ($split['c_type_2']=="A")) {
   $split['cons2']=$split['c_type_2'];
 }
 else {
-  $split['cons2']=$split['c_type_2'].' ('.$split['c_unite'].')';
+  $split['cons2']=$split['c_type_2'].' '.$split['c_unite'];
 }
 
 
@@ -166,7 +166,7 @@ $cycleEstimeAVG=$oEp->getEstimatedTime();
   //!empty($ep[$k]['Nf75'])?number_format($ep[$k]['Nf75'], 0, '.', ' '):""
   $ep[$k]['c_temp']=!empty($ep[$k]['c_temp'])?number_format($ep[$k]['c_temp'], 1,'.', ' '):'';
   $ep[$k]['c_frequence']=!empty($ep[$k]['c_frequence'])?(is_numeric($ep[$k]['c_frequence'])?number_format($ep[$k]['c_frequence'], 1,'.', ' '):$ep[$k]['c_frequence']):'';
-  $ep[$k]['c_cycle_STL']=!empty($ep[$k]['c_cycle_STL'])?number_format($ep[$k]['c_cycle_STL'], 1,'.', ' '):'';
+  $ep[$k]['c_cycle_STL']=!empty($ep[$k]['c_cycle_STL'])?number_format($ep[$k]['c_cycle_STL'], 0,'.', ' '):'';
   $ep[$k]['c_frequence_STL']=!empty($ep[$k]['c_frequence_STL'])?number_format($ep[$k]['c_frequence_STL'], 1,'.', ' '):'';
 //  $ep[$k]['c_type_1_val']=!empty($ep[$k]['c_type_1_val'])?number_format($ep[$k]['c_type_1_val'], 3,'.', ' '):'';
 //  $ep[$k]['c_type_2_val']=!empty($ep[$k]['c_type_2_val'])?number_format($ep[$k]['c_type_2_val'], 3,'.', ' '):'';
