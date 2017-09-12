@@ -51,7 +51,7 @@ Require("connection.php");
 		if(file_exists('views/sidebar'.(isset($_GET['page'])?'-'.$_GET['page']:"-main").'-view.php'))
 		include('views/sidebar'.(isset($_GET['page'])?'-'.$_GET['page']:"-main").'-view.php');
 		else
-			include('views/sidebar-main-view.php');
+			include('views/sidebar-labo-view.php');
 
 		?>
 

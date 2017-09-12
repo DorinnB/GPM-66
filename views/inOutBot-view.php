@@ -8,7 +8,7 @@
 
 			</div>
 			<div class="col-md-8" style="height:100%">
-				<p class="">Commentaires :</p>
+				<p class="">Comments :</p>
 				<textarea class="commentaireEditable" id="inOut_commentaire" name="inOut_commentaire"></textarea>
 			</div>
 		</div>
@@ -19,7 +19,7 @@
 		<table class="table table-striped table-condensed table-bordered">
 			<tr>
 				<th>Date</th>
-				<th>Commentaire</th>
+				<th>Comments</th>
 			</tr>
 			<?php foreach ($lstInOut as $key => $value) :	?>
 				<tr class="dateHighlight" data-date="<?=	$value['inOut_date']	?>">
@@ -30,7 +30,7 @@
 		</table>
 	</div>
 	<div class="col-md-3" style="height:100%">
-		<p class="" id="flipRecommendation">Recommendation :</p>
+		<p class="" id="flipRecommendation">Recommendation : <span class="glyphicon glyphicon-pencil"></span></p>
 		<div id="inOut_recommendation_alt"><?=	$split['inOut_recommendation']	?></div>
 		<textarea class="commentaireEditable flip" id="inOut_recommendation" name="inOut_recommendation" value="<?=	$split['inOut_recommendation']	?>"></textarea>
 	</div>
