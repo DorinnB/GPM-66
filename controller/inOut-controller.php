@@ -22,8 +22,8 @@ $eprouvettes=$oWorkflow->getAllEprouvettes();
 for($i=0;$i < count($eprouvettes);$i++)  {
   $epA[$eprouvettes[$i]['id_eprouvette']]=$eprouvettes[$i];
 
-$epA[$eprouvettes[$i]['id_eprouvette']]['d_checked']=max(0,$epA[$eprouvettes[$i]['id_eprouvette']]['d_checked']);
-
+//on attribue un flag 0 1 2 a chaque essai/eprouvette pour dire si l'essai realisé (dcheck validé), en flag qualité ou non fait.
+$epA[$eprouvettes[$i]['id_eprouvette']]['done']=($epA[$eprouvettes[$i]['id_eprouvette']]['d_checked']>0)?(($epA[$eprouvettes[$i]['id_eprouvette']]['flag_qualite']>0)?1:2):0;
   //on ajoute a $ep la liste des id_tbljobs où cette ep est présente
   $ep[$eprouvettes[$i]['id_master_eprouvette']][$eprouvettes[$i]['id_tbljob']]=$eprouvettes[$i]['id_eprouvette'];
   //On ajoute les données de l'ep sur ce array

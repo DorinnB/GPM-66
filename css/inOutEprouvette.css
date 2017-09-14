@@ -6,9 +6,17 @@ table td.d_checked  {
   color:darkgreen;
   background-color:darkgreen;
 }
-table td.d_checked[data-d_checked="0"]  {
+table td.done[data-done="0"]  {
   color:darkred;
   background-color:darkred;
+}
+table td.done[data-done="1"]  {
+  color:sienna;
+  background-color:sienna;
+}
+table td.done[data-done="2"]  {
+  color:darkgreen;
+  background-color:darkgreen;
 }
 table td[data-io]  {
   cursor: pointer;

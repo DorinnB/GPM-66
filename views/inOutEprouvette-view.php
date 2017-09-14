@@ -63,15 +63,15 @@
             <?php if (isset($line[$splitInOut['id_tbljob']])) : ?>
               <?php if ($splitInOut['ST'] == 1) :  ?>
                 <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_A"  data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A'] ?></td>
-                <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>
+                <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="done" data-done="<?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?></td>
                 <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_B" data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?></td>
               <?php elseif ($splitInOut['auxilaire'] == 1) :  ?>
                   <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_A"  data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_A'] ?></td>
-                  <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>
+                  <td data-id="<?=  $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" class="done" data-done="<?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?></td>
                   <td class="selectable" data-id="<?= $epA[$line[$splitInOut['id_tbljob']]]['id_eprouvette'] ?>" data-IO="eprouvette_inOut_B" data-oldValue="<?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?></td>
               <?php else: ?>
                 <td><?= $epA[$line[$splitInOut['id_tbljob']]]['enregistrementessais_date'] ?></td>
-                <td class="d_checked" data-d_checked="<?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['d_checked']  ?></td>
+                <td class="done" data-done="<?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?></td>
                 <td><?= ($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']>0)?date('Y-m-d',($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']-25569)*86400):""   ?></td>
               <?php endif ?>
             <?php else: ?>
