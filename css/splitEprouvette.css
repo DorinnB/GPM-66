@@ -34,6 +34,16 @@ table td.dispo[data-dispo="6"] {
 .flagMini  {
   color:lightsalmon;
 }
+.checkValue_actif {
+  color:lightsalmon;
+}
+.checkValue_max {
+  background-color:darkred;
+}
+.checkValue_min {
+  background-color:purple;
+}
+
 
 table td.checkEp {
   color:darkgreen;
@@ -122,24 +132,24 @@ div.DTE_Bubble_Table  {
 }
 div.DTE_Bubble_Liner [class*="col-"], div.DTE [class*="col-"] {
   background-color:transparent !important;
-      color:gray;
+  color:gray;
   border: none !important;
 }
 div.DTE .form-control {
   border-radius: 4px;
-    color:yellow;
-    font-weight:bold;
+  color:yellow;
+  font-weight:bold;
 }
 .modal div.DTE .form-control {
   border-radius: 4px;
-    color:darkblue;
-    font-weight:bold;
+  color:darkblue;
+  font-weight:bold;
 }
 div.DTE_Form_Content .form-control {
-    color:darkblue;
+  color:darkblue;
 }
 div.DTE textarea {
-    color:darkblue !important;
+  color:darkblue !important;
 }
 .splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #536E94 !important;

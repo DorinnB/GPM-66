@@ -226,8 +226,7 @@ $ep[$k]['Cycle_min_nonAtteint']=(!empty($ep[$k]['Cycle_min']) AND $ep[$k]['Cycle
   $ep[$k]['waveform']=$ep[$k]['waveform'];
   $ep[$k]['Rupture']=$ep[$k]['Rupture'];
   $ep[$k]['Fracture']=$ep[$k]['Fracture'];
-
-
+  $ep[$k]['CheckValue_Fracture']=(strpos($ep[$k]['Fracture'], 'OX') !==false OR strpos($ep[$k]['Fracture'], 'IX') !==false OR strpos(strtolower($ep[$k]['Fracture']), 'gage') !==false OR strpos(strtoupper($ep[$k]['Fracture']), 'NR') !==false)?'':'checkValue_actif';
 
 
 

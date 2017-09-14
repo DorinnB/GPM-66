@@ -42,8 +42,8 @@
         <th><acronym title="First Cycle Modulus">E 1th</acronym></th>
         <th><acronym title="First Cycle Stress Max">&sigma; M</acronym></th>
         <th><acronym title="First Cycle Stress Min">&sigma; m</acronym></th>
-        <th><acronym title="First Cycle Strain M">&sigma; M</acronym></th>
-        <th><acronym title="First Cycle Strain M">&sigma; m</acronym></th>
+        <th><acronym title="First Cycle Strain M">&epsilon; M</acronym></th>
+        <th><acronym title="First Cycle Strain M">&epsilon; m</acronym></th>
         <th><acronym title="Half Life Cycle">HL Cy</acronym></th>
         <th><acronym title="Half Life Cycle Modulus">E</acronym></th>
         <th><acronym title="Half Life Cycle Stress Max">&sigma; M</acronym></th>
@@ -179,23 +179,23 @@
           <td><?= $ep[$k]['Cycle_STL'] ?></td>
           <td class="<?= $ep[$k]['Cycle_min_nonAtteint']  ?>"><?= $ep[$k]['Cycle_final'] ?></td>
           <td><?= $ep[$k]['Rupture'] ?></td>
-          <td><?= $ep[$k]['Fracture'] ?></td>
+          <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>"><?= $ep[$k]['Fracture'] ?></td>
           <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>
 
           <td><?= $ep[$k]['dilatation'] ?></td>
 
-          <td><?= $ep[$k]['E_RT'] ?></td>
+          <td class="checkValue_E_RT"><?= $ep[$k]['E_RT'] ?></td>
 
-          <td><?= $ep[$k]['c1_E_montant'] ?></td>
+          <td class="checkValue_c1_E_montant"><?= $ep[$k]['c1_E_montant'] ?></td>
           <td><?= $ep[$k]['c1_max_strain'] ?></td>
           <td><?= $ep[$k]['c1_min_strain'] ?></td>
-          <td><?= $ep[$k]['c1_max_stress'] ?></td>
-          <td><?= $ep[$k]['c1_min_stress'] ?></td>
+          <td class="checkValue_c1_max_stress"><?= $ep[$k]['c1_max_stress'] ?></td>
+          <td class="checkValue_c1_min_stress"><?= $ep[$k]['c1_min_stress'] ?></td>
 
           <td><?= $ep[$k]['c2_cycle'] ?></td>
-          <td><?= $ep[$k]['c2_E_montant'] ?></td>
-          <td><?= $ep[$k]['c2_max_stress'] ?></td>
-          <td><?= $ep[$k]['c2_min_stress'] ?></td>
+          <td class="checkValue_c2_E_montant"><?= $ep[$k]['c2_E_montant'] ?></td>
+          <td class="checkValue_c2_max_stress"><?= $ep[$k]['c2_max_stress'] ?></td>
+          <td class="checkValue_c2_min_stress"><?= $ep[$k]['c2_min_stress'] ?></td>
           <td><?= $ep[$k]['c2_delta_strain'] ?></td>
           <td><?= $ep[$k]['c2_strain_e'] ?></td>
           <td><?= $ep[$k]['c2_calc_inelastic_strain'] ?></td>

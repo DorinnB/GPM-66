@@ -20,7 +20,7 @@ $('#table_ep').selectable ({
     else if ($(ui.selected).attr('data-flagQualite')) {
       flagQualite($(ui.selected));
     }
-}
+  }
 
 });
 
@@ -44,12 +44,12 @@ $(document).ready(function() {
     fixedColumns:   {leftColumns: 4},
     order: [[ 0, "asc" ],[3, "asc" ]],
     columnDefs: [
-            {
-                "targets": [ 0 ],
-                "visible": false,
-                "searchable": false
-            }
-        ]
+      {
+        "targets": [ 0 ],
+        "visible": false,
+        "searchable": false
+      }
+    ]
     //          ,
     //          columnDefs: [
     //                  {targets: 13, render: $.fn.dataTable.render.number( ' ', '.', 0 )}
@@ -62,6 +62,9 @@ $(document).ready(function() {
     .column( $(this).data('index') )
     .search( this.value )
     .draw();
+    checkValueModule();
+    checkValueC1Stress();
+    checkValueC2Stress()
   } );
   document.getElementById("table_ep_filter").style.display = "none";
 } );
@@ -187,43 +190,43 @@ function flagQualite(e) {
   }
   else {
 
-          $.ajax({
-            type: "POST",
-            url: 'controller/updateFlagQualite.php',
-            dataType: "json",
-            data:  {
-              idEp : e.attr('data-idepflagqualite'),
-              flagQualite : e.attr('data-flagQualite')
-            }
-            ,
-            success : function(data, statut){
-              if(data['id_user']==0)  {
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#44546A");
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#44546A");
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html("0");
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user']);
-              }
-              else {
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#b96500");
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#b96500");
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html(data['id_user']);
-                $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user'] );
-              }
-
-            },
-            error : function(resultat, statut, erreur) {
-              console.log(Object.keys(resultat));
-              alert('ERREUR lors de la modification du flag qualité de l\'eprouvette. Veuillez prevenir au plus vite le responsable SI.');
-            }
-          });
-
+    $.ajax({
+      type: "POST",
+      url: 'controller/updateFlagQualite.php',
+      dataType: "json",
+      data:  {
+        idEp : e.attr('data-idepflagqualite'),
+        flagQualite : e.attr('data-flagQualite')
       }
+      ,
+      success : function(data, statut){
+        if(data['id_user']==0)  {
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#44546A");
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#44546A");
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html("0");
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user']);
+        }
+        else {
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("background-color","#b96500");
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").css("color","#b96500");
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").html(data['id_user']);
+          $( "tr" ).find("[data-idepflagqualite='" + data['id_eprouvette'] + "']").attr("data-flagqualite",data['id_user'] );
+        }
+
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de la modification du flag qualité de l\'eprouvette. Veuillez prevenir au plus vite le responsable SI.');
+      }
+    });
+
+  }
 
 
 
 }
 
-
+//affichage et disparition automatique du popover en mouse hover
 $('.popover-markup').popover({
   html: true,
   container:'body',
@@ -249,3 +252,130 @@ $('.popover-markup').popover({
     }
   });
 });
+
+
+
+
+
+//detection si le module est > ou < a 5% de la moyenne des autres essais
+function checkValueModule() {
+  var checkValueArray=['.checkValue_E_RT','.checkValue_c1_E_montant','.checkValue_c2_E_montant'];
+
+  $(checkValueArray).each(function(i,v){
+    var sum=0;
+    var nb=0;
+    $(v).each( function (i) {
+      if ($(this).html() !=='') {
+        sum+=parseFloat($(this).html());
+        nb+=1;
+      }
+    } );
+
+    checkValue_max=sum/nb + sum/nb*5/100;
+    checkValue_min=sum/nb - sum/nb*5/100;
+
+    $(v).each( function (i) {
+      if ($(this).html()>checkValue_max && $(this).html() !=='') {
+        $(this).addClass("checkValue_max");
+      }
+      else if ($(this).html()<checkValue_min && $(this).html() !=='') {
+        $(this).addClass("checkValue_min");
+      }
+      else {
+        $(this).removeClass("checkValue_max");
+        $(this).removeClass("checkValue_min");
+      }
+    });
+  });
+}
+//detection si le module est > ou < a 5% de la moyenne des autres essais
+function checkValueC1Stress() {
+  var checkValueArray=['.checkValue_c1_max_stress','.checkValue_c1_min_stress','.checkValue_c2_max_stress','.checkValue_c2_min_stress'];
+
+  var sumMax=0;
+  var sumMin=0;
+  var nb=0;
+  $('.checkValue_c1_max_stress').each( function (i) {
+    if ($(this).html() !=='') {
+      sumMax+=parseFloat($(this).html());
+      nb+=1;
+    }
+  } );
+  $('.checkValue_c1_min_stress').each( function (i) {
+    if ($(this).html() !=='') {
+      sumMin+=parseFloat($(this).html());
+    }
+  } );
+
+  tolerance= Math.max(Math.abs(sumMax/nb),Math.abs(sumMin/nb))*5/100;
+
+  $('.checkValue_c1_max_stress').each( function (i) {
+    if ($(this).html()>sumMax/nb + tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_max");
+    }
+    else if ($(this).html()<sumMax/nb - tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_min");
+    }
+    else {
+      $(this).removeClass("checkValue_max");
+      $(this).removeClass("checkValue_min");
+    }
+  });
+  $('.checkValue_c1_min_stress').each( function (i) {
+    if ($(this).html()>sumMin/nb + tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_max");
+    }
+    else if ($(this).html()<sumMin/nb - tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_min");
+    }
+    else {
+      $(this).removeClass("checkValue_max");
+      $(this).removeClass("checkValue_min");
+    }
+  });
+}
+function checkValueC2Stress() {
+  var checkValueArray=['.checkValue_c2_max_stress','.checkValue_c2_min_stress','.checkValue_c2_max_stress','.checkValue_c2_min_stress'];
+
+  var sumMax=0;
+  var sumMin=0;
+  var nb=0;
+  $('.checkValue_c2_max_stress').each( function (i) {
+    if ($(this).html() !=='') {
+      sumMax+=parseFloat($(this).html());
+      nb+=1;
+    }
+  } );
+  $('.checkValue_c2_min_stress').each( function (i) {
+    if ($(this).html() !=='') {
+      sumMin+=parseFloat($(this).html());
+    }
+  } );
+
+  tolerance= Math.max(Math.abs(sumMax/nb),Math.abs(sumMin/nb))*5/100;
+
+  $('.checkValue_c2_max_stress').each( function (i) {
+    if ($(this).html()>sumMax/nb + tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_max");
+    }
+    else if ($(this).html()<sumMax/nb - tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_min");
+    }
+    else {
+      $(this).removeClass("checkValue_max");
+      $(this).removeClass("checkValue_min");
+    }
+  });
+  $('.checkValue_c2_min_stress').each( function (i) {
+    if ($(this).html()>sumMin/nb + tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_max");
+    }
+    else if ($(this).html()<sumMin/nb - tolerance && $(this).html() !=='') {
+      $(this).addClass("checkValue_min");
+    }
+    else {
+      $(this).removeClass("checkValue_max");
+      $(this).removeClass("checkValue_min");
+    }
+  });
+}
