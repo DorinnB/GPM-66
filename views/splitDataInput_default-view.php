@@ -51,7 +51,14 @@
       </select>
     </div>
 
-
+    <div class="form-group">
+      <label for="id_rawData">Raw Data :</label>
+      <select class="form-control" name="id_rawData">
+        <?php foreach ($RawData as $row): ?>
+        	<option value="<?= $row['id_rawData'] ?>" <?=  ($row['id_rawData']==$split['id_rawData'])?'selected':''    ?>><?= $row['name'] ?></option>
+        <?php endforeach ?>
+      </select>
+    </div>
 
     <div class="form-group">
       <label for="Dy T">Dy T :</label>

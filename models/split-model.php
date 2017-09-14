@@ -35,7 +35,7 @@ private $id;
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-          tbljobs.id_statut, statut, etape, statut_color, test_type_abbr,
+          tbljobs.id_statut, statut, etape, statut_color, test_type_abbr, tbljobs.id_rawData, rawData.Name,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
           type1.id_consigne_type as id_c_type_1, type2.id_consigne_type as id_c_type_2,
@@ -110,6 +110,7 @@ LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
 LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
         LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
         LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
+        LEFT JOIN rawData ON rawData.id_rawData=tbljobs.id_rawData
         LEFT JOIN consigne_types as type1 ON type1.id_consigne_type=tbljobs.c_1
         LEFT JOIN consigne_types as type2 ON type2.id_consigne_type=tbljobs.c_2
         LEFT JOIN techniciens as t1 on t1.id_technicien=tbljobs.modif
@@ -158,6 +159,7 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
         `id_contactST` = '.$this->id_contactST.',
         `specification` = '.$this->specification.',
         `waveform` = '.$this->waveform.',
+        `id_rawData` = '.$this->id_rawData.',
         `c_1` = '.$this->c_type_1.',
         `c_2` = '.$this->c_type_2.',
         `c_unite` = '.$this->c_unite.',

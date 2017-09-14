@@ -37,7 +37,7 @@
     </p>
     <p class="title">
       <span class="name">Raw Data :</span>
-      <span class="value"><i>Type</i></span>
+      <span class="value <?= ($split['id_rawData']==0)?'':'RawData' ?>"><?= $split['Name'] ?></span>
     </p>
   </div>
 

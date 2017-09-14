@@ -19,6 +19,11 @@
   background-color: lightgreen;
 }
 
+.RawData  {
+  color:yellow;
+  font-weight: bold;
+}
+
 #splitData  {
   padding : 0px;
   overflow:auto;
