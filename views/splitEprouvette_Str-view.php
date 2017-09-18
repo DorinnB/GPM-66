@@ -119,7 +119,7 @@
 
     <tbody>
       <?php for($k=0;$k < count($ep);$k++): ?>
-        <tr>
+        <tr class="chartTR">
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
           <td class="dispo open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
@@ -130,7 +130,7 @@
           <td><?= $ep[$k]['c_frequence_STL'] ?></td>
           <td><?= $ep[$k]['c_type_1_val'] ?></td>
           <td><?= $ep[$k]['c_type_2_val'] ?></td>
-          <td><?= $ep[$k]['max'] ?></td>
+          <td class="chartMax"><?= $ep[$k]['max'] ?></td>
           <td><?= $ep[$k]['min'] ?></td>
           <td><?= $ep[$k]['Cycle_min'] ?></td>
           <td><?= $ep[$k]['runout'] ?></td>
@@ -177,7 +177,7 @@
           <td><?= $ep[$k]['date'] ?></td>
           <td><?= $ep[$k]['waveform'] ?></td>
           <td><?= $ep[$k]['Cycle_STL'] ?></td>
-          <td class="<?= $ep[$k]['Cycle_min_nonAtteint']  ?>"><?= $ep[$k]['Cycle_final'] ?></td>
+          <td class="chartCycle <?= $ep[$k]['Cycle_min_nonAtteint']  ?>"><?= $ep[$k]['Cycle_final'] ?></td>
           <td><?= $ep[$k]['Rupture'] ?></td>
           <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>"><?= $ep[$k]['Fracture'] ?></td>
           <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>

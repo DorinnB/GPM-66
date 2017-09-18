@@ -6,12 +6,10 @@
 
 
 		<div class="row" style="height:100%">
-			<div class="col-md-4" style="height:33%">
+			<div class="col-md-4" id="myChart" style="height:33%">
 				<acronym title="Chart">
-					<a href="#myModal" role="button" data-toggle="modal"  data-target=".bs-example-modal-lg">
-						Graph<!--
+					<a href="#myModal" role="button" data-toggle="modal" data-target=".bs-example-modal-lg">
 						<img type="image" src="img/chart.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
-						-->
 					</a>
 				</acronym>
 
