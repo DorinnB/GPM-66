@@ -16,4 +16,8 @@ include 'views/checkList-view.php';
 $checkRupture=$oTest->getCheckRuptureList();
 // Affichage du résultat
 include 'views/checkRuptureList-view.php';
+
+$checkDataValue=$oTest->getCheckDataValueList();
+// Affichage du résultat
+include 'views/checkDataValueList-view.php';
 ?>

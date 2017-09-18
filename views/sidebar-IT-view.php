@@ -8,6 +8,9 @@
 			<a href="index.php?page=IT&tool=cookie">Cookie</a>
 		</li>
 		<li>
+			<a href="controller/createUBR-controller.php">UBR</a>
+		</li>
+		<li>
 			<a href="../ticket/index.php?project=1">Issues Tracker</a>
 		</li>
 	</ul>
