@@ -90,6 +90,7 @@ class LabModel
         WHERE d_checked<=0
           AND currentBlock="Send"
           AND n_fichier>48150
+          AND n_essai !=1
 
         order by machine';
         //echo $req;
