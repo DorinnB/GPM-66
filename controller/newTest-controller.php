@@ -20,4 +20,10 @@ $oEprouvette->custom_frequency=$_POST['custom_frequency'];
 //$oEprouvette->id_controleur=0;
 
 $eprouvette=$oEprouvette->newTest();
+
+//Update du statut du job
+include '../models/statut-model.php';
+$oSplit = new StatutModel($db);
+$oSplit->id_tbljob=$oSplit->getJobFromEp($_POST['idEp'])['id_job'];
+$state=$oSplit->findStatut();
 ?>

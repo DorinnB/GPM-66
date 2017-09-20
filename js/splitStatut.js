@@ -25,6 +25,7 @@ $("#end").click(function() {
   }
 });
 
+
 function findStatut(id_tbljob){
   $.ajax({
 		type: "POST",
@@ -34,11 +35,15 @@ function findStatut(id_tbljob){
       id_tbljob : id_tbljob
     },
     success : function(data, statut){
-      alert(data['statut']);
+      //$("#splitStatut").css('background-color',data['statut_color']);
+      //$("#splitStatut").html(data['statut']);
+      goto('split','id_tbljob',$('#id_tbljob').val());
+      //alert(data['statut']);
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
-      alert('ERREUR');
+      goto('split','id_tbljob',$('#id_tbljob').val());
+      //alert('ERREUR');
     }
   });
 }

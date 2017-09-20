@@ -6,7 +6,7 @@
     </button>
     <ul class="dropdown-menu statut">
       <?php foreach ($statut as $row): ?>
-        <li  style="background-color : <?= $row['statut_color'] ?>" onclick="<?php if (isset($_COOKIE['id_user'])): ?>updateStatut('<?= $split['id_tbljob'] ?>', '<?= $row['id_statut'] ?>');<?php else: ?>alert('Please Login then refresh the browser');<?php endif; ?>"><a href="#"><?= $row['statut'] ?></a></li>
+        <li  style="background-color : <?= $row['statut_color'] ?>" onclick="<?php if (isset($_COOKIE['id_user'])): ?>updateStatut('<?= $split['id_tbljob'] ?>', '<?= $row['id_statut'] ?>');<?php else: ?>alert('Please Login then refresh the browser');<?php endif; ?>"><a href="#"><?= $row['statut'].(($row['statut_lock']==1)?' *':'') ?></a></li>
         <?php endforeach ?>
       </ul>
       <span class="glyphicon glyphicon-education" id="findStatut" onclick="findStatut('<?= $split['id_tbljob'] ?>')"></span>

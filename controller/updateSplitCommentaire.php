@@ -16,4 +16,10 @@ $oSplit->tbljob_commentaire=$_POST['tbljob_commentaire'];
 
 $oSplit->updateCommentaire();
 
+//Update du statut du job
+include '../models/statut-model.php';
+$oSplit = new StatutModel($db);
+$oSplit->id_tbljob=$_POST['id_tbljob'];
+$state=$oSplit->findStatut();
+
 ?>

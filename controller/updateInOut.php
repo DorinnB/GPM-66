@@ -26,6 +26,13 @@ $oInOut->updateinOut();
 
 
 
+//Update du statut des splits
+include '../models/statut-model.php';
+$oSplit = new StatutModel($db);
+foreach ($oSplit->getJobFromInfoJob($_POST['id_info_job']) as $key => $value) {
+	$oSplit->id_tbljob=$value['id_tbljob'];
+	$state=$oSplit->findStatut();
+}
 
 
 

@@ -399,21 +399,20 @@ class EprouvetteModel
 
       if(temps_essais is null,
         CONCAT("<i style=\"font-size : 75%;\">",
-            if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
-              TRUNCATE(
+          if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
+            TRUNCATE(
 
-              if(Cycle_STL is null and c_cycle_STL is null,
-                eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
-                if(Cycle_STL is null,
-                   if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
-                    (eprouvettes.Cycle_final/c_frequence)/3600)
-                  ,if(eprouvettes.Cycle_final>cycle_STL,
-                      (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
-                      (eprouvettes.Cycle_final/c_frequence)/3600)
-
-                )),1),
-            ""),
-          "</i>"),
+      if(Cycle_STL is null and c_cycle_STL is null,
+      eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
+      if(Cycle_STL is null,
+        if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
+        (eprouvettes.Cycle_final/c_frequence)/3600)
+        ,if(eprouvettes.Cycle_final>cycle_STL,
+          (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
+          (eprouvettes.Cycle_final/c_frequence)/3600)
+        )),1),
+        ""),
+        "</i>"),
         temps_essais
       ) as temps_essais,
 
@@ -612,23 +611,23 @@ class EprouvetteModel
 
     public function getEstimatedTime(){
       $req='SELECT AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)) AS cycle_estime, c_type_1_val, c_type_2_val
-        FROM eprouvettes
-        WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-        AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-        AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-          AND cycle_final IS NOT NULL AND d_checked > 0
-        GROUP by id_job, c_type_1_val, c_type_2_val';
-//d_checked>0 pour activer le calcul du temps uniquement si les données sont validé, essai terminé
-        $req='SELECT AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)) AS cycle_estime, c_type_1_val, c_type_2_val
-          FROM eprouvettes
-          WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-          AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-          AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-            AND cycle_final IS NOT NULL
-          GROUP by id_job, c_type_1_val, c_type_2_val';
+      FROM eprouvettes
+      WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+      AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+      AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+      AND cycle_final IS NOT NULL AND d_checked > 0
+      GROUP by id_job, c_type_1_val, c_type_2_val';
+      //d_checked>0 pour activer le calcul du temps uniquement si les données sont validé, essai terminé
+      $req='SELECT AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)) AS cycle_estime, c_type_1_val, c_type_2_val
+      FROM eprouvettes
+      WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+      AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+      AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+      AND cycle_final IS NOT NULL
+      GROUP by id_job, c_type_1_val, c_type_2_val';
 
-        //echo $req.'<br/><br/>';
-        return $this->db->getOne($req);
+      //echo $req.'<br/><br/>';
+      return $this->db->getOne($req);
     }
 
     public function getWorkflow(){
@@ -655,41 +654,41 @@ class EprouvetteModel
       public function getTempCorrected(){
 
         $reqInfo = 'SELECT c_temperature, id_temperature_correction_parameter
-          FROM eprouvettes
-          LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
-          LEFT JOIN prestart ON enregistrementessais.id_prestart=prestart.id_prestart
-          WHERE eprouvettes.id_eprouvette='.$this->id.'
-          AND id_temperature_correction_parameter is not null
-          ';
+        FROM eprouvettes
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+        LEFT JOIN prestart ON enregistrementessais.id_prestart=prestart.id_prestart
+        WHERE eprouvettes.id_eprouvette='.$this->id.'
+        AND id_temperature_correction_parameter is not null
+        ';
         $infoTemperature = $this->db->isOne($reqInfo);
 
         //On cherche la temperature corrigé uniquement si l'essai est enregistré
         if ($infoTemperature) {
 
           $reqMin = 'SELECT temperature, correction
-            FROM temperature_corrections
-            WHERE id_temperature_correction_parameter='.$infoTemperature['id_temperature_correction_parameter'].'
-            AND temperature < "'.$infoTemperature['c_temperature'].'"
-            ORDER by temperature DESC
-            LIMIT 1
-            ';
+          FROM temperature_corrections
+          WHERE id_temperature_correction_parameter='.$infoTemperature['id_temperature_correction_parameter'].'
+          AND temperature < "'.$infoTemperature['c_temperature'].'"
+          ORDER by temperature DESC
+          LIMIT 1
+          ';
           $tMin = $this->db->getOne($reqMin);
 
           $reqMax = 'SELECT temperature, correction
-            FROM temperature_corrections
-            WHERE id_temperature_correction_parameter='.$infoTemperature['id_temperature_correction_parameter'].'
-            AND temperature > "'.$infoTemperature['c_temperature'].'"
-            ORDER by temperature ASC
-            LIMIT 1
-            ';
+          FROM temperature_corrections
+          WHERE id_temperature_correction_parameter='.$infoTemperature['id_temperature_correction_parameter'].'
+          AND temperature > "'.$infoTemperature['c_temperature'].'"
+          ORDER by temperature ASC
+          LIMIT 1
+          ';
           //echo $req.'<br/><br/>';
           $tMax = $this->db->getOne($reqMax);
 
           if (($tMax['temperature']-$tMin['temperature'])!=0) {
 
-$temperatureCorrected=
-(($tMax['correction']-$tMin['correction'])/($tMax['temperature']-$tMin['temperature']))
-*($infoTemperature['c_temperature']-$tMax['temperature'])+$tMax['correction'];
+            $temperatureCorrected=
+            (($tMax['correction']-$tMin['correction'])/($tMax['temperature']-$tMin['temperature']))
+            *($infoTemperature['c_temperature']-$tMax['temperature'])+$tMax['correction'];
 
 
             return $temperatureCorrected;
@@ -701,4 +700,4 @@ $temperatureCorrected=
 
       }
 
-}
+    }

@@ -23,6 +23,59 @@ $("#flipRecommendation").click(function() {
   $('#inOut_recommendation_alt').html($('#inOut_recommendation').val());
 });
 
+
+
+$("#save").css('cursor', 'pointer');
+$("#save").click(function(e) {
+  //on recupere (en serialize) la liste des eprouvettes, leur nom et les splits associés
+  var formInOutMaster = $.param($('td').map(function() {
+    if ($(this).attr('data-idmaster')){
+      if ($(this).css("background-color")=="rgb(128, 0, 128)"){
+        return {
+          name: $(this).attr('data-io'),
+          value: $(this).attr('data-idmaster') + '_' + $(this).html()
+        };
+      }
+    }
+  }));
+  var formInOutEp = $.param($('td').map(function() {
+    if ($(this).attr('data-id')){
+      if ($(this).css("background-color")== "rgb(128, 0, 128)"){
+        return {
+          name: $(this).attr('data-io'),
+          value: $(this).attr('data-id') + '_' + $(this).html()
+        };
+      }
+    }
+  }));
+
+  e.preventDefault();
+
+  $.ajax({
+    type: "POST",
+    url: 'controller/updateInOut.php',
+    dataType: "json",
+    data: {
+      formInOutMaster : formInOutMaster,
+      formInOutEp : formInOutEp,
+      inOut_commentaire : $('#inOut_commentaire').val(),
+      inOut_recommendation : $('#inOut_recommendation').val(),
+      dateInOut: $('#dateInOut').val(),
+      id_info_job: $('#id_info_job').val(),
+      id_tbljob: $('#id_tbljob').val()
+    },
+    success : function(data, statut){
+      //alert('yes');
+      goto('inOut','id_tbljob',data['id_tbljob']);
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});
+
+
 //Selon le navigateur utilisé, on detecte le style de transition utilisé
 function whichTransitionEvent(){
   var t,

@@ -106,8 +106,8 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
         LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
         LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
         LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
-LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
-LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
+        LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
+        LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
         LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
         LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
         LEFT JOIN rawData ON rawData.id_rawData=tbljobs.id_rawData
@@ -146,7 +146,7 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
 
     public function updateStatut($id_statut){
       $reqUpdate='UPDATE `tbljobs` SET `id_statut` = '.$id_statut.' WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
-      $result = $this->db->execute($reqUpdate);
+      $result = $this->db->query($reqUpdate);
 
       $newStatut = $this->db->getOne('SELECT * FROM statuts WHERE id_statut='.$id_statut);
       $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_statut' => $newStatut['id_statut'], 'statut_color' => $newStatut['statut_color'], 'statut' => $newStatut['statut']);
@@ -246,7 +246,7 @@ LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_c
 
     public function updateSplitNumber($phase){
       $reqUpdate='UPDATE `tbljobs` SET `phase` = '.$phase.', `split` = '.$this->splitNumber.' WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
-echo $reqUpdate;
+      echo $reqUpdate;
       $this->db->query($reqUpdate);
 
     }
@@ -308,8 +308,73 @@ echo $reqUpdate;
         GROUP BY tbljobs.id_tbljob
         ';
 
-//echo $req;
-      return $this->db->getOne($req);
+        //echo $req;
+
+      $state = $this->db->getOne($req);
+
+
+      $statut='';
+      $id_statut=0;
+
+      if ($state['nbInOut_A']<$state['nbMasterEp']) {
+        $statut='awaiting specimen';
+        $id_statut=120;
+      }
+
+      if ($state['nbLocal'] > 0) {
+        $statut='awaiting InHouse';
+        $id_statut=130;
+      }
+      elseif ($state['nbSubC'] > 0) {
+        $statut='awaiting SubC';
+        $id_statut=122;
+      }
+      elseif ($state['checked']==1 AND $state['nbConsLeftAndInOut_A']>1 AND $state['nbTestLeft']>0) {
+        $statut='ready to test';
+        $id_statut=140;
+      }
+      elseif ($state['nbConsLeft']==0 AND $state['nbTestLeft']>0 AND $state['nbInOut_A']>=$state['nbMasterEp']) {
+        $statut='inHouse but need condition';
+        $id_statut=152;
+      }
+
+
+      if ($state['nbConsLeftAux']>0 AND $state['nbTestLeft']>0 AND $state['nbInOut_A']>=$state['nbTestLeft']) {
+        $statut='Ready to test Aux';
+        $id_statut=140;
+      }
+      elseif ($state['nbConsLeft']==0 AND $state['nbTestLeft']>0 AND $state['nbConsLeftAndInOut_A']>0) {
+        $statut='Testing on Hold Condition';
+        $id_statut=152;
+      }
+
+
+      if ($state['running']>=1) {
+        if ($state['nbTestLeft']==0) {
+          $statut='running last spec';
+          $id_statut=154;
+        }
+        elseif ($state['nbConsLeft']==0) {
+          $statut='running last cond';
+          $id_statut=151;
+        }
+        else {
+          $statut='running';
+          $id_statut=150;
+        }
+      }
+      else {  
+        if ($state['nbUnDChecked']==0 AND $state['nbTestLeft']==0) {
+          $statut='Emission rapport';
+          $id_statut=180;
+        }
+        elseif ($state['nbUnDChecked']>0 AND $state['nbTestLeft']==0) {
+          $statut='Emission rapport mais check ep demandé';
+          $id_statut=180;
+        }
+      }
+
+      $this->updateStatut($id_statut);
 
     }
 
