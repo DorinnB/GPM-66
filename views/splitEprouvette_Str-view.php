@@ -169,7 +169,7 @@
           </td>
           <td><?= $ep[$k]['currentBlock'] ?></td>
           <td><?= $ep[$k]['n_essai'] ?></td>
-          <td><?= $ep[$k]['n_fichier'] ?></td>
+          <td class="chartFile"><?= $ep[$k]['n_fichier'] ?></td>
           <?php for($i=1;$i <= count($dimDenomination);$i++): ?>
             <td><?= $ep[$k]['dim'.$i]  ?></td>
           <?php  endfor  ?>

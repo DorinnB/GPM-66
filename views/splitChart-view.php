@@ -1,7 +1,7 @@
 
 <style>
-#chart{
-width: 80%;
+#chart2{
+max-width: 80%;
 margin: 0 10%;
 min-height: 400px;
 }
@@ -18,7 +18,7 @@ min-height: 400px;
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
           <div class="item active">
-            <div id="chart"></div>
+            <div id="chart2"></div>
           </div>
         </div>
 
@@ -40,5 +40,7 @@ min-height: 400px;
 <!-- Load d3.js and c3.js -->
 <script src="lib/d3/d3.min.js" charset="utf-8"></script>
 <script src="lib/c3-0.4.10/c3.min.js"></script>
+
+<script src="lib/plotly/plotly-latest.min.js"></script>
 
 <script type="text/javascript" src="js/splitChart.js"></script>
