@@ -53,7 +53,7 @@ $cycleEstimeAVG=$oEp->getEstimatedTime();
   if ($ep[$k]['d_checked']>0) {
     $ep[$k]['dispo']='6';
   }
-  elseif ($ep[$k]['currentBlock']=='Send') {
+  elseif (strtolower($ep[$k]['currentBlock'])=='send') {
     $ep[$k]['dispo']='5';
   }
   elseif ($ep[$k]['n_fichier']>0) {
