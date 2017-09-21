@@ -34,13 +34,7 @@ min-height: 400px;
   </div>
 </div>
 
-<!-- Load c3.css -->
-<link href="lib/c3-0.4.10/c3.css" rel="stylesheet">
-
-<!-- Load d3.js and c3.js -->
-<script src="lib/d3/d3.min.js" charset="utf-8"></script>
-<script src="lib/c3-0.4.10/c3.min.js"></script>
-
+<!-- Load plotrly librairie (chart) -->
 <script src="lib/plotly/plotly-latest.min.js"></script>
 
 <script type="text/javascript" src="js/splitChart.js"></script>
