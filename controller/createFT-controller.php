@@ -18,6 +18,12 @@ $oEprouvette = new EprouvetteModel($db,$_GET['id_ep']);
 
 $essai=$oEprouvette->getTest();
 
+//recuperation des commentaires des splits precedents
+$workflow=$oEprouvette->getWorkflow();
+$essai['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
+
+
+
 $oEprouvette->dimension($essai['type'],$essai['dim1'],$essai['dim2'],$essai['dim3']);
 $nb_dim=count($oEprouvette->dimDenomination());
 $area = $oEprouvette->area();
@@ -231,7 +237,9 @@ $style_gray = array(
         'K52' => $STL,
         'I52' => $F_STL,
         'J46' => $essai['Cycle_min'],
-        'J49' => $runout
+        'J49' => $runout,
+
+        'A53' => $essai['comm'].' / '.$essai['c_commentaire']
       );
 
 
@@ -311,6 +319,7 @@ $style_gray = array(
         'B13' => $essai['machine'],
         'B15' => '40001',
         'B16' => $essai['enregistreur'],
+        'B17' => $essai['extensometre'],        
         'F13' => $compresseur,
         'F17' => $ind_temp,
         'F15' => $coil,
@@ -343,7 +352,9 @@ $style_gray = array(
         'K52' => $STL,
         'I52' => $F_STL,
         'J46' => $essai['Cycle_min'],
-        'J49' => $runout
+        'J49' => $runout,
+
+        'A53' => $essai['comm'].' / '.$essai['c_commentaire']
       );
 
 
@@ -463,7 +474,9 @@ $style_gray = array(
         'B45' => $STL,
         'B46' => $F_STL,
         'J56' => $essai['Cycle_min'],
-        'J59' => $runout
+        'J59' => $runout,
+
+        'A63' => $essai['comm'].' / '.$essai['c_commentaire']
       );
 
       //affichage du checkeur temperature uniquement si temperature
