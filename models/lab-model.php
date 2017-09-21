@@ -11,7 +11,7 @@ class LabModel
     public function getTest() {
       $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, currentBlock, eprouvettes.Cycle_final, split, machine, postes.id_machine, poste, id_job, n_essai,
         c_frequence, c_frequence_STL, c_cycle_STL, d_frequence, d_frequence_STL, Cycle_STL, runout, c_temperature,
-        texte_machine_forecast, icone_file, icone_name, prio_machine_forecast
+        texte_machine_forecast, icone_file, icone_name, prio_machine_forecast, etape
         FROM enregistrementessais
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
@@ -22,6 +22,7 @@ class LabModel
         LEFT JOIN machines ON machines.id_machine=postes.id_machine
         LEFT JOIN machine_forecasts ON machine_forecasts.id_machine_forecast=machines.id_machine
         LEFT JOIN icones ON icones.id_icone=machine_forecasts.id_icone_machine_forecast
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
 
         WHERE n_fichier in (SELECT max(n_fichier)
         FROM `enregistrementessais`

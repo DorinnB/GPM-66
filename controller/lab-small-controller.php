@@ -74,7 +74,7 @@ foreach ($test as $value) {
   elseif ($value['currentBlock']=='Dwell') {
     $poste[$value['poste']]['background-color']='darkgreen';
     $runStop[]="RUN";
-  }  
+  }
   elseif($value['currentBlock']=='Stop') {
     $poste[$value['poste']]['background-color']='darkred';
     $runStop[]="STOP";
@@ -86,6 +86,9 @@ foreach ($test as $value) {
   elseif($value['currentBlock']=='Send' OR $value['currentBlock']=='send') {
     $poste[$value['poste']]['background-color']='dimgray';
     $runStop[]="STOP";
+    if ($poste[$value['poste']]['etape']==53) {
+      $poste[$value['poste']]['background-color']='purple';
+    }
   }
   elseif($value['currentBlock']=='Analysis') {
     $poste[$value['poste']]['background-color']='Sienna';

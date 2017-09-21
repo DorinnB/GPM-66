@@ -2,7 +2,7 @@
   <?php if (isset($poste[$n_poste])): ?>
 
 
-    <div class="col-md-12 machine" style="border:1px solid black; margin:5px 0px;background-color:<?= $poste[$n_poste]['background-color'] ?>;color:<?= $poste[$n_poste]['color'] ?>;display:<?=  ($poste[$n_poste]['currentBlock']=='Send' or $poste[$n_poste]['currentBlock']=='send')?'none':'block'  ?>;">
+    <div class="col-md-12 machine" style="border:1px solid black; margin:5px 0px;background-color:<?= $poste[$n_poste]['background-color'] ?>;color:<?= $poste[$n_poste]['color'] ?>;display:<?=  (($poste[$n_poste]['currentBlock']=='Send' or $poste[$n_poste]['currentBlock']=='send') AND $poste[$n_poste]['etape']!=53)?'none':'block'  ?>;">
 
       <div class="col-md-2">
           <img src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 15px;">
@@ -28,7 +28,7 @@
 
 
 
-    <div class="col-md-12 foreCast" style="border:1px solid black; margin:5px 0px;background-color:#536E94;color:white;display:<?=  ($poste[$n_poste]['currentBlock']=='Send' or $poste[$n_poste]['currentBlock']=='send')?'block':'none'  ?>;">
+    <div class="col-md-12 foreCast" style="border:1px solid black; margin:5px 0px;background-color:#536E94;color:white;display:<?=  (($poste[$n_poste]['currentBlock']=='Send' or $poste[$n_poste]['currentBlock']=='send') AND $poste[$n_poste]['etape']!=53)?'block':'none'  ?>;">
       <div class="col-md-3 icone" data-id="<?= $poste[$n_poste]['id_machine']  ?>">
         <img id="icone_<?= $poste[$n_poste]['id_machine']   ?>" src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 30px;">
       </div>

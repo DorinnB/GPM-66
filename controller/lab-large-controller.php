@@ -87,6 +87,11 @@ foreach ($test as $value) {
   elseif($value['currentBlock']=='Send' OR $value['currentBlock']=='send') {
     $poste[$value['poste']]['background-color']='dimgray';
     $runStop[]="STOP";
+//affichage en violet si "new condition ready"
+    if ($poste[$value['poste']]['etape']==53) {
+      $poste[$value['poste']]['background-color']='purple';
+    }
+
   }
   elseif($value['currentBlock']=='Analysis') {
     $poste[$value['poste']]['background-color']='Sienna';
