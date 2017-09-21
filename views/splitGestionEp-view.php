@@ -313,7 +313,12 @@
   <figcaption><acronym title="Other">Oth</acronym> (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'Other'); ?>)</figcaption>
 </figure>
 
-
+<a href="#" id="createXML" style="display:inline-block;">
+  <figure>
+    <img  src="img/xml.png" height="40" width="40" alt="" />
+    <figcaption>XML</figcaption>
+  </figure>
+</a>
 
 <div id="doc_ep" style=height:40%;>
 

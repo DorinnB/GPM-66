@@ -384,7 +384,7 @@ class EprouvetteModel
       Cycle_min, runout, cycle_estime, c_commentaire, q_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3, type,id_dessin_type, dessin, ref_matiere, enregistreur, extensometre,
       cartouche_load, cartouche_stroke, cartouche_strain, t1.technicien AS operateur, t2.technicien AS controleur,
       n_essai, n_fichier, machine, enregistrementessais.date, tbljobs.waveform AS c_waveform, eprouvettes.waveform, Cycle_STL, Cycle_final, Rupture, Fracture,
-      info_jobs.job, info_jobs.customer, split, test_type,test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
+      info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
       signal_true, signal_tapered, young, flag_qualite, check_rupture,
       d_commentaire, currentBlock,
       E_RT, c1_E_montant, c1_max_strain, c1_min_strain, c1_max_stress, c1_min_stress, c2_cycle, c2_E_montant, c2_max_stress, c2_min_stress, c2_max_strain, c2_min_strain, c2_calc_inelastic_strain, c2_meas_inelastic_strain, Ni, Nf75, dilatation,

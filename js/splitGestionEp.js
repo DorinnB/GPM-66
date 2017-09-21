@@ -261,3 +261,23 @@ $(".document").click(function(e) {
     }
   });
 });
+
+
+$("#createXML").click(function(e) {
+  $.ajax({
+    type: "GET",
+    url: 'controller/createXML-controller.php',
+    data:
+    {
+      id_ep:$("#idEp").val()
+    }
+    ,
+    success : function(data, statut){
+//      alert('ca marche');
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la création du XML. Veuillez prevenir au plus vite le responsable SI.');
+    }
+  });
+});

@@ -21,39 +21,17 @@ $area = $oEprouvette->area();
 
 $oEprouvette->niveaumaxmin($essai['c_1_type'], $essai['c_2_type'], $essai['c_type_1_val'], $essai['c_type_2_val']);
 
-//var_dump($essai);
+//on charge le model
+include '../models/lstXMLforTS-model.php';
+$oXMLforTS = new XMLforTSModel($db);
+//on ajoute dans $variableTS_GPM les equivalent entre les noms de la base et les noms de variables TS
+$variableTS_GPM = array();
+foreach ($oXMLforTS->getAllXMLforTS($essai['id_test_type']) as $key => $value) {
+  $variableTS_GPM[$value['ts']]=$essai[$value['xml']];
+}
 
-$variableTS_GPM = array(
-  'TestName' => $essai['n_fichier'],
-  'DrawingNumber' =>$essai['dessin'],
-  'Load_Frequency' =>$essai['c_frequence_STL'],
-  'MachineNumber' =>$essai['machine'],
-  'Operator' =>$essai['operateur'],
-
-  'GE_Type_Job' =>$essai['dessin'],
-  'CustomerDataFormat' =>$essai['dessin'],
-  'Gage' =>$essai['dessin'],
-
-  'Report_Dimension1' =>$essai['dim_1'],
-  'Report_Dimension2' =>$essai['dim_2'],
-  'Report_Dimension3' =>$essai['dim_3'],
-
-  'Strain_EndLevel1Wanted' =>$essai['dessin'],
-  'Strain_EndLevel2Wanted' =>$essai['dessin'],
-
-
-  'Shared_NumberOfCyclesWanted' =>$essai['runout'],
-  'Shared_WaveShape' => $essai['c_waveform'],
-  'SpecimenId' => isset($essai['prefixe'])?$essai['prefixe'].'-'.$essai['nom_eprouvette']:$essai['nom_eprouvette'],
-  'SpecimenMaterial' =>$essai['ref_matiere'],
-
-  'Strain_Frequency' =>$essai['c_frequence'],
-  'Strain_STLCycle' =>$essai['c_cycle_STL'],
-  'TestNumber' =>$essai['n_essai']
-);
-
-
-
+//on ajoute manuellement le nom d'ep
+  $variableTS_GPM['SpecimenId'] = isset($essai['prefixe'])?$essai['prefixe'].'-'.$essai['nom_eprouvette']:$essai['nom_eprouvette'];
 
 
 
@@ -86,7 +64,7 @@ $xml_string = $xml_doc->saveXML();
 
 
 
-$fp = fopen('//SRV-DC01/data/labo/Computer/BDD/DataGPM-Test/'.$essai['n_fichier'].'.xml', 'w');
+$fp = fopen('//SRV-DC01/data/labo/Computer/BDD/XMLforTS/'.$essai['n_fichier'].'.xml', 'w');
 fwrite($fp, $xml_string);
 fclose($fp);
 ?>
