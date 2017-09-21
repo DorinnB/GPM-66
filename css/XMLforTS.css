@@ -1,0 +1,7 @@
+tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}
+caption{
+  color : White;
+  font-size: 250%;
+}
