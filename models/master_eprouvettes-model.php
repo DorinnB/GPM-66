@@ -11,12 +11,7 @@ class LstMasterEprouvettesModel
   }
 
   public function __set($property,$value) {
-    if (is_numeric($value)){
-      $this->$property = $value;
-    }
-    else {
       $this->$property = ($value=="")? "NULL" : $this->db->quote($value);
-    }
   }
 
   public function addMasterEp() {
