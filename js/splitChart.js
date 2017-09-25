@@ -8,7 +8,7 @@ $("#myChart").click(function(e) {
     //on cherche ceux ou il y a un nombre de cycle (en otant les espaces)
     if ($(this).find('.chartCycle').html().replace(/ /g,'')>0) {
       endLevel_X.push($(this).find('.chartCycle').html().replace(/ /g,''));
-      endLevel_Y.push($(this).find('.chartMax').html().replace(/ /g,''));
+      endLevel_Y.push($(this).find('.chartNiveau').html().replace(/ /g,''));
       chartFile.push('File : '+$(this).find('.chartFile').html().replace(/ /g,''));
     }
   });
@@ -42,14 +42,12 @@ $("#myChart").click(function(e) {
     var data = [ trace1 ];
 
     var layout = {
-      title:'Cycle vs endlevel',
+      title:'Cycle vs Requirement Endlevel',
       xaxis: {title: 'Cycle', type: 'log'},
-      yaxis: {title: 'endlevel'},
+      yaxis: {title: $('#ChartTitreCons').attr('data-titre')},
     };
 
     Plotly.newPlot('chart2', data, layout);
-
-
 
 
   });

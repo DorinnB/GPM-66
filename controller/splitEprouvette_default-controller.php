@@ -12,12 +12,20 @@ include '../models/eprouvette-model.php';
 
 
 // Definition des consignes et unites
+//ainsi que de l'axe des ordonnées du Chart
 if (($split['c_type_1']=="R") OR ($split['c_type_1']=="A")) {
   $split['cons1']=$split['c_type_1'];
+  $split['ChartCons1']='';
+  $split['ChartCons2']='chartNiveau';
+  $split['ChartTitreCons']=$split['c_type_2'].' ('.$split['c_unite'].')';
 }
 else {
   $split['cons1']=$split['c_type_1'].' ('.$split['c_unite'].')';
+  $split['ChartCons1']='chartNiveau';
+  $split['ChartCons2']='';
+  $split['ChartTitreCons']=$split['c_type_1'].' ('.$split['c_unite'].')';
 }
+
 if (($split['c_type_2']=="R") OR ($split['c_type_2']=="A")) {
   $split['cons2']=$split['c_type_2'];
 }

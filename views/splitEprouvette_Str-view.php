@@ -11,7 +11,7 @@
         <th><acronym title="Frequency">F.</acronym></th>
         <th><acronym title="Switch To Load">STL</acronym></th>
         <th><acronym title="Load Frequency">F.<SUB>STL</SUB></acronym></th>
-        <th><?= $split['cons1'] ?></th>
+        <th id="ChartTitreCons" data-titre="<?= $split['ChartTitreCons']  ?>"><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
@@ -128,8 +128,8 @@
           <td><?= $ep[$k]['c_frequence'] ?></td>
           <td><?= $ep[$k]['c_cycle_STL'] ?></td>
           <td><?= $ep[$k]['c_frequence_STL'] ?></td>
-          <td><?= $ep[$k]['c_type_1_val'] ?></td>
-          <td><?= $ep[$k]['c_type_2_val'] ?></td>
+          <td class="<?=  $split['ChartCons1']  ?>"><?= $ep[$k]['c_type_1_val'] ?></td>
+          <td class="<?=  $split['ChartCons2']  ?>"><?= $ep[$k]['c_type_2_val'] ?></td>
           <td class="chartMax"><?= $ep[$k]['max'] ?></td>
           <td><?= $ep[$k]['min'] ?></td>
           <td><?= $ep[$k]['Cycle_min'] ?></td>
