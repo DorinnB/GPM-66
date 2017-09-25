@@ -18,7 +18,7 @@ $(document).ready(function() {
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
-      url : "controller/editor-splitEprouvetteValue_IQC.php",
+      url : "controller/editor-splitEprouvetteConsigne_IQC.php",
       type: "POST",
       data: {"idJob" : idJob}
     },
@@ -87,7 +87,7 @@ def: ""
 
 var table = $('#table_ep').DataTable( {
   ajax: {
-    url : "controller/editor-splitEprouvetteValue_IQC.php",
+    url : "controller/editor-splitEprouvetteConsigne_IQC.php",
     type: "POST",
     data: {"idJob" : idJob}
   },
