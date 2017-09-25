@@ -116,7 +116,8 @@ $style_gray = array(
         'K5'=> $split['nomCreateur'],
         'K6'=> $split['comCheckeur'],
 
-        'D42'=> $split['tbljob_instruction']
+        'D42'=> $split['tbljob_instruction'],
+        'D47'=> $split['info_jobs_instruction']
       );
 
       //Pour chaque element du tableau associatif, on update les cellules Excel
@@ -188,7 +189,7 @@ $style_gray = array(
         $col++;
       }
 
-      $colImprimable=(ceil(count($ep)/10)*13-3);
+      $colImprimable=ceil(count($ep)/10)*10+3;
       //zone d'impression
       $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
       $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
@@ -215,7 +216,8 @@ $style_gray = array(
         'K5'=> $split['nomCreateur'],
         'K6'=> $split['comCheckeur'],
 
-        'D42'=> $split['tbljob_instruction']
+        'D42'=> $split['tbljob_instruction'],
+        'D47'=> $split['info_jobs_instruction']
       );
 
       //Pour chaque element du tableau associatif, on update les cellules Excel
@@ -287,7 +289,7 @@ $style_gray = array(
         $col++;
       }
 
-      $colImprimable=(ceil(count($ep)/10)*13-3);
+      $colImprimable=ceil(count($ep)/10)*10+3;
       //zone d'impression
       $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
       $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
@@ -316,7 +318,8 @@ $style_gray = array(
         'K5'=> $split['nomCreateur'],
         'K6'=> $split['comCheckeur'],
 
-        'D42'=> $split['tbljob_instruction']
+        'D42'=> $split['tbljob_instruction'],
+        'D47'=> $split['info_jobs_instruction']
       );
 
       //Pour chaque element du tableau associatif, on update les cellules Excel
@@ -388,7 +391,7 @@ $style_gray = array(
         $col++;
       }
 
-      $colImprimable=(ceil(count($ep)/10)*13-3);
+      $colImprimable=ceil(count($ep)/10)*10+3;
       //zone d'impression
       $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
       $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
