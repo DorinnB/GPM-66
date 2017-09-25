@@ -63,7 +63,7 @@ $val2Xls = array(
   'C6' => $split['dessin'],
   'C7' => $split['ref_matiere'].' ('.$split['matiere'].')',
 
-  'N5' =>  $split['comments'],
+  'N5' =>  $split['comments'],  //comments est un champ libre, qui sert dans le cas de l'IQC d'équipements
   'N6' => date("Y-m-d"),
   'N7' => $split['specification'],
 
