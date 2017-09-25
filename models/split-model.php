@@ -29,10 +29,10 @@ private $id;
 //ADD AFFICHAGE DESSIN en concat
 		$req = 'SELECT id_tbljob, tbljobs.id_info_job,
           customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,
-          contacts.genre, contacts.lastname, contacts.surname, contacts.compagnie,
-          contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2,
-          contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3,
-          contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4,
+          contacts.genre, contacts.lastname, contacts.surname, contacts.compagnie, contacts.email as email, contacts.telephone as telephone,
+          contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2, contacts2.email as email2, contacts2.telephone as telephone2,
+          contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3, contacts3.email as email3, contacts3.telephone as telephone3,
+          contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
           tbljobs.id_statut, statut, etape, statut_color, test_type_abbr, tbljobs.id_rawData, rawData.Name,
@@ -363,7 +363,7 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
           $id_statut=150;
         }
       }
-      else {  
+      else {
         if ($state['nbUnDChecked']==0 AND $state['nbTestLeft']==0) {
           $statut='Emission rapport';
           $id_statut=180;
