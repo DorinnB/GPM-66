@@ -30,7 +30,7 @@ class AnnexeIQCModel
 
 
   public function __set($property,$value) {
-      $this->$property = ($value=="")? "NULL" : $this->db->quote($value);
+    $this->$property = ($value=="")? "NULL" : $this->db->quote($value);
   }
 
 
@@ -74,7 +74,7 @@ class AnnexeIQCModel
     LEFT JOIN techniciens ON techniciens.id_technicien=annexe_IQC.id_tech
 
     WHERE eprouvettes.id_job='.$idjob.'
-      AND eprouvettes.eprouvette_actif=1
+    AND eprouvettes.eprouvette_actif=1
     ORDER by master_eprouvettes.id_master_eprouvette ASC';
     //echo $req;
     return $this->db->getAll($req);
@@ -95,117 +95,129 @@ class AnnexeIQCModel
   }
 
 
-  public function existIQC($idIQC) {
-    $req='SELECT id_annexe_iqc, dim1, dim2, dim3, marquage, surface, grenaillage, revetement, protection, autre
-      FROM annexe_iqc
-      WHERE id_annexe_iqc='.$idIQC;
+
+
+  public function getIQCid($idjob, $prefixe, $id) {
+
+    $wherePrefixe=($prefixe=="")?' IS NULL':'='.$this->db->quote($prefixe);
+
+    $req='SELECT id_eprouvette
+    FROM eprouvettes
+    LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+    WHERE master_eprouvettes.prefixe'.$wherePrefixe.'
+    AND master_eprouvettes.nom_eprouvette='.$this->db->quote($id).'
+    AND id_job='.$this->db->quote($idjob).'
+    ';
 
     return $this->db->isOne($req);
   }
 
 
-  public function updateIQC($idIQC){
-    $reqUpdate='UPDATE annexe_IQC
-    LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=annexe_IQC.id_annexe_iqc
-    SET
-    dim1='.$this->dim1.',
-    dim2='.$this->dim2.',
-    dim3='.$this->dim3.',
-    marquage='.$this->marquage.',
-    surface='.$this->surface.',
-    grenaillage='.$this->grenaillage.',
-    revetement='.$this->revetement.',
-    protection='.$this->protection.',
-    autre='.$this->autre.',
-    d_commentaire='.$this->observation.'
-    WHERE id_annexe_iqc = '.$idIQC;
 
-  //  echo $reqUpdate.'<br/><br/>';;
+  public function inserupdateIQC($idIQC){
 
-    $result = $this->db->query($reqUpdate);
 
-    if ($result) {
+    $reqSelect='SELECT master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, dim1, dim2, dim3
+    FROM annexe_IQC
+    LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=annexe_IQC.id_annexe_IQC
+    LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+    WHERE id_annexe_IQC='.$idIQC;
+
+    $isOneIQC = $this->db->isOne($reqSelect);
+
+
+    if ($isOneIQC) {
+
+      echo
+      (($isOneIQC['prefixe']=="")?$isOneIQC['nom_eprouvette']:$isOneIQC['prefixe']."-".$isOneIQC['nom_eprouvette'])
+      .' updated : '.$isOneIQC['dim1'].'->'.$this->dim1.' '.$isOneIQC['dim2'].'->'.$this->dim2.' '.$isOneIQC['dim3'].'->'.$this->dim3.'
+      ';
+
       $reqUpdate='UPDATE annexe_IQC
       LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=annexe_IQC.id_annexe_iqc
       SET
-      date_IQC='.date('Y-m-d H:i:s').',
-      eprouvette_inOut_A = "'.date('Y-m-d H:i:s').'",
-      eprouvette_inOut_B = "'.date('Y-m-d H:i:s').'",
-      id_tech = '.$this->id_tech.'
+      dim1='.$this->dim1.',
+      dim2='.$this->dim2.',
+      dim3='.$this->dim3.',
+      marquage='.$this->marquage.',
+      surface='.$this->surface.',
+      grenaillage='.$this->grenaillage.',
+      revetement='.$this->revetement.',
+      protection='.$this->protection.',
+      autre='.$this->autre.',
+      d_commentaire='.$this->observation.',
+      date_IQC='.$this->date_IQC.',
+      eprouvette_inOut_A='.$this->date_IQC.',
+      eprouvette_inOut_B='.$this->date_IQC.',
+      id_tech = '.$this->id_tech.',
+      d_checked=-'.$this->id_tech.'
+
       WHERE id_annexe_iqc = '.$idIQC;
 
-  //    echo $reqUpdate.'<br/><br/>';;
-
-      $result = $this->db->query($reqUpdate);
-
-      $reqUpdate='UPDATE eprouvettes SET
-      date_IQC="'.date('Y-m-d H:i:s').'",
-      id_tech = '.$this->id_tech.'
-      WHERE id_annexe_iqc = '.$idIQC;
-
-  //    echo $reqUpdate.'<br/><br/>';;
+      //  echo $reqUpdate.'<br/><br/>';;
 
       $result = $this->db->query($reqUpdate);
     }
-  }
+    else{
+      $reqInsert='INSERT INTO annexe_IQC (
+        id_annexe_iqc,
+        dim1,
+        dim2,
+        dim3,
+        marquage,
+        surface,
+        grenaillage,
+        revetement,
+        protection,
+        autre,
+        date_IQC,
+        id_tech
+      )
+      VALUES (
+        '.$idIQC.',
+        '.$this->dim1.',
+        '.$this->dim2.',
+        '.$this->dim3.',
+        '.$this->marquage.',
+        '.$this->surface.',
+        '.$this->grenaillage.',
+        '.$this->revetement.',
+        '.$this->protection.',
+        '.$this->autre.',
+        '.$this->date_IQC.',
+        '.$this->id_tech.'
+        ) ';
+        //echo $reqInsert.'<br/><br/>';
+        $result = $this->db->execute($reqInsert);
+
+        $reqUpdate='UPDATE eprouvettes
+        SET
+        d_commentaire='.$this->observation.',
+        eprouvette_inOut_A = '.$this->date_IQC.',
+        eprouvette_inOut_B = '.$this->date_IQC.'
+        WHERE id_eprouvette = '.$idIQC;
+
+        //  echo $reqUpdate.'<br/><br/>';;
+
+        $result = $this->db->query($reqUpdate);
+
+      }
+    }
 
 
 
 
-  public function InsertIQC($idIQC){
-    $reqInsert='INSERT INTO annexe_IQC (
-      id_annexe_iqc,
-      dim1,
-      dim2,
-      dim3,
-      marquage,
-      surface,
-      grenaillage,
-      revetement,
-      protection,
-      autre,
-      date_IQC,
-      id_tech
-    )
-    VALUES (
-      '.$idIQC.',
-      '.$this->dim1.',
-      '.$this->dim2.',
-      '.$this->dim3.',
-      '.$this->marquage.',
-      '.$this->surface.',
-      '.$this->grenaillage.',
-      '.$this->revetement.',
-      '.$this->protection.',
-      "'.$this->autre.'",
-      "'.date('Y-m-d H:i:s').'",
-      '.$this->id_tech.'
-      ) ';
-    //echo $reqInsert.'<br/><br/>';
-    $result = $this->db->execute($reqInsert);
 
-      $reqUpdate='UPDATE eprouvettes
+    public function updateComments($idtbljob) { //comments est un champ libre de la table eprouvettes qui, dans ce cas, sert aux equipements
+      $req='UPDATE tbljobs
       SET
-      d_commentaire='.$this->observation.',
-      eprouvette_inOut_A = "'.date('Y-m-d H:i:s').'",
-      eprouvette_inOut_B = "'.date('Y-m-d H:i:s').'"
-      WHERE id_eprouvette = '.$idIQC;
+      comments='.$this->comments.',
+      tbljob_commentaire='.$this->tbljob_commentaire.',
+      tbljob_commentaire_qualite='.$this->tbljob_commentaire_qualite.'
+      WHERE id_tbljob='.$idtbljob;
+      //echo $req;
+      return $this->db->query($req);
+    }
 
-    //  echo $reqUpdate.'<br/><br/>';;
 
-      $result = $this->db->query($reqUpdate);
   }
-
-  public function updateComments($idtbljob) {
-    $req='UPDATE tbljobs
-    SET
-    comments='.$this->comments.',
-    tbljob_commentaire='.$this->tbljob_commentaire.',
-    tbljob_commentaire_qualite='.$this->tbljob_commentaire_qualite.'
-    WHERE id_tbljob='.$idtbljob;
-//echo $req;
-    return $this->db->query($req);
-  }
-
-
-}
