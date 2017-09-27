@@ -641,11 +641,11 @@ $style_gray = array(
 
       foreach ($epIQC as $key => $value) {
         $oldData->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
-        //  $data->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
-        $oldData->setCellValueByColumnAndRow(1, $row, $value['prefixe']);
-        //$data->setCellValueByColumnAndRow(1, $row, $value['prefixe']);
-        $oldData->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
-        //$data->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
+
+        $oldData->setCellValueByColumnAndRow(1, $row, '*'.$value['prefixe']);
+        $oldData->setCellValueByColumnAndRow(2, $row, '*'.$value['nom_eprouvette']);
+
+
         $oldData->setCellValueByColumnAndRow(3, $row, $value['dim1']);
         $oldData->setCellValueByColumnAndRow(4, $row, $value['dim2']);
         $oldData->setCellValueByColumnAndRow(5, $row, $value['dim3']);
