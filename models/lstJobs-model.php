@@ -78,7 +78,7 @@ class LstJobsModel
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
           DyT_expected, DyT_Cust,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest,
-          1 as nbRetest,
+          count(eprouvettes.id_master_eprouvette)-count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbRetest,
           CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent
           '.$DyT.'
 

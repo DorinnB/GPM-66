@@ -13,7 +13,7 @@ $oFollowup = new LstJobsModel($db);
 $filtreFollowup=(isset($_GET['filtreFollowup']))?$_GET['filtreFollowup']:'';
 
 
-
+$date=date("Y-m-d H-i-s");
 
 /** Error reporting */
 error_reporting(E_ALL);
@@ -46,6 +46,7 @@ $rowEnTete = 9; // 1-based index
 
 //pour chaque split commencé non fini
 foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
+
   if ($row['nbtest']>0) {
 
 
@@ -73,9 +74,8 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
     $enTete->setCellValueByColumnAndRow(4, $rowEnTete, $row['temperature']);
     $enTete->setCellValueByColumnAndRow(5, $rowEnTete, $row['nbtest']);
     $enTete->setCellValueByColumnAndRow(6, $rowEnTete, $row['nbRetest']);
+
     $tpsSup=0;  //heure sup a 0 et on incrementera au fur et a mesure des eprouvettes
-
-
 
 
     //on crée un nouvel onglet du nom du split
@@ -108,10 +108,10 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
 
       if ($value['c_frequence']>0 AND $value['Cycle_final']>0) {
         $tpsEssai=($value['temps_essais']>0)?$value['temps_essais']:(($value['Cycle_STL']==0)?($value['Cycle_final']/$value['c_frequence']/3600):(($value['Cycle_final']-$value['Cycle_STL'])/$value['c_frequence_STL']+$value['Cycle_STL']/$value['c_frequence'])/3600);
-        $tpsSup=($tpsEssai>24)?$tpsEssai-24:0;
+        $tpsSupSplit=($tpsEssai>24)?$tpsEssai-24:0;
         $newSheet->setCellValueByColumnAndRow($col, 15, $tpsEssai);
-        $newSheet->setCellValueByColumnAndRow($col, 16, $tpsSup);
-        $tpsSup+=$tpsSup;
+        $newSheet->setCellValueByColumnAndRow($col, 16, $tpsSupSplit);
+        $tpsSup+=$tpsSupSplit;
       }
       $col++;
     }
@@ -125,14 +125,23 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
   }
 }
 
+$enTete->setCellValue("B4", $date);
+
+
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../lib/PHPExcel/files/UBR-'.date("Y-m-d-H-i-s").'.xlsx');
+$objWriter->save('../lib/PHPExcel/files/UBR-'.$date.'.xlsx');
+
+//Copy du fichier vers //SRV-DC01/data/ADMINISTRATION/UBR/
+$srcfile='../lib/PHPExcel/files/UBR-'.$date.'.xlsx';
+$dstfile = '//SRV-DC01/data/ADMINISTRATION/UBR/UBR-'.$date.'.xlsx';
+copy($srcfile, $dstfile);
 
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Report-'.date("Y-m-d-H-i-s").'.xlsx"');
+header('Content-Disposition: attachment;filename="UBR-'.$date.'.xlsx"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');
