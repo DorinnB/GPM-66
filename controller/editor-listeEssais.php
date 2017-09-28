@@ -19,7 +19,7 @@ Editor::inst( $db, 'enregistrementessais' )
 ->pkey( 'enregistrementessais.n_fichier' )
 ->fields(
   Field::inst( 'enregistrementessais.n_fichier'),
-    Field::inst( 'eprouvettes.n_essai'),
+  Field::inst( 'eprouvettes.n_essai'),
   Field::inst( 'enregistrementessais.date'),
   Field::inst( 'test_type.test_type_abbr'),
   Field::inst( 'eprouvettes.c_temperature'),
@@ -31,25 +31,25 @@ Editor::inst( $db, 'enregistrementessais' )
   Field::inst( 'machines.machine'),
   Field::inst( 'op.technicien'),
   Field::inst( 'chk.technicien'),
-Field::inst( 'tbljobs.id_tbljob'),
-    Field::inst( 'extensometres.extensometre')
+  Field::inst( 'tbljobs.id_tbljob'),
+  Field::inst( 'extensometres.extensometre')
   )
-  ->leftJoin( 'eprouvettes',     'eprouvettes.id_eprouvette',          '=', 'enregistrementessais.id_eprouvette' )
-  ->leftJoin( 'master_eprouvettes',     'master_eprouvettes.id_master_eprouvette',          '=', 'eprouvettes.id_master_eprouvette' )
-  ->leftJoin( 'tbljobs',     'tbljobs.id_tbljob',          '=', 'eprouvettes.id_job' )
-  ->leftJoin( 'info_jobs',     'info_jobs.id_info_job',          '=', 'tbljobs.id_info_job' )
-  ->leftJoin( 'test_type',     'test_type.id_test_type',          '=', 'tbljobs.id_type_essai' )
-  ->leftJoin( 'prestart',     'prestart.id_prestart',          '=', 'enregistrementessais.id_prestart' )
-  ->leftJoin( 'postes',     'postes.id_poste',          '=', 'prestart.id_poste' )
-  ->leftJoin( 'machines',     'machines.id_machine',          '=', 'postes.id_machine' )
-  ->leftJoin( 'extensometres',     'extensometres.id_extensometre',          '=', 'postes.id_extensometre' )
-  ->leftJoin( 'chauffages',     'chauffages.id_chauffage',          '=', 'postes.id_chauffage' )
-  ->leftJoin( 'techniciens as op',     'op.id_technicien',          '=', 'enregistrementessais.id_operateur' )
-  ->leftJoin( 'techniciens as chk',     'chk.id_technicien',          '=', 'enregistrementessais.id_controleur' )
+->leftJoin( 'eprouvettes',     'eprouvettes.id_eprouvette',          '=', 'enregistrementessais.id_eprouvette' )
+->leftJoin( 'master_eprouvettes',     'master_eprouvettes.id_master_eprouvette',          '=', 'eprouvettes.id_master_eprouvette' )
+->leftJoin( 'tbljobs',     'tbljobs.id_tbljob',          '=', 'eprouvettes.id_job' )
+->leftJoin( 'info_jobs',     'info_jobs.id_info_job',          '=', 'tbljobs.id_info_job' )
+->leftJoin( 'test_type',     'test_type.id_test_type',          '=', 'tbljobs.id_type_essai' )
+->leftJoin( 'prestart',     'prestart.id_prestart',          '=', 'enregistrementessais.id_prestart' )
+->leftJoin( 'postes',     'postes.id_poste',          '=', 'prestart.id_poste' )
+->leftJoin( 'machines',     'machines.id_machine',          '=', 'postes.id_machine' )
+->leftJoin( 'extensometres',     'extensometres.id_extensometre',          '=', 'postes.id_extensometre' )
+->leftJoin( 'chauffages',     'chauffages.id_chauffage',          '=', 'postes.id_chauffage' )
+->leftJoin( 'techniciens as op',     'op.id_technicien',          '=', 'enregistrementessais.id_operateur' )
+->leftJoin( 'techniciens as chk',     'chk.id_technicien',          '=', 'enregistrementessais.id_controleur' )
 
-  ->where('n_fichier',44000,'>')
-  ->where('enregistrementessais.id_eprouvette', null, '!=' )
+->where('n_fichier',44000,'>')
+->where('enregistrementessais.id_eprouvette', null, '!=' )
 
-  ->process($_POST)
-  ->json();
-  ?>
+->process($_POST)
+->json();
+?>
