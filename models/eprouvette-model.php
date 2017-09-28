@@ -65,7 +65,7 @@ class EprouvetteModel
     master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
     c_type_1_val, c_type_2_val,
     Cycle_min, runout, cycle_estime, c_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3,
-    d_commentaire, currentBlock, check_rupture, d_technicien, flag_qualite, checked,
+    d_commentaire, currentBlock, check_rupture, flag_qualite, checked,
     n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Cycle_STL, Cycle_final, Rupture, Fracture,
     tbljobs.waveform AS c_waveform,enregistrementessais.id_controleur, enregistrementessais.id_operateur,
     techniciens.technicien, info_jobs.job, info_jobs.customer, split, test_type, eprouvettes.id_master_eprouvette, id_job, prestart.id_prestart,
@@ -263,7 +263,7 @@ class EprouvetteModel
 
     public function updateCheckRupture($iduser){
       $reqUpdate='UPDATE `eprouvettes` SET
-      `check_rupture` = IF(check_rupture=0,'.$iduser.',0)
+      `check_rupture` = IF(check_rupture<=0,'.$iduser.',-'.$iduser.')
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -274,6 +274,30 @@ class EprouvetteModel
 
 
     public function previousNextTest($sens){
+      $reqSelect='SELECT eprouvettes.id_eprouvette, n_essai, id_job
+      FROM `eprouvettes`
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      WHERE eprouvettes.id_eprouvette='.$this->id;
+
+      $infoPrevious=$this->db->getOne($reqSelect);
+      $req='SELECT eprouvettes.id_eprouvette
+      FROM `eprouvettes`
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      WHERE id_job='.$infoPrevious['id_job'].'
+      AND n_essai'.$sens.$infoPrevious['n_essai'].'
+      ORDER BY n_essai '.(($sens=="<")?"DESC":"ASC").'
+      LIMIT 1;';
+
+      //echo $req2;
+      $result = $this->db->isOne($req);
+
+      $maReponse =  $result;
+      echo json_encode($maReponse);
+    }
+
+    public function previousNextMachine($sens){
       $reqSelect='SELECT eprouvettes.id_eprouvette, n_essai, id_machine, id_job
       FROM `eprouvettes`
       LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
@@ -283,14 +307,12 @@ class EprouvetteModel
       WHERE eprouvettes.id_eprouvette='.$this->id;
 
       $infoPrevious=$this->db->getOne($reqSelect);
-      $req='SELECT eprouvettes.id_eprouvette FROM `eprouvettes`
-
+      $req='SELECT eprouvettes.id_eprouvette
+      FROM `eprouvettes`
       LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
       LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
       LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
       LEFT JOIN postes ON postes.id_poste=prestart.id_poste
-
-
       WHERE id_job='.$infoPrevious['id_job'].'
       AND n_essai'.$sens.$infoPrevious['n_essai'].'
       AND id_machine='.$infoPrevious['id_machine'].'
@@ -303,7 +325,6 @@ class EprouvetteModel
       $maReponse =  $result;
       echo json_encode($maReponse);
     }
-
 
     public function addFlagQualite(){
       $reqUpdate='UPDATE `eprouvettes` SET
@@ -332,8 +353,7 @@ class EprouvetteModel
 
       $reqUpdate='UPDATE `eprouvettes` SET
       `Rupture` = '.$this->Rupture.',
-      `d_technicien` = '.$this->iduser.',
-      check_rupture = 0
+      check_rupture = -'.$this->iduser.'
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
 
       $result = $this->db->execute($reqUpdate);
@@ -347,8 +367,7 @@ class EprouvetteModel
 
       $reqUpdate='UPDATE `eprouvettes` SET
       `Fracture` = '.$this->Fracture.',
-      `d_technicien` = '.$this->iduser.',
-      check_rupture = 0
+      check_rupture = -'.$this->iduser.'
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
 
       $result = $this->db->execute($reqUpdate);

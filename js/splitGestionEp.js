@@ -149,22 +149,18 @@ function cancelTest(id_ep, id_tbljob) {
 
 $("#check_rupture").click(function(e) {
   //si le user n'est pas celui qui a inseré le dernier rupture/fracture, il peut valider
-  if ($("#check_rupture").attr('data-dTechnicien')!=iduser) {
+  if (-$("#check_rupture").attr('data-check_rupture')!=iduser) {
     $.ajax({
       type: "POST",
       url: 'controller/updateCheckRupture.php',
       dataType: "json",
-      data:  {
-        idEp:$("#idEp").val(),
-        iduser:iduser
-      }
-      ,
+      data: $("#update_Rupture").serialize(),
       success : function(data, statut){
         $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
       },
       error : function(resultat, statut, erreur) {
         console.log(Object.keys(resultat));
-        alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+        alert('ERREUR lors de la l\insertion des rupture/fracture ou du check. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez d\'inserer une non-valeur.');
       }
     });
   }
@@ -182,7 +178,8 @@ $("#flecheUp").click(function(e) {
     dataType: "json",
     data:  {
       idEp:$("#idEp").val(),
-      sens:'<'
+      sens:'<',
+      type:'machine'
     }
     ,
     success : function(data, statut){
@@ -203,7 +200,52 @@ $("#flecheDown").click(function(e) {
     dataType: "json",
     data:  {
       idEp:$("#idEp").val(),
-      sens:'>'
+      sens:'>',
+      type:'machine'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_eprouvette']!== undefined) {
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+data['id_eprouvette']);
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche d\'essai. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});
+$("#flecheUp2").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextTest.php',
+    dataType: "json",
+    data:  {
+      idEp:$("#idEp").val(),
+      sens:'<',
+      type:'split'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_eprouvette']!== undefined) {
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+data['id_eprouvette']);
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche d\'essai. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});
+$("#flecheDown2").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextTest.php',
+    dataType: "json",
+    data:  {
+      idEp:$("#idEp").val(),
+      sens:'>',
+      type:'split'
     }
     ,
     success : function(data, statut){
@@ -229,7 +271,8 @@ $("#save_d_commentaire").click(function(e) {
     data: $("#update_d_commentaire").serialize() + "&iduser=" + iduser
     ,
     success : function(data, statut){
-      $('#gestionEp').modal('hide');
+      //$('#gestionEp').modal('hide');
+              $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));

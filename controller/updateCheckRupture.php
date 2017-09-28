@@ -11,7 +11,25 @@ $oEprouvette = new EprouvetteModel($db,$_POST['idEp']);
 
 if($_POST['iduser']!=0){
 
+  $oEprouvette->iduser=$_POST['iduser'];
+
+  if ($_POST['typeRupture']=="save") {
+    if (isset($_POST['Rupture']) AND $_POST['Rupture']!="") {
+      $oEprouvette->Rupture=$_POST['Rupture'];
+      $oEprouvette->update_Rupture();
+    }
+    if (isset($_POST['Fracture']) AND $_POST['Fracture']!="") {
+      $oEprouvette->Fracture=$_POST['Fracture'];
+      $oEprouvette->update_Fracture();
+    }
+      $maReponse = array('id_eprouvette' => $_POST['idEp']);
+      echo json_encode($maReponse);
+
+  }
+  else {
     $oEprouvette->updateCheckRupture($_POST['iduser']);
+  }
+
 
 }
 

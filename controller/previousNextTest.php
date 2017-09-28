@@ -10,9 +10,13 @@ include '../models/eprouvette-model.php';
 $oEprouvette = new EprouvetteModel($db,$_POST['idEp']);
 
 
+if ($_POST['type']=="machine") {
 
-    $oEprouvette->previousNextTest($_POST['sens']);
-
+$oEprouvette->previousNextMachine($_POST['sens']);
+}
+elseif ($_POST['type']=="split") {
+$oEprouvette->previousNextTest($_POST['sens']);
+}
 
 
 ?>
