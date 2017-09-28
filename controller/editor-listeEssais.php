@@ -48,7 +48,7 @@ Field::inst( 'tbljobs.id_tbljob'),
   ->leftJoin( 'techniciens as chk',     'chk.id_technicien',          '=', 'enregistrementessais.id_controleur' )
 
   ->where('n_fichier',44000,'>')
-
+  ->where('enregistrementessais.id_eprouvette', null, '!=' )
 
   ->process($_POST)
   ->json();
