@@ -22,79 +22,79 @@ foreach ($test as $value) {
 
 
   //recuperation des couleurs des blocs
-  if ($value['currentBlock']=='Menu') {
+  if ($value['currentBlock_temp']=='Menu') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='Parameters') {
+  elseif ($value['currentBlock_temp']=='Parameters') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='Adv.') {
+  elseif ($value['currentBlock_temp']=='Adv.') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='Check') {
+  elseif ($value['currentBlock_temp']=='Check') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='Amb.') {
+  elseif ($value['currentBlock_temp']=='Amb.') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='ET') {
+  elseif ($value['currentBlock_temp']=='ET') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='Ramp') {
+  elseif ($value['currentBlock_temp']=='Ramp') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='Strain') {
+  elseif ($value['currentBlock_temp']=='Strain') {
     $poste[$value['poste']]['background-color']='darkgreen';
     $runStop[]="RUN";
   }
-  elseif ($value['currentBlock']=='Switchable') {
+  elseif ($value['currentBlock_temp']=='Switchable') {
     $poste[$value['poste']]['background-color']='yellow';
     $poste[$value['poste']]['color']='black';
     $runStop[]="RUN";
   }
-  elseif ($value['currentBlock']=='Not') {
+  elseif ($value['currentBlock_temp']=='Not') {
     $poste[$value['poste']]['background-color']='#108800';
     $runStop[]="RUN";
   }
-  elseif ($value['currentBlock']=='STL') {
+  elseif ($value['currentBlock_temp']=='STL') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif ($value['currentBlock']=='Load') {
+  elseif ($value['currentBlock_temp']=='Load') {
     $poste[$value['poste']]['background-color']='darkgreen';
     $runStop[]="RUN";
   }
-  elseif ($value['currentBlock']=='Dwell') {
+  elseif ($value['currentBlock_temp']=='Dwell') {
     $poste[$value['poste']]['background-color']='darkgreen';
     $runStop[]="RUN";
   }
-  elseif($value['currentBlock']=='Stop') {
+  elseif($value['currentBlock_temp']=='Stop') {
     $poste[$value['poste']]['background-color']='darkred';
     $runStop[]="STOP";
   }
-  elseif($value['currentBlock']=='Report') {
+  elseif($value['currentBlock_temp']=='Report') {
     $poste[$value['poste']]['background-color']='gray';
     $runStop[]="STOP";
   }
-  elseif($value['currentBlock']=='Send' OR $value['currentBlock']=='send') {
+  elseif($value['currentBlock_temp']=='Send' OR $value['currentBlock_temp']=='send') {
     $poste[$value['poste']]['background-color']='dimgray';
     $runStop[]="STOP";
     if ($poste[$value['poste']]['etape']==53) {
       $poste[$value['poste']]['background-color']='purple';
     }
   }
-  elseif($value['currentBlock']=='Analysis') {
+  elseif($value['currentBlock_temp']=='Analysis') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
-  elseif($value['currentBlock']=='') {
+  elseif($value['currentBlock_temp']=='') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }

@@ -402,10 +402,10 @@ class EprouvetteModel
       c_type_1_val, c_type_2_val, c1.consigne_type AS c_1_type, c2.consigne_type AS c_2_type, Lo, c_unite,
       Cycle_min, runout, cycle_estime, c_commentaire, q_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3, type,id_dessin_type, dessin, ref_matiere, enregistreur, extensometre,
       cartouche_load, cartouche_stroke, cartouche_strain, t1.technicien AS operateur, t2.technicien AS controleur,
-      n_essai, n_fichier, machine, enregistrementessais.date, tbljobs.waveform AS c_waveform, eprouvettes.waveform, Cycle_STL, Cycle_final, Rupture, Fracture,
+      n_essai, n_fichier, machine, enregistrementessais.date, tbljobs.waveform AS c_waveform, eprouvettes.waveform, Cycle_STL, IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final,  Rupture, Fracture,
       info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
       signal_true, signal_tapered, young, flag_qualite, check_rupture,
-      d_commentaire, currentBlock,
+      d_commentaire, IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock,
       E_RT, c1_E_montant, c1_max_strain, c1_min_strain, c1_max_stress, c1_min_stress, c2_cycle, c2_E_montant, c2_max_stress, c2_min_stress, c2_max_strain, c2_min_strain, c2_calc_inelastic_strain, c2_meas_inelastic_strain, Ni, Nf75, dilatation,
       (c2_max_strain-c2_min_strain) AS c2_delta_strain, (c2_max_strain-c2_min_strain-c2_calc_inelastic_strain) AS c2_strain_e,
       dim1, dim2, dim3,
@@ -446,6 +446,8 @@ class EprouvetteModel
       LEFT JOIN prestart ON enregistrementessais.id_prestart=prestart.id_prestart
       LEFT JOIN postes ON prestart.id_poste=postes.id_poste
 
+      LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
+
       LEFT JOIN machines ON postes.id_machine=machines.id_machine
       LEFT JOIN enregistreurs ON enregistreurs.id_enregistreur=postes.id_enregistreur
       LEFT JOIN cell_load ON cell_load.id_cell_load=postes.id_cell_load
@@ -466,14 +468,14 @@ class EprouvetteModel
 
 
       LEFT JOIN annexe_iqc ON annexe_iqc.id_annexe_iqc=(SELECT id_eprouvette
-      FROM eprouvettes
-      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
-      LEFT JOIN annexe_iqc ON annexe_iqc.id_annexe_iqc=eprouvettes.id_eprouvette
-      WHERE id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes WHERE id_eprouvette='.$this->id.')
-      AND id_type_essai=20
-      AND eprouvette_actif=1
-      ORDER BY phase DESC
-      LIMIT 1 )
+          FROM eprouvettes
+          LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+          LEFT JOIN annexe_iqc ON annexe_iqc.id_annexe_iqc=eprouvettes.id_eprouvette
+          WHERE id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes WHERE id_eprouvette='.$this->id.')
+          AND id_type_essai=20
+          AND eprouvette_actif=1
+          ORDER BY phase DESC
+          LIMIT 1 )
 
       WHERE eprouvettes.id_eprouvette='.$this->id;
       //echo $req.'<br/><br/>';

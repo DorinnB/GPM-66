@@ -20,7 +20,7 @@
 
           <b>Files:</b> <?= $poste[$n_poste]['n_fichier'].' <b>Test:</b> '.$poste[$n_poste]['n_essai'].' <b>T°:</b> '.(!empty($poste[$n_poste]['c_temperature'])?number_format($poste[$n_poste]['c_temperature'], 0,'.', ' '):'')  ?><br/>
           <b>ID:</b> <?= $poste[$n_poste]['prefixe'].' '.$poste[$n_poste]['nom_eprouvette']  ?><br/>
-          <?= isset($poste[$n_poste]['Cycle_final'])?$poste[$n_poste]['Cycle_final'].'&nbsp;<b>cycles</b>&nbsp;('.$poste[$n_poste]['tempsRestant'].'&nbsp;<b>h&nbsp;left</b>)':''  ?><br/>
+          <?= isset($poste[$n_poste]['Cycle_final_temp'])?$poste[$n_poste]['Cycle_final_temp'].'&nbsp;<b>cycles</b>&nbsp;('.$poste[$n_poste]['tempsRestant'].'&nbsp;<b>h&nbsp;left</b>)':''  ?><br/>
           <?= $poste[$n_poste]['currentBlock']  ?>
         </a>
       </div>
