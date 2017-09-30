@@ -154,3 +154,7 @@ div.DTE textarea {
 .splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #536E94 !important;
 }
+
+td[data-toggle="tooltip"]  {
+background:url("../img/changed.png") top right /15px no-repeat;
+}

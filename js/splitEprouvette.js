@@ -28,6 +28,11 @@ $('#table_ep').selectable ({
 
 
 $(document).ready(function() {
+
+  //activation des tooltip
+ $('[data-toggle="tooltip"]').tooltip();
+ 
+
   // Setup - add a text input to each footer cell
   $('#table_ep tfoot th').each( function (i) {
     var title = $('#table_ep thead th').eq( $(this).index() ).text();
