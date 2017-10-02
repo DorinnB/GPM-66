@@ -57,7 +57,7 @@
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?></td>
           <?php for($i=1;$i <= count($dimDenomination);$i++): ?>
-            <td><?= $ep[$k]['dim'.$i]  ?></td>
+            <td <?= $epHisto2[$k]['dim'.$i] ?>><?= $ep[$k]['dim'.$i]  ?></td>
           <?php  endfor  ?>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['c_commentaire'] !=""):  ?>
@@ -91,12 +91,12 @@
               </div>
             <?php endif ?>
           </td>
-          <td class="IQC" data-value="<?= $ep[$k]['marquage'] ?>"><?= $ep[$k]['marquage'] ?></td>
-          <td class="IQC" data-value="<?= $ep[$k]['surface'] ?>"><?= $ep[$k]['surface'] ?></td>
-          <td class="IQC" data-value="<?= $ep[$k]['grenaillage'] ?>"><?= $ep[$k]['grenaillage'] ?></td>
-          <td class="IQC" data-value="<?= $ep[$k]['revetement'] ?>"><?= $ep[$k]['revetement'] ?></td>
-          <td class="IQC" data-value="<?= $ep[$k]['protection'] ?>"><?= $ep[$k]['protection'] ?></td>
-          <td><?= $ep[$k]['autre'] ?></td>
+          <td class="IQC" data-value="<?= $ep[$k]['marquage'] ?>" <?= $epHisto2[$k]['marquage'] ?>><?= $ep[$k]['marquage'] ?></td>
+          <td class="IQC" data-value="<?= $ep[$k]['surface'] ?>" <?= $epHisto2[$k]['surface'] ?>><?= $ep[$k]['surface'] ?></td>
+          <td class="IQC" data-value="<?= $ep[$k]['grenaillage'] ?>" <?= $epHisto2[$k]['grenaillage'] ?>><?= $ep[$k]['grenaillage'] ?></td>
+          <td class="IQC" data-value="<?= $ep[$k]['revetement'] ?>" <?= $epHisto2[$k]['revetement'] ?>><?= $ep[$k]['revetement'] ?></td>
+          <td class="IQC" data-value="<?= $ep[$k]['protection'] ?>" <?= $epHisto2[$k]['protection'] ?>><?= $ep[$k]['protection'] ?></td>
+          <td <?= $epHisto2[$k]['autre'] ?>><?= $ep[$k]['autre'] ?></td>
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 
         </tr>

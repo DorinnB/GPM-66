@@ -26,6 +26,15 @@ class HistoModel
     return $this->db->getAll($req);
   }
 
+  public function getHistoAnnexeIQC($id) {
 
+    $req = 'SELECT *
+    FROM histo_annexe_IQC
+    WHERE id_annexe_IQC='.$this->db->quote($id).'
+    ORDER by date_action asc';
+
+    //echo $req;
+    return $this->db->getAll($req);
+  }
 
 }
