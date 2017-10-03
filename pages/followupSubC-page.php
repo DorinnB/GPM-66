@@ -21,12 +21,9 @@
 					<th><acronym title='PO Number'>PO</acronym></th>
 					<th><acronym title='Customer Instructions'>Cust. Inst</acronym></th>
 					<th><acronym title='Tests type'>Type</acronym></th>
-					<th><acronym title='Temperature °C'>T°C</acronym></th>
+					<th><acronym title='SubC Companie'>SubC</acronym></th>
 					<th><acronym title='Material STD'>Mat.Std</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
-					<th><acronym title='Availability'>Avail.</acronym></th>
-					<th><acronym title='Delivery Time'>Dy T.</acronym></th>
-					<th><acronym title='Expected Time'>Exp. T.</acronym></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -42,12 +39,9 @@
 					<th>PO</th>
 					<th>Cust. Inst</th>
 					<th>Type</th>
-					<th>T°C</th>
+					<th>SubC</th>
 					<th>Mat.Std</th>
 					<th>Drawing</th>
-					<th>Avail.</th>
-					<th>Dy T.</th>
-					<th>Exp T.</th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -98,11 +92,8 @@
 						</td>
 
 						<td><?= $row['test_type_abbr'] ?></td>
-						<td><?= round($row['temperature'],1) ?></td>
 						<td><?= $row['matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
-						<td><?= $row['available'] ?></td>
-						<td><?= $row['DyT_Cust'] ?></td>
 						<td><?= $row['DyT_expected'] ?></td>
 					</tr>
 				<?php endforeach ?>

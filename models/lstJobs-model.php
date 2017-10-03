@@ -58,9 +58,9 @@ class LstJobsModel
       else {
         $reqfiltre='AND final=1 AND etape <90';
         $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
-        IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
+        IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase < tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
           available_expected,
-          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
+          (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase < tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1)
           ) AS available';
         $limit='LIMIT 1000';
       }
@@ -69,14 +69,14 @@ class LstJobsModel
 
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color,
-          statut, max(entreprise_abbr) as entreprise_abbr, max(entreprise) as entreprise,
+          statut, max(entreprises.entreprise_abbr) as entreprise_abbr, max(entreprises.entreprise) as entreprise, entrepriseST.entreprise_abbr as entreprise_abbrST,
           po_number, instruction,
           customer, job, split,
 					test_type_abbr, final,
           etape, matiere,
           GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
-          DyT_expected, DyT_Cust,
+          DyT_expected, DyT_Cust, DyT_SubC,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest,
           count(eprouvettes.id_master_eprouvette)-count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbRetest,
           CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent
@@ -89,6 +89,10 @@ class LstJobsModel
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
 				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
           LEFT JOIN entreprises ON info_jobs.customer=entreprises.id_entreprise
+
+          LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
+  LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
+
           LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
           LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
           LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
@@ -98,6 +102,7 @@ class LstJobsModel
         GROUP BY tbljobs.id_tbljob
 				ORDER BY id_statut ASC, job DESC, split ASC
         '.$limit;
+//echo $req;
         return $this->db->getAll($req);
     }
 

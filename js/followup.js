@@ -42,7 +42,7 @@ $(document).ready(function() {
 
 
     $('#container').css('display', 'block');
-    tableJob.columns.adjust().draw();
+
 
     // Setup - add a text input to each footer cell
     $(".dataTables_scrollFootInner tfoot th").each(function() {
@@ -106,4 +106,7 @@ $(document).ready(function() {
 
 
     });
+
+
+        tableJob.columns.adjust().draw();
 });
