@@ -90,6 +90,7 @@ class INOUT
         AND master_eprouvette_actif = 1
         AND info_job_actif=1
         AND tbljob_actif=1
+        AND job>13327
       GROUP BY info_jobs.id_info_job
       ORDER BY job DESC
     ';

@@ -10,13 +10,13 @@
         <label for="customer">Cust. #</label>
         <select id="ref_customer" name="ref_customer">
           <?php foreach ($ref_customer as $row): ?>
-            <option value="<?= $row['ref_customer'] ?>" <?=  ($job['customer']== $row['ref_customer'])?"selected":""  ?>><?= $row['ref_customer'] ?></option>
+            <option value="<?= $row['id_entreprise'] ?>" <?=  ($job['customer']== $row['id_entreprise'])?"selected":""  ?>><?= $row['id_entreprise'] ?></option>
           <?php endforeach ?>
         </select>
       </div>
         <div class="col-xs-6 form-group">
         <label for="Spec">Name :</label>
-          <input type="text" id="nomclient" class="form-control" name="ref_matiere" value="<?= $job['ref_matiere'] ?>" disabled>
+          <input type="text" id="nomclient" class="form-control" name="customer" value="<?= $job['customer'] ?>" disabled>
       </div>
     </div>
     </div>
