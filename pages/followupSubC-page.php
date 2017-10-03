@@ -24,6 +24,9 @@
 					<th><acronym title='SubC Companie'>SubC</acronym></th>
 					<th><acronym title='Material STD'>Mat.Std</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
+					<th><acronym title='Availability'>Avail.</acronym></th>
+					<th><acronym title='Delivery Time SubC'>DyT SubC</acronym></th>
+					<th><acronym title='Expected Time'>Expected</acronym></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -42,6 +45,9 @@
 					<th>SubC</th>
 					<th>Mat.Std</th>
 					<th>Drawing</th>
+					<th>Avail.</th>
+					<th>DyT SubC.</th>
+					<th>Expected</th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -92,8 +98,11 @@
 						</td>
 
 						<td><?= $row['test_type_abbr'] ?></td>
+						<td><?= $row['entreprise_abbrST'] ?></td>
 						<td><?= $row['matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
+						<td><?= $row['available'] ?></td>
+						<td><?= $row['DyT_SubC'] ?></td>
 						<td><?= $row['DyT_expected'] ?></td>
 					</tr>
 				<?php endforeach ?>
