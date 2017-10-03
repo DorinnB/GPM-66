@@ -24,6 +24,7 @@
 					<th><acronym title='SubC Companie'>SubC</acronym></th>
 					<th><acronym title='Material STD'>Mat.Std</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
+					<th><acronym title='SubC Report Reference'>Ref SubC</acronym></th>
 					<th><acronym title='Availability'>Avail.</acronym></th>
 					<th><acronym title='Delivery Time SubC'>DyT SubC</acronym></th>
 					<th><acronym title='Expected Time'>Expected</acronym></th>
@@ -45,6 +46,7 @@
 					<th>SubC</th>
 					<th>Mat.Std</th>
 					<th>Drawing</th>
+					<th>Ref SubC</th>
 					<th>Avail.</th>
 					<th>DyT SubC.</th>
 					<th>Expected</th>
@@ -101,6 +103,7 @@
 						<td><?= $row['entreprise_abbrST'] ?></td>
 						<td><?= $row['matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
+						<td><?= $row['refSubC'] ?></td>						
 						<td><?= $row['available'] ?></td>
 						<td><?= $row['DyT_SubC'] ?></td>
 						<td><?= $row['DyT_expected'] ?></td>
