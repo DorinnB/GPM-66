@@ -5,15 +5,15 @@
   <div class="bs-example designation" data-example-id="basic-forms">
     <p class="title">
       <span class="name">Specification :</span>
-      <span class="value"><?= $split['specification'] ?></span>
+      <span class="value"><?= $tbljobHisto2['specification'] ?> <?= $split['specification'] ?></span>
     </p>
     <p class="title">
       <span class="name">Waveform :</span>
-      <span class="value"><?= $split['waveform'] ?></span>
+      <span class="value"><?= $tbljobHisto2['waveform'] ?> <?= $split['waveform'] ?></span>
     </p>
     <p class="title">
       <span class="name">Frequency :</span>
-      <span class="value"><?= isset($split['tbljob_frequence'])?$split['tbljob_frequence']:"" ?></span>
+      <span class="value"><?= $tbljobHisto2['tbljob_frequence'] ?> <?= isset($split['tbljob_frequence'])?$split['tbljob_frequence']:"" ?></span>
     </p>
     <p class="title">
       <span class="name">Temperature :</span>
@@ -37,7 +37,7 @@
     </p>
     <p class="title">
       <span class="name">Raw Data :</span>
-      <span class="value <?= ($split['id_rawData']==0)?'':'RawData' ?>"><?= $split['Name'] ?></span>
+      <span class="value <?= ($split['id_rawData']==0)?'':'RawData' ?>"><?= $tbljobHisto2['name'] ?> <?= $split['name'] ?></span>
     </p>
   </div>
 
@@ -81,7 +81,7 @@
     </p>
     <p class="title">
       <span class="name">DyT Cust :</span>
-      <span class="value"><?= $split['DyT_Cust'] ?></span>
+      <span class="value"><?= $tbljobHisto2['DyT_Cust'] ?> <?= $split['DyT_Cust'] ?></span>
     </p>
   </div>
 

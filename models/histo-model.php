@@ -37,4 +37,19 @@ class HistoModel
     return $this->db->getAll($req);
   }
 
+  public function getHistoTbljobs($id) {
+
+    $req = 'SELECT specification, waveform, tbljob_frequence, name, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC, DyT_SubC, DyT_expected, DyT_Cust
+    FROM histo_tbljobs
+    LEFT JOIN rawdata ON rawdata.id_rawData=histo_tbljobs.id_rawData
+    LEFT JOIN contacts contactST ON contactST.id_contact=histo_tbljobs.id_contactST
+    LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
+
+    WHERE id_tbljob='.$this->db->quote($id).'
+    ORDER by date_action asc';
+
+    //echo $req;
+    return $this->db->getAll($req);
+  }
+
 }

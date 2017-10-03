@@ -1,3 +1,10 @@
+$(document).ready(function() {
+
+  //activation des tooltip
+ $('[data-toggle="tooltip"]').tooltip();
+
+ });
+
 $("#save").css('cursor', 'pointer');
 
 $("#save").click(function(e) {

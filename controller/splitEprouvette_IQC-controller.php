@@ -17,10 +17,6 @@ include '../models/annexe_IQC-model.php';
 $oEp = new AnnexeIQCModel($db);
 $ep=$oEp->getAllIQC($split['id_tbljob']);
 
-include '../models/histo-model.php';
-$oHisto = new HistoModel($db);
-
-
 //declaration des variables calculées
 for($k=0;$k < count($ep);$k++)	{
   $oEp = new EprouvetteModel($db,$ep[$k]['id_eprouvette']);

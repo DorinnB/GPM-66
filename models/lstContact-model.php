@@ -14,7 +14,7 @@ class ContactModel
     }
 
     public function getAllref_customer() {
-      $req='SELECT distinct ref_customer FROM contacts where contact_actif=1 ORDER BY ref_customer;';
+      $req='SELECT id_entreprise, entreprise, entreprise_abbr FROM entreprises where entreprise_actif=1 ORDER BY id_entreprise;';
         return $this->db->getAll($req);
     }
 

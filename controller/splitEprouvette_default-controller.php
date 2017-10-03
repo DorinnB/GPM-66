@@ -8,8 +8,6 @@ $ep=$oEprouvettes->getAllEprouvettes();
 // Rendre votre modèle accessible
 include '../models/eprouvette-model.php';
 
-include '../models/histo-model.php';
-$oHisto = new HistoModel($db);
 
 
 // Definition des consignes et unites

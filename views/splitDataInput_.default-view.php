@@ -13,7 +13,7 @@
       <label for="ref_customerST">Cust. #</label>
       <select id="ref_customerST" name="ref_customerST" class="form-control">
         <?php foreach ($ref_customerST as $row): ?>
-          <option value="<?= $row['ref_customer'] ?>" <?=  ($split['id_entrepriseST']== $row['ref_customer'])?"selected":""  ?>><?= $row['ref_customer'] ?></option>
+          <option value="<?= $row['id_entreprise'] ?>" <?=  ($split['id_entrepriseST']== $row['id_entreprise'])?"selected":""  ?>><?= $row['id_entreprise'] ?> <?= $row['entreprise_abbr'] ?></option>
         <?php endforeach ?>
       </select>
     </div>

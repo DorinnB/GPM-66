@@ -19,6 +19,10 @@ $oEprouvettes = new LstEprouvettesModel($db,$_GET['id_tbljob']);
 //$ep=$oEprouvettes->getAllEprouvettes();
 
 
+include '../models/histo-model.php';
+$oHisto = new HistoModel($db);
+
+
 
 
 
