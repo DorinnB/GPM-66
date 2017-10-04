@@ -48,7 +48,7 @@ $RawData = $lstRawData->getAllRawData();
           if (isset($split[$key]) AND end($tbljobHisto[$key])==$split[$key]   ) {
             array_pop($tbljobHisto[$key]);
           }
-          if (count($tbljobHisto[$key])>0 AND $tbljobHisto[$key]==" ") {
+          if (count($tbljobHisto[$key])>0 AND $tbljobHisto[$key][0]==" ") {
             array_shift($tbljobHisto[$key]);
           }
           //si l'array de chaque element n'est pas vide et correspond a la denomination des champs de $tbljob
