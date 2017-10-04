@@ -41,7 +41,7 @@
 			</acronym>
 		</div>
 		<div class="col-md-4 planning<?=	$split['planning']	?>" id="planning" style="height:33%" data-planning="<?=	$split['planning']	?>">
-			<acronym title="Schedule Integration (<?= $split['planning']?>)">
+			<acronym title="Planning Integration (<?= $split['planning']?>)">
 				<img type="image" src="img/calendar_<?=	($split['planning']<=0)?'no.png':'yes.png'	?>" style="max-width:100%; max-height:100%;padding:5px 0px;display: block; margin: auto;" />
 			</acronym>
 		</div>

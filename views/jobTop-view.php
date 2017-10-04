@@ -12,9 +12,34 @@
 		<textarea class="commentaire" disabled><?= $split['info_jobs_commentaire'] ?></textarea>
 	</div>
 	<div class="col-md-1" style="height:100%">
-		<button type="button" class="btn btn-default btn-lg" style="width:100%; border-radius:10px; margin-top:10px;" id="inOutLoad">
-			<p><?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="inOut")?'Split':'InOut';	?></p>
-			<span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
-		</button>
+		<div class="row" style="height:100%">
+
+			<div class="col-md-6" id="inOutLoad" style="height:50%; padding:0px;">
+
+				<button type="button" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+					<p style="font-size:small;">
+						<?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="inOut")?'Split':'InOut';	?>
+						<img type="image" src="img/<?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="inOut")?'home':'plane';	?>.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+					</p>
+				</button>
+			</div>
+
+			<div class="col-md-6" id="schedule" style="height:50%; padding:0px;">
+				<button type="button" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+					<p style="font-size:small;">
+						<?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="schedule")?'Split':'schedule';	?>
+						<img type="image" src="img/<?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="schedule")?'home':'calendar_yes';	?>.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+					</p>
+				</button>
+			</div>
+
+			<div class="col-md-6" id="" style="height:50%; padding:0px;">
+
+			</div>
+
+			<div class="col-md-6" id="" style="height:50%">
+
+			</div>
+		</div>
 	</div>
 </div>

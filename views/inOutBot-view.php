@@ -41,16 +41,13 @@
 				<img type="image" src="img/save.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 			</div>
 
-			<div class="col-md-12 check<?=	$split['checked']	?>" id="check" style="height:33%">
-				<img type="image" src="img/<?=	($split['checked']==0)?'cross.png':'check.png'	?>" style="max-width:100%; max-height:100%;padding:5px 0px;display: block; margin: auto;" />
+			<div class="col-md-12" style="height:33%">
+				???
 			</div>
 
 
 			<div class="col-md-12" id="export" style="height:33%">
-				<a href="controller/createReport-controller.php?id_tbljob=<?=	$split['id_tbljob']	?>">
-
-					<img type="image" src="img/export.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
-				</a>
+				??
 			</div>
 		</div>
 

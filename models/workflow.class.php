@@ -31,9 +31,23 @@ public function __construct($db,$id)
         return $this->db->getAll($req);
     }
 
+
+        public function getAllGroupes() {
+
+    		$req = 'SELECT DISTINCT GROUP_CONCAT(DISTINCT id_job ORDER BY phase,"") AS ordre, count(distinct id_master_eprouvette) as nbep
+                FROM eprouvettes
+                LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+                WHERE id_info_job=(SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id.')
+                AND eprouvette_actif=1 AND tbljob_actif=1
+                GROUP BY id_master_eprouvette';
+              //echo $req;
+            return $this->db->getAll($req);
+        }
+
     public function getAllSplit() {
 
-    $req = 'SELECT id_tbljob, test_type, test_type_abbr, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire
+    $req = 'SELECT id_tbljob, test_type, test_type_abbr, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire,
+        DyT_expected, DyT_SubC, DyT_Cust
 
         FROM tbljobs
         LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob

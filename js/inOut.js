@@ -14,6 +14,10 @@ $( function() {
 $("#inOutLoad").click(function() {
   goto('split','id_tbljob',$('#id_tbljob').val());
 });
+//Un click sur le bouton schedule ouvre le split correspondant
+$("#schedule").click(function() {
+  goto('schedule','id_tbljob',$('#id_tbljob').val());
+});
 
 //Un click sur recommendation affiche le div ou le textarea
 $("#flipRecommendation").click(function() {
