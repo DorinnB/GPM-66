@@ -14,17 +14,16 @@
 	<div class="col-md-1" style="height:100%">
 		<div class="row" style="height:100%">
 
-			<div class="col-md-6" id="inOutLoad" style="height:50%; padding:0px;">
 
+			<div class="col-md-6" id="inOutLoad" style="height:50%; padding:0px;">
 				<button type="button" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 					<p style="font-size:small;">
 						<?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="inOut")?'Split':'InOut';	?>
 						<img type="image" src="img/<?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="inOut")?'home':'plane';	?>.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 					</p>
 				</button>
-			</div>
-
-			<div class="col-md-6" id="schedule" style="height:50%; padding:0px;">
+</div>
+				<div class="col-md-6" id="schedule" style="height:50%; padding:0px;">
 				<button type="button" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 					<p style="font-size:small;">
 						<?=	(explode('-',basename (parse_url($_SERVER['PHP_SELF'])["path"]))[0]=="schedule")?'Split':'schedule';	?>
@@ -32,7 +31,43 @@
 					</p>
 				</button>
 			</div>
+<!--
+				<?php if ($_GET['page']!='inOut') : ?>
+					<a href="index.php?page=inOut&id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+						<p style="font-size:small;">
+							InOut
+							<img type="image" src="img/plane.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+						</p>
+					</a>
+				<?php else:	?>
+					<a href="index.php?page=labo&id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+						<p style="font-size:small;">
+							Split
+							<img type="image" src="img/home.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+						</p>
+					</a>
+				<?php endif	?>
 
+			</div>
+
+			<div class="col-md-6" style="height:50%; padding:0px;">
+				<?php if ($_GET['page']!='schedule') : ?>
+					<a href="index.php?page=schedule&id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+						<p style="font-size:small;">
+							schedule
+							<img type="image" src="img/calendar_yes.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+						</p>
+					</a>
+				<?php else:	?>
+					<a href="index.php?page=labo&id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+						<p style="font-size:small;">
+							Split
+							<img type="image" src="img/home.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+						</p>
+					</a>
+				<?php endif	?>
+			</div>
+-->
 			<div class="col-md-6" id="" style="height:50%; padding:0px;">
 
 			</div>

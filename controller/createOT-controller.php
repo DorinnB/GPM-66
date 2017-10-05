@@ -32,13 +32,10 @@ for($k=0;$k < count($ep);$k++)	{
   $ep[$k]=$oEprouvette->getTest();
 
   $oEprouvette->dimension($ep[$k]['type'],$ep[$k]['dim1'],$ep[$k]['dim2'],$ep[$k]['dim3']);
-  //$denomination=$oEprouvette->dimDenomination();
-  //$nb_dim=count($denomination);
+
 
 
   $ep[$k]['denomination'] = $oEprouvette->denomination($ep[$k]['id_dessin_type'], $ep[$k]['dim1'], $ep[$k]['dim2'], $ep[$k]['dim3']);
-
-
 
 
 
@@ -84,18 +81,6 @@ $objReader->setIncludeCharts(TRUE);
 
 
 
-$style_gray = array(
-  'fill' => array(
-    'type' => PHPExcel_Style_Fill::FILL_SOLID,
-    'color' => array('rgb'=>'C0C0C0'))
-  );
-  $style_white = array(
-    'fill' => array(
-      'type' => PHPExcel_Style_Fill::FILL_SOLID,
-      'color' => array('rgb'=>'000000'))
-    );
-
-
 
 
     If ($split['test_type_abbr']=="Loa")	{
@@ -115,6 +100,8 @@ $style_gray = array(
         'K4'=> date("Y-m-d"),
         'K5'=> $split['nomCreateur'],
         'K6'=> $split['comCheckeur'],
+        'C24'=> $split['c_unite'],
+        'C25'=> $split['c_unite'],
 
         'D42'=> $split['tbljob_instruction'],
         'D47'=> $split['info_jobs_instruction']
@@ -126,10 +113,10 @@ $style_gray = array(
       }
 
       //titre des lignes PV
-      $page->setCellValueByColumnAndRow(2, 22, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(1, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(2, 23, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(1, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -152,7 +139,7 @@ $style_gray = array(
 
         if (isset($value['denomination']['denomination_1'])) {
           $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-          $page->setCellValueByColumnAndRow(1, 19, $value['denomination']['denomination_1']);
+          $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
         }
         else {
           $page->getRowDimension(19)->setVisible(FALSE);
@@ -215,6 +202,8 @@ $style_gray = array(
         'K4'=> date("Y-m-d"),
         'K5'=> $split['nomCreateur'],
         'K6'=> $split['comCheckeur'],
+        'C24'=> $split['c_unite'],
+        'C25'=> $split['c_unite'],
 
         'D42'=> $split['tbljob_instruction'],
         'D47'=> $split['info_jobs_instruction']
@@ -226,10 +215,10 @@ $style_gray = array(
       }
 
       //titre des lignes PV
-      $page->setCellValueByColumnAndRow(2, 22, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(1, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(2, 23, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(1, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -252,7 +241,7 @@ $style_gray = array(
 
         if (isset($value['denomination']['denomination_1'])) {
           $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-          $page->setCellValueByColumnAndRow(1, 19, $value['denomination']['denomination_1']);
+          $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
         }
         else {
           $page->getRowDimension(19)->setVisible(FALSE);
@@ -317,6 +306,8 @@ $style_gray = array(
         'K4'=> date("Y-m-d"),
         'K5'=> $split['nomCreateur'],
         'K6'=> $split['comCheckeur'],
+        'C24'=> $split['c_unite'],
+        'C25'=> $split['c_unite'],
 
         'D42'=> $split['tbljob_instruction'],
         'D47'=> $split['info_jobs_instruction']
@@ -328,10 +319,10 @@ $style_gray = array(
       }
 
       //titre des lignes PV
-      $page->setCellValueByColumnAndRow(2, 22, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(1, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(2, 23, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(1, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -354,7 +345,7 @@ $style_gray = array(
 
         if (isset($value['denomination']['denomination_1'])) {
           $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-          $page->setCellValueByColumnAndRow(1, 19, $value['denomination']['denomination_1']);
+          $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
         }
         else {
           $page->getRowDimension(19)->setVisible(FALSE);
@@ -397,98 +388,6 @@ $style_gray = array(
       $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
-
-
-
-    }
-    ElseIf ($split['test_type_abbr']=="PssssssS")	{
-
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_PS.xlsx");
-
-
-      $val2Xls = array(
-        'B7' => $identification,
-        'B8'=> $ep[$k]['dessin'],
-        'B9' => $ep[$k]['ref_matiere'],
-        'B14' => $ep[$k]['machine'],
-        'B15' => '40001',
-        'B16' => $ep[$k]['enregistreur'],
-        'F14' => $compresseur,
-        'F17' => $ind_temp,
-        'B17' => $ep[$k]['extensometre'],
-        'F15' => $coil,
-        'F16' => $four,
-        'B24' => $ep[$k]['cell_load_gamme'],
-        'B23' => $ep[$k]['cell_displacement_gamme'],
-        'B25' => '5',
-        'B28' => '3',
-        'B29' => '',
-        'B30' => $oEprouvette->MAX()+0.15,
-        'D28' => '-3',
-        'D29' => '',
-        'D30' => $oEprouvette->MIN()-0.15,
-        'I7' => $jobcomplet,
-        'I8' => $ep[$k]['n_essai'],
-        'I9' => $ep[$k]['n_fichier'],
-        'I10' => $ep[$k]['date'],
-        'I11' => $ep[$k]['operateur'],
-        'I12' => $ep[$k]['controleur'],
-        'J16' => $ep[$k]['operateur'],
-        'K18' => $ep[$k]['c_temperature'],
-        'K21' => $oEprouvette->R(),
-        'K22' => $ep[$k]['c_frequence'],
-        'I21' => $oEprouvette->A(),
-        'I22' => $true.$ep[$k]['c_waveform'].$tapered,
-        'J24' => $ep[$k]['dim1'],
-        'I24' => $ep[$k]['dim2'],
-        'I23' => $ep[$k]['dim3'],
-        'J25' => $area,
-        'J26' => $ep[$k]['Lo'],
-        'J29' => $oEprouvette->MAX()-$oEprouvette->MIN(),
-        'J30' => $oEprouvette->MAX(),
-        'J31' => $oEprouvette->MIN(),
-        'B45' => $STL,
-        'B46' => $F_STL,
-        'J56' => $ep[$k]['Cycle_min'],
-        'J59' => $runout
-      );
-
-      //affichage du checkeur temperature uniquement si temperature
-      if ($ep[$k]['c_temperature']>=50) {
-        $val2Xls['J17'] = $ep[$k]['controleur'];
-      }
-      else {
-        $objPHPExcel->getActiveSheet()->getStyle('F15:F17')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('B37')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('K20')->applyFromArray( $style_gray );
-
-        $objPHPExcel->getActiveSheet()->getStyle('D35:K38')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('H34:K34')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('D51:F51')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('H52:I52')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('J51:K51')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('J47:J50')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('G47:H47')->applyFromArray( $style_gray );
-
-
-
-        $objPHPExcel->getActiveSheet()->getStyle('K24:K26')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('J27')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('J17:K17')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('I18')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('K29:K31')->applyFromArray( $style_gray );
-        $objPHPExcel->getActiveSheet()->getStyle('H42:I42')->applyFromArray( $style_gray );
-
-        $objPHPExcel->getActiveSheet()->setCellValue('B38', '');
-      }
-
-
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $objPHPExcel->getActiveSheet()->setCellValue($key, $value);
-        //->getStyle($key)->applyFromArray( $style_white )
-      }
 
 
 

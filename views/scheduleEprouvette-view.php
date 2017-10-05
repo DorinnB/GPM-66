@@ -60,8 +60,8 @@
                 <td><?= $splitJob['DyT_expected']  ?></td>
               <?php endif ?>
             <?php else: ?>
-              <td class="noInOut">d</td>
-              <td class="noInOut">d</td>
+              <td class="noInOut"></td>
+              <td class="noInOut"></td>
             <?php endif ?>
           <?php  endforeach  ?>
 
