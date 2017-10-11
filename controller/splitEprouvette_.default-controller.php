@@ -6,7 +6,7 @@
 $ep=$oEprouvettes->getAllEprouvettes();
 
 // Rendre votre modèle accessible
-include '../models/eprouvette-model.php';
+include 'models/eprouvette-model.php';
 
 
 
@@ -246,12 +246,12 @@ $eprouvetteConsigne=($_GET['modif']=="eprouvetteConsigne")?"Consigne":"";
 $eprouvetteValue=($_GET['modif']=="eprouvetteValue")?"Value":"";
 
 // Affichage du résultat selon le type de test
-$filename = '../views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_'.$split['test_type_abbr'].'-view.php';
+$filename = 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_'.$split['test_type_abbr'].'-view.php';
 
 if (file_exists($filename)) {
   include $filename;
 } else {
-  include '../views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_default-view.php';
+  include 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_default-view.php';
 }
 */
 include $splitEp_View;

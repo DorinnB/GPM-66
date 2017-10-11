@@ -29,21 +29,21 @@
       <div class="row">
         <div class="col-md-3">
           <?php foreach ($uncheckedJob as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+            <div class="col-md-12 valeur" onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
               <?= $value['job'].'-'.$value['split']  ?>
             </div>
           <?php endforeach  ?>
         </div>
         <div class="col-md-3">
           <?php foreach ($uncheckedStartedJob as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+            <div class="col-md-12 valeur" onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
               <?= $value['job'].'-'.$value['split']  ?>
             </div>
           <?php endforeach  ?>
         </div>
         <div class="col-md-3">
           <?php foreach ($flag as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+            <div class="col-md-12 valeur" onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
               <?= $value['job'].'-'.$value['split']  ?>
             </div>
           <?php endforeach  ?>

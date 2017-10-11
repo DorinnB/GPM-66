@@ -13,7 +13,7 @@
 
 foreach ($checkRupture as $key => $value) {
   ?>
-  <!--<tr onclick="document.location='index.php?page=labo&id_tbljob=<?= $value['id_job']  ?>'" style="cursor:help">
+  <!--<tr onclick="document.location='index.php?page=split&id_tbljob=<?= $value['id_job']  ?>'" style="cursor:help">
 -->
 <tr class="open-GestionEp" data-toggle="modal" data-target="#gestionEp" data-id="<?= $value['id_eprouvette'] ?>" >
   <td><?= $value['machine'] ?></td>

@@ -187,10 +187,10 @@
           <td class="checkValue_E_RT" <?= $epHisto2[$k]['E_RT'] ?>><?= $ep[$k]['E_RT'] ?></td>
 
           <td class="checkValue_c1_E_montant" <?= $epHisto2[$k]['c1_E_montant'] ?>><?= $ep[$k]['c1_E_montant'] ?></td>
-          <td <?= $epHisto2[$k]['c1_max_strain'] ?>><?= $ep[$k]['c1_max_strain'] ?></td>
-          <td <?= $epHisto2[$k]['c1_min_strain'] ?>><?= $ep[$k]['c1_min_strain'] ?></td>
           <td class="checkValue_c1_max_stress" <?= $epHisto2[$k]['c1_max_stress'] ?>><?= $ep[$k]['c1_max_stress'] ?></td>
           <td class="checkValue_c1_min_stress" <?= $epHisto2[$k]['c1_min_stress'] ?>><?= $ep[$k]['c1_min_stress'] ?></td>
+          <td <?= $epHisto2[$k]['c1_max_strain'] ?>><?= $ep[$k]['c1_max_strain'] ?></td>
+          <td <?= $epHisto2[$k]['c1_min_strain'] ?>><?= $ep[$k]['c1_min_strain'] ?></td>
 
           <td <?= $epHisto2[$k]['c2_cycle'] ?>><?= $ep[$k]['c2_cycle'] ?></td>
           <td class="checkValue_c2_E_montant" <?= $epHisto2[$k]['c2_E_montant'] ?>><?= $ep[$k]['c2_E_montant'] ?></td>

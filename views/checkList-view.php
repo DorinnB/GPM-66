@@ -14,7 +14,7 @@
 
 foreach ($test as $key => $value) {
   ?>
-  <tr onclick="document.location='index.php?page=labo&id_tbljob=<?= $value['id_tbljob']  ?>'" style="cursor:help">
+  <tr onclick="document.location='index.php?page=split&id_tbljob=<?= $value['id_tbljob']  ?>'" style="cursor:help">
   <td><?= $value['machine'] ?></td>
   <td><?= $value['customer'].' '.$value['job'].' '. $value['split']  ?></td>
   <td><?= $value['prefixe'].' '.$value['nom_eprouvette']  ?></td>

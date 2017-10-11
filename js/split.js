@@ -12,7 +12,7 @@ $("#check.check0").click(function(e) {
       }
       ,
       success : function(data, statut){
-        goto('split','id_tbljob',data['id_tbljob']);
+location.reload();
       },
       error : function(resultat, statut, erreur) {
         console.log(Object.keys(resultat));
@@ -36,7 +36,7 @@ $("#planning").click(function(e) {
       }
       ,
       success : function(data, statut){
-        goto('split','id_tbljob',data['id_tbljob']);
+location.reload();
       },
       error : function(resultat, statut, erreur) {
         console.log(Object.keys(resultat));
@@ -46,14 +46,7 @@ $("#planning").click(function(e) {
 }
 });
 
-//Un click sur le bouton InOut ouvre le split correspondant
-$("#inOutLoad").click(function() {
-  goto('inOut','id_tbljob',$('#id_tbljob').val());
-});
-//Un click sur le bouton schedule ouvre le split correspondant
-$("#schedule").click(function() {
-  goto('schedule','id_tbljob',$('#id_tbljob').val());
-});
+
 //Selon le navigateur utilisé, on detecte le style de transition utilisé
 function whichTransitionEvent(){
   var t,

@@ -51,7 +51,7 @@ $(document).ready(function() {
       { data: null,
         render : function(data, type, full, meta){
           test=data+"a";
-          return '<a href="index.php?page=labo&id_tbljob='+data.tbljobs.id_tbljob+'">'+data.info_jobs.customer+'</a>';
+          return '<a href="index.php?page=split&id_tbljob='+data.tbljobs.id_tbljob+'">'+data.info_jobs.customer+'</a>';
         }},
         { data: "info_jobs.job" },
         { data: "tbljobs.split" },

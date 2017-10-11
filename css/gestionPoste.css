@@ -19,7 +19,9 @@ border-radius: 10px;
     margin-bottom: 10px;
 }
 
-
+.popover  {
+  max-width: 100%;
+}
 
 .bs-example {
   position: relative;

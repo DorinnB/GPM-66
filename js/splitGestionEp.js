@@ -112,8 +112,7 @@ function retest(id_ep, id_tbljob) {
     data: 'id_ep=' + id_ep,
     success: function(data)
     {
-      $('#gestionEp').modal('toggle');
-      goto('split', 'id_tbljob', id_tbljob);
+location.reload();
     }
   });
 }
@@ -125,8 +124,7 @@ function delTest(id_ep, id_tbljob) {
     data: 'id_ep=' + id_ep,
     success: function(data)
     {
-      $('#gestionEp').modal('toggle');
-      goto('split', 'id_tbljob', id_tbljob);
+location.reload();
     }
   });
 }
@@ -138,8 +136,7 @@ function cancelTest(id_ep, id_tbljob) {
     data: 'id_ep=' + id_ep,
     success: function(data)
     {
-      $('#gestionEp').modal('toggle');
-      goto('split', 'id_tbljob', id_tbljob);
+location.reload();
     }
   });
 }

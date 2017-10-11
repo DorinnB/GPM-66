@@ -22,7 +22,7 @@
 					<th><acronym title='Customer Instructions'>Cust. Inst</acronym></th>
 					<th><acronym title='Tests type'>Type</acronym></th>
 					<th><acronym title='Temperature °C'>T°C</acronym></th>
-					<th><acronym title='Material STD'>Mat.Std</acronym></th>
+					<th><acronym title='Material'>Material</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
 					<th><acronym title='Availability'>Avail.</acronym></th>
 					<th><acronym title='Delivery Time'>Dy T.</acronym></th>
@@ -43,7 +43,7 @@
 					<th>Cust. Inst</th>
 					<th>Type</th>
 					<th>T°C</th>
-					<th>Mat.Std</th>
+					<th>Material</th>
 					<th>Drawing</th>
 					<th>Avail.</th>
 					<th>Dy T.</th>
@@ -54,7 +54,7 @@
 				<?php foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row): ?>
 					<tr>
 
-						<td class="popover-markup" data-placement="right" style="background-color:<?= $row['statut_color'] ?>;"><a href="index.php?page=labo&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['etape'] ?></a>
+						<td class="popover-markup" data-placement="right" style="background-color:<?= $row['statut_color'] ?>;"><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['etape'] ?></a>
 							<div class="content hide">
 								<div class="form-group">
 									<?= $row['statut'] ?>
@@ -67,7 +67,7 @@
 						<td><?= $row['nbep'] ?></td>
 						<td class="progress"><meter value="<?= $row['nbpercent'] ?>" min="0" max="100" color-sttut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></meter></td>
 						<td><?= $row['customer'] ?></td>
-						<td><a href="index.php?page=labo&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
+						<td><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
 						<td><?= $row['split'] ?></td>
 						<td><acronym title='<?= $row['entreprise'] ?>'><?= $row['entreprise_abbr'] ?></acronym></td>
 
@@ -99,7 +99,7 @@
 
 						<td><?= $row['test_type_abbr'] ?></td>
 						<td><?= round($row['temperature'],1) ?></td>
-						<td><?= $row['matiere'] ?></td>
+						<td><?= $row['ref_matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
 						<td><?= $row['available'] ?></td>
 						<td><?= $row['DyT_Cust'] ?></td>

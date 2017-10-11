@@ -73,11 +73,13 @@ class LstJobsModel
           po_number, instruction,
           customer, job, split,
 					test_type_abbr, final,
-          etape, matiere,
+          etape, matiere, ref_matiere,
           GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
           DyT_expected, DyT_Cust, DyT_SubC, refSubC,
-					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep, count(DISTINCT(n_fichier)) as nbtest,
+					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
+          SUM(IF(d_checked > 0 , 1, 0)) as  nbtest,
+          SUM(IF(eprouvette_InOut_A IS NOT NULL, 1, 0)) as nbsent,
           count(eprouvettes.id_master_eprouvette)-count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbRetest,
           CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent
           '.$DyT.'

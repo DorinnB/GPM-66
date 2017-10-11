@@ -7,7 +7,7 @@ $db = new db(); // create a new object, class db()
 	Make take up to few seconds</br>
 
 </h3>
-<a href="../index.php?page=labo&id_tbljob=<?= $_POST['id_tbljob'] ?>">click here if you aren't redirected</a>
+<a href="../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>">click here if you aren't redirected</a>
 <br/><br/>
 <div id="spoiler" style="display:none">
 
@@ -252,4 +252,4 @@ $db = new db(); // create a new object, class db()
 
 <button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
 
-<script type='text/javascript'>document.location.replace('../index.php?page=labo&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>
+<script type='text/javascript'>xxxxxdocument.location.replace('../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>

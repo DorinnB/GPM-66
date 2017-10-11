@@ -9,4 +9,4 @@
 //$Consigne = $lstConsigne->getAllConsigne();
 
 // Affichage du résultat
-include '../views/splitChart-view.php';
+include 'views/splitChart-view.php';

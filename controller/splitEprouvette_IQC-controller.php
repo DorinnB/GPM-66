@@ -6,12 +6,12 @@
 $ep=$oEprouvettes->getAllEprouvettes();
 
 
-include '../models/eprouvette-model.php';
+include 'models/eprouvette-model.php';
 
 
 
 // Rendre votre modèle accessible
-include '../models/annexe_IQC-model.php';
+include 'models/annexe_IQC-model.php';
 
 
 $oEp = new AnnexeIQCModel($db);

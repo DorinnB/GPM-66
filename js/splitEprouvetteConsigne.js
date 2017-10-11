@@ -65,10 +65,10 @@ $(document).ready(function() {
       { data: "eprouvettes.runout" },
       { data: "eprouvettes.cycle_estime" },
       {  data: "eprouvettes.c_commentaire",
-                render : function(data, type, full, meta){
-                  test=data+"a";
-                  return type === 'display' && test.length > 5 ?data.substr(0,5) + '[...]' : data;
-                }},
+      render : function(data, type, full, meta){
+        test=data+"a";
+        return type === 'display' && test.length > 5 ?data.substr(0,5) + '[...]' : data;
+      }},
       { data: "eprouvettes.n_essai" },
       { data: "enregistrementessais.n_fichier" },
       { data: "eprouvettes.Cycle_final" }
@@ -80,11 +80,11 @@ $(document).ready(function() {
     info: false,
     fixedColumns:   {leftColumns: 3},
     columnDefs: [
-        {
-            "targets": [ 0 ],
-            "visible": false,
-            "searchable": false
-        }
+      {
+        "targets": [ 0 ],
+        "visible": false,
+        "searchable": false
+      }
     ],
     autoFill: {
       columns: [3, 4, 5, 6, 7, 8, 9],
@@ -101,46 +101,36 @@ $(document).ready(function() {
   } );
 
   $('#table_ep').on( 'click', 'tbody td', function (e) {
-          var index = $(this).index();
+    var index = $(this).index();
 
-          if ( index === 9 ) {
-              editor.bubble( this,
-                 ['eprouvettes.c_commentaire'],
-                  { title: 'Order Comments :' ,
-                  submitOnBlur: true,
-                  buttons: false
-                  }
-                 );
-          }
-        }
-      );
-
-
+    if ( index === 9 ) {
+      editor.bubble( this,
+        ['eprouvettes.c_commentaire'],
+        { title: 'Order Comments :' ,
+        submitOnBlur: true,
+        buttons: false
+      }
+    );
+  }
+}
+);
 
 
 
-  $('#container').css('display', 'block');
-  table.columns.adjust().draw();
 
-  // Filter event handler
-  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-    table
-    .column( $(this).data('index') )
-    .search( this.value )
-    .draw();
-  } );
 
-  document.getElementById("table_ep_filter").style.display = "none";
+$('#container').css('display', 'block');
+table.columns.adjust().draw();
+
+// Filter event handler
+$( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+  table
+  .column( $(this).data('index') )
+  .search( this.value )
+  .draw();
 } );
 
-
-// Gestion Eprouvette
-function gestionEp(idEp) {
-  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
-}
-
-
-
+document.getElementById("table_ep_filter").style.display = "none";
 
 
 $("#save").click(function(e) {
@@ -165,3 +155,12 @@ $("#save").click(function(e) {
     }
   });
 });
+
+
+} );
+
+
+// Gestion Eprouvette
+function gestionEp(idEp) {
+  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
+}

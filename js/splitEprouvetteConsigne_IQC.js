@@ -144,11 +144,11 @@ var table = $('#table_ep').DataTable( {
   info: false,
   fixedColumns:   {leftColumns: 3},
   columnDefs: [
-      {
-          "targets": [ 0 ],
-          "visible": false,
-          "searchable": false
-      }
+    {
+      "targets": [ 0 ],
+      "visible": false,
+      "searchable": false
+    }
   ],
   autoFill: {
     columns: [3, 4, 5, 6, 10,11,12,13,14,15],
@@ -165,19 +165,19 @@ var table = $('#table_ep').DataTable( {
 } );
 
 $('#table_ep').on( 'click', 'tbody td', function (e) {
-        var index = $(this).index();
+  var index = $(this).index();
 
-        if ( index === 5 ) {
-            editor.bubble( this,
-               ['eprouvettes.c_commentaire'],
-                { title: 'Order Comments :' ,
-                submitOnBlur: true,
-                buttons: false
-                }
-               );
-        }
-      }
-    );
+  if ( index === 5 ) {
+    editor.bubble( this,
+      ['eprouvettes.c_commentaire'],
+      { title: 'Order Comments :' ,
+      submitOnBlur: true,
+      buttons: false
+    }
+  );
+}
+}
+);
 
 
 $('#container').css('display', 'block');
@@ -192,15 +192,6 @@ $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
 } );
 
 document.getElementById("table_ep_filter").style.display = "none";
-} );
-
-
-
-// Gestion Eprouvette
-function gestionEp(idEp) {
-  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
-}
-
 
 
 $("#save").click(function(e) {
@@ -225,3 +216,12 @@ $("#save").click(function(e) {
     }
   });
 });
+
+} );
+
+
+
+// Gestion Eprouvette
+function gestionEp(idEp) {
+  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
+}

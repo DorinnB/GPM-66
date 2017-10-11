@@ -1,7 +1,7 @@
 <div class="row splitBot" style="height:20%">
-	<div class="col-md-3" style="height:100%"><p class="">Instructions :</p><textarea class="commentaire<?= (($_GET['modif']=="dataInput")?"Editable":"")	?>" name="tbljob_instruction" form="updateData"><?= $split['tbljob_instruction'] ?></textarea></div>
-	<div class="col-md-3" style="height:100%"><p class="">Commentaires :</p><textarea class="commentaire<?= (($_GET['modif']=="eprouvetteConsigne")?"Editable":"")	?>" name="tbljob_commentaire"><?= $split['tbljob_commentaire'] ?></textarea></div>
-	<div class="col-md-4" style="height:100%"><p class="">Commentaires Qualité :</p><textarea class="commentaire<?= (($_GET['modif']=="eprouvetteValue")?"Editable":"")	?>" name="tbljob_commentaire_qualite"><?= $split['tbljob_commentaire_qualite'] ?></textarea></div>
+	<div class="col-md-3" style="height:100%"><p class="">Instructions :</p><textarea class="commentaire<?= ((isset($_GET['modif']) AND $_GET['modif']=="dataInput")?"Editable":"")	?>" name="tbljob_instruction" form="updateData"><?= $split['tbljob_instruction'] ?></textarea></div>
+	<div class="col-md-3" style="height:100%"><p class="">Commentaires :</p><textarea class="commentaire<?= ((isset($_GET['modif']) AND $_GET['modif']=="eprouvetteConsigne")?"Editable":"")	?>" name="tbljob_commentaire"><?= $split['tbljob_commentaire'] ?></textarea></div>
+	<div class="col-md-4" style="height:100%"><p class="">Commentaires Qualité :</p><textarea class="commentaire<?= ((isset($_GET['modif']) AND $_GET['modif']=="eprouvetteValue")?"Editable":"")	?>" name="tbljob_commentaire_qualite"><?= $split['tbljob_commentaire_qualite'] ?></textarea></div>
 	<div class="col-md-2" id="split-bouton" style="height:100%">
 
 

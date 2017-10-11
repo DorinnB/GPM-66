@@ -23,7 +23,7 @@
 					</thead>
 					<tbody>
 					<?php foreach ($searchJobs as $key => $value) : ?>
-						<tr onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+						<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
 							<td><?=	$value['customer']	?></td>
 							<td class="titre"><?=	$value['job']	?></td>
 							<td><?=	$value['split']	?></td>
@@ -36,7 +36,7 @@
 
 				<tbody style="border-top:5px solid white;">
 					<?php foreach ($searchPO as $key => $value) : ?>
-						<tr onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+						<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
 							<td><?=	$value['customer']	?></td>
 							<td><?=	$value['job']	?></td>
 							<td><?=	$value['split']	?></td>
@@ -49,7 +49,7 @@
 
 				<tbody style="border-top:5px solid white;">
 					<?php foreach ($searchPO as $key => $value) : ?>
-						<tr onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+						<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
 							<td><?=	$value['customer']	?></td>
 							<td><?=	$value['job']	?></td>
 							<td><?=	$value['split']	?></td>
@@ -81,7 +81,7 @@
 					</thead>
 				<tbody style="border-top:5px solid white;">
 					<?php foreach ($searchEprouvettes as $key => $value) : ?>
-						<tr onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+						<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
 							<td><?=	$value['customer']	?></td>
 							<td><?=	$value['job']	?></td>
 							<td><?=	$value['split']	?></td>
@@ -96,7 +96,7 @@
 				</tbody>
 				<tbody style="border-top:5px solid white;">
 					<?php foreach ($searchPrefixe as $key => $value) : ?>
-						<tr onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+						<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
 							<td><?=	$value['customer']	?></td>
 							<td><?=	$value['job']	?></td>
 							<td><?=	$value['split']	?></td>
@@ -111,7 +111,7 @@
 				</tbody>
 				<tbody style="border-top:5px solid white;">
 					<?php foreach ($searchFile as $key => $value) : ?>
-						<tr onclick="document.location='index.php?page=labo&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+						<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
 							<td><?=	$value['customer']	?></td>
 							<td><?=	$value['job']	?></td>
 							<td><?=	$value['split']	?></td>

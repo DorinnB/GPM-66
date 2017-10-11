@@ -1,19 +1,15 @@
 <?php
-include('../models/db.class.php'); // call db.class.php
-$db = new db(); // create a new object, class db()
-?>
-<?php
 
 
 // Rendre votre modèle accessible
-include '../models/split-model.php';
+include 'models/split-model.php';
 // Création d'une instance
 $oSplit = new LstSplitModel($db,$_GET['id_tbljob']);
 $split=$oSplit->getSplit();
 
 
 // Rendre votre modèle accessible
-include '../models/workflow.class.php';
+include 'models/workflow.class.php';
 // Création d'une instance
 $oWorkflow = new WORKFLOW($db,$_GET['id_tbljob']);
 $splits=$oWorkflow->getAllSplit();
@@ -34,10 +30,10 @@ $epA[$eprouvettes[$i]['id_eprouvette']]['done']=($epA[$eprouvettes[$i]['id_eprou
 
 
 // Rendre votre modèle accessible
-include '../models/inOut-model.php';
+include 'models/inOut-model.php';
 // Création d'une instance
 $oInOut = new INOUT($db);
 $lstInOut=$oInOut->getAllInOut($_GET['id_tbljob']);
 
 // Affichage du résultat
-include '../views/inOut-view.php';
+include 'views/inOut-view.php';

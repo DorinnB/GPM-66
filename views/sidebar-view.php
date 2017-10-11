@@ -17,7 +17,7 @@
 
 	<?php
 	//include('pages/tbljobs.php');
-	include('controller/tblJobs-controller.php');
+	//include('controller/tblJobs-controller.php');
 	?>
 
 

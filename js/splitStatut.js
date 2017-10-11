@@ -21,7 +21,7 @@ function updateStatut(id_tbljob, id_statut){
 $("#end").click(function() {
   if ($("#end").attr("data-etape")!=100) {
     updateStatut($("#id_tbljob").val(), 200);
-    goto('split','id_tbljob',$('#id_tbljob').val());
+    location.reload();
   }
 });
 
@@ -37,12 +37,12 @@ function findStatut(id_tbljob){
     success : function(data, statut){
       //$("#splitStatut").css('background-color',data['statut_color']);
       //$("#splitStatut").html(data['statut']);
-      goto('split','id_tbljob',$('#id_tbljob').val());
+    location.reload();
       //alert(data['statut']);
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
-      goto('split','id_tbljob',$('#id_tbljob').val());
+    location.reload(); 
       //alert('ERREUR');
     }
   });

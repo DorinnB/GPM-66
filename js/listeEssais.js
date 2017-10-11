@@ -23,14 +23,14 @@ $(document).ready(function() {
       { data: null,
       render : function(data, type, full, meta){
         test=data+"a";
-        return '<a href="index.php?page=labo&id_tbljob='+data.tbljobs.id_tbljob+'">'+data.enregistrementessais.n_fichier+'</a>';
+        return '<a href="index.php?page=split&id_tbljob='+data.tbljobs.id_tbljob+'">'+data.enregistrementessais.n_fichier+'</a>';
       }},
       { data: "test_type.test_type_abbr" },
       { data: "eprouvettes.c_temperature" },
       { data: "info_jobs.customer" },
       { data: "info_jobs.job" },
       { data: "tbljobs.split" },
-        { data: "eprouvettes.n_essai" },    
+        { data: "eprouvettes.n_essai" },
       { data: "master_eprouvettes.prefixe" },
       { data: "master_eprouvettes.nom_eprouvette" },
       { data: "machines.machine" },

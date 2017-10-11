@@ -19,7 +19,7 @@ $("#fileToUpload").change(function(e) {
       else {
         alert('Data uploaded succesfully');
       }
-        goto('split','id_tbljob',$('#table_ep').attr('data-idJob'));
+        location.reload(); 
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));

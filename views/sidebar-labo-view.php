@@ -17,43 +17,14 @@
 			<a href="../ticket/index.php?project=1">Issues Tracker</a>
 		</li>
 	</ul>
-
-	<?php
-	//include('pages/tbljobs.php');
-	$filtre="AND test_type_abbr not like '.%' AND etape < 90";
-	include('controller/tblJobs-controller.php');
-	?>
-
-
-
 </div>
+
+
 <!-- /#sidebar-wrapper -->
 <!-- Menu Toggle Script -->
 <script>
-$("#tools-nav").hide();
-
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
-	if (($("#tools-nav").is(":visible")) && ($("#wrapper:not(.toggled)"))) {
-		$("#wrapper").toggleClass("toggled");
-	}
-	else if ($("#wrapper").hasClass("toggled")) {
-		$("#wrapper").removeClass("toggled");
-	}
-	$("#tools-nav").show();
-	$("#tbljob-nav").hide();
+	$("#wrapper").toggleClass("toggled");
 });
-
-$("#tbljob-toggle").click(function(e) {
-	e.preventDefault();
-	if (($("#tbljob-nav").is(":visible")) && ($("#wrapper:not(.toggled)"))) {
-		$("#wrapper").toggleClass("toggled");
-	}
-	else if ($("#wrapper").hasClass("toggled")) {
-		$("#wrapper").removeClass("toggled");
-	}
-	$("#tools-nav").hide();
-	$("#tbljob-nav").show();
-});
-
 </script>

@@ -1,11 +1,18 @@
 $(document).ready(function() {
 
   var table = $('#table_GestionEp').DataTable({
-    scrollY: '16vh',
+    scrollY: '30vh',
     scrollCollapse: true,
     "scrollX": true,
     paging: false,
-    info: false
+    info: false,
+    order: [[ 0, "desc" ]],
+    columnDefs: [
+      {
+        "targets": [ 0 ],
+        "visible": false,
+        "searchable": false
+      }]
   });
 
 
@@ -39,3 +46,32 @@ $(document).ready(function() {
 function gestionEp(idEp) {
   $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
 }
+
+
+
+//affichage et disparition automatique du popover en mouse hover
+$('.popover-markup').popover({
+  html: true,
+  container:'body',
+  trigger: "manual",
+  title: function () {
+    return $(this).find('.head').html();
+  },
+  content: function () {
+    return $(this).find('.content').html();
+  }
+})
+.on("mouseenter", function () {
+  var _this = this;
+  $(this).popover("show");
+  $(".popover").on("mouseleave", function () {
+    $(_this).popover('hide');
+  });
+}).on("mouseleave", function () {
+  var _this = this;
+  setTimeout(function () {
+    if (!$(".popover:hover").length) {
+      $(_this).popover("hide");
+    }
+  });
+});

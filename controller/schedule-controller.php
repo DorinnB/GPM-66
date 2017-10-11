@@ -1,19 +1,15 @@
 <?php
-include('../models/db.class.php'); // call db.class.php
-$db = new db(); // create a new object, class db()
-?>
-<?php
 
 
 // Rendre votre modèle accessible
-include '../models/split-model.php';
+include 'models/split-model.php';
 // Création d'une instance
 $oSplit = new LstSplitModel($db,$_GET['id_tbljob']);
 $split=$oSplit->getSplit();
 
 
 // Rendre votre modèle accessible
-include '../models/workflow.class.php';
+include 'models/workflow.class.php';
 // Création d'une instance
 $oWorkflow = new WORKFLOW($db,$_GET['id_tbljob']);
 $splits=$oWorkflow->getAllSplit();
@@ -38,4 +34,4 @@ $groupes=$oWorkflow->getAllGroupes();
 
 
 // Affichage du résultat
-include '../views/schedule-view.php';
+include 'views/schedule-view.php';

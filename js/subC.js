@@ -1,6 +1,6 @@
 
 //fonction d'ouverture d'un split
-function goto(Page,type,id,modif) {
+function gotoMARCHEPLUS(Page,type,id,modif) {
   $('#pageunique').load('controller/' + Page + '-controller.php?'+type+'='+id+'&modif='+modif);
   document.getElementById("carre").style.display = "none";
   document.getElementById("pageunique").style.display = "block";

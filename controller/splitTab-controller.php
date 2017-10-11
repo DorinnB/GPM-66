@@ -2,7 +2,7 @@
 
 
 // Rendre votre modèle accessible
-include '../models/splitTab-model.php';
+include 'models/splitTab-model.php';
 
 
 
@@ -22,4 +22,4 @@ for($i=0;$i < count($Tabs);$i++)	{
 
 
 // Affichage du résultat
-include '../views/splitTab-view.php';
+include 'views/splitTab-view.php';

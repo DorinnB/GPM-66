@@ -8,7 +8,7 @@ include('controller/gestionPoste-controller.php');
 <!-- Page Content -->
 <div id="page-content-wrapper" style="height:100%">
 	<div class="container-fluid">
-		<div class="row" style="height:7%;">
+		<div class="row" style="height:5%;">
 
 			<div class="col-md-1 col-centered" style="height:100%;     float: none;margin: 0 auto;">
 				<div class="btn-group" style="width:100%;">
@@ -24,7 +24,7 @@ include('controller/gestionPoste-controller.php');
 			</div>
 
 		</div>
-		<div class="row" style="height:63%; overflow:auto;">
+		<div class="row" style="height:50%; overflow:auto;">
 			<form id="formGestionPoste" action="controller/updatePoste.php" method="POST" onsubmit="return validateForm()" style="height:100%;">
 				<div class="col-md-6" style="height:100%;">
 					<?php
@@ -65,12 +65,10 @@ include('controller/gestionPoste-controller.php');
 				</div>
 			</form>
 		</div>
-		<div class="row" style="height:30%;">
-			<div class="col-md-12" style="height:100%;">
+		<div class="row" style="height:45%;">
 				<?php
 				include('views/gestionPosteHistory-view.php');
 				?>
-			</div>
 		</div>
 	</div>
 </div>
