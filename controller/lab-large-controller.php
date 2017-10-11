@@ -115,14 +115,14 @@ foreach ($test as $value) {
   }
 
   if ($value['c_cycle_STL']>0) {
-    if ($value['Cycle_final']<$value['c_cycle_STL']) {
-      $poste[$value['poste']]['tempsRestant']=round(($value['c_cycle_STL']-$value['Cycle_final'])/$frequence/3600, 1);
+    if ($value['Cycle_final_temp']<$value['c_cycle_STL']) {
+      $poste[$value['poste']]['tempsRestant']=round(($value['c_cycle_STL']-$value['Cycle_final_temp'])/$frequence/3600, 1);
       //$poste[$value['poste']]['tempsRestant']='STL a faire bientot';
       //$poste[$value['poste']]['tempsRestant']=$value['c_cycle_STL']-$value['Cycle_final'];
     }
     else {
       if($value['runout']>0)  {
-        $poste[$value['poste']]['tempsRestant']=round(($value['runout']-$value['Cycle_final'])/$frequenceSTL/3600, 1);
+        $poste[$value['poste']]['tempsRestant']=round(($value['runout']-$value['Cycle_final_temp'])/$frequenceSTL/3600, 1);
         //$poste[$value['poste']]['tempsRestant']='STL deja fait';
       }
       else {
@@ -132,7 +132,7 @@ foreach ($test as $value) {
   }
   else {
     if($value['runout']>0)  {
-      $poste[$value['poste']]['tempsRestant']=round(($value['runout']-$value['Cycle_final'])/$frequence/3600, 1);
+      $poste[$value['poste']]['tempsRestant']=round(($value['runout']-$value['Cycle_final_temp'])/$frequence/3600, 1);
       //$poste[$value['poste']]['tempsRestant']='pas de STL prevu';
     }
     else {

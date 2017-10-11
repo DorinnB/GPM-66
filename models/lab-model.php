@@ -13,11 +13,8 @@ class LabModel
     public function getTest() {
       $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier,
 
-        Cycle_final_temp, currentBlock_temp,
-
-Cycle_final, currentBlock,
- if(currentBlock_temp is null, currentBlock,currentBlock_temp) as currentBlock_temp,
- if(cycle_final_temp is null, Cycle_final,cycle_final_temp) as Cycle_final_temp,
+ if(currentBlock is null, currentBlock_temp,currentBlock) as currentBlock_temp,
+ if(cycle_final is null, Cycle_final_temp,cycle_final) as Cycle_final_temp,
 
        split, machine, postes.id_machine, poste, id_job, n_essai,
         c_frequence, c_frequence_STL, c_cycle_STL, d_frequence, d_frequence_STL, Cycle_STL, runout, c_temperature,
