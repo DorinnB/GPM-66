@@ -32,76 +32,75 @@ $(document).ready(function() {
     },
     order: [[ 1, "desc" ]],
     columns: [
-        { data: "xmlforts.xml" },
-        { data: "xmlforts.ts" },
-        { data: "test_type.test_type_abbr" }
-      ],
-      scrollY: '70vh',
-      scrollCollapse: true,
-      paging: false,
-      select: {
-        style:    'os',
-        blurable: true
-      },
-
-        buttons: [
-            { extend: "create", editor: editor },
-            { extend: "edit",   editor: editor },
-            { extend: "remove", editor: editor }
-        ]
-    } );
-
-
-
-
-
-
-    $('#container').css('display', 'block');
-    table.columns.adjust().draw();
-
-    // Filter event handler
-    $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-      table
-      .column( $(this).data('index') )
-      .search( this.value )
-      .draw();
-    } );
-
-    //table.columns.adjust().draw();
-
-
-
-
-
-
+      { data: "xmlforts.xml" },
+      { data: "xmlforts.ts" },
+      { data: "test_type.test_type_abbr" }
+    ],
+    scrollY: '65vh',
+    scrollCollapse: true,
+    paging: false,
+    select: {
+      style:    'os',
+      blurable: true
+    },
+    buttons: [
+      { extend: "create", editor: editor },
+      { extend: "edit",   editor: editor },
+      { extend: "remove", editor: editor }
+    ]
   } );
 
 
 
-  //Selon le navigateur utilisé, on detecte le style de transition utilisé
-  function whichTransitionEvent(){
-    var t,
-    el = document.createElement("fakeelement");
 
-    var transitions = {
-      "transition"      : "transitionend",
-      "OTransition"     : "oTransitionEnd",
-      "MozTransition"   : "transitionend",
-      "WebkitTransition": "webkitTransitionEnd"
-    }
 
-    for (t in transitions){
-      if (el.style[t] !== undefined){
-        return transitions[t];
-      }
-    }
+
+  $('#container').css('display', 'block');
+  table.columns.adjust().draw();
+
+  // Filter event handler
+  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    table
+    .column( $(this).data('index') )
+    .search( this.value )
+    .draw();
+  } );
+
+  //table.columns.adjust().draw();
+
+
+
+
+
+
+} );
+
+
+
+//Selon le navigateur utilisé, on detecte le style de transition utilisé
+function whichTransitionEvent(){
+  var t,
+  el = document.createElement("fakeelement");
+
+  var transitions = {
+    "transition"      : "transitionend",
+    "OTransition"     : "oTransitionEnd",
+    "MozTransition"   : "transitionend",
+    "WebkitTransition": "webkitTransitionEnd"
   }
 
-  var transitionEvent = whichTransitionEvent();
+  for (t in transitions){
+    if (el.style[t] !== undefined){
+      return transitions[t];
+    }
+  }
+}
 
-  //On retracte le tbl des jobs, et une fois retracté, on redessine le tableau history
-  $("#wrapper").addClass("toggled");
-  $("#wrapper").one(transitionEvent,
-    function(event) {
-      $('#table_listeFlagQualite').DataTable().draw();
-    });
+var transitionEvent = whichTransitionEvent();
+
+//On retracte le tbl des jobs, et une fois retracté, on redessine le tableau history
+$("#wrapper").addClass("toggled");
+$("#wrapper").one(transitionEvent,
+  function(event) {
+    $('#table_listeFlagQualite').DataTable().draw();
+  });
