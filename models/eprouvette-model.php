@@ -400,9 +400,11 @@ class EprouvetteModel
       $req = 'SELECT eprouvettes.id_eprouvette,
       master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
       c_type_1_val, c_type_2_val, c1.consigne_type AS c_1_type, c2.consigne_type AS c_2_type, Lo, c_unite,
-      Cycle_min, runout, cycle_estime, c_commentaire, q_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3, type,id_dessin_type, dessin, ref_matiere, enregistreur, extensometre,
+      Cycle_min, runout, cycle_estime, c_commentaire, q_commentaire, c_checked, d_checked, type,id_dessin_type, dessin, ref_matiere, enregistreur, extensometre,
       cartouche_load, cartouche_stroke, cartouche_strain, t1.technicien AS operateur, t2.technicien AS controleur,
-      n_essai, n_fichier, machine, enregistrementessais.date, tbljobs.waveform AS c_waveform, eprouvettes.waveform, Cycle_STL,
+      n_essai, n_fichier, machine, enregistrementessais.date,
+      tbljobs.waveform AS c_waveform, eprouvettes.waveform, signal_true, signal_tapered,
+      Cycle_STL,
       IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final,
       Rupture, Fracture,
       info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
@@ -417,6 +419,7 @@ class EprouvetteModel
       ind_temps_top.ind_temp as ind_temp_top,
       ind_temps_strap.ind_temp as ind_temp_strap,
       ind_temps_bot.ind_temp as ind_temp_bot,
+      name,
       master_eprouvette_inOut_A,
 
       if(temps_essais is null,
@@ -468,6 +471,7 @@ class EprouvetteModel
       LEFT JOIN consigne_types c1 ON c1.id_consigne_type=tbljobs.c_1
       LEFT JOIN consigne_types c2 ON c2.id_consigne_type=tbljobs.c_2
       LEFT JOIN matieres ON matieres.id_matiere=id_matiere_std
+      LEFT JOIN rawdata ON rawdata.id_rawData=tbljobs.id_rawdata
 
 
       LEFT JOIN annexe_iqc ON annexe_iqc.id_annexe_iqc=(SELECT id_eprouvette

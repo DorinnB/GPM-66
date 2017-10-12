@@ -15,11 +15,54 @@ $oEprouvette = new EprouvetteModel($db,$_GET['id_ep']);
 
 $essai=$oEprouvette->getTest();
 
+//groupement du nom du job avec ou sans indice
+if (isset($essai['split'])) {
+  $essai['jobcomplet']= $essai['customer'].'-'.$essai['job'].'-'.$essai['split'];
+}
+else {
+  $essai['jobcomplet']= $essai['customer'].'-'.$essai['job'];
+}
+
+
 $oEprouvette->dimension($essai['type'],$essai['dim1'],$essai['dim2'],$essai['dim3']);
 $nb_dim=count($oEprouvette->dimDenomination());
-$area = $oEprouvette->area();
+$essai['area'] = $oEprouvette->area();
 
 $oEprouvette->niveaumaxmin($essai['c_1_type'], $essai['c_2_type'], $essai['c_type_1_val'], $essai['c_type_2_val']);
+$essai['max'] = $oEprouvette->MAX();
+$essai['min'] = $oEprouvette->MIN();
+$essai['runout'] = ($essai['runout'] > 0)?$essai['runout']:9999999999;
+
+
+$essai['HighTemperatureTested'] = ($essai['c_temperature'] >= 50)?'Yes':'No';
+
+$true=($essai['signal_true']==1)?'True':'';
+$tapered=($essai['signal_tapered']==1)?'Tapered':'';
+if ($essai['c_waveform']=='Sinus') {
+  $waveform='Sine';
+}
+elseif ($essai['c_waveform']=='Triangle') {
+  $waveform='Ramp';
+}
+elseif ($essai['c_waveform']=='Carre') {
+  $waveform='Square';
+}
+else {
+  $waveform='INCONNU';
+}
+
+$essai['ts_waveform'] = $true.$waveform.$tapered;
+
+
+//cas des essais type GE. On bascule le rawdata en none et on active la variable ts GE_Type_Job
+if ($essai['name'] == 'GE' ) {
+  $essai['GE_Type_Job'] = 'Yes';
+  $essai['name'] = 'None';
+}
+else {
+    $essai['GE_Type_Job'] = 'No';
+}
+
 
 //on charge le model
 include '../models/lstXMLforTS-model.php';
@@ -31,7 +74,7 @@ foreach ($oXMLforTS->getAllXMLforTS($essai['id_test_type']) as $key => $value) {
 }
 
 //on ajoute manuellement le nom d'ep
-  $variableTS_GPM['SpecimenId'] = isset($essai['prefixe'])?$essai['prefixe'].'-'.$essai['nom_eprouvette']:$essai['nom_eprouvette'];
+//  $variableTS_GPM['SpecimenId'] = isset($essai['prefixe'])?$essai['prefixe'].'-'.$essai['nom_eprouvette']:$essai['nom_eprouvette'];
 
 
 
