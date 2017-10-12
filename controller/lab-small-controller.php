@@ -75,6 +75,10 @@ foreach ($test as $value) {
     $poste[$value['poste']]['background-color']='darkgreen';
     $runStop[]="RUN";
   }
+  elseif ($value['currentBlock_temp']=='Straightening') {
+    $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
+  }  
   elseif($value['currentBlock_temp']=='Stop') {
     $poste[$value['poste']]['background-color']='darkred';
     $runStop[]="STOP";
