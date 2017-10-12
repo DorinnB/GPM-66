@@ -29,7 +29,7 @@
 				<form class="navbar-form" role="search">
 					<div class="input-group">
 						<input type="hidden" class="form-control"name="page" value="searchInfo">
-						<input type="text" class="form-control" placeholder="Search Info" name="searchInfo">
+						<input type="text" class="form-control" placeholder="Search Info" name="searchInfo" style="width:100px;">
 						<div class="input-group-btn">
 							<button class="glyphicon glyphicon-search btn btn-default" type="submit"><i class="fa fa-search"></i></button>
 						</div>
