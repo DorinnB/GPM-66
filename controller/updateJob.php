@@ -244,7 +244,7 @@ $db = new db(); // create a new object, class db()
 	}
 
 
-
+include 'createJobFolder-controller.php';
 
 	?>
 
@@ -252,4 +252,4 @@ $db = new db(); // create a new object, class db()
 
 <button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
 
-<script type='text/javascript'>xxxxxdocument.location.replace('../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>
+<script type='text/javascript'>document.location.replace('../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>
