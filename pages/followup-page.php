@@ -11,7 +11,7 @@
 			<thead>
 				<tr>
 					<th><acronym title='Phase'>Phase</acronym></th>
-					<th><acronym title='N-Test EC'>NT</acronym></th>
+					<th><acronym title='N-Test Started'>NT</acronym></th>
 					<th><acronym title='No Test MRSAS'>NS</acronym></th>
 					<th><acronym title='Test % (en temps)'>T %</acronym></th>
 					<th><acronym title='Cust.'>Cust.</acronym></th>
@@ -63,7 +63,7 @@
 						</td>
 
 
-						<td><?= $row['nbtest'] ?></td>
+						<td><?= $row['nbstart'] ?></td>
 						<td><?= $row['nbep'] ?></td>
 						<td class="progress"><meter value="<?= $row['nbpercent'] ?>" min="0" max="100" color-sttut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></meter></td>
 						<td><?= $row['customer'] ?></td>

@@ -78,6 +78,7 @@ class LstJobsModel
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
           DyT_expected, DyT_Cust, DyT_SubC, refSubC,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
+          if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbstart,
           SUM(IF(d_checked > 0 , 1, 0)) as  nbtest,
           SUM(IF(eprouvette_InOut_A IS NOT NULL, 1, 0)) as nbsent,
           count(eprouvettes.id_master_eprouvette)-count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbRetest,
