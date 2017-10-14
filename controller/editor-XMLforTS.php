@@ -20,6 +20,7 @@ Editor::inst( $db, 'xmlforts' )
 ->fields(
   Field::inst( 'xmlforts.xml'),
   Field::inst( 'xmlforts.ts'),
+  Field::inst( 'xmlforts.unit'),
   Field::inst( 'xmlforts.id_test_type' )
       ->options( Options::inst()
           ->table( 'test_type' )

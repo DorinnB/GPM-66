@@ -53,6 +53,7 @@ else {
 
 $essai['ts_waveform'] = $true.$waveform.$tapered;
 
+$essai['tempCorrected']=$oEprouvette->getTempCorrected();
 
 //cas des essais type GE. On bascule le rawdata en none et on active la variable ts GE_Type_Job
 if ($essai['name'] == 'GE' ) {
@@ -69,9 +70,15 @@ include '../models/lstXMLforTS-model.php';
 $oXMLforTS = new XMLforTSModel($db);
 //on ajoute dans $variableTS_GPM les equivalent entre les noms de la base et les noms de variables TS
 $variableTS_GPM = array();
+$variableUnit = array();
+
+
+
 foreach ($oXMLforTS->getAllXMLforTS($essai['id_test_type']) as $key => $value) {
   $variableTS_GPM[$value['ts']]=$essai[$value['xml']];
+  $variableUnit[$value['ts']]=$value['unit'];
 }
+
 
 //on ajoute manuellement le nom d'ep
 //  $variableTS_GPM['SpecimenId'] = isset($essai['prefixe'])?$essai['prefixe'].'-'.$essai['nom_eprouvette']:$essai['nom_eprouvette'];
@@ -97,6 +104,12 @@ foreach ($variableTS_GPM as $key => $value) {
 
   $VariableData_node->appendChild($Values = $xml_doc->createElement('Values'));
   $Values->appendChild($Value = $xml_doc->createElement('Value', $value));
+
+if (isset($variableUnit[$key])) {
+  $VariableData_node->appendChild($unit_node = $xml_doc->createElement('Unit', $variableUnit[$key]));
+}
+
+
   $AoVariableData_node->appendChild($VariableData_node);
 }
 

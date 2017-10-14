@@ -5,6 +5,7 @@
     <tr>
       <th>GPM</th>
       <th>TS</th>
+      <th>Unit</th>
       <th>test_type</th>
     </tr>
   </thead>
@@ -12,6 +13,7 @@
     <tr>
       <th>GPM</th>
       <th>TS</th>
+      <th>Unit</th>          
       <th>test_type</th>
     </tr>
   </tfoot>

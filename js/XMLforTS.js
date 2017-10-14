@@ -12,6 +12,7 @@ $(document).ready(function() {
     fields: [
       { label: "GPM", name: "xmlforts.xml"  },
       { label: "TS", name: "xmlforts.ts" },
+      { label: "unit", name: "xmlforts.unit" },
       { label: "test_type", name: "xmlforts.id_test_type", type: "select" }
     ]
   } );
@@ -34,6 +35,7 @@ $(document).ready(function() {
     columns: [
       { data: "xmlforts.xml" },
       { data: "xmlforts.ts" },
+      { data: "xmlforts.unit" },      
       { data: "test_type.test_type_abbr" }
     ],
     scrollY: '65vh',
