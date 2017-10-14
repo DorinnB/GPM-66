@@ -31,7 +31,7 @@ $(document).ready(function() {
 
   //activation des tooltip
  $('[data-toggle="tooltip"]').tooltip();
- 
+
 
   // Setup - add a text input to each footer cell
   $('#table_ep tfoot th').each( function (i) {
@@ -302,13 +302,13 @@ function checkValueC1Stress() {
   var nb=0;
   $('.checkValue_c1_max_stress').each( function (i) {
     if ($(this).html() !=='') {
-      sumMax+=parseFloat($(this).html());
+      sumMax+=parseFloat($(this).html().replace(/ /g,''));
       nb+=1;
     }
   } );
   $('.checkValue_c1_min_stress').each( function (i) {
     if ($(this).html() !=='') {
-      sumMin+=parseFloat($(this).html());
+      sumMin+=parseFloat($(this).html().replace(/ /g,''));
     }
   } );
 
@@ -347,13 +347,13 @@ function checkValueC2Stress() {
   var nb=0;
   $('.checkValue_c2_max_stress').each( function (i) {
     if ($(this).html() !=='') {
-      sumMax+=parseFloat($(this).html());
+      sumMax+=parseFloat($(this).html().replace(/ /g,''));
       nb+=1;
     }
   } );
   $('.checkValue_c2_min_stress').each( function (i) {
     if ($(this).html() !=='') {
-      sumMin+=parseFloat($(this).html());
+      sumMin+=parseFloat($(this).html().replace(/ /g,''));
     }
   } );
 
