@@ -9,7 +9,7 @@
         <th rowspan=2>Dwg</th>
         <th rowspan=2>Initiale</th>
         <?php  foreach ($splits as $splitInOut): ?>
-          <th colspan=3><?= $splitInOut['test_type_abbr']  ?></th>
+          <th colspan=3><?= $splitInOut['split'].'-'.$splitInOut['test_type_abbr']  ?></th>
         <?php  endforeach  ?>
         <th rowspan=2>Finale</th>
       </tr>
