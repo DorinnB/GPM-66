@@ -258,8 +258,8 @@ $ep[$k]['c2_min_stress']=!empty($ep[$k]['c2_min_stress'])?number_format($ep[$k][
 
 //  $ep[$k]['c2_delta_strain']=!empty($ep[$k]['c2_meas_inelastic_strain'])?number_format($ep[$k]['c2_meas_inelastic_strain'], 2,'.', ' '):'';
 //  $ep[$k]['c2_strain_e']=!empty($ep[$k]['c2_meas_inelastic_strain'])?number_format($ep[$k]['c2_meas_inelastic_strain'], 2,'.', ' '):'';
-$ep[$k]['c2_delta_strain']=!empty($ep[$k]['c2_max_strain'])?number_format($ep[$k]['c2_max_strain'], 2,'.', ' '):'';
-$ep[$k]['c2_strain_e']=!empty($ep[$k]['c2_min_strain'])?number_format($ep[$k]['c2_min_strain'], 2,'.', ' '):'';
+$ep[$k]['c2_delta_strain']=!empty($ep[$k]['c2_delta_strain'])?number_format($ep[$k]['c2_delta_strain'], 2,'.', ' '):'';
+$ep[$k]['c2_strain_e']=!empty($ep[$k]['c2_strain_e'])?number_format($ep[$k]['c2_strain_e'], 2,'.', ' '):'';
 
 
 

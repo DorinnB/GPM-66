@@ -412,7 +412,7 @@ class EprouvetteModel
       d_commentaire,
       IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock,
       E_RT, c1_E_montant, c1_max_strain, c1_min_strain, c1_max_stress, c1_min_stress, c2_cycle, c2_E_montant, c2_max_stress, c2_min_stress, c2_max_strain, c2_min_strain, c2_calc_inelastic_strain, c2_meas_inelastic_strain, Ni, Nf75, dilatation,
-      (c2_max_strain-c2_min_strain) AS c2_delta_strain, (c2_max_strain-c2_min_strain-c2_calc_inelastic_strain) AS c2_strain_e,
+      c2_delta_strain, c2_strain_e,
       dim1, dim2, dim3,
       type_chauffage, chauffage,
       cell_load_gamme, cell_displacement_gamme,
