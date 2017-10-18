@@ -1,5 +1,5 @@
 <link href="css/splitData.css" rel="stylesheet">
-<script type="text/javascript" src="js/splitData_IQC.js"></script>
+
 
 <div class="col-md-12" id="splitData" style="height:85%">
 
@@ -63,3 +63,4 @@ ATTENTION : L'ICONE POUR TELECHARGER LA FEUILLE DIMENSIONNEL EST MAINTENANT SUR 
 
 
 </div>
+<script type="text/javascript" src="js/splitData_IQC.js"></script>

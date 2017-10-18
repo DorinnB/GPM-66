@@ -19,7 +19,7 @@ $("#fileToUpload").change(function(e) {
       else {
         alert('Data uploaded succesfully');
       }
-        location.reload(); 
+        location.reload();
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
