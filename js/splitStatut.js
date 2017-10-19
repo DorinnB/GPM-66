@@ -29,21 +29,20 @@ $("#end").click(function() {
 function findStatut(id_tbljob){
   $.ajax({
 		type: "POST",
-		url: 'controller/findStatut-controller.php',
+		url: 'controller/findStatut2-controller.php',
 		dataType: "json",
     data: {
       id_tbljob : id_tbljob
     },
     success : function(data, statut){
-      //$("#splitStatut").css('background-color',data['statut_color']);
-      //$("#splitStatut").html(data['statut']);
-    location.reload();
-      //alert(data['statut']);
+    //location.reload();
+    
+      alert(data['id_statut']);
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
-    location.reload(); 
-      //alert('ERREUR');
+    //location.reload();
+      alert('ERREUR');
     }
   });
 }

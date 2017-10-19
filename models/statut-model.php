@@ -182,5 +182,158 @@ class StatutModel
 
   }
 
+  public function findStatut2(){
+    $req='SELECT
+        if(checked>0,1,0) as OT_checked,
+        sum(if(master_eprouvette_inOut_A is null,1,0)) as nb_awaiting_specimen,
+
+        sum(if((eprouvette_inOut_A is not null or enregistrementessais.date is not null) and
+               (eprouvette_inOut_B is null and report_creation_date is null and d_checked <=0)
+               ,1,0)) as nbrunning,
+
+        sum(if((eprouvette_inOut_B is not null or report_creation_date is not null or d_checked >0),0,1)) as nb_before_end,
+        sum(if((eprouvette_inOut_A is null AND enregistrementessais.date is null),1,0)) as nb_untested,
+
+        sum(if(d_checked<=0,1,0)) as nb_unDchecked,
+
+        sum( IFNULL(
+            (SELECT if((ep.eprouvette_inOut_B is not null or ep.report_creation_date is not null or ep.d_checked >0),0,1)
+              FROM eprouvettes ep
+              LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
+              WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
+                AND tbl.phase<tbljobs.phase
+              ORDER BY phase asc
+              LIMIT 1
+          ),0)
+        ) as nb_awaiting_previous_split,
+
+        sum(
+        if((master_eprouvette_inOut_A is null OR
+          IFNULL(
+            (SELECT if((ep.eprouvette_inOut_B is not null or ep.report_creation_date is not null or ep.d_checked >0),0,1)
+              FROM eprouvettes ep
+              LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
+              WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
+                AND tbl.phase<tbljobs.phase
+              ORDER BY phase asc
+              LIMIT 1
+          ),0) =1 )  OR (eprouvette_inOut_A is not null or enregistrementessais.date is not null)
+            ,0,1)
+        ) as nb_ep_dispo,
+
+        sum(
+          if(((master_eprouvette_inOut_A is null OR
+            IFNULL(
+              (SELECT if((ep.eprouvette_inOut_B is not null or ep.report_creation_date is not null or ep.d_checked >0),0,1)
+                FROM eprouvettes ep
+                LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
+                WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
+                  AND tbl.phase<tbljobs.phase
+                ORDER BY phase asc
+                LIMIT 1
+            ),0) =1 )  OR (eprouvette_inOut_A is not null or enregistrementessais.date is not null)) OR c_checked<=0
+              ,0,1)
+          ) as nb_consigne_dispo  ,
+
+        sum(
+        if((master_eprouvette_inOut_A is null OR
+          IFNULL(
+            (SELECT if((ep.eprouvette_inOut_B is not null or ep.report_creation_date is not null or ep.d_checked >0),0,1)
+              FROM eprouvettes ep
+              LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
+              WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
+                AND tbl.phase<tbljobs.phase
+              ORDER BY phase asc
+              LIMIT 1
+          ),0) =1 )  OR c_checked>0
+            ,0,1)
+        ) as nb_ep_dispo_sans_consigne
+
+
+      FROM eprouvettes
+      LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+
+      WHERE tbljobs.id_tbljob= '. $this->id_tbljob.'
+      AND master_eprouvette_actif=1
+      AND eprouvette_actif=1
+      GROUP BY tbljobs.id_tbljob
+    ';
+
+    //echo $req;
+
+    $state = $this->db->getOne($req);
+
+
+    $statut='';
+    $id_statut=0;
+
+    if ($state['OT_checked']==0) {
+      $id_statut=10;
+      $statut='Check OT';
+    }
+    else {
+      if ($state['nbrunning']>0) {  //si une ep en test
+        if ($state['nb_untested']==0) { //plus d'ep restant
+          $id_statut=52;
+          $statut='Last Tests Running';
+        }
+        else {
+          if ($state['nb_consigne_dispo']==0) {  //derniere consigne
+            $id_statut=51;
+            $statut='Last Condition';
+          }
+          else {  //running
+            $id_statut=50;
+            $statut='Running';
+          }
+        }
+      }
+      else {  //non running
+        if ($state['nb_before_end']==0 and $state['nb_unDchecked']>0) { //manque de check technicien
+          $id_statut=59;
+          $statut='Waiting data check by technician';
+        }
+        elseif ($state['nb_before_end']==0) { //plus d'essai a faire
+          $id_statut=70;
+          $statut='FQC';
+        }
+        else {  //s'il reste des essais a faire
+          if ($state['nb_consigne_dispo']>0) { //ready to start
+            $id_statut=40;
+            $statut='Ready to Start';
+          }
+          else {
+            if ($state['nb_ep_dispo_sans_consigne']>0) {
+              $id_statut=30;
+              $statut='Awaiting Consigne';
+            }
+            elseif ($state['nb_awaiting_specimen']>0) { //attente specimen
+              $id_statut=20;
+              $statut='Awaiting Raw Specimen (initial)';
+            }
+            elseif ($state['nb_awaiting_previous_split']>0) { //attente specimen split
+              $id_statut=21;
+              $statut='Awaiting Specimen (from previous split)';
+            }
+            else {
+            $id_statut=0;
+            $statut='ERREUR contact PGO with job number please';
+            }
+          }
+        }
+      }
+    }
+
+
+
+    $maReponse = array('req'=> $req, 'id_statut' => $id_statut, 'statut' => $statut);
+    echo json_encode($maReponse);
+    //$this->updateStatut($id_statut);
+
+  }
 
 }
