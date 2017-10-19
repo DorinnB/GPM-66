@@ -89,3 +89,7 @@
 #end[data-etape="100"]   {
   background:darkgreen;
 }
+
+#save{
+cursor:pointer;  
+}

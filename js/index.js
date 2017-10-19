@@ -1,5 +1,5 @@
 $(document).ajaxStart(function() {
     $(document.body).css({'cursor' : 'wait'});
 }).ajaxStop(function() {
-    $(document.body).css({'cursor' : 'default'});
+    $(document.body).css({'cursor' : 'auto'});
 });

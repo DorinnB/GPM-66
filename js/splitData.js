@@ -1,16 +1,10 @@
 $(document).ready(function() {
-
   //activation des tooltip
   $('[data-toggle="tooltip"]').tooltip();
+});
 
 
-
-  $("#save").css('cursor', 'pointer');
-
-  $("#save").click(function(e) {
-
-    e.preventDefault();
-
+function save() {
     $.ajax({
       type: "POST",
       url: 'controller/updateData.php',
@@ -25,9 +19,7 @@ $(document).ready(function() {
         alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
       }
     });
-  });
-
-});
+  }
 
 
 $("#subCRef").click(function(e) {

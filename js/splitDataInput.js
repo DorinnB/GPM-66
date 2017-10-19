@@ -1,10 +1,5 @@
 
-$(document).ready(function() {
-  $("#save").css('cursor', 'pointer');
-
-  $("#save").click(function(e) {
-
-    e.preventDefault();
+function save() {
 
     $.ajax({
       type: "POST",
@@ -20,8 +15,7 @@ $(document).ready(function() {
         alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
       }
     });
-  });
-});
+  }
 
 
 $( function() {

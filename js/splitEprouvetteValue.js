@@ -153,11 +153,10 @@ $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
 document.getElementById("table_ep_filter").style.display = "none";
 
 
+} );
 
-$("#save").click(function(e) {
 
-  e.preventDefault();
-
+function save() {
   $.ajax({
     type: "POST",
     url: 'controller/updateSplitQuality.php',
@@ -168,17 +167,14 @@ $("#save").click(function(e) {
     }
     ,
     success : function(data, statut){
-      goto('split','id_tbljob',data['id_tbljob']);
+      location.assign("index.php?page=split&id_tbljob="+$("#id_tbljob").val());
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
       alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
     }
   });
-});
-
-} );
-
+}
 
 
 // Gestion Eprouvette

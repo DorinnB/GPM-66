@@ -70,7 +70,7 @@ $(document).ready(function() {
       {       label: 'c2_meas_inelastic_strain',       name: 'eprouvettes.c2_meas_inelastic_strain'     },
       {       label: 'Ni',       name: 'eprouvettes.Ni'     },
       {       label: 'Nf75',       name: 'eprouvettes.Nf75'     },
-      {       label: 'CurrentBlock',       name: 'eprouvettes.currentBlock'     },      
+      {       label: 'CurrentBlock',       name: 'eprouvettes.currentBlock'     },
       {       label:     "Check Value:",
                   name:      "eprouvettes.d_checked",
                   type:      "checkbox",
@@ -202,10 +202,7 @@ function gestionEp(idEp) {
 
 
 
-$("#save").click(function(e) {
-
-  e.preventDefault();
-
+function save() {
   $.ajax({
     type: "POST",
     url: 'controller/updateSplitQuality.php',
@@ -216,11 +213,11 @@ $("#save").click(function(e) {
     }
     ,
     success : function(data, statut){
-      goto('split','id_tbljob',data['id_tbljob']);
+      location.assign("index.php?page=split&id_tbljob="+$("#id_tbljob").val());
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
       alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
     }
   });
-});
+}
