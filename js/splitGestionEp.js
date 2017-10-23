@@ -61,6 +61,11 @@ $("#newTestForm").submit(function(e) {
     success: function(data)
     {
       location.assign("controller/createFT-controller.php?id_ep="+$("#idEp").val());
+      $.ajax({
+        type: "GET",
+        url: "controller/createXML-controller.php",
+        data: {id_ep : $("#idEp").val()}
+      });
       $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
     }
   });

@@ -23,7 +23,11 @@ foreach ($test as $value) {
 
 
   //recuperation des couleurs des blocs
-  if ($value['currentBlock_temp']=='Menu') {
+  if ($value['currentBlock_temp']=='Init') {
+    $poste[$value['poste']]['background-color']='Sienna';
+    $runStop[]="WIP";
+  }
+  elseif ($value['currentBlock_temp']=='Menu') {
     $poste[$value['poste']]['background-color']='Sienna';
     $runStop[]="WIP";
   }
