@@ -33,7 +33,7 @@ Require("connection.php");
 	<link rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
 
 	<script type="text/javascript" charset="utf8" src="DataTables/dataTables.js"></script>
-<script src="lib/Circular-Countdown-Clock-Plugin-For-jQuery-CircularCountDownJs/circular-countdown.js"></script>
+	<script src="lib/Circular-Countdown-Clock-Plugin-For-jQuery-CircularCountDownJs/circular-countdown.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 
 	<!--CSS TEMPORAIRE-->
@@ -51,7 +51,7 @@ Require("connection.php");
 		if(file_exists('views/sidebar'.(isset($_GET['page'])?'-'.$_GET['page']:"-main").'-view.php'))
 		include('views/sidebar'.(isset($_GET['page'])?'-'.$_GET['page']:"-main").'-view.php');
 		else
-			include('views/sidebar-labo-view.php');
+		include('views/sidebar-labo-view.php');
 
 		?>
 
@@ -96,18 +96,18 @@ Require("connection.php");
 	</div>
 	<!-- /#wrapper -->
 
-<?php //creation de User si le cookie est présent et correct
-if (isset($_COOKIE['id_user']))	{
+	<?php //creation de User si le cookie est présent et correct
+	if (isset($_COOKIE['id_user']))	{
 		//$user->shortlogin($_COOKIE['id_user'],$_COOKIE['password'],'true');
 
 		echo '
 		<script>
-			$("#login_username").val("'.$_COOKIE['id_user'].'");
-			$("#login_password").val("'.$_COOKIE['password'].'");
+		$("#login_username").val("'.$_COOKIE['id_user'].'");
+		$("#login_password").val("'.$_COOKIE['password'].'");
 
-			shortLoginScript();
+		shortLoginScript();
 		</script>';
-}
- ?>
+	}
+	?>
 </body>
 </html>
