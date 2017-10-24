@@ -39,7 +39,7 @@
             </div>
             <div class="modal-footer">
               <div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                <button type="submit" id="btnLogin" class="btn btn-primary btn-lg btn-block">Login</button>
               </div>
               <div>
                 <!--                               <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>

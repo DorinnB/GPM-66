@@ -4,8 +4,8 @@
     <thead>
       <tr>
         <th rowspan=2>Groupe</th>
-        <th rowspan=2>Nb</th>
-        <th rowspan=2>receipt</th>
+        <th rowspan=2 style="width:5%">Nb</th>
+        <th rowspan=2 class="selectableTitle" data-id="<?=  $split['available_expected'] ?>" data-IO="available_expected" data-value="<?= $split['available_expected']   ?>" data-oldValue="<?= $split['available_expected']   ?>">Receipt</th>
         <?php  foreach ($splits as $splitJob): ?>
           <th colspan=2><?= $splitJob['split'].' - '.$splitJob['test_type_abbr']  ?></th>
         <?php  endforeach  ?>
@@ -13,11 +13,11 @@
       <tr>
         <?php  foreach ($splits as $splitJob): ?>
           <?php if (substr( $splitJob['test_type_abbr'], 0, 1 ) === ".") :  ?>
-            <th>DyT SubC</th>
-            <th>Expected</th>
+            <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_SubC"  data-value="<?= $splitJob['DyT_SubC']   ?>"data-oldValue="<?= $splitJob['DyT_SubC']   ?>">DyT SubC</th>
+            <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected"  data-value="<?= $splitJob['DyT_expected']   ?>"data-oldValue="<?= $splitJob['DyT_expected']   ?>">Expected</th>
           <?php else: ?>
-            <th>DyT Cust</th>
-            <th>Expected</th>
+            <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_Cust"  data-value="<?= $splitJob['DyT_Cust']   ?>"data-oldValue="<?= $splitJob['DyT_Cust']   ?>">DyT Cust</th>
+            <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected"  data-value="<?= $splitJob['DyT_expected']   ?>"data-oldValue="<?= $splitJob['DyT_expected']   ?>">Expected</th>
           <?php endif ?>
         <?php  endforeach  ?>
       </tr>
@@ -43,21 +43,19 @@
     <tbody>
       <?php foreach ($groupes as $key => $line): ?>
         <tr>
-          <td>Group <?= $key ?></td>
-          <td></td>
-          <td><?= $split['available_expected'] ?></td>
+          <td>Group <?= $key+1 ?></td>
+          <td><?= $split['nbep'] ?></td>
+
+          <td class="selectable" data-id="<?=  $split['available_expected'] ?>" data-IO="available_expected" data-oldValue="<?= $split['available_expected']   ?>"><?= $split['available_expected'] ?></td>
 
           <?php  foreach ($splits as $splitJob): ?>
             <?php if (isset($groupes[$key]['split'][$splitJob['id_tbljob']])) : ?>
               <?php if ($splitJob['ST'] == 1) :  ?>
-                <td><?= $splitJob['DyT_SubC']  ?></td>
-                <td><?= $splitJob['DyT_expected']  ?></td>
-              <?php elseif ($splitJob['auxilaire'] == 1) :  ?>
-                <td><?= $splitJob['DyT_Cust']  ?></td>
-                <td><?= $splitJob['DyT_expected']  ?></td>
+                <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_SubC']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_SubC" data-oldValue="<?= $splitJob['DyT_SubC']   ?>"><?= $splitJob['DyT_SubC']  ?></td>
+                <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_expected']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected" data-oldValue="<?= $splitJob['DyT_expected']   ?>"><?= $splitJob['DyT_expected']  ?></td>
               <?php else: ?>
-                <td><?= $splitJob['DyT_Cust']  ?></td>
-                <td><?= $splitJob['DyT_expected']  ?></td>
+                <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_Cust']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_Cust" data-oldValue="<?= $splitJob['DyT_Cust']   ?>"><?= $splitJob['DyT_Cust']  ?></td>
+                <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_expected']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected" data-oldValue="<?= $splitJob['DyT_expected']   ?>"><?= $splitJob['DyT_expected']  ?></td>
               <?php endif ?>
             <?php else: ?>
               <td class="noInOut"></td>

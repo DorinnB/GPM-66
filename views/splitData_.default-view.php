@@ -47,22 +47,16 @@
         <span class="value"><?= $split['available'] ?></span>
       </p>
       <p class="title">
-        <span class="name" id="DyT_SubCFlip">DyT SubC : <span class="glyphicon glyphicon-pencil"></span></span>
+        <span class="name" id="DyT_SubCFlip">DyT SubC : </span>
         <span class="value" id="DyT_SubC_alt"><?= $tbljobHisto2['DyT_SubC'] ?> <?= (($split['DyT_SubC']=="")?'Undefined':$split['DyT_SubC']) ?></span>
-
-        <input type="text" class="form-control flip" name="DyT_SubC" id="DyT_SubC" value="<?= $split['DyT_SubC'] ?>">
       </p>
       <p class="title">
-        <span class="name" id="DyT_expectedFlip">DyT expected : <span class="glyphicon glyphicon-pencil"></span></span>
+        <span class="name" id="DyT_expectedFlip">DyT expected : </span>
         <span class="value" id="DyT_expected_alt"><?= $tbljobHisto2['DyT_expected'] ?> <?= (($split['DyT_expected']=="")?'Undefined':$split['DyT_expected']) ?></span>
-
-        <input type="text" class="form-control flip" name="DyT_expected" id="DyT_expected" value="<?= $split['DyT_expected'] ?>">
       </p>
       <p class="title">
         <span class="name">DyT Cust :</span>
         <span class="value"><?= $tbljobHisto2['DyT_Cust'] ?> <?= $split['DyT_Cust'] ?></span>
-
-        <input type="hidden" name="DyT_Cust" id="DyT_Cust" value="<?= $split['DyT_Cust'] ?>">
       </p>
     </div>
 
