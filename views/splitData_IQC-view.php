@@ -54,10 +54,15 @@
 <br/>
 
 <form id="uploadDim" action="controller/updateIQC/php " method="post" enctype="multipart/form-data">
-    Upload Dim data
-    <input type="file" class="form-control" name="fileToUpload" id="fileToUpload" value="i:\temp\pgo">
-    <input type="hidden" name="id_tbljob" value="<?= $split['id_tbljob'] ?>">
-    <button type="submit" value="aaaa">
+
+  Upload Dim data<br/>
+
+  <label for="fileToUpload">
+    <img src="img/upload.png" style="width:50px;" />
+  </label>
+  <input name="fileToUpload" id="fileToUpload" style="display:none;" type="file">
+  <input type="hidden" name="id_tbljob" value="<?= $split['id_tbljob'] ?>">
+
 </form>
 
 
