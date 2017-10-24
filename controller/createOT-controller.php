@@ -82,7 +82,6 @@ $objReader->setIncludeCharts(TRUE);
 
 
 
-
     If ($split['test_type_abbr']=="Loa")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Loa.xlsx");
@@ -393,6 +392,56 @@ $objReader->setIncludeCharts(TRUE);
 
     }
     ElseIf ($split['test_type_abbr']==".Res")	{
+
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Default.xlsx");
+
+      $page=$objPHPExcel->getSheetByName('SUBCONTRACTING');
+
+      $val2Xls = array(
+
+        'C4'=> $split['job'].'-'.$split['split'],
+        'F2'=> $split['test_type'],
+        'D11'=> $split['customer'].'-'.$split['job'],
+        'D12'=> $split['po_number'],
+        'D13'=> $split['matiere'],
+        'D14'=> $split['dessin'],
+
+        'D19'=> $split['DyT_expected'],
+        'D21'=> $split['tbljob_commentaire'],
+
+        'D24'=> $split['tbljob_instruction']
+      );
+
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $page->setCellValue($key, $value);
+      }
+
+
+      $row = 24; // 1-based index
+      $col = 0;
+
+      foreach ($ep as $key => $value) {
+        //copy des styles des colonnes
+        for ($col = 1; $col <= 7; $col++) {
+          $style = $page->getStyleByColumnAndRow($col, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+          $page->duplicateStyle($style, $dstCell);
+        }
+
+        $page->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+        $page->setCellValueByColumnAndRow(3, $row, $value['c_commentaire']);
+
+        $row++;
+      }
+
+      //zone d'impression
+      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+      //  $page->getPageSetup()->setPrintArea('A1:'.$colString.($max_row_q+50));
+
+
+    }
+    ElseIf ($split['test_type_abbr']==".Resssss")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Res.xlsx");
 
