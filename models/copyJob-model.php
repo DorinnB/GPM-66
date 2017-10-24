@@ -78,9 +78,9 @@ class InfoJob
   public function copyTbljobs($old_id_tbljob) {
 
     $req = 'INSERT INTO tbljobs
-    (id_statut, id_info_job, phase, split, id_contactST, specification, id_type_essai, c_1, c_2, C_unite, waveform, tbljob_commentaire, tbljob_instruction, tbljob_actif)
+    (id_info_job, phase, split, id_contactST, specification, id_type_essai, c_1, c_2, C_unite, waveform, tbljob_commentaire, tbljob_instruction, tbljob_actif)
     SELECT
-    id_statut, '.$this->newIdInfoJob.', phase, split, id_contactST, specification, id_type_essai, c_1, c_2, C_unite, waveform, tbljob_commentaire, tbljob_instruction, tbljob_actif
+    '.$this->newIdInfoJob.', phase, split, id_contactST, specification, id_type_essai, c_1, c_2, C_unite, waveform, tbljob_commentaire, tbljob_instruction, tbljob_actif
     FROM tbljobs
     WHERE id_tbljob='.$old_id_tbljob;
 

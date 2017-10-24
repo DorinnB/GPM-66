@@ -102,7 +102,8 @@ class INOUT
       FROM tbljobs
       LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
       LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
-      LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+      LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+      LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
       WHERE tbljob_actif=1 AND etape = 40 AND ST = 1
       ORDER BY job DESC
     ';
@@ -114,7 +115,8 @@ class INOUT
       FROM tbljobs
       LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
       LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
-      LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+      LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+      LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
       WHERE ABS(DATEDIFF(DyT_expected, NOW())) < 7
         AND info_job_actif=1
         AND tbljob_actif=1

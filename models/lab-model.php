@@ -29,7 +29,8 @@ class LabModel
         LEFT JOIN machines ON machines.id_machine=postes.id_machine
         LEFT JOIN machine_forecasts ON machine_forecasts.id_machine_forecast=machines.id_machine
         LEFT JOIN icones ON icones.id_icone=machine_forecasts.id_icone_machine_forecast
-        LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
 
         LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
 

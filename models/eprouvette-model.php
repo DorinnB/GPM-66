@@ -404,7 +404,7 @@ class EprouvetteModel
       cartouche_load, cartouche_stroke, cartouche_strain, t1.technicien AS operateur, t2.technicien AS controleur,
       n_essai, n_fichier, machine, enregistrementessais.date,
       tbljobs.waveform AS c_waveform, eprouvettes.waveform, signal_true, signal_tapered,
-      Cycle_STL,
+      IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) as Cycle_STL,
       IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final,
       Rupture, Fracture,
       info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
@@ -424,19 +424,17 @@ class EprouvetteModel
 
       if(temps_essais is null,
         CONCAT("<i style=\"font-size : 75%;\">",
-          if(Cycle_final >0 AND c_frequence is not null and c_frequence !=0,
+          if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
             TRUNCATE(
-
-      if(Cycle_STL is null and c_cycle_STL is null,
-      eprouvettes.Cycle_final/eprouvettes.c_frequence/3600,
-      if(Cycle_STL is null,
-        if(eprouvettes.Cycle_final>c_cycle_STL,(c_cycle_STL/c_frequence+(eprouvettes.Cycle_final-c_cycle_STL)/c_frequence_STL)/3600,
-        (eprouvettes.Cycle_final/c_frequence)/3600)
-        ,if(eprouvettes.Cycle_final>cycle_STL,
-          (cycle_STL/c_frequence+(eprouvettes.Cycle_final-cycle_STL)/c_frequence_STL)/3600,
-          (eprouvettes.Cycle_final/c_frequence)/3600)
-        )),1),
-        ""),
+              if(IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) is null and c_cycle_STL is null,
+                IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
+                if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL),
+                  (IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL)/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL))/c_frequence_STL)/3600,
+                  (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                )
+              ),
+            1),
+          ""),
         "</i>"),
         temps_essais
       ) as temps_essais,
