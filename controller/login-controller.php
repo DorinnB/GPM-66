@@ -6,5 +6,9 @@ $db = new db(); // create a new object, class db()
 include_once '../models/user.class.php';
 $user = new USER($db);
 
-
-$user->login($_POST['username'],$_POST['password'],$_POST['remember_me']);
+if ($_POST['logintype']=='short') {
+  $user->shortlogin($_POST['username'],$_POST['password'],$_POST['remember_me']);
+}
+else {
+  $user->login($_POST['username'],$_POST['password'],$_POST['remember_me']);
+}
