@@ -51,8 +51,7 @@
 
 
 
-ATTENTION : L'ICONE POUR TELECHARGER LA FEUILLE DIMENSIONNEL EST MAINTENANT SUR L'ICONE OT
-
+<br/>
 
 <form id="uploadDim" action="controller/updateIQC/php " method="post" enctype="multipart/form-data">
     Upload Dim data
