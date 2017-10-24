@@ -28,14 +28,14 @@ private $id;
     public function getSplit() {
 //ADD AFFICHAGE DESSIN en concat
 		$req = 'SELECT id_tbljob, tbljobs.id_info_job,
-          customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,
+          customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,schedule_recommendation,
           contacts.genre, contacts.lastname, contacts.surname, contacts.compagnie, contacts.email as email, contacts.telephone as telephone,
           contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2, contacts2.email as email2, contacts2.telephone as telephone2,
           contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3, contacts3.email as email3, contacts3.telephone as telephone3,
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-          tbljobs.id_statut, statut, etape, statut_color, test_type, test_type_abbr, tbljobs.id_rawData, rawData.name,
+          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, tbljobs.id_rawData, rawData.name,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
           type1.id_consigne_type as id_c_type_1, type2.id_consigne_type as id_c_type_2,
@@ -108,7 +108,8 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
         LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
         LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
         LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
-        LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
         LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
         LEFT JOIN rawData ON rawData.id_rawData=tbljobs.id_rawData
         LEFT JOIN consigne_types as type1 ON type1.id_consigne_type=tbljobs.c_1
@@ -145,7 +146,17 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
     }
 
     public function updateStatut($id_statut){
-      $reqUpdate='UPDATE `tbljobs` SET `id_statut` = '.$id_statut.' WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+      $reqUpdate='
+        INSERT INTO tbljobs_temp
+        (tbljobs_temp.id_tbljobs_temp, tbljobs_temp.id_statut_temp)
+        SELECT id_tbljob, '.$id_statut.'
+        FROM tbljobs
+        LEFT JOIN tbljobs_temp on tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+        WHERE
+        tbljobs.id_tbljob = '.$this->id.' AND (statuts.statut_lock !=1 OR statuts.statut_lock IS NULL)
+        ON DUPLICATE KEY UPDATE tbljobs_temp.id_statut_temp=values(tbljobs_temp.id_statut_temp), date_modif_temp = current_timestamp
+        ;';
       $result = $this->db->query($reqUpdate);
 
       $newStatut = $this->db->getOne('SELECT * FROM statuts WHERE id_statut='.$id_statut);
@@ -180,9 +191,7 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
 
     public function updateData(){
       $reqUpdate='UPDATE `tbljobs` SET
-        `refSubC` = '.$this->refSubC.',
-        `DyT_SubC` = '.$this->DyT_SubC.',
-        `DyT_expected` = '.$this->DyT_expected.'
+        `refSubC` = '.$this->refSubC.'
 
        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
 //echo $reqUpdate;

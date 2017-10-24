@@ -21,7 +21,8 @@ class LstJobsModel
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
 				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				  LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+          LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         '.$filtre.'
         GROUP BY tbljobs.id_tbljob
@@ -79,7 +80,7 @@ class LstJobsModel
           DyT_expected, DyT_Cust, DyT_SubC, refSubC,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
           if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbstart,
-          SUM(IF(d_checked > 0 , 1, 0)) as  nbtest,
+          SUM(IF(d_checked > 0 OR n_fichier is not null , 1, 0)) as  nbtest,
           SUM(IF(eprouvette_InOut_A IS NOT NULL, 1, 0)) as nbsent,
           count(eprouvettes.id_master_eprouvette)-count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbRetest,
           CONVERT((count(DISTINCT(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent
@@ -90,11 +91,12 @@ class LstJobsModel
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
 				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				  LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+          LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
           LEFT JOIN entreprises ON info_jobs.customer=entreprises.id_entreprise
 
           LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
-  LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
+          LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
 
           LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
           LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
@@ -105,7 +107,7 @@ class LstJobsModel
         GROUP BY tbljobs.id_tbljob
 				ORDER BY id_statut ASC, job DESC, split ASC
         '.$limit;
-//echo $req;
+        //echo $req;
         return $this->db->getAll($req);
     }
 
@@ -119,7 +121,8 @@ class LstJobsModel
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
 				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				  LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+          LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
 				WHERE tbljob_actif=1 AND eprouvette_actif=1 AND info_job_actif=1
         AND job LIKE '.$this->db->quote('%'.$searchInfo.'%').'
         GROUP BY tbljobs.id_tbljob
@@ -138,7 +141,8 @@ class LstJobsModel
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
 				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				  LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+          LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         AND po_number LIKE '.$this->db->quote('%'.$searchInfo.'%').'
         GROUP BY tbljobs.id_tbljob
@@ -157,7 +161,8 @@ class LstJobsModel
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
 				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-				  LEFT JOIN statuts ON statuts.id_statut=tbljobs.id_statut
+				  LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+          LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         AND instruction LIKE '.$this->db->quote('%'.$searchInfo.'%').'
         GROUP BY tbljobs.id_tbljob
