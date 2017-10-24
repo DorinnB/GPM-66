@@ -36,8 +36,8 @@ function findStatut(id_tbljob){
     },
     success : function(data, statut){
     //location.reload();
-    
-      alert(data['id_statut']);
+
+      alert(data['id_statut'] + ' - ' + data['statut']);
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));

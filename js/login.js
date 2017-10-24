@@ -11,119 +11,155 @@
 $(document).ready(function(){
   $("#login").click(function(){
     $("#login-modal").modal();
+    $("#login_username").val('0');
     $("#login_password").val('');
   });
 });
 
-$(function() {
 
-  var $formLogin = $('#login-form');
-  var $formLost = $('#lost-form');
-  var $formRegister = $('#register-form');
-  var $divForms = $('#div-forms');
+function loginScript(){
+  var $lg_username=$('#login_username').val();
+  var $lg_password=$('#login_password').val();
+  var $lg_remember_me=$('#login_remember_me').is(':checked');
+  $.ajax({
+    type: "POST",
+    url: 'controller/login-controller.php',
+    dataType: "json",
+    data: {
+      username: $lg_username,
+      password: $lg_password,
+      remember_me: $lg_remember_me,
+      logintype: "normal"
+    },
+    success: function(data)	{
+      $('.timer').empty();
+      if (typeof data.technicien !== 'undefined') {
+        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "Login OK");
+        user = data['technicien'];
+        iduser = data['id_technicien'];				;
+        //on affiche en haut le nom de l'opérateur
+        document.getElementById('user').innerHTML = user;
+        document.getElementById('iduser').innerHTML = iduser;
+        //rafraichissement de gestionEp avec le nouvel user
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
+
+
+        //affichage du cooldown
+        if (!$lg_remember_me) {
+          $('.timer').circularCountDown({
+            size: 40,
+            borderSize: 10,
+            colorCircle: 'gray',
+            background: 'white',
+            fontFamily: 'sans-serif',
+            fontColor: '#333333',
+            fontSize: 16,
+            delayToFadeIn: 0,
+            delayToFadeOut: 0,
+            reverseLoading: false,
+            reverseRotation: false,
+            duration: {
+              hours: 0,
+              minutes: 10,
+              seconds: 0
+            },
+            beforeStart: function(){},
+            end: function(){
+              document.getElementById('user').innerHTML = 'Disconnected';
+              document.getElementById('iduser').innerHTML = '0';
+            }
+          });
+        }
+        $("#login-modal").modal("hide");
+
+      }
+      else{
+        document.getElementById('user').innerHTML = data['result'];
+        user="";
+        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "Login error");
+        //showLogged("n");
+      }
+    }
+  });
+  return false;
+}
+
+function shortLoginScript(){
+  var $lg_username=$('#login_username').val();
+  var $lg_password=$('#login_password').val();
+  var $lg_remember_me=$('#login_remember_me').is(':checked');
+  $.ajax({
+    type: "POST",
+    url: 'controller/login-controller.php',
+    dataType: "json",
+    data: {
+      username: $lg_username,
+      password: $lg_password,
+      remember_me: $lg_remember_me,
+      logintype: "short"
+    },
+    success: function(data)	{
+      $('.timer').empty();
+      if (typeof data.technicien !== 'undefined') {
+        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "Login OK");
+        user = data['technicien'];
+        iduser = data['id_technicien'];				;
+        //on affiche en haut le nom de l'opérateur
+        document.getElementById('user').innerHTML = user;
+        document.getElementById('iduser').innerHTML = iduser;
+        //rafraichissement de gestionEp avec le nouvel user
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
+
+remaingTime = data['expiry'] - new Date().getTime()/1000;
+        //affichage du cooldown
+        if (!$lg_remember_me) {
+          $('.timer').circularCountDown({
+            size: 40,
+            borderSize: 10,
+            colorCircle: 'gray',
+            background: 'white',
+            fontFamily: 'sans-serif',
+            fontColor: '#333333',
+            fontSize: 16,
+            delayToFadeIn: 0,
+            delayToFadeOut: 0,
+            reverseLoading: false,
+            reverseRotation: false,
+            duration: {
+              hours: 0,
+              minutes: 0,
+              seconds: remaingTime
+            },
+            beforeStart: function(){},
+            end: function(){
+              document.getElementById('user').innerHTML = 'Disconnected';
+              document.getElementById('iduser').innerHTML = '0';
+            }
+          });
+        }
+        $("#login-modal").modal("hide");
+
+      }
+      else{
+        document.getElementById('user').innerHTML = data['result'];
+        user="";
+        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "Login error");
+        //showLogged("n");
+      }
+    }
+  });
+  return false;
+}
+
+
+
+
+
+
   var $modalAnimateTime = 300;
   var $msgAnimateTime = 150;
   var $msgShowTime = 2000;
 
-  $($formLogin, $formLost, $formRegister, $divForms).submit(function () {
-    switch(this.id) {
-      case "login-form":
-      var $lg_username=$('#login_username').val();
-      var $lg_password=$('#login_password').val();
-      var $lg_remember_me=$('#login_remember_me').is(':checked');
-      $.ajax({
-        type: "POST",
-        url: 'controller/login-controller.php',
-        dataType: "json",
-        data: {
-          username: $lg_username,
-          password: $lg_password,
-          remember_me: $lg_remember_me
-        },
-        success: function(data)	{
-          $('.timer').empty();
-          if (typeof data.technicien !== 'undefined') {
-            msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "Login OK");
-            user = data['technicien'];
-            iduser = data['id_technicien'];				;
-            //on affiche en haut le nom de l'opérateur
-            document.getElementById('user').innerHTML = user;
-            document.getElementById('iduser').innerHTML = iduser;
-            //rafraichissement de gestionEp avec le nouvel user
-            $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
-
-
-            //affichage du cooldown
-            if (!$lg_remember_me) {
-              $('.timer').circularCountDown({
-                size: 40,
-                borderSize: 10,
-                colorCircle: 'gray',
-                background: 'white',
-                fontFamily: 'sans-serif',
-                fontColor: '#333333',
-                fontSize: 16,
-                delayToFadeIn: 0,
-                delayToFadeOut: 0,
-                reverseLoading: false,
-                reverseRotation: false,
-                duration: {
-                  hours: 0,
-                  minutes: 10,
-                  seconds: 0
-                },
-                beforeStart: function(){},
-                end: function(){
-                  document.getElementById('user').innerHTML = 'Disconnected';
-                  document.getElementById('iduser').innerHTML = '0';
-                }
-              });
-            }
-            $("#login-modal").modal("toggle");
-
-          }
-          else{
-            document.getElementById('user').innerHTML = data['result'];
-            user="";
-            msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "Login error");
-            //showLogged("n");
-          }
-        }
-      });
-      return false;
-      break;
-      case "lost-form":
-      var $ls_email=$('#lost_email').val();
-      if ($ls_email == "ERROR") {
-        msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "Send error");
-      } else {
-        msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "Send OK");
-      }
-      return false;
-      break;
-      case "register-form":
-      var $rg_username=$('#register_username').val();
-      var $rg_email=$('#register_email').val();
-      var $rg_password=$('#register_password').val();
-      if ($rg_username == "ERROR") {
-        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
-      } else {
-        msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", "Register OK");
-      }
-      return false;
-      break;
-      default:
-      return false;
-    }
-    return false;
-  });
-
-  $('#login_register_btn').click( function () { modalAnimate($formLogin, $formRegister) });
-  $('#register_login_btn').click( function () { modalAnimate($formRegister, $formLogin); });
-  $('#login_lost_btn').click( function () { modalAnimate($formLogin, $formLost); });
-  $('#lost_login_btn').click( function () { modalAnimate($formLost, $formLogin); });
-  $('#lost_register_btn').click( function () { modalAnimate($formLost, $formRegister); });
-  $('#register_lost_btn').click( function () { modalAnimate($formRegister, $formLost); });
 
   function modalAnimate ($oldForm, $newForm) {
     var $oldH = $oldForm.height();
@@ -155,4 +191,52 @@ $(function() {
       $iconTag.removeClass($iconClass + " " + $divClass);
     }, $msgShowTime);
   }
-});
+
+
+
+
+
+  $(function() {
+    var $formLogin = $('#login-form');
+    var $formLost = $('#lost-form');
+    var $formRegister = $('#register-form');
+    var $divForms = $('#div-forms');
+    $($formLogin, $formLost, $formRegister, $divForms).submit(function () {
+      switch(this.id) {
+        case "login-form":
+  loginScript();
+        break;
+        case "lost-form":
+        var $ls_email=$('#lost_email').val();
+        if ($ls_email == "ERROR") {
+          msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "Send error");
+        } else {
+          msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "Send OK");
+        }
+        return false;
+        break;
+        case "register-form":
+        var $rg_username=$('#register_username').val();
+        var $rg_email=$('#register_email').val();
+        var $rg_password=$('#register_password').val();
+        if ($rg_username == "ERROR") {
+          msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
+        } else {
+          msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", "Register OK");
+        }
+        return false;
+        break;
+        default:
+        return false;
+      }
+      return false;
+    });
+
+    $('#login_register_btn').click( function () { modalAnimate($formLogin, $formRegister) });
+    $('#register_login_btn').click( function () { modalAnimate($formRegister, $formLogin); });
+    $('#login_lost_btn').click( function () { modalAnimate($formLogin, $formLost); });
+    $('#lost_login_btn').click( function () { modalAnimate($formLost, $formLogin); });
+    $('#lost_register_btn').click( function () { modalAnimate($formLost, $formRegister); });
+    $('#register_lost_btn').click( function () { modalAnimate($formRegister, $formLost); });
+
+  });

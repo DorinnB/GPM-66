@@ -1,6 +1,9 @@
-$( function() {
 
-  $( "#dateInOut" ).datepicker({
+
+
+$(document).ready(function() {
+
+  $( "#dateSchedule" ).datepicker({
     showWeek: true,
     firstDay: 1,
     showOtherMonths: true,
@@ -8,10 +11,64 @@ $( function() {
     dateFormat: "yy-mm-dd"
   });
 
-} );
 
-$(document).ready(function() {
   $("#save").css('cursor', 'pointer');
+  $("#save").click(function(e) {
+    //on recupere (en serialize) la liste des eprouvettes, leur nom et les splits associés
+    var formScheduleInitial = $.param($('th').map(function() {
+      if ($(this).attr('data-id')){
+        if ($(this).attr('data-value')!= $(this).attr('data-oldvalue')) {
+          return {
+            name: $(this).attr('data-io'),
+            value: $(this).attr('data-value')
+          };
+        }
+      }
+    }));
+    var formScheduleSplit = $.param($('th').map(function() {
+      if ($(this).attr('data-idjob')){
+if ($(this).attr('data-value')!= $(this).attr('data-oldvalue')) {
+          return {
+            name: $(this).attr('data-idJob') + '-' + $(this).attr('data-io'),
+            value: $(this).attr('data-value')
+          };
+        }
+      }
+    }));
+
+    e.preventDefault();
+
+    $.ajax({
+      type: "POST",
+      url: 'controller/updateSchedule.php',
+      dataType: "json",
+      data: {
+        formScheduleInitial : formScheduleInitial,
+        formScheduleSplit : formScheduleSplit,
+        schedule_commentaire : $('#schedule_commentaire').val(),
+        schedule_recommendation : $('#schedule_recommendation').val(),
+        dateschedule: $('#dateschedule').val(),
+        id_info_job: $('#id_info_job').val()
+      },
+      success : function(data, statut){
+        //alert('yes');
+        location.reload();
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+      }
+    });
+  });
+});
+
+
+//Un click sur recommendation affiche le div ou le textarea
+$("#flipRecommendation").click(function() {
+  $('#schedule_recommendation_alt').toggleClass('flip');
+  $('#schedule_recommendation').toggleClass('flip');
+
+  $('#schedule_recommendation_alt').html($('#schedule_recommendation').val());
 });
 
 

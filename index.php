@@ -96,6 +96,18 @@ Require("connection.php");
 	</div>
 	<!-- /#wrapper -->
 
+<?php //creation de User si le cookie est présent et correct
+if (isset($_COOKIE['id_user']))	{
+		//$user->shortlogin($_COOKIE['id_user'],$_COOKIE['password'],'true');
 
+		echo '
+		<script>
+			$("#login_username").val("'.$_COOKIE['id_user'].'");
+			$("#login_password").val("'.$_COOKIE['password'].'");
+
+			shortLoginScript();
+		</script>';
+}
+ ?>
 </body>
 </html>
