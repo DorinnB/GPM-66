@@ -2,40 +2,15 @@ table td.noInOut {
   color:black;
   background-color:black;
 }
-table td.d_checked  {
-  color:darkgreen;
-  background-color:darkgreen;
-}
-table td.done[data-done="0"]  {
-  color:darkred;
+table td.error  {
   background-color:darkred;
 }
-table td.done[data-done="1"]  {
-  color:sienna;
-  background-color:sienna;
-}
-table td.done[data-done="2"]  {
-  color:darkgreen;
-  background-color:darkgreen;
-}
 table td[data-io]  {
-  cursor: pointer;
-}
-table td[data-idmaster]  {
   cursor: pointer;
 }
 
 td .ui-selecting { background-color: #FECA40; }
 
-table td.highlight  {
-background: repeating-linear-gradient(
-  -45deg,
-  #606dbc,
-  #606dbc 10px,
-  #465298 10px,
-  #465298 20px
-) !important;
-}
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #5B9BD5;
