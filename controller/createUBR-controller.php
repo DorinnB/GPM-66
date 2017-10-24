@@ -107,7 +107,19 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
       $newSheet->setCellValueByColumnAndRow($col, 14, $value['Cycle_final']);
 
       if ($value['c_frequence']>0 AND $value['Cycle_final']>0) {
-        $tpsEssai=($value['temps_essais']>0)?$value['temps_essais']:((max($value['Cycle_STL'],$value['c_cycle_STL'])==0)?($value['Cycle_final']/$value['c_frequence']/3600):(($value['Cycle_final']-$value['Cycle_STL'])/$value['c_frequence_STL']+$value['Cycle_STL']/$value['c_frequence'])/3600);
+        //calcul du temps d'essai
+        if ($value['temps_essais']>0) {
+          $tpsEssai = $value['temps_essais'];
+        }
+        else {
+          if ($value['Cycle_STL']>0) {
+            $tpsEssai = (($value['Cycle_final']-$value['Cycle_STL'])/$value['c_frequence_STL']+$value['Cycle_STL']/$value['c_frequence'])/3600;
+          }
+          else {
+            $tpsEssai = $value['Cycle_final']/$value['c_frequence']/3600;
+          }
+        }
+
         $tpsSupSplit=($tpsEssai>24)?$tpsEssai-24:0;
         $newSheet->setCellValueByColumnAndRow($col, 15, $tpsEssai);
         $newSheet->setCellValueByColumnAndRow($col, 16, $tpsSupSplit);
