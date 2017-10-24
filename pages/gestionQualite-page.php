@@ -60,3 +60,6 @@
 		</div>
 	</div>
 </div>
+<?php
+require('views/login-view.php');
+?>

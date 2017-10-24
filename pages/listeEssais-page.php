@@ -36,7 +36,7 @@
 						<th>job</th>
 						<th>split</th>
 						<th>prefixe</th>
-						<th>n_essai</th>								
+						<th>n_essai</th>
 						<th>nom_eprouvette</th>
 						<th>machine</th>
 						<th>date</th>
@@ -59,3 +59,6 @@
 
 	</div>
 </div>
+<?php
+require('views/login-view.php');
+?>
