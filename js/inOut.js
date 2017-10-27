@@ -72,6 +72,18 @@ $(document).ready(function() {
   });
 });
 
+
+//hachurage des eprouvettes ayant la date de l'history en hover
+$('.dateHighlight').hover(function(){
+  val=$(this).attr('data-date');
+  $('.selectable').each(function() {
+      if ($(this).attr('data-oldvalue')==val) {
+        $(this).toggleClass('highlight');
+      }
+ });
+})
+
+
 //Selon le navigateur utilisé, on detecte le style de transition utilisé
 function whichTransitionEvent(){
   var t,

@@ -38,15 +38,7 @@ $(document).ready(function() {
 } );
 
 
-//hachurage des eprouvettes ayant la date de l'history en hover
-$('.dateHighlight').hover(function(){
-  val=$(this).attr('data-date');
-  $('.selectable').each(function() {
-      if ($(this).attr('data-oldvalue')==val) {
-        $(this).toggleClass('highlight');
-      }
- });
-})
+
 
 //pour chaque click ou selection, on update la date
 $('#table_ep').selectable ({

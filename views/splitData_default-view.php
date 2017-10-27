@@ -36,6 +36,10 @@
       </span>
     </p>
     <p class="title">
+      <span class="name">Cust Order :</span>
+      <span class="value"><?= $split['c_type_1'].' & '.$split['c_type_2'].' ('. $split['c_unite'].')'  ?></span>
+    </p>
+    <p class="title">
       <span class="name">Raw Data :</span>
       <span class="value <?= ($split['id_rawData']==0)?'':'RawData' ?>"><?= $tbljobHisto2['name'] ?> <?= $split['name'] ?></span>
     </p>
