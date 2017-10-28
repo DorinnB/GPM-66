@@ -21,6 +21,10 @@ $oEprouvette->custom_frequency=$_POST['custom_frequency'];
 
 $eprouvette=$oEprouvette->newTest();
 
+include 'createTestList-controller.php';
+
+
+
 //Update du statut du job
 include '../models/statut-model.php';
 $oSplit = new StatutModel($db);

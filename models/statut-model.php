@@ -209,6 +209,7 @@ class StatutModel
               LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
               WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
                 AND tbl.phase<tbljobs.phase
+                AND ep.eprouvette_actif=1
               ORDER BY phase asc
               LIMIT 1
           ),0)
@@ -222,6 +223,7 @@ class StatutModel
               LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
               WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
                 AND tbl.phase<tbljobs.phase
+                AND ep.eprouvette_actif=1
               ORDER BY phase asc
               LIMIT 1
           ),0) =1 )  OR (eprouvette_inOut_A is not null or enregistrementessais.date is not null)
@@ -236,6 +238,7 @@ class StatutModel
                 LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
                 WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
                   AND tbl.phase<tbljobs.phase
+                  AND ep.eprouvette_actif=1
                 ORDER BY phase asc
                 LIMIT 1
             ),0) =1 )  OR (eprouvette_inOut_A is not null or enregistrementessais.date is not null)) OR c_checked<=0
@@ -250,6 +253,7 @@ class StatutModel
               LEFT JOIN tbljobs tbl ON tbl.id_tbljob=ep.id_job
               WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
                 AND tbl.phase<tbljobs.phase
+                AND ep.eprouvette_actif=1
               ORDER BY phase asc
               LIMIT 1
           ),0) =1 )  OR c_checked>0

@@ -79,7 +79,7 @@ class LabModel
         LEFT JOIN postes ON postes.id_poste=prestart.id_poste
         LEFT JOIN machines ON machines.id_machine=postes.id_machine
 
-        WHERE check_rupture=0
+        WHERE check_rupture<=0
           AND currentBlock="Send"
 
         order by machine';
