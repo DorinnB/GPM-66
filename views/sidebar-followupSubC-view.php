@@ -7,13 +7,13 @@
 		<li id="button">
 		</li>
 		<li>
-			<a href="index.php?page=followupSubC&filtreFollowup=final">Follow Up Final</a>
-		</li>
-		<li>
 			<a href="index.php?page=followupSubC&filtreFollowup=ALL">Follow Up ALL Split</a>
 		</li>
 		<li>
 			<a href="index.php?page=followupSubC&filtreFollowup=ALLNoTime">Follow Up All No Time</a>
+		</li>
+		<li>
+			<a href="index.php?page=followupJob&filtreFollowup=100">Follow Up JOB</a>
 		</li>
 		<li>
 			<a href="index.php?page=ListeEssais">Test list</a>
