@@ -59,3 +59,14 @@ $("#wrapper").addClass("toggled");
   $(document).ready(function(e) {
       $('img[usemap]').rwdImageMaps();
   });
+
+
+    $(document).ready(function() {
+      var country = [];
+      $("#id_outillage_top").select2({
+        data: country
+      });
+      $("#id_outillage_bot").select2({
+        data: country
+      });
+    });

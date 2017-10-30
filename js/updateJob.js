@@ -269,3 +269,13 @@ $( function() {
   });
 
 } );
+
+
+
+    $(document).ready(function() {
+      var country = [];
+      $("#id_matiere_std").select2({
+        data: country
+      });
+
+    });
