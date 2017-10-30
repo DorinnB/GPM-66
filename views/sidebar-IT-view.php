@@ -17,6 +17,9 @@
 			<a href="index.php?page=IT&tool=dessins">Dessins</a>
 		</li>
 		<li>
+			<a href="index.php?page=IT&tool=outillages">Tools</a>
+		</li>
+		<li>
 			<a href="controller/createUBR-controller.php">UBR</a>
 		</li>
 		<li>
