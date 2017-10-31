@@ -79,10 +79,12 @@ border-radius: 10px;
 .date:after  {
   content: "DATE";
 }
-.commentaire:after  {
-  content: "COMMENTS";
+.reason:after  {
+  content: "CHANGE REASON";
 }
-
+.commentaire:after  {
+  content: "FRAME ISSUES";
+}
 
 
 .PiD div{

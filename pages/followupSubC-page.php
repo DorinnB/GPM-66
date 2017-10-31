@@ -22,9 +22,9 @@
 					<th><acronym title='Customer Instructions'>Cust. Inst</acronym></th>
 					<th><acronym title='Tests type'>Type</acronym></th>
 					<th><acronym title='SubC Companie'>SubC</acronym></th>
+					<th><acronym title='SubC Report Reference'>Ref SubC</acronym></th>
 					<th><acronym title='Material'>Material</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
-					<th><acronym title='SubC Report Reference'>Ref SubC</acronym></th>
 					<th><acronym title='Availability'>Avail.</acronym></th>
 					<th><acronym title='Delivery Time SubC'>DyT SubC</acronym></th>
 					<th><acronym title='Expected Time'>Expected</acronym></th>
@@ -44,9 +44,9 @@
 					<th>Cust. Inst</th>
 					<th>Type</th>
 					<th>SubC</th>
+					<th>Ref SubC</th>
 					<th>Material</th>
 					<th>Drawing</th>
-					<th>Ref SubC</th>
 					<th>Avail.</th>
 					<th>DyT SubC.</th>
 					<th>Expected</th>
@@ -101,9 +101,9 @@
 
 						<td><?= $row['test_type_abbr'] ?></td>
 						<td><?= $row['entreprise_abbrST'] ?></td>
+						<td><?= $row['refSubC'] ?></td>
 						<td><?= $row['ref_matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
-						<td><?= $row['refSubC'] ?></td>
 						<td><?= $row['available'] ?></td>
 						<td><?= $row['DyT_SubC'] ?></td>
 						<td><?= $row['DyT_expected'] ?></td>

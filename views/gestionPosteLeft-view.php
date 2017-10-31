@@ -184,13 +184,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="row" style="height:50%;">
-			<div class="bs-example commentaire" data-example-id="basic-forms" style="height:100%;">
+		<div class="row">
+			<div class="bs-example reason" data-example-id="basic-forms" style="height:100%;">
 				<div class="form-group" style="height:100%;">
-					<textarea name="poste_commentaire" class="form-control" placeholder="commentaire" style="height:100%;"><?= $poste['poste_commentaire']	?></textarea>
+					<textarea required name="poste_reason" id="poste_reason" class="form-control" placeholder="PREVIOUS REASON : <?= $poste['poste_reason']	?>" style="height:100%;"></textarea>
 				</div>
 			</div>
 		</div>
-
+		<div class="row">
+			<div class="bs-example commentaire" data-example-id="basic-forms" style="height:100%;">
+				<div class="form-group" style="height:100%;">
+					<textarea name="poste_commentaire" class="form-control" placeholder="Frame Issues" style="height:100%;"><?= $poste['poste_commentaire']	?></textarea>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

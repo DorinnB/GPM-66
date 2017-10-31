@@ -3,7 +3,7 @@ include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
 ?>
 <?php
-var_dump($_POST);
+//var_dump($_POST);
 
 
 // Rendre votre modèle accessible
@@ -39,6 +39,7 @@ $oPoste->id_ind_temp_strap=$_POST['id_ind_temp_strap'];
 $oPoste->id_ind_temp_bot=$_POST['id_ind_temp_bot'];
 $oPoste->compresseur=(isset($_POST['compressor'])?1:0);
 $oPoste->poste_commentaire=$_POST['poste_commentaire'];
+$oPoste->poste_reason=$_POST['poste_reason'];
 $oPoste->id_machine=$_POST['id_machine'];
 $oPoste->id_operateur=$_COOKIE['id_user'];
 
@@ -49,3 +50,5 @@ $oPoste->newPoste();
 
 
   header('Location: ../index.php');
+
+//<script type='text/javascript'>document.location.replace('../index.php?page=gestionPoste');</script>

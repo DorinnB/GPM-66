@@ -4,7 +4,8 @@
       <tr>
         <th>Poste</th>
         <th>Date</th>
-        <th>commentaire</th>
+        <th>Reason</th>
+        <th>Frame Issues</th>
         <th>Job</th>
         <th>Dessin</th>
         <th>Mat</th>
@@ -24,19 +25,19 @@
         <th><acronym title='Strain : Pi<b>D</b>'>S D</acronym></th>
         <th><acronym title='Strain : Convergence'>S C</acronym></th>
         <th><acronym title='Strain : Sensibility'>S S</acronym></th>
-        
-        <th>cell_displacement_serial</th>
-        <th>cell_load_serial</th>
-        <th>extensometre</th>
-        <th>outillage_top</th>
-        <th>outillage_bot</th>
-        <th>enregistreur</th>
-        <th>chauffage</th>
-        <th>ind_temp_top</th>
-        <th>ind_temp_strap</th>
-        <th>ind_temp_bot</th>
-        <th>compresseur</th>
-        <th>poste</th>
+
+        <th><acronym title='Displacement Cell Serial'>Disp</acronym></th>
+        <th><acronym title='Load Cell Serial'>Load</acronym></th>
+        <th><acronym title='Extensometer Serial'>Ext.</acronym></th>
+        <th>Tool Top</th>
+        <th>Tool Bot</th>
+        <th><acronym title='Computer-Recorder'>Rec.</acronym></th>
+        <th><acronym title='Heating N°'>H t°</acronym></th>
+        <th><acronym title='Temperature Recorder Top'>Top</acronym></th>
+        <th><acronym title='Temperature Recorder Strap'>Strap</acronym></th>
+        <th><acronym title='Temperature Recorder Bot'>Bot</acronym></th>
+        <th><acronym title='Compressor'>C.</acronym></th>
+        <th><acronym title='Station'>S.</acronym></th>
 
 
       </tr>
@@ -45,7 +46,8 @@
       <tr>
         <th>Poste</th>
         <th>Date</th>
-        <th>commentaire</th>
+        <th>Reason</th>
+        <th>Frame Issues</th>
         <th>Job</th>
         <th>Dessin</th>
         <th>Mat</th>
@@ -66,18 +68,18 @@
         <th>S C</th>
         <th>S S</th>
 
-        <th>cell_displacement_serial</th>
-        <th>cell_load_serial</th>
-        <th>extensometre</th>
-        <th>outillage_top</th>
-        <th>outillage_bot</th>
-        <th>enregistreur</th>
-        <th>chauffage</th>
-        <th>ind_temp_top</th>
-        <th>ind_temp_strap</th>
-        <th>ind_temp_bot</th>
-        <th>compresseur</th>
-        <th>poste</th>
+        <th>Disp N°</th>
+        <th>Load N°</th>
+        <th>Ext. N°</th>
+        <th>Tool Top</th>
+        <th>Tool Bot</th>
+        <th>Recorder</th>
+        <th>Heating n°</th>
+        <th><acronym title='Temperature Recorder Top'>Top</acronym></th>
+        <th><acronym title='Temperature Recorder Strap'>Strap</acronym></th>
+        <th><acronym title='Temperature Recorder Bot'>Bot</acronym></th>
+        <th><acronym title='Compressor'>C.</acronym></th>
+        <th><acronym title='Station'>S.</acronym></th>
 
 
       </tr>
@@ -87,12 +89,22 @@
         <tr onclick="location.href='index.php?page=gestionPoste&id_poste=<?= $history[$k]['id_poste'] ?>';">
           <td><?= $history[$k]['id_poste'] ?></td>
           <td><?= date_format(date_create($history[$k]['date'] ), 'Y-m-d')  ?></td>
-          <td class="popover-markup" data-placement="right"><?= ($history[$k]['poste_commentaire']=="")?"":substr($history[$k]['poste_commentaire'],0,50)." [...]" ?>
-            <?php if ($history[$k]['poste_commentaire'] !=""):  ?>
-              <div class="head hide">Order Comment</div>
+          <td class="popover-markup" data-placement="right"><?= ($history[$k]['poste_reason']=="")?"":substr($history[$k]['poste_reason'],0,50)." [...]" ?>
+            <?php if ($history[$k]['poste_reason'] !=""):  ?>
+              <div class="head hide">Change Reason</div>
               <div class="content hide">
                 <div class="form-group">
-                  <textarea class"bubble_commentaire" name="c_commentaire" rows="10" cols="50" style="resize:none;" disabled><?= $history[$k]['poste_commentaire'] ?></textarea>
+                  <textarea class="bubble_reason" name="c_reason" rows="10" cols="50" style="resize:none;" disabled><?= $history[$k]['poste_reason'] ?></textarea>
+                </div>
+              </div>
+            <?php endif ?>
+          </td>
+          <td class="popover-markup" data-placement="right"><?= ($history[$k]['poste_commentaire']=="")?"":substr($history[$k]['poste_commentaire'],0,50)." [...]" ?>
+            <?php if ($history[$k]['poste_commentaire'] !=""):  ?>
+              <div class="head hide">Comment</div>
+              <div class="content hide">
+                <div class="form-group">
+                  <textarea class="bubble_commentaire" name="c_commentaire" rows="10" cols="50" style="resize:none;" disabled><?= $history[$k]['poste_commentaire'] ?></textarea>
                 </div>
               </div>
             <?php endif ?>

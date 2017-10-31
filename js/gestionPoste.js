@@ -10,14 +10,14 @@ function validateForm() {
 
 
 function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
 }
 
 
@@ -27,7 +27,7 @@ function readCookie(name) {
 //Selon le navigateur utilisé, on detecte le style de transition utilisé
 function whichTransitionEvent(){
   var t,
-      el = document.createElement("fakeelement");
+  el = document.createElement("fakeelement");
 
   var transitions = {
     "transition"      : "transitionend",
@@ -47,8 +47,8 @@ var transitionEvent = whichTransitionEvent();
 
 //On retracte le tbl des jobs, et une fois retracté, on redessine le tableau history
 $("#wrapper").addClass("toggled");
-  $("#wrapper").one(transitionEvent,
-              function(event) {
+$("#wrapper").one(transitionEvent,
+  function(event) {
     $('#table_GestionEp').DataTable().draw();
   });
 
@@ -57,16 +57,11 @@ $("#wrapper").addClass("toggled");
 
 
   $(document).ready(function(e) {
-      $('img[usemap]').rwdImageMaps();
+    $('img[usemap]').rwdImageMaps();
+
+
+    //selection outillage + search
+    $("#id_outillage_top").select2();
+    $("#id_outillage_bot").select2();
+
   });
-
-
-    $(document).ready(function() {
-      var country = [];
-      $("#id_outillage_top").select2({
-        data: country
-      });
-      $("#id_outillage_bot").select2({
-        data: country
-      });
-    });
