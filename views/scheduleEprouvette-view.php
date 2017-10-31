@@ -46,7 +46,7 @@
           <td>Group <?= $key+1 ?></td>
           <td><?= $split['nbep'] ?></td>
 
-          <td class="selectable" data-id="<?=  $split['available_expected'] ?>" data-IO="available_expected" data-oldValue="<?= $split['available_expected']   ?>"><?= $split['available_expected'] ?></td>
+          <td class="selectable" data-id="<?=  (($split['available_expected']=="")?" ":$split['available_expected']) ?>" data-IO="available_expected" data-oldValue="<?= $split['available_expected']   ?>"><?= $split['available_expected'] ?></td>
 
           <?php  foreach ($splits as $splitJob): ?>
             <?php if (isset($groupes[$key]['split'][$splitJob['id_tbljob']])) : ?>
