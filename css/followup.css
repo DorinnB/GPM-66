@@ -63,6 +63,15 @@ meter{
     width: 100%;
     background: inherit;
 }
+
+.location0  {
+  background-color: grey;
+  color: grey;
+}
+.location1  {
+  background-color: darkgreen;
+  color: darkgreen;
+}
 /*
 meter::-webkit-meter-optimum-value {
   background: red;
