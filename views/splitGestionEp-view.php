@@ -198,8 +198,12 @@
                 <form class="form-group" style="height:100%;" id="prestartForm" onkeypress="return event.keyCode != 13;">
                   <div class="row">
                     <div class="col-sm-6">
-                      <label>Machine</label>
-                      <select class="form-control" name="id_poste">
+                      <label>Machine
+                        <a id="showFrameManagement" target="_blank" href="#">
+                          <span class="glyphicon glyphicon-new-window"></span>
+                        </a>
+                      </label>
+                      <select class="form-control" id="id_poste" name="id_poste">
                         <?php foreach ($lstPoste->getAllPoste() as $row): ?>
                           <option value="<?= $row['id_poste'] ?>" <?=  ((isset($_COOKIE['id_machine']) and ($_COOKIE['id_machine']==$row['id_machine']))?"selected":"" )  ?>><?= $row['machine'] ?></option>
                         <?php endforeach ?>

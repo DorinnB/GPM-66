@@ -99,6 +99,13 @@ $("#prestartForm").submit(function(e) {
   e.preventDefault(); // avoid to execute the actual submit of the form.
 });
 
+//affichage frame management
+$('#id_poste').change(function() {
+  $('#showFrameManagement').attr("href", "index.php?page=gestionPoste&id_poste="+  $('#id_poste').find(':selected').val());
+
+}).change();
+
+
 //prepa
 $("#newTestCheck").submit(function(e) {
   $.ajax({
