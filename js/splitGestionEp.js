@@ -27,6 +27,13 @@ $(document).ready(function(){
     else {
       document.getElementById("customFreq").style.display = "none";
     }
+    if ($('#id_prestart').find(':selected').attr('data-postePrestart')!=$('#id_prestart').find(':selected').attr('data-posteActuel')) {
+      document.getElementById("newTestMsg").style.display = "block";
+      document.getElementById("newTestMsg").innerHTML="The Frame Management has been changed since the last Prestart.";
+    }
+    else {
+      document.getElementById("newTestMsg").style.display = "none";
+    }
   }).change();
 
 

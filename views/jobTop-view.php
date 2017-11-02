@@ -39,7 +39,7 @@
 				<?php if ($_GET['page']!='schedule') : ?>
 					<a href="index.php?page=schedule&id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 						<p style="font-size:small;">
-							schedule
+							Schedule
 							<img type="image" src="img/calendar_yes.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 						</p>
 					</a>

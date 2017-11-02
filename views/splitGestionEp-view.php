@@ -55,7 +55,7 @@
                   <select class="form-control" id="id_prestart" name="id_prestart">
                     <option value="0">No Prestart Recorded</option>
                     <?php foreach ($lstPoste->getAllPrestartSplit($_GET['idEp']) as $row): ?>
-                      <option data-customFrequency="<?= $row['custom_frequency'] ?>" value="<?= $row['id_prestart'] ?>" <?=  ((isset($_COOKIE['id_machine']) and ($_COOKIE['id_machine']==$row['id_machine']))?"selected":"" )  ?>><?= $row['machine'] ?></option>
+                      <option data-customFrequency="<?= $row['custom_frequency'] ?>" data-postePrestart="<?= $row['id_poste_prestart'] ?>" data-posteActuel="<?= $row['id_poste_actuel'] ?>" value="<?= $row['id_prestart'] ?>" <?=  ((isset($_COOKIE['id_machine']) and ($_COOKIE['id_machine']==$row['id_machine']))?"selected":"" )  ?>><?= $row['machine'] ?></option>
                     <?php endforeach ?>
                   </select>
 
@@ -63,7 +63,8 @@
                   <label for="user">Operator :</label>
                   <input type="text" class="form-control" name="user" value="<?= $_COOKIE['technicien'] ?>" readonly>
 
-
+                  <p id="newTestMsg" style="color:yellow; padding-top:10px; font-size:120%; display:hidden;">
+                  </p>
                   <?php if ($eprouvette['c_checked']<=0 OR $eprouvette['checked']<=0) :  ?>
                     <p style="color:red; padding-top:10px; font-size:150%; font-weight: bold;">
                       <?= ($eprouvette['c_checked']<=0)?'Consigne Unchecked !':'' ?>

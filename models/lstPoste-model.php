@@ -9,7 +9,9 @@ class LstPosteModel
     }
 
     public function getAllPrestartSplit($id_ep) {
-      $req='SELECT max(machines.id_machine) as id_machine, machine, MAX(prestart.id_prestart) as id_prestart,
+      $req='SELECT MAX(machines.id_machine) AS id_machine, machine, MAX(prestart.id_prestart) AS id_prestart,
+        MAX((select MAX(id_poste) FROM postes p3 WHERE p3.id_machine=postes.id_machine)) AS id_poste_actuel,
+        MAX(prestart.id_poste) AS id_poste_prestart,
         (SELECT custom_frequency FROM prestart p2 WHERE p2.id_prestart=MAX(prestart.id_prestart)) AS custom_frequency
 			FROM prestart
       LEFT JOIN postes ON postes.id_poste=prestart.id_poste
