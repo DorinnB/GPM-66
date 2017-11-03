@@ -52,13 +52,16 @@ $(document).ready(function() {
     scrollY: '65vh',
     scrollCollapse: true,
     paging: false,
+    keys: {
+      columns: [5,6,7,8,9],
+      editor:  editor
+    },
     select: {
       style:    'os',
       blurable: true
     },
     buttons: [
-      { extend: "create", editor: editor },
-      { extend: "edit",   editor: editor }
+      { extend: "create", editor: editor }
     ]
   } );
 

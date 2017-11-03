@@ -1,7 +1,21 @@
 <input type="hidden" id="id_tbljob" value="<?=	$split['id_tbljob']	?>">
 
 <div class="row" style="height:100%">
-	<div class="col-md-12" id="job" style="height:25%"><a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>"><?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?></a></div>
+	<div class="col-md-12" id="job" style="height:25%"><a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>"><?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?></a>
+
+
+
+		<div style="display:inline-block; float:right;">
+			<button type="button" id="flecheUpJob" class="btn btn-default btn-xs">
+				<span class="glyphicon glyphicon-chevron-up"></span>
+			</button>
+			<button type="button" id="flecheDownJob" class="btn btn-default btn-xs">
+				<span class="glyphicon glyphicon-chevron-down"></span>
+			</button>
+		</div>
+
+
+	</div>
 	<div class="col-md-12" style="height:25%">
 
 

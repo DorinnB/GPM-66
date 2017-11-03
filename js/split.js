@@ -44,6 +44,49 @@ $("#planning").click(function(e) {
 });
 
 
+$("#flecheUpJob").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextJob.php',
+    dataType: "json",
+    data:  {
+      id_tbljob:$("#id_tbljob").val(),
+      sens:'>'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_tbljob']!== undefined) {
+        window.location.href = 'index.php?page=split&id_tbljob='+data['id_tbljob'];
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche de Job. Veuillez prevenir au plus vite le responsable SI.');
+    }
+  });
+});
+$("#flecheDownJob").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextJob.php',
+    dataType: "json",
+    data:  {
+      id_tbljob:$("#id_tbljob").val(),
+      sens:'<'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_tbljob']!== undefined) {
+        window.location.href = 'index.php?page=split&id_tbljob='+data['id_tbljob'];
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche de Job. Veuillez prevenir au plus vite le responsable SI.');
+    }
+  });
+});
+
 $("#save").click(function() {
   save();
 });

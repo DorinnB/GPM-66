@@ -82,4 +82,23 @@ private $id;
   //    $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'info_jobs' => $this->getInfoJob()['id_info_job']);
   //    			echo json_encode($maReponse);
     }
+
+    public function previousNextJob($sens){
+
+      $req='SELECT id_tbljob
+      FROM tbljobs
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+      WHERE job'.$sens.'(SELECT job FROM tbljobs LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job WHERE id_tbljob='.$this->id.')
+        AND tbljob_actif=1
+      ORDER BY job '.(($sens==">")?"ASC":"DESC").'
+      LIMIT 1';
+
+      //echo $req;
+      $result = $this->db->isOne($req);
+
+      $maReponse =  $result;
+      echo json_encode($maReponse);
+    }
+
+
 }
