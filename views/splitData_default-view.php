@@ -81,7 +81,7 @@
     </p>
     <p class="title">
       <span class="name">Estimated Day Left</span>
-      <span class="value">???</span>
+      <span class="value" id="estimatedDayLeft">???</span>
     </p>
     <p class="title">
       <span class="name">DyT Cust :</span>
