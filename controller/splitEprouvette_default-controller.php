@@ -44,7 +44,7 @@ for($k=0;$k < count($ep);$k++)	{
 
   $ep[$k]['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
 
-  $cycleEstimeAVG=$oEp->getEstimatedTime();
+  $cycleEstimeAVG=$oEp->getEstimatedCycle();
 
 
 

@@ -652,7 +652,8 @@ class EprouvetteModel
     }
 
 
-    public function getEstimatedTime(){
+    public function getEstimatedCycle(){
+        //d_checked>0 pour activer le calcul du temps uniquement si les données sont validé, essai terminé
       $req='SELECT AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)) AS cycle_estime, c_type_1_val, c_type_2_val
       FROM eprouvettes
       WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
@@ -660,7 +661,9 @@ class EprouvetteModel
       AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
       AND cycle_final IS NOT NULL AND d_checked > 0
       GROUP by id_job, c_type_1_val, c_type_2_val';
-      //d_checked>0 pour activer le calcul du temps uniquement si les données sont validé, essai terminé
+
+      /*
+        // calcul sans ternir compte du d_checked >0
       $req='SELECT AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)) AS cycle_estime, c_type_1_val, c_type_2_val
       FROM eprouvettes
       WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
@@ -668,7 +671,7 @@ class EprouvetteModel
       AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
       AND cycle_final IS NOT NULL
       GROUP by id_job, c_type_1_val, c_type_2_val';
-
+*/
       //echo $req.'<br/><br/>';
       return $this->db->getOne($req);
     }
