@@ -65,13 +65,19 @@ class EprouvetteModel
     master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
     c_type_1_val, c_type_2_val,
     Cycle_min, runout, cycle_estime, c_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3,
-    d_commentaire, currentBlock, check_rupture, flag_qualite, checked,
-    n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Cycle_STL, Cycle_final, Rupture, Fracture,
+    d_commentaire, check_rupture, flag_qualite, checked,
+    n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Rupture, Fracture,
+
+    IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) as Cycle_STL,
+    IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final,
+    IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock,
+
     tbljobs.waveform AS c_waveform,enregistrementessais.id_controleur, enregistrementessais.id_operateur,
     techniciens.technicien, info_jobs.job, info_jobs.customer, split, test_type, eprouvettes.id_master_eprouvette, id_job, prestart.id_prestart,
     (select count(*) from eprouvettes eps where eps.id_eprouvette<='.$this->id.' and eps.id_master_eprouvette=eprouvettes.id_master_eprouvette and eps.id_job=eprouvettes.id_job and eps.eprouvette_actif=1) AS retest
 
     FROM eprouvettes
+    LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
     LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
@@ -210,6 +216,17 @@ class EprouvetteModel
 
       $reqUpdateEnregistrementEssai='UPDATE enregistrementessais
       SET id_eprouvette  = NULL
+      WHERE id_eprouvette = '.$this->id;
+
+      //echo $reqUpdateEnregistrementEssai;
+      $this->db->execute($reqUpdateEnregistrementEssai);
+
+    }
+
+    public function updateTest() {
+
+      $reqUpdateEnregistrementEssai='UPDATE enregistrementessais
+      SET id_prestart  = (SELECT max(id_prestart) FROM prestart LEFT JOIN postes ON postes.id_poste=prestart.id_poste where prestart.id_tbljob=(SELECT id_job FROM eprouvettes where id_eprouvette='.$this->id.'))
       WHERE id_eprouvette = '.$this->id;
 
       //echo $reqUpdateEnregistrementEssai;
