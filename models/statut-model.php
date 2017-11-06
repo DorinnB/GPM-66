@@ -67,6 +67,7 @@ class StatutModel
 
   public function findStatut(){
     $req='SELECT
+    if(report_send>0,1,0) as report_send,
         if(checked>0,1,0) as OT_checked,
         sum(if(master_eprouvette_inOut_A is null,1,0)) as nb_awaiting_specimen,
 
@@ -158,7 +159,11 @@ class StatutModel
     $statut='';
     $id_statut=0;
 
-    if ($state['OT_checked']==0) {
+    if ($state['report_send']==1) {
+      $id_statut=80;
+      $statut='Completed';
+    }
+    elseif ($state['OT_checked']==0) {
       $id_statut=10;
       $statut='Check OT';
     }

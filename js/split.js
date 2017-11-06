@@ -43,6 +43,28 @@ $("#planning").click(function(e) {
   }
 });
 
+$("#report_send").click(function(e) {
+  var confirmation = confirm('Update Report Emission ?');
+  if (confirmation) {
+    $.ajax({
+      type: "POST",
+      url: 'controller/updateReportSend.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#table_ep').attr('data-idJob'),
+        id_reportSend : $('#report_send').attr('data-report_send')
+      }
+      ,
+      success : function(data, statut){
+        location.reload();
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de l insertion au planning. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+      }
+    });
+  }
+});
 
 $("#flecheUpJob").click(function(e) {
   $.ajax({

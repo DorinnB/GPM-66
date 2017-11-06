@@ -85,11 +85,13 @@
   display:none;
 }
 
-
-#end[data-etape="100"]   {
-  background:darkgreen;
+#report_send{
+  background-color: darkgreen;
+}
+#report_send.report_send0{
+  background-color: darkred;
 }
 
 #save{
-cursor:pointer;  
+cursor:pointer;
 }

@@ -39,7 +39,7 @@ private $id;
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
           type1.id_consigne_type as id_c_type_1, type2.id_consigne_type as id_c_type_2,
-          DyT_SubC, DyT_expected, DyT_Cust, available_expected,
+          DyT_SubC, DyT_expected, DyT_Cust, available_expected, report_send,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available,
           checked, comments, contacts.adresse,
 contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.lastname as lastnameST, contactST.surname as surnameST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
@@ -219,6 +219,17 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
     public function updatePlanning($planning){
       $reqUpdate='UPDATE `tbljobs` SET
         `planning` = '.$planning.'
+       WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+    //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+            echo json_encode($maReponse);
+    }
+
+    public function updateReportSend($id_reportSend){
+      $reqUpdate='UPDATE `tbljobs` SET
+        `report_send` = '.$this->db->quote($id_reportSend).'
        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
     //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
