@@ -394,7 +394,29 @@ class EprouvetteModel
       //echo json_encode($maReponse);
     }
 
+    public function checkTechSplit($id_tech){
+      $req='SELECT  id_tbljob, tbljob_commentaire
+        FROM    tbljobs
+        LEFT JOIN tech_split e ON e.id_split=tbljobs.id_tbljob
+        WHERE   NOT EXISTS
+          (
+          SELECT  null
+          FROM    tech_split d
+          WHERE   d.id_technicien = '.$this->db->quote($id_tech).'
+          )
+        AND id_tbljob=(SELECT id_job fROM eprouvettes WHERE id_eprouvette='.$this->id.');';
+        //echo $req;
+      return $this->db->isOne($req);
 
+    }
+
+    public function createTechSplit($id_tech){
+      $reqCreate='INSERT INTO `tech_split`
+      (id_technicien, `id_split`)
+      SELECT  '.$this->db->quote($id_tech).', id_job FROM eprouvettes WHERE id_eprouvette='.$this->id.';';
+//echo $reqCreate;
+      $result = $this->db->execute($reqCreate);
+    }
 
 
 

@@ -25,6 +25,7 @@
   text-align: left;
   border: 0px;
   width:100%;
+  resize: none;
 }
 .splitBot .commentaire, .jobTop .commentaire{
   color: inherit;
@@ -87,9 +88,6 @@
 
 #report_send{
   background-color: darkgreen;
-}
-#report_send.report_send{
-  background-color: inherit;
 }
 #report_send.report_send0{
   background-color: darkred;

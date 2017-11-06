@@ -11,7 +11,8 @@ $oEprouvette = new EprouvetteModel($db,$_POST['idEp']);
 
 
 
-
+//creation du flag techSplit
+$oEprouvette->createTechSplit($_POST['id_user']);
 
 $oEprouvette->id_operateur=$_POST['id_user'];
 $oEprouvette->id_prestart=$_POST['id_prestart'];

@@ -65,6 +65,10 @@
 
                   <p id="newTestMsg" style="color:yellow; padding-top:10px; font-size:120%; display:hidden;">
                   </p>
+                  <?php if ($checkTechSplit) :  ?>
+                    <p style="margin:5px 0px;">Please Read OneNote and those comments :</p>
+                    <textarea disabled class="gestionEpCommentaire"><?= $checkTechSplit['tbljob_commentaire'] ?></textarea>
+                  <?php endif ?>
                   <?php if ($eprouvette['c_checked']<=0 OR $eprouvette['checked']<=0) :  ?>
                     <p style="color:red; padding-top:10px; font-size:150%; font-weight: bold;">
                       <?= ($eprouvette['c_checked']<=0)?'Consigne Unchecked !':'' ?>
@@ -110,6 +114,10 @@
                     </p>
                   <?php endif  ?>
                 </h3>
+                <?php if ($checkTechSplit) :  ?>
+                  <p style="margin:5px 0px;">Please Read OneNote and those comments :</p>
+                  <textarea disabled class="gestionEpCommentaire"><?= $checkTechSplit['tbljob_commentaire'] ?></textarea>
+                <?php endif ?>
                 <form class="form-group" id="newTestCheck" style="padding:20px;">
                   <input type="hidden" id="idEp" name="idEp" value="<?=  $_GET['idEp'] ?>">
                   <input type="hidden" name="checker" value="<?=  $_COOKIE['id_user'] ?>">

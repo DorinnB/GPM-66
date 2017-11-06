@@ -1,3 +1,27 @@
+$("#deleteTechSplit").click(function(e) {
+  var confirmation = confirm('Force a re-check ?');
+  if (confirmation) {
+    $.ajax({
+      type: "POST",
+      url: 'controller/updateTechSplit.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#table_ep').attr('data-idJob'),
+        type : 'delete'
+      }
+      ,
+      success : function(data, statut){
+        //location.reload();
+        $("#deleteTechSplit").html('Done');
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de l insertion au planning. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+      }
+    });
+  }
+});
+
 $("#check.check0").click(function(e) {
   var confirmation = confirm('Check this item ?');
   if (confirmation) {

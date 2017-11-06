@@ -194,6 +194,15 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
       			echo json_encode($maReponse);
     }
 
+    public function deleteTechSplit(){
+      $reqDelete='DELETE FROM tech_split
+      WHERE id_split='.$this->id.';';
+      //echo $reqDelete;
+      $result = $this->db->query($reqDelete);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqDelete, 'id_tbljob' => $this->id);
+      echo json_encode($maReponse);
+    }
     public function updateCommentaireQuality(){
       $reqUpdate='UPDATE `tbljobs` SET
         `tbljob_commentaire_qualite` = '.$this->tbljob_commentaire_qualite.'

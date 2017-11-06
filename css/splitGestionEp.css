@@ -73,6 +73,14 @@
   background-color:#536E94 !important;
 }
 
+.gestionEpCommentaire{
+  color: yellow;
+  background-color: inherit;
+  text-align: left;
+  border: 0px;
+  width:100%;
+  resize:none;
+}
 
 .uploadFile > input
 {
