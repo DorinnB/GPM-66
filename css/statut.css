@@ -4,3 +4,6 @@
  div.btnstatut button{
    text-align:center;
  }
+.statut > li > a  {
+  color:white;
+}
