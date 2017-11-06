@@ -48,18 +48,22 @@ class StatutModel
       ON DUPLICATE KEY UPDATE tbljobs_temp.id_statut_temp=values(tbljobs_temp.id_statut_temp), date_modif_temp = current_timestamp
       ;';
     $result = $this->db->query($reqUpdate);
-
-    $newStatut = $this->db->getOne('SELECT
-
- statuts.id_statut,	statut,	statut_lock, etape,	statut_color,	statut_actif
-       FROM tbljobs
-       LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
-       LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-      WHERE id_tbljob='.$this->id_tbljob);
-    $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_statut' => $newStatut['id_statut'], 'statut_color' => $newStatut['statut_color'], 'statut' => $newStatut['statut']);
-  //echo json_encode($maReponse);
   }
 
+  public function updateStatut2($id_statut){
+    $reqUpdate='
+      INSERT INTO tbljobs_temp
+      (tbljobs_temp.id_tbljobs_temp, tbljobs_temp.id_statut_temp)
+      SELECT id_tbljob, '.$this->db->quote($id_statut).'
+      FROM tbljobs
+      LEFT JOIN tbljobs_temp on tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+      LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+      WHERE
+      tbljobs.id_tbljob = '.$this->id_tbljob.'
+      ON DUPLICATE KEY UPDATE tbljobs_temp.id_statut_temp=values(tbljobs_temp.id_statut_temp), date_modif_temp = current_timestamp
+      ;';
+    $result = $this->db->query($reqUpdate);
+  }
 
   public function findStatut(){
     $req='SELECT

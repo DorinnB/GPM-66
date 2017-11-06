@@ -12,6 +12,6 @@ $oStatut = new StatutModel($db);
 
 $oStatut->id_tbljob=$_POST['id_tbljob'];
 // Retour de l'update si erreur
-return $oStatut->updateStatut($_POST['id_statut']);
+return $oStatut->updateStatut2($_POST['id_statut']);
 
 ?>
