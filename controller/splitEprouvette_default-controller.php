@@ -320,10 +320,12 @@ for($k=0;$k < count($ep);$k++)	{
       $unestimatedTestLeft+=1;
     }
   }
+  elseif ($ep[$k]['n_fichier']>0) {
+    $EstimatedTestTime+=0;
+  }
   else {
     $unestimatedTestLeft+=1;
   }
-
 
 
   //calcul estimé du temps "occupation machine" pour chaque essai
@@ -355,7 +357,7 @@ for($k=0;$k < count($ep);$k++)	{
 
 echo '
   <script>
-    $("#estimatedDayLeft").html("'.($estimatedTimeLeft/24).(($unestimatedTestLeft==0)?"":' + '.$unestimatedTestLeft.' test(s)').'");
+    $("#estimatedDayLeft").html("'.(number_format($estimatedTimeLeft/24, 1,'.', ' ')).(($unestimatedTestLeft==0)?"":' + '.$unestimatedTestLeft.' test(s)').'");
   </script>
   ';
 
