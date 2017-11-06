@@ -1,6 +1,6 @@
 <link href="css/splitData.css" rel="stylesheet">
 
-<div class="col-md-12" id="splitData" style="height:85%">
+<div class="col-md-12" id="splitData" style="height:87%">
   <form type="GET" action="controller/updateData.php" id="updateData" style="height:99%">
     <input type="hidden" name="id_tbljob" value="<?= $split['id_tbljob'] ?>">
 

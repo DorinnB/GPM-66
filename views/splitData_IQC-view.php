@@ -1,7 +1,7 @@
 <link href="css/splitData.css" rel="stylesheet">
 
 
-<div class="col-md-12" id="splitData" style="height:85%">
+<div class="col-md-12" id="splitData" style="height:87%">
 
   <div class="bs-example designation" data-example-id="basic-forms">
     <p class="title">
