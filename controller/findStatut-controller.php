@@ -6,9 +6,9 @@ $db = new db(); // create a new object, class db()
 // Rendre votre modèle accessible
 include '../models/statut-model.php';
 
-$oSplit = new StatutModel($db);
-$oSplit->id_tbljob=$_POST['id_tbljob'];
-$state=$oSplit->findStatut();
+$oStatut = new StatutModel($db);
+$oStatut->id_tbljob=$_POST['id_tbljob'];
+$state=$oStatut->findStatut();
 
 exit();
 

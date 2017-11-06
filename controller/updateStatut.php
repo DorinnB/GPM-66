@@ -5,13 +5,13 @@ $db = new db(); // create a new object, class db()
 <?php
 
 // Rendre votre modèle accessible
-include '../models/split-model.php';
-include '../models/eprouvettes-model.php';
+include '../models/statut-model.php';
 
 // Création d'une instance
-$oSplit = new LstSplitModel($db,$_POST['id_tbljob']);
+$oStatut = new StatutModel($db);
 
+$oStatut->id_tbljob=$_POST['id_tbljob'];
 // Retour de l'update si erreur
-return $oSplit->updateStatut($_POST['id_statut']);
+return $oStatut->updateStatut($_POST['id_statut']);
 
 ?>

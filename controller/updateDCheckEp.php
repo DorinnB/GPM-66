@@ -21,8 +21,8 @@ if(isset($_POST['iduser']) AND $_POST['iduser']!=0){
 
 //Update du statut du job
 include '../models/statut-model.php';
-$oSplit = new StatutModel($db);
-$oSplit->id_tbljob=$oSplit->getJobFromEp($_POST['idEp'])['id_job'];
-$state=$oSplit->findStatut();
+$oStatut = new StatutModel($db);
+$oStatut->id_tbljob=$oStatut->getJobFromEp($_POST['idEp'])['id_job'];
+$state=$oStatut->findStatut();
 
 ?>

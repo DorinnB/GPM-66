@@ -8,12 +8,14 @@ function updateStatut(id_tbljob, id_statut){
       id_statut: id_statut
     },
     success : function(data, statut){
-      $("#splitStatut").css('background-color',data['statut_color']);
-      $("#splitStatut").html(data['statut']);
+      location.reload();
+      //$("#splitStatut").css('background-color',data['statut_color']);
+      //$("#splitStatut").html(data['statut']);
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
-      alert('ERREUR lors de la modification du statut. Veuillez prevenir au plus vite le responsable SI.');
+      location.reload();
+      //alert('ERREUR lors de la modification du statut. Veuillez prevenir au plus vite le responsable SI.');
     }
   });
 }
@@ -29,20 +31,20 @@ $("#end").click(function() {
 function findStatut(id_tbljob){
   $.ajax({
 		type: "POST",
-		url: 'controller/findStatut2-controller.php',
+		url: 'controller/findStatut-controller.php',
 		dataType: "json",
     data: {
       id_tbljob : id_tbljob
     },
     success : function(data, statut){
-    //location.reload();
+    location.reload();
 
-      alert(data['id_statut'] + ' - ' + data['statut']);
+      //alert(data['id_statut'] + ' - ' + data['statut']);
     },
     error : function(resultat, statut, erreur) {
       console.log(Object.keys(resultat));
-    //location.reload();
-      alert('ERREUR');
+    location.reload();
+      //alert('ERREUR');
     }
   });
 }
