@@ -53,6 +53,7 @@ class LabModel
 
         FROM enregistrementessais
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
+        LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
         LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
@@ -62,7 +63,7 @@ class LabModel
         LEFT JOIN techniciens t1 ON t1.id_technicien=enregistrementessais.id_operateur
         LEFT JOIN techniciens t2 ON t2.id_technicien=enregistrementessais.id_controleur
 
-        WHERE currentBlock="Check" OR (Cycle_final>0 AND id_controleur=0)
+        WHERE currentBlock_temp="Check" OR (Cycle_final>0 AND id_controleur=0)
         order by machine';
         //echo $req;
         return $this->db->getAll($req);
