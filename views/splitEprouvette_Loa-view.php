@@ -137,7 +137,7 @@
           <td class="chartCycle <?= $ep[$k]['Cycle_min_nonAtteint']  ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
           <td <?= $epHisto2[$k]['Rupture'] ?>><?= $ep[$k]['Rupture'] ?></td>
           <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>"<?= $epHisto2[$k]['Fracture'] ?>><?= $ep[$k]['Fracture'] ?></td>
-          <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>
+<td style=" white-space: pre;"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:'<i style="font-size : 75%;">'.$ep[$k]['temps_essais_calcule'].'</i>') ?></td>
           <td class="dCheckEp" data-dchecked="<?= max(0,$ep[$k]['check_rupture']) ?>" <?= $epHisto2[$k]['check_rupture'] ?>><?= $ep[$k]['check_rupture'] ?></td>
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>" <?= $epHisto2[$k]['d_checked'] ?>><?= $ep[$k]['d_checked'] ?></td>
 

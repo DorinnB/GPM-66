@@ -89,6 +89,9 @@
 #report_send{
   background-color: darkgreen;
 }
+#report_send.report_send{
+  background-color: inherit;
+}
 #report_send.report_send0{
   background-color: darkred;
 }

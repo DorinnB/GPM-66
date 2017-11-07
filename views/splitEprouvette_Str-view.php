@@ -180,7 +180,7 @@
           <td class="chartCycle <?= $ep[$k]['Cycle_min_nonAtteint']  ?>" <?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
           <td <?= $epHisto2[$k]['Rupture'] ?>><?= $ep[$k]['Rupture'] ?></td>
           <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>" <?= $epHisto2[$k]['Fracture'] ?>><?= $ep[$k]['Fracture'] ?></td>
-          <td style=" white-space: pre;"><?= $ep[$k]['temps_essais'] ?></td>
+          <td style=" white-space: pre;"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:'<i style="font-size : 75%;">'.$ep[$k]['temps_essais_calcule'].'</i>') ?></td>
 
           <td <?= $epHisto2[$k]['dilatation'] ?>><?= $ep[$k]['dilatation'] ?></td>
 

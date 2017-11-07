@@ -460,23 +460,18 @@ class EprouvetteModel
       ind_temps_bot.ind_temp as ind_temp_bot,
       name,
       master_eprouvette_inOut_A,
-
-      if(temps_essais is null,
-        CONCAT("<i style=\"font-size : 75%;\">",
-          if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
-            TRUNCATE(
-              if(IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) is null and c_cycle_STL is null,
-                IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
-                if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL),
-                  (IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL)/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL))/c_frequence_STL)/3600,
-                  (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
-                )
-              ),
-            1),
-          ""),
-        "</i>"),
-        temps_essais
-      ) as temps_essais,
+      if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
+        TRUNCATE(
+          if(IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) is null and c_cycle_STL is null,
+            IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
+            if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL),
+              (IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL)/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL))/c_frequence_STL)/3600,
+              (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
+            )
+          ),
+        1),
+      "") as temps_essais_calcule,
+      temps_essais,
 
       (SELECT count(*) FROM eprouvettes eps WHERE eps.id_eprouvette<='.$this->id.' AND eps.id_master_eprouvette=eprouvettes.id_master_eprouvette and eps.id_job=eprouvettes.id_job and eps.eprouvette_actif=1) AS retest
 
