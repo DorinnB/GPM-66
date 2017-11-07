@@ -29,28 +29,28 @@
       <div class="row">
         <div class="col-md-3">
           <?php foreach ($awaiting as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=subC&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+            <div class="col-md-12 valeur" onclick="document.location='index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
               <?= $value['job']  ?>
             </div>
           <?php endforeach  ?>
         </div>
         <div class="col-md-3">
           <?php foreach ($readyToSend as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=subC&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+            <div class="col-md-12 valeur" onclick="document.location='index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
               <?= $value['job'].'-'.$value['split']  ?>
             </div>
           <?php endforeach  ?>
         </div>
         <div class="col-md-3">
           <?php foreach ($oneWeek as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=subC&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+            <div class="col-md-12 valeur" onclick="document.location='index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
               <?= $value['job'].'-'.$value['split']  ?>
             </div>
           <?php endforeach  ?>
         </div>
         <div class="col-md-3">
           <?php foreach ($errorInOut as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=subC&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
+            <div class="col-md-12 valeur" onclick="document.location='index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
               <?= $value['job'].'-'.$value['split']  ?>
             </div>
           <?php endforeach  ?>
