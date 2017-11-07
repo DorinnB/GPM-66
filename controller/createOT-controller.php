@@ -586,6 +586,7 @@ $objReader->setIncludeCharts(TRUE);
 
       $oldData=$objPHPExcel->getSheetByName('OldData');
       $data=$objPHPExcel->getSheetByName('INSPECTION QUALITE DIM INSTRUM');
+      $newEntry=$objPHPExcel->getSheetByName('New Entry');
 
       foreach ($epIQC as $key => $value) {
         $oldData->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
@@ -616,6 +617,7 @@ $objReader->setIncludeCharts(TRUE);
       //Pour chaque element du tableau associatif, on update les cellules Excel
       foreach ($val2Xls as $key => $value) {
         $data->setCellValue($key, $value);
+        $newEntry->setCellValue($key, $value);
       }
 
     }
