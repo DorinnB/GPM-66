@@ -43,7 +43,10 @@ table td.dispo[data-dispo="6"] {
 .checkValue_min {
   background-color:purple;
 }
-
+.estimated {
+  font-style: italic;
+  font-size: 80%;
+}
 
 table td.checkEp {
   color:darkgreen;

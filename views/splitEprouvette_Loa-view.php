@@ -84,15 +84,15 @@
           <td class="dispo open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
-          <td <?= $epHisto2[$k]['c_temp'] ?>><?= $ep[$k]['c_temp'] ?></td>
-          <td <?= $epHisto2[$k]['c_frequence'] ?>><?= $ep[$k]['c_frequence'] ?></td>
-          <td class="<?=  $split['ChartCons1']  ?>"<?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
-          <td class="<?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
-          <td class="chartMax"><?= $ep[$k]['max'] ?></td>
-          <td><?= $ep[$k]['min'] ?></td>
-          <td<?= $epHisto2[$k]['Cycle_min'] ?>><?= $ep[$k]['Cycle_min'] ?></td>
-          <td <?= $epHisto2[$k]['runout'] ?>><?= $ep[$k]['runout'] ?></td>
-          <td><?= $ep[$k]['cycle_estime'] ?></td>
+          <td class="decimal1" <?= $epHisto2[$k]['c_temp'] ?>><?= $ep[$k]['c_temp'] ?></td>
+          <td class="decimal1" <?= $epHisto2[$k]['c_frequence'] ?>><?= $ep[$k]['c_frequence'] ?></td>
+          <td class="decimal<?=  $split['c_type_1']  ?> <?=  $split['ChartCons1']  ?>"<?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
+          <td class="decimal<?=  $split['c_type_2']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
+          <td class="decimal<?=  $split['c_type_1']  ?> chartMax"><?= $ep[$k]['max'] ?></td>
+          <td class="decimal<?=  $split['c_type_1']  ?>"><?= $ep[$k]['min'] ?></td>
+          <td class="decimal0" <?= $epHisto2[$k]['Cycle_min'] ?>><?= $ep[$k]['Cycle_min'] ?></td>
+          <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= $ep[$k]['runout'] ?></td>
+          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" ><?= $ep[$k]['cycle_estime'] ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['comm'].$ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['comm'].$ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['comm'].$ep[$k]['c_commentaire'] !=""):  ?>
               <div class="head hide">Order Comment</div>
@@ -129,15 +129,15 @@
           <td <?= $epHisto2[$k]['n_essai'] ?>><?= $ep[$k]['n_essai'] ?></td>
           <td class="chartFile" <?= $epHisto2[$k]['n_fichier'] ?>><?= $ep[$k]['n_fichier'] ?></td>
           <?php for($i=1;$i <= count($dimDenomination);$i++): ?>
-            <td><?= $ep[$k]['dim'.$i]  ?></td>
+            <td class="decimal3" ><?= $ep[$k]['dim'.$i]  ?></td>
           <?php  endfor  ?>
           <td <?= $epHisto2[$k]['machine'] ?>><?= $ep[$k]['machine'] ?></td>
           <td <?= $epHisto2[$k]['date'] ?>><?= $ep[$k]['date'] ?></td>
           <td <?= $epHisto2[$k]['waveform'] ?>><?= $ep[$k]['waveform'] ?></td>
-          <td class="chartCycle <?= $ep[$k]['Cycle_min_nonAtteint']  ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
+          <td class="chartCycle decimal0 <?= $ep[$k]['Cycle_min_nonAtteint']  ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
           <td <?= $epHisto2[$k]['Rupture'] ?>><?= $ep[$k]['Rupture'] ?></td>
           <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>"<?= $epHisto2[$k]['Fracture'] ?>><?= $ep[$k]['Fracture'] ?></td>
-<td style=" white-space: pre;"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:'<i style="font-size : 75%;">'.$ep[$k]['temps_essais_calcule'].'</i>') ?></td>
+          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:$ep[$k]['temps_essais_calcule']) ?></td>
           <td class="dCheckEp" data-dchecked="<?= max(0,$ep[$k]['check_rupture']) ?>" <?= $epHisto2[$k]['check_rupture'] ?>><?= $ep[$k]['check_rupture'] ?></td>
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>" <?= $epHisto2[$k]['d_checked'] ?>><?= $ep[$k]['d_checked'] ?></td>
 

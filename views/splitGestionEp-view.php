@@ -65,10 +65,7 @@
 
                   <p id="newTestMsg" style="color:yellow; padding-top:10px; font-size:120%; display:hidden;">
                   </p>
-                  <?php if ($checkTechSplit) :  ?>
-                    <p style="margin:5px 0px;">Please Read OneNote and those comments :</p>
-                    <textarea disabled class="gestionEpCommentaire"><?= $checkTechSplit['tbljob_commentaire'] ?></textarea>
-                  <?php endif ?>
+
                   <?php if ($eprouvette['c_checked']<=0 OR $eprouvette['checked']<=0) :  ?>
                     <p style="color:red; padding-top:10px; font-size:150%; font-weight: bold;">
                       <?= ($eprouvette['c_checked']<=0)?'Consigne Unchecked !':'' ?>
@@ -76,7 +73,6 @@
                     </p>
                     <input type="hidden" name="checker" value="0">
                   <?php else :  ?>
-
                     <label for="checker">Checker :</label>
                     <select class="form-control" id="checker" name="checker">
                       <?php include 'lstTech-view.php'; ?>
@@ -85,15 +81,17 @@
                     //on enleve le nom de l'operateur
                     $("#checker option[value='<?= $_COOKIE['id_user'] ?>']").remove();
                     </script>
-
                   <?php endif ?>
-
 
                   <div style="height:20%; padding:5px" id="customFreq">
                     <label for="custom_frequency">Custom Frequency (Hz) :</label>
                     <input style="width:20%; display:inline;" class="form-control" id="custom_frequency" name="custom_frequency" value="<?= $eprouvette['c_frequence']  ?>">
                   </div>
 
+                  <?php if ($checkTechSplit) :  ?>
+                    <p style="margin:5px 0px;">Please Read OneNote and those comments :</p>
+                    <textarea disabled class="gestionEpCommentaire"><?= $checkTechSplit['tbljob_commentaire'] ?></textarea>
+                  <?php endif ?>
 
                   <div style="height:20%;">
                     <button type="submit" class="btn btn-default" id="submit_newTest" disabled="disabled">Record Test Number</button>
