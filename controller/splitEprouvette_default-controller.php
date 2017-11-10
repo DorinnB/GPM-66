@@ -221,6 +221,8 @@ for($k=0;$k < count($ep);$k++)	{
 
   $ep[$k]['cycle_estimeCSS']=!empty($ep[$k]['cycle_estime'])?$ep[$k]['cycle_estime']:((!empty($cycle_estimeAVG['cycle_estime']) AND $ep[$k]['d_checked']<=0)?'estimated':'');
   $ep[$k]['cycle_estime']=!empty($ep[$k]['cycle_estime'])?$ep[$k]['cycle_estime']:((!empty($cycle_estimeAVG['cycle_estime']) AND $ep[$k]['d_checked']<=0)?$cycle_estimeAVG['cycle_estime']:'');
+  $ep[$k]['Cycle_STL']=!empty($ep[$k]['Cycle_STL'])?$ep[$k]['Cycle_STL']:'';
+  $ep[$k]['Cycle_final']=!empty($ep[$k]['Cycle_final'])?$ep[$k]['Cycle_final']:'';
 
 
   $ep[$k]['dilatation']=!empty($ep[$k]['dilatation'])?($ep[$k]['dilatation']-1)*100:'';
