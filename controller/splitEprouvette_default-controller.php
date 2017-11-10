@@ -329,7 +329,7 @@ for($k=0;$k < count($ep);$k++)	{
       }
     }
   }
-  $estimatedTimeLeft+=intval(floor($EstimatedTestTime/24))+$modulo;
+  $estimatedTimeLeft+=(intval(floor($EstimatedTestTime/24))+$modulo/24)*24;
 
   //echo intval(floor($EstimatedTestTime/24))+$modulo;
   echo '

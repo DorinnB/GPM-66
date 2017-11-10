@@ -1,6 +1,6 @@
 <!--<link href="css/listeEssais.css" rel="stylesheet">-->
 <link href="css/followup.css" rel="stylesheet">
-<script type="text/javascript" src="js/followup.js"></script>
+<script type="text/javascript" src="js/followupJob.js"></script>
 
 <?php include('controller/followup-controller.php'); ?>
 

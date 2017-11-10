@@ -22,6 +22,12 @@ function save() {
   }
 
 
+  $("#subCRef").click(function(e) {
+    $('#refSubC').toggleClass('flip');
+    $('#refSubC_alt').toggleClass('flip');
+
+    $('#refSubC_alt').html($('#refSubC').val());
+  });
 
 $( function() {
   $( "#DyT_SubC" ).datepicker({
