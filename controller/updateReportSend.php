@@ -13,4 +13,11 @@ $oSplit = new LstSplitModel($db,$_POST['id_tbljob']);
 $id_reportSend = ($_POST['id_reportSend']<=0)?$_COOKIE['id_user']:-$_COOKIE['id_user'];
 $oSplit->updateReportSend($id_reportSend);
 
+
+//Update du statut des splits
+include '../models/statut-model.php';
+$oStatut = new StatutModel($db);
+	$oStatut->id_tbljob=$_POST['id_tbljob'];
+	$state=$oStatut->findStatut();
+
 ?>

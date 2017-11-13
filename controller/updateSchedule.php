@@ -56,6 +56,15 @@ if ($formScheduleSplit[0]!="") {
 }
 //echo 'en attendant que ca marche';
 
+//Update du statut des splits
+include '../models/statut-model.php';
+$oStatut = new StatutModel($db);
+foreach ($oStatut->getJobFromInfoJob($_POST['id_info_job']) as $key => $value) {
+	$oStatut->id_tbljob=$value['id_tbljob'];
+	$state=$oStatut->findStatut();
+}
+
+
 $maReponse = array('id_tbljob' => $_POST['id_info_job']);
 echo json_encode($maReponse);
 ?>
