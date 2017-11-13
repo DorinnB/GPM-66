@@ -34,7 +34,9 @@ for($k=0;$k < count($ep);$k++)	{
   $oEprouvette->dimension($ep[$k]['type'],$ep[$k]['dim1'],$ep[$k]['dim2'],$ep[$k]['dim3']);
   //$denomination=$oEprouvette->dimDenomination();
   //$nb_dim=count($denomination);
-
+  $oEprouvette->niveaumaxmin($ep[$k]['c_1_type'], $ep[$k]['c_2_type'], $ep[$k]['c_type_1_val'], $ep[$k]['c_type_2_val']);
+$ep[$k]['max']=$oEprouvette->MAX();
+$ep[$k]['min']=$oEprouvette->MIN();
 
   $ep[$k]['denomination'] = $oEprouvette->denomination($ep[$k]['id_dessin_type'], $ep[$k]['dim1'], $ep[$k]['dim2'], $ep[$k]['dim3']);
 
@@ -118,148 +120,202 @@ If ($split['test_type_abbr']=="Loa")	{
 
   $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Loa.xlsx");
 
-  $enTete=$objPHPExcel->getSheetByName('En-tête');
-  $pvEssais=$objPHPExcel->getSheetByName('PV');
-  $courbes=$objPHPExcel->getSheetByName('Courbes');
 
-  $val2Xls = array(
+    $enTete=$objPHPExcel->getSheetByName('En-tête');
+    $pvEssais=$objPHPExcel->getSheetByName('PV');
+    $courbes=$objPHPExcel->getSheetByName('Courbes');
 
-    'J5' => $jobcomplet,
-    'J9'=> $split['po_number'],
-    'C5'=> $split['genre'].' '.$split['lastname'].' '.$split['surname'],
-    'C6'=> $split['adresse'],
-    'B12'=> $split['info_jobs_instruction'],
-    'E16'=> $split['ref_matiere'],
-    'E23'=> $split['specification'],
-    'E26'=> $split['dessin'],
+    $val2Xls = array(
 
-    'E41'=> $split['waveform']
+      'J5' => $jobcomplet,
+      'J9'=> $split['po_number'],
+      'C5'=> $split['genre'].' '.$split['lastname'].' '.$split['surname'],
+      'C6'=> $split['adresse'],
 
-  );
+      'E16'=> $split['ref_matiere'],
 
-  //Pour chaque element du tableau associatif, on update les cellules Excel
-  foreach ($val2Xls as $key => $value) {
-    $enTete->setCellValue($key, $value);
-  }
+      'E17'=> $split['info_jobs_instruction'],
 
-  //titre des lignes PV
-  $pvEssais->setCellValueByColumnAndRow(0, 14, $split['c_type_1']);
-  $pvEssais->setCellValueByColumnAndRow(2, 14, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-  $pvEssais->setCellValueByColumnAndRow(0, 15, $split['c_type_2']);
-  $pvEssais->setCellValueByColumnAndRow(2, 15, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+      'E23'=> $split['specification'],
+      'E26'=> $split['dessin'],
 
-  //STL
-  $pvEssais->getRowDimension(13)->setVisible(FALSE);
-  $pvEssais->getRowDimension(41)->setVisible(FALSE);
+      'E34'=> $split['temperature'].' °C',
 
-  $pvEssais->getRowDimension(20)->setVisible(FALSE);
-  $pvEssais->getRowDimension(21)->setVisible(FALSE);
-  $pvEssais->getRowDimension(22)->setVisible(FALSE);
-  $pvEssais->getRowDimension(23)->setVisible(FALSE);
-  $pvEssais->getRowDimension(24)->setVisible(FALSE);
-  $pvEssais->getRowDimension(25)->setVisible(FALSE);
-  $pvEssais->getRowDimension(26)->setVisible(FALSE);
-  $pvEssais->getRowDimension(27)->setVisible(FALSE);
-  $pvEssais->getRowDimension(28)->setVisible(FALSE);
-  $pvEssais->getRowDimension(29)->setVisible(FALSE);
-  $pvEssais->getRowDimension(30)->setVisible(FALSE);
-  $pvEssais->getRowDimension(31)->setVisible(FALSE);
-  $pvEssais->getRowDimension(32)->setVisible(FALSE);
-  $pvEssais->getRowDimension(33)->setVisible(FALSE);
-  $pvEssais->getRowDimension(34)->setVisible(FALSE);
-  $pvEssais->getRowDimension(35)->setVisible(FALSE);
-  $pvEssais->getRowDimension(36)->setVisible(FALSE);
-  $pvEssais->getRowDimension(37)->setVisible(FALSE);
-  $pvEssais->getRowDimension(38)->setVisible(FALSE);
-  $pvEssais->getRowDimension(39)->setVisible(FALSE);
-  $pvEssais->getRowDimension(40)->setVisible(FALSE);
-  $pvEssais->getRowDimension(42)->setVisible(FALSE);
-  $pvEssais->getRowDimension(43)->setVisible(FALSE);
+      'E38'=> $split['c_frequence'].' Hz',
+
+      'E41'=> $split['waveform']
+
+    );
+
+    //Pour chaque element du tableau associatif, on update les cellules Excel
+    foreach ($val2Xls as $key => $value) {
+      $enTete->setCellValue($key, $value);
+    }
+
+    //titre des lignes PV
+    $pvEssais->setCellValueByColumnAndRow(0, 14, $split['c_type_1']);
+    $pvEssais->setCellValueByColumnAndRow(2, 14, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+    $pvEssais->setCellValueByColumnAndRow(0, 15, $split['c_type_2']);
+    $pvEssais->setCellValueByColumnAndRow(2, 15, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+    $pvEssais->setCellValueByColumnAndRow(2, 27, $split['c_unite']);
+    $pvEssais->setCellValueByColumnAndRow(2, 28, $split['c_unite']);
+    $pvEssais->setCellValueByColumnAndRow(2, 29, $split['c_unite']);
+    $pvEssais->setCellValueByColumnAndRow(2, 30, $split['c_unite']);
 
 
+    $row = 0; // 1-based index
+    $col = 3;
 
-  $row = 0; // 1-based index
-  $col = 3;
+    $row_q=0;
+    $col_q=0;
+    $nb_q=0;
+    $max_row_q=0;
+    $nbPage=15;
+    $maxheight=0;
 
-  $row_q=0;
-  $col_q=0;
-  $nb_q=0;
-  $max_row_q=0;
-  $nbPage=10;
+    foreach ($ep as $key => $value) {
+      //copy des styles des colonnes
+      for ($row = 5; $row <= 48; $row++) {
+        $style = $pvEssais->getStyleByColumnAndRow(3, $row);
+        $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+        $pvEssais->duplicateStyle($style, $dstCell);
+      }
 
-  foreach ($ep as $key => $value) {
-    //copy des styles des colonnes
-    for ($row = 6; $row <= 47; $row++) {
-      $style = $pvEssais->getStyleByColumnAndRow(3, $row);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
-      $pvEssais->duplicateStyle($style, $dstCell);
+      $pvEssais->setCellValueByColumnAndRow($col, 5, $value['prefixe']);
+      $pvEssais->setCellValueByColumnAndRow($col, 6, $value['nom_eprouvette']);
+
+      $pvEssais->setCellValueByColumnAndRow($col, 7, $value['n_essai']);
+      $pvEssais->setCellValueByColumnAndRow($col, 8, $value['n_fichier']);
+      $pvEssais->setCellValueByColumnAndRow($col, 9, $value['machine']);
+      $pvEssais->setCellValueByColumnAndRow($col, 10, $value['date']);
+      $pvEssais->setCellValueByColumnAndRow($col, 11, $value['c_temperature']);
+      $pvEssais->setCellValueByColumnAndRow($col, 12, $value['c_frequence']);
+      $pvEssais->setCellValueByColumnAndRow($col, 13, $value['c_frequence_STL']);
+      $pvEssais->setCellValueByColumnAndRow($col, 14, $value['c_type_1_val']);
+      $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']);
+      $pvEssais->setCellValueByColumnAndRow($col, 16, $value['c_waveform']);
+
+      if (isset($value['denomination']['denomination_1'])) {
+        $pvEssais->setCellValueByColumnAndRow($col, 17, $value['dim1']);
+        $pvEssais->setCellValueByColumnAndRow(1, 17, $value['denomination']['denomination_1']);
+        if ($value['dilatation']>1) {
+          $pvEssais->setCellValueByColumnAndRow($col, 21, $value['dim1']*$value['dilatation']);
+          $pvEssais->setCellValueByColumnAndRow(1, 21, $value['denomination']['denomination_1']);
+        }
+        else {
+          $pvEssais->getRowDimension(21)->setVisible(FALSE);
+        }
+      }
+      else {
+        $pvEssais->getRowDimension(17)->setVisible(FALSE);
+        $pvEssais->getRowDimension(21)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_2'])) {
+        $pvEssais->setCellValueByColumnAndRow($col, 18, $value['dim2']);
+        $pvEssais->setCellValueByColumnAndRow(1, 18, $value['denomination']['denomination_2']);
+        if ($value['dilatation']>1) {
+          $pvEssais->setCellValueByColumnAndRow($col, 22, $value['dim2']*$value['dilatation']);
+          $pvEssais->setCellValueByColumnAndRow(1, 22, $value['denomination']['denomination_2']);
+        }
+        else {
+          $pvEssais->getRowDimension(22)->setVisible(FALSE);
+        }
+
+      }
+      else {
+        $pvEssais->getRowDimension(18)->setVisible(FALSE);
+        $pvEssais->getRowDimension(22)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_3'])) {
+        $pvEssais->setCellValueByColumnAndRow($col, 19, $value['dim3']);
+        $pvEssais->setCellValueByColumnAndRow(1, 19, $value['denomination']['denomination_3']);
+        if ($value['dilatation']>1) {
+          $pvEssais->setCellValueByColumnAndRow($col, 23, $value['dim3']*$value['dilatation']);
+          $pvEssais->setCellValueByColumnAndRow(1, 23, $value['denomination']['denomination_3']);
+        }
+        else {
+          $pvEssais->getRowDimension(23)->setVisible(FALSE);
+        }
+      }
+      else {
+        $pvEssais->getRowDimension(19)->setVisible(FALSE);
+        $pvEssais->getRowDimension(23)->setVisible(FALSE);
+      }
+
+
+      $pvEssais->setCellValueByColumnAndRow($col, 27, $value['max']);
+      $pvEssais->setCellValueByColumnAndRow($col, 28, ($value['max']+$value['min'])/2);
+      $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
+      $pvEssais->setCellValueByColumnAndRow($col, 30, $value['min']);
+
+
+      $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
+      $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
+      $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
+      $pvEssais->setCellValueByColumnAndRow($col, 47, $value['temps_essais']);
+
+      if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+        $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+        $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
+      }
+      else {
+        $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+
+      }
+      if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
+        $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
+        $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
+        $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
+      }
+
+
+
+      if ($value['q_commentaire']!="") {
+
+        $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+        $nb_q+=1; //on incremente le nombre de commentaire
+
+        //recup du commentaire precedent
+        $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
+
+        $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
+        $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
+        $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
+        $pvEssais->getRowDimension(50)->setRowHeight(-1);
+
+
+
+
+        //calcul de la hauteur max de la cellule de commentaire Qualité
+        $rc = 0;
+        $width=80;  //valeur empirique lié à la largeur des colonnes
+        $line = explode("\n", $prev_value);
+        foreach($line as $source) {
+          $rc += intval((strlen($source) / $width) +1);
+        }
+        $maxheight=max($maxheight,$rc);
+        $pvEssais->getRowDimension(50)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+      }
+
+      $col++;
+    }
+
+    //zone d'impression
+    //colstring = on augmente la zone d'impression, non pas a la derniere eprouvette mais a la serie de $nbpage d'apres.
+    $colString = PHPExcel_Cell::stringFromColumnIndex((ceil(($col-3)/$nbPage)*$nbPage+3)-1);
+    $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(50));
+
+    //separation impression par $nbPage eprouvettes
+    for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
+      $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
     }
 
 
-    $pvEssais->setCellValueByColumnAndRow($col, 6, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-
-    $pvEssais->setCellValueByColumnAndRow($col, 7, $value['n_essai']);
-    $pvEssais->setCellValueByColumnAndRow($col, 8, $value['n_fichier']);
-    $pvEssais->setCellValueByColumnAndRow($col, 9, $value['machine']);
-    $pvEssais->setCellValueByColumnAndRow($col, 10, $value['date']);
-    $pvEssais->setCellValueByColumnAndRow($col, 11, $value['c_temperature']);
-    $pvEssais->setCellValueByColumnAndRow($col, 12, $value['c_frequence']);
-    $pvEssais->setCellValueByColumnAndRow($col, 13, ($value['c_frequence_STL']>0)?$value['c_frequence_STL']:'');
-    ($value['c_frequence_STL']>0)?$pvEssais->getRowDimension(13)->setVisible(TRUE):'';
-    $pvEssais->setCellValueByColumnAndRow($col, 14, $value['c_type_1_val']);
-    $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']);
-
-    $pvEssais->setCellValueByColumnAndRow($col, 16, str_replace(array("True","Tapered"), "", $value['c_waveform']));
-    $pvEssais->setCellValueByColumnAndRow($col, 16, str_replace(array("True","Tapered"), "", $value['c_waveform']));
-
-    if (isset($value['denomination']['denomination_1'])) {
-      $pvEssais->setCellValueByColumnAndRow($col, 17, $value['dim1']);
-      $pvEssais->setCellValueByColumnAndRow(1, 17, $value['denomination']['denomination_1']);
-    }
-    else {
-      $pvEssais->getRowDimension(17)->setVisible(FALSE);
-    }
-    if (isset($value['denomination']['denomination_2'])) {
-      $pvEssais->setCellValueByColumnAndRow($col, 18, $value['dim2']);
-      $pvEssais->setCellValueByColumnAndRow(0, 18, $value['denomination']['denomination_2']);
-    }
-    else {
-      $pvEssais->getRowDimension(18)->setVisible(FALSE);
-    }
-    if (isset($value['denomination']['denomination_3'])) {
-      $pvEssais->setCellValueByColumnAndRow($col, 19, $value['dim3']);
-      $pvEssais->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_3']);
-    }
-    else {
-      $pvEssais->getRowDimension(19)->setVisible(FALSE);
-    }
 
 
-    $pvEssais->setCellValueByColumnAndRow($col, 41, ($value['Cycle_STL']==0)?"":$value['Cycle_STL']);
-    ($value['Cycle_STL']>0)?$pvEssais->getRowDimension(41)->setVisible(TRUE):'';
-
-    $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
-    $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
-    $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
-
-    $pvEssais->setCellValueByColumnAndRow($col, 47, ($value['temps_essais']>0)?$value['temps_essais']:'=IF(D8="","",SI(D41="",D44/D12,(D41/D12+(D44-D41)/D13))/3600)');
-
-
-
-    if ($value['q_commentaire']!="") {
-      $row_q=($row_q<10 AND $col_q==floor(($col-4)/$nbPage)*$nbPage+3)?$row_q+1:0;
-      $col_q=floor(($col-4)/$nbPage)*$nbPage+3;
-      $max_row_q=max($row_q,$max_row_q);
-
-      $pvEssais->setCellValueByColumnAndRow($col_q, $row_q+50, 'Test '.$value['n_fichier'].' - '.$value['q_commentaire']);
-    }
-
-    $col++;
-  }
-
-  //zone d'impression
-  $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
-  $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.($max_row_q+50));
 
 
 }
@@ -267,109 +323,202 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwlsssss")
 
   $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT LoS.xlsx");
 
-  $val2Xls = array(
-    'B7' => $identification,
-    'B8' => $ep[$k]['dessin'],
-    'B9' => $ep[$k]['ref_matiere'],
-    'B13' => $ep[$k]['machine'],
-    'B15' => '40001',
-    'B16' => $ep[$k]['enregistreur'],
-    'F13' => $compresseur,
-    'F17' => $ind_temp,
-    'F15' => $coil,
-    'F16' => $four,
-    'B24' => $ep[$k]['cell_load_gamme'],
-    'B23' => $ep[$k]['cell_displacement_gamme'],
-    'B28' => "6",
-    'D28' => "-6",
 
-    'I7' => $jobcomplet,
-    'I8' => $ep[$k]['n_essai'],
-    'I9' => $ep[$k]['n_fichier'],
-    'I10' => $ep[$k]['date'],
-    'I11' => $ep[$k]['operateur'],
-    'I12' => $ep[$k]['controleur'],
+      $enTete=$objPHPExcel->getSheetByName('En-tête');
+      $pvEssais=$objPHPExcel->getSheetByName('PV');
+      $courbes=$objPHPExcel->getSheetByName('Courbes');
 
-    'J17' => $ep[$k]['operateur'],
-    'K20' => $ep[$k]['c_temperature'],
-    'K22' => $oEprouvette->R(),
-    'K23' => $ep[$k]['c_frequence'],
-    'I22' => $oEprouvette->A(),
-    'I23' => $true.$ep[$k]['c_waveform'].$tapered,
+      $val2Xls = array(
 
-    'I24' => $ep[$k]['dim1'],
-    'K24' => $ep[$k]['dim2'],
-    'K25' => $ep[$k]['dim3'],
-    'I25' => $area,
+        'J5' => $jobcomplet,
+        'J9'=> $split['po_number'],
+        'C5'=> $split['genre'].' '.$split['lastname'].' '.$split['surname'],
+        'C6'=> $split['adresse'],
 
-    'K52' => $STL,
-    'I52' => $F_STL,
-    'J46' => $ep[$k]['Cycle_min'],
-    'J49' => $runout
-  );
+        'E16'=> $split['ref_matiere'],
 
+        'E17'=> $split['info_jobs_instruction'],
 
+        'E23'=> $split['specification'],
+        'E26'=> $split['dessin'],
 
-  if ($ep[$k]['c_unite']=="MPa")	{
-    $arrayUnits = array(
-      'I28' => $oEprouvette->MAX(),
-      'I29' => ($oEprouvette->MAX()+$oEprouvette->MIN())/2,
-      'I30' => ($oEprouvette->MAX()-$oEprouvette->MIN())/2,
-      'I31' => $oEprouvette->MIN(),
+        'E34'=> $split['temperature'].' °C',
 
-      'J28' => $oEprouvette->MAX()*$area/1000,
-      'J29' => ($oEprouvette->MAX()+$oEprouvette->MIN())/2*$area/1000,
-      'J30' => ($oEprouvette->MAX()-$oEprouvette->MIN())/2*$area/1000,
-      'J31' => $oEprouvette->MIN()*$area/1000,
+        'E38'=> $split['c_frequence'].' Hz',
 
-      'B29' => $oEprouvette->MAX()*$area/1000+(($oEprouvette->MAX()*$area/1000<10)?0.5:$oEprouvette->MAX()*$area/1000*5/100),
-      'D29' => $oEprouvette->MIN()*$area/1000-(($oEprouvette->MAX()*$area/1000<10)?0.5:$oEprouvette->MAX()*$area/1000*5/100)
-    );
-  }
-  Elseif ($ep[$k]['c_unite']=="kN")	{
-    $arrayUnits = array(
-      'J28' => $oEprouvette->MAX(),
-      'J29' => ($oEprouvette->MAX()+$oEprouvette->MIN())/2,
-      'J30' => ($oEprouvette->MAX()-$oEprouvette->MIN())/2,
-      'J31' => $oEprouvette->MIN(),
+        'E41'=> $split['waveform']
 
-      'B29' => $oEprouvette->MAX()+$oEprouvette->MAX()*5/100,
-      'D29' => $oEprouvette->MIN()-$oEprouvette->MAX()*5/100
-    );
-  }
-  Else	{
-    $arrayUnits = array(
-      'J28' => "ERREUR d'unité"
-    );
-  }
+      );
+
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $enTete->setCellValue($key, $value);
+      }
+
+      //titre des lignes PV
+      $pvEssais->setCellValueByColumnAndRow(0, 14, $split['c_type_1']);
+      $pvEssais->setCellValueByColumnAndRow(2, 14, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+      $pvEssais->setCellValueByColumnAndRow(0, 15, $split['c_type_2']);
+      $pvEssais->setCellValueByColumnAndRow(2, 15, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+      $pvEssais->setCellValueByColumnAndRow(2, 27, $split['c_unite']);
+      $pvEssais->setCellValueByColumnAndRow(2, 28, $split['c_unite']);
+      $pvEssais->setCellValueByColumnAndRow(2, 29, $split['c_unite']);
+      $pvEssais->setCellValueByColumnAndRow(2, 30, $split['c_unite']);
 
 
+      $row = 0; // 1-based index
+      $col = 3;
 
-  //affichage du checkeur temperature uniquement si temperature
-  if ($ep[$k]['c_temperature']>=50) {
-    $val2Xls['J18'] = $ep[$k]['controleur'];
-  }
-  else {
-    $objPHPExcel->getActiveSheet()->getStyle('F15:F17')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('B37')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('K20')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('D35:K38')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('H34:K34')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('H42:I42')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('J18:K18')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('I20')->applyFromArray( $style_gray );
-    $objPHPExcel->getActiveSheet()->getStyle('K21')->applyFromArray( $style_gray );
+      $row_q=0;
+      $col_q=0;
+      $nb_q=0;
+      $max_row_q=0;
+      $nbPage=15;
+      $maxheight=0;
 
-    $objPHPExcel->getActiveSheet()->setCellValue('B38', '');
-  }
+      foreach ($ep as $key => $value) {
+        //copy des styles des colonnes
+        for ($row = 5; $row <= 48; $row++) {
+          $style = $pvEssais->getStyleByColumnAndRow(3, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+          $pvEssais->duplicateStyle($style, $dstCell);
+        }
+
+        $pvEssais->setCellValueByColumnAndRow($col, 5, $value['prefixe']);
+        $pvEssais->setCellValueByColumnAndRow($col, 6, $value['nom_eprouvette']);
+
+        $pvEssais->setCellValueByColumnAndRow($col, 7, $value['n_essai']);
+        $pvEssais->setCellValueByColumnAndRow($col, 8, $value['n_fichier']);
+        $pvEssais->setCellValueByColumnAndRow($col, 9, $value['machine']);
+        $pvEssais->setCellValueByColumnAndRow($col, 10, $value['date']);
+        $pvEssais->setCellValueByColumnAndRow($col, 11, $value['c_temperature']);
+        $pvEssais->setCellValueByColumnAndRow($col, 12, $value['c_frequence']);
+        $pvEssais->setCellValueByColumnAndRow($col, 13, $value['c_frequence_STL']);
+        $pvEssais->setCellValueByColumnAndRow($col, 14, $value['c_type_1_val']);
+        $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']);
+        $pvEssais->setCellValueByColumnAndRow($col, 16, $value['c_waveform']);
+
+        if (isset($value['denomination']['denomination_1'])) {
+          $pvEssais->setCellValueByColumnAndRow($col, 17, $value['dim1']);
+          $pvEssais->setCellValueByColumnAndRow(1, 17, $value['denomination']['denomination_1']);
+          if ($value['dilatation']>1) {
+            $pvEssais->setCellValueByColumnAndRow($col, 21, $value['dim1']*$value['dilatation']);
+            $pvEssais->setCellValueByColumnAndRow(1, 21, $value['denomination']['denomination_1']);
+          }
+          else {
+            $pvEssais->getRowDimension(21)->setVisible(FALSE);
+          }
+        }
+        else {
+          $pvEssais->getRowDimension(17)->setVisible(FALSE);
+          $pvEssais->getRowDimension(21)->setVisible(FALSE);
+        }
+        if (isset($value['denomination']['denomination_2'])) {
+          $pvEssais->setCellValueByColumnAndRow($col, 18, $value['dim2']);
+          $pvEssais->setCellValueByColumnAndRow(1, 18, $value['denomination']['denomination_2']);
+          if ($value['dilatation']>1) {
+            $pvEssais->setCellValueByColumnAndRow($col, 22, $value['dim2']*$value['dilatation']);
+            $pvEssais->setCellValueByColumnAndRow(1, 22, $value['denomination']['denomination_2']);
+          }
+          else {
+            $pvEssais->getRowDimension(22)->setVisible(FALSE);
+          }
+
+        }
+        else {
+          $pvEssais->getRowDimension(18)->setVisible(FALSE);
+          $pvEssais->getRowDimension(22)->setVisible(FALSE);
+        }
+        if (isset($value['denomination']['denomination_3'])) {
+          $pvEssais->setCellValueByColumnAndRow($col, 19, $value['dim3']);
+          $pvEssais->setCellValueByColumnAndRow(1, 19, $value['denomination']['denomination_3']);
+          if ($value['dilatation']>1) {
+            $pvEssais->setCellValueByColumnAndRow($col, 23, $value['dim3']*$value['dilatation']);
+            $pvEssais->setCellValueByColumnAndRow(1, 23, $value['denomination']['denomination_3']);
+          }
+          else {
+            $pvEssais->getRowDimension(23)->setVisible(FALSE);
+          }
+        }
+        else {
+          $pvEssais->getRowDimension(19)->setVisible(FALSE);
+          $pvEssais->getRowDimension(23)->setVisible(FALSE);
+        }
+
+
+        $pvEssais->setCellValueByColumnAndRow($col, 27, $value['max']);
+        $pvEssais->setCellValueByColumnAndRow($col, 28, ($value['max']+$value['min'])/2);
+        $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
+        $pvEssais->setCellValueByColumnAndRow($col, 30, $value['min']);
+
+
+        $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
+        $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
+        $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
+        $pvEssais->setCellValueByColumnAndRow($col, 47, $value['temps_essais']);
+
+        if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+          $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+          $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
+        }
+        else {
+          $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+
+        }
+        if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
+          $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
+          $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
+          $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
+        }
 
 
 
-  $val2Xls = array_merge($val2Xls, $arrayUnits);
-  //Pour chaque element du tableau associatif, on update les cellules Excel
-  foreach ($val2Xls as $key => $value) {
-    $objPHPExcel->getActiveSheet()->setCellValue($key, $value);
-  }
+        if ($value['q_commentaire']!="") {
+
+          $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+          $nb_q+=1; //on incremente le nombre de commentaire
+
+          //recup du commentaire precedent
+          $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
+
+          $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
+          $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
+          $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
+          $pvEssais->getRowDimension(50)->setRowHeight(-1);
+
+
+
+
+          //calcul de la hauteur max de la cellule de commentaire Qualité
+          $rc = 0;
+          $width=80;  //valeur empirique lié à la largeur des colonnes
+          $line = explode("\n", $prev_value);
+          foreach($line as $source) {
+            $rc += intval((strlen($source) / $width) +1);
+          }
+          $maxheight=max($maxheight,$rc);
+          $pvEssais->getRowDimension(50)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+        }
+
+        $col++;
+      }
+
+      //zone d'impression
+      //colstring = on augmente la zone d'impression, non pas a la derniere eprouvette mais a la serie de $nbpage d'apres.
+      $colString = PHPExcel_Cell::stringFromColumnIndex((ceil(($col-3)/$nbPage)*$nbPage+3)-1);
+      $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(50));
+
+      //separation impression par $nbPage eprouvettes
+      for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
+        $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
+      }
+
+
+
+
 
 
 
@@ -396,7 +545,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
     'E23'=> $split['specification'],
     'E26'=> $split['dessin'],
 
-    'E34'=> $split['temperature'],
+    'E34'=> $split['temperature'].' °C',
 
     'H38'=> $split['c_frequence'].' Hz',
     'H39'=> $split['c_frequence_STL'].' Hz',
@@ -469,7 +618,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
     }
     if (isset($value['denomination']['denomination_2'])) {
       $pvEssais->setCellValueByColumnAndRow($col, 18, $value['dim2']);
-      $pvEssais->setCellValueByColumnAndRow(0, 18, $value['denomination']['denomination_2']);
+      $pvEssais->setCellValueByColumnAndRow(1, 18, $value['denomination']['denomination_2']);
       if ($value['dilatation']>1) {
         $pvEssais->setCellValueByColumnAndRow($col, 22, $value['dim2']*$value['dilatation']);
         $pvEssais->setCellValueByColumnAndRow(1, 22, $value['denomination']['denomination_2']);
@@ -485,7 +634,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
     }
     if (isset($value['denomination']['denomination_3'])) {
       $pvEssais->setCellValueByColumnAndRow($col, 19, $value['dim3']);
-      $pvEssais->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_3']);
+      $pvEssais->setCellValueByColumnAndRow(1, 19, $value['denomination']['denomination_3']);
       if ($value['dilatation']>1) {
         $pvEssais->setCellValueByColumnAndRow($col, 23, $value['dim3']*$value['dilatation']);
         $pvEssais->setCellValueByColumnAndRow(1, 23, $value['denomination']['denomination_3']);
@@ -550,9 +699,8 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
 
     if ($value['q_commentaire']!="") {
-      $row_q=($row_q<10 AND $col_q==floor(($col-4)/$nbPage)*$nbPage+3)?$row_q+1:0;
+
       $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
-      $max_row_q=max($row_q,$max_row_q);
       $nb_q+=1; //on incremente le nombre de commentaire
 
       //recup du commentaire precedent
@@ -560,9 +708,9 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
       $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
       $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
-      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+9).'50');
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
       $pvEssais->getRowDimension(50)->setRowHeight(-1);
-      //$pvEssais->setCellValueByColumnAndRow($col, 50, "'".$col_q.'-!-'.$row_q);
+
 
 
 
@@ -583,79 +731,14 @@ ElseIf ($split['test_type_abbr']=="Str")	{
   }
 
   //zone d'impression
-  $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+  //colstring = on augmente la zone d'impression, non pas a la derniere eprouvette mais a la serie de $nbpage d'apres.
+  $colString = PHPExcel_Cell::stringFromColumnIndex((ceil(($col-3)/$nbPage)*$nbPage+3)-1);
   $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(50));
 
-
-
-
-  /*
-  //courbes
-  //	Set the Labels for each data series we want to plot
-  //		Datatype
-  //		Cell reference for data
-  //		Format Code
-  //		Number of datapoints in series
-  //		Data values
-  //		Data Marker
-  $dataSeriesLabels = array(
-  	new PHPExcel_Chart_DataSeriesValues('String', 'PV!$D$6', NULL, 1),	// titre
-
-  );
-  //	Set the X-Axis Labels
-  $xAxisTickValues = array(
-  	new PHPExcel_Chart_DataSeriesValues('Number', 'PV!$D$44:$'.$colString.'$44', NULL, 8),	//	cycle
-  );
-  //	Set the Data values for each data series we want to plot
-  //		Datatype
-  //		Cell reference for data
-  //		Format Code
-  //		Number of datapoints in series
-  //		Data values
-  //		Data Marker
-  $dataSeriesValues = array(
-  	new PHPExcel_Chart_DataSeriesValues('Number', 'PV!$D$33:$'.$colString.'$33', NULL, 8), // c2_max_stress
-
-  );
-  //	Build the dataseries
-  $series = new PHPExcel_Chart_DataSeries(
-  	PHPExcel_Chart_DataSeries::TYPE_SCATTERCHART,	// plotType
-  	NULL,											// plotGrouping (Scatter charts don't have any grouping)
-  	range(0, count($dataSeriesValues)-1),			// plotOrder
-  	$dataSeriesLabels,								// plotLabel
-  	$xAxisTickValues,								// plotCategory
-  	$dataSeriesValues,								// plotValues
-      NULL,                                           // plotDirection
-  	NULL,											// smooth line
-  	PHPExcel_Chart_DataSeries::STYLE_LINEMARKER		// plotStyle
-  );
-  //	Set the series in the plot area
-  $plotArea = new PHPExcel_Chart_PlotArea(NULL, array($series));
-  //	Set the chart legend
-  $legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_TOPRIGHT, NULL, false);
-  $title = new PHPExcel_Chart_Title('');
-  $xAxisLabel = new PHPExcel_Chart_Title('Cycle Number');
-  $yAxisLabel = new PHPExcel_Chart_Title('Min. and Max. Stress at half-life (MPa)');
-
-  //	Create the chart
-  $chart = new PHPExcel_Chart(
-  	'chart1',		// name
-  	$title,			// title
-  	$legend,		// legend
-  	$plotArea,		// plotArea
-  	true,			// plotVisibleOnly
-  	0,				// displayBlanksAs
-  	$xAxisLabel,			// xAxisLabel
-  	$yAxisLabel		// yAxisLabel
-  );
-  //	Set the position where the chart should appear in the worksheet
-  $chart->setTopLeftPosition('A5');
-  $chart->setBottomRightPosition('J30');
-  //	Add the chart to the worksheet
-  $courbes->addChart($chart);
-  */
-
-
+  //separation impression par $nbPage eprouvettes
+  for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
+    $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
+  }
 
 
 
