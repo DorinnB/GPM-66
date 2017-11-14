@@ -232,7 +232,8 @@ for($k=0;$k < count($ep);$k++)	{
 
   $ep[$k]['CheckValue_Fracture']=(strpos($ep[$k]['Fracture'], 'OX') !==false OR strpos($ep[$k]['Fracture'], 'IX') !==false OR strpos(strtolower($ep[$k]['Fracture']), 'gage') !==false OR strpos(strtoupper($ep[$k]['Fracture']), 'NR') !==false)?'':'checkValue_actif';
 
-
+  $ep[$k]['c_type_1_deci']=0;
+  $ep[$k]['c_type_2_deci']=0;
   if ($ep[$k]['c_unite']=='MPa') {
     $ep[$k]['max']=(!empty($ep[$k]['max']) || ($ep[$k]['max']=="0"))?$ep[$k]['max']:'';
     $ep[$k]['min']=(!empty($ep[$k]['min']) || ($ep[$k]['min']=="0"))?$ep[$k]['min']:'';
