@@ -736,8 +736,9 @@ ElseIf ($split['test_type_abbr']=="Str")	{
   $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(50));
 
   //separation impression par $nbPage eprouvettes
-  for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
+  for ($c=$nbPage+3; $c < ($col-1)+$nbPage ; $c+=$nbPage) {
     $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
+        $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
   }
 
 
