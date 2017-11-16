@@ -31,7 +31,7 @@
 			</div>
 
 
-			<div class="col-md-4" id="export" style="height:33%">
+			<div class="col-md-4" id="email" style="height:33%">
 				<acronym title="Send Email to Check the Split">
 					<a href="
 					mailto: touisse@metcutfrance.com;pcueff@metcutfrance.com;fthomas@metcutfrance.com
@@ -61,7 +61,7 @@
 
 
 
-			<div class="col-md-4" id="export" style="height:33%">
+			<div class="col-md-4" id="OT" style="height:33%">
 				<acronym title="Create OT">
 					<a href="controller/createOT-controller.php?id_tbljob=<?=	$split['id_tbljob']	?>">
 						<img type="image" src="img/create-txt.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
