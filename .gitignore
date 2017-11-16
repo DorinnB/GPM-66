@@ -20,6 +20,7 @@ $RECYCLE.BIN/
 
 
 lib/PHPExcel/files/
+temp/
 
 # =========================
 # Operating System Files
