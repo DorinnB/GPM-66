@@ -47,16 +47,28 @@ if(is_dir($dir_source)){
 
 */
 
-$cmd='C:/wamp/www/GPM/temp/AnnexePDF2.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
-echo $cmd.'</br>';
+$cmd='C:/wamp/www/GPM/lib/AnnexePDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
+//echo $cmd.'</br>';
 pclose(popen("start /B ". $cmd, "r"));
 
 //system("cmd /k C:/wamp/www/GPM/temp/test.bat");
 
 $filename = '../temp/Annexe_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
-while( !file_exists($filename) )  {
+
+$tempMax=0;
+while( !file_exists($filename) OR $tempMax>60)  {
     sleep(1);
+    $tempMax+=1;
 }
-print '<a href="'.$filename.'">download PDF</a>';
+
+
+header("Content-type:application/pdf");
+// It will be called downloaded.pdf
+header("Content-Disposition:attachment;filename=Annexe_".$split['customer']."-".$split['job']."-".$split['split'].".pdf");
+
+// The PDF source is in original.pdf
+readfile($filename);
+
+//print '<a href="'.$filename.'">download PDF</a>';
 
 ?>

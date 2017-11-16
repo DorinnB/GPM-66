@@ -680,7 +680,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
     $pvEssais->setCellValueByColumnAndRow($col, 47, $value['temps_essais']);
 
-    if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+    if (($value['d_checked']<=0 AND $value['n_fichier']>0) OR $value['flag_qualite']>0) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
       $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
     }
