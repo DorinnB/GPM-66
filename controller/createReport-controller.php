@@ -606,7 +606,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
     $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']);
 
-    $pvEssais->setCellValueByColumnAndRow($col, 16, str_replace(array("True","Tapered"), "", strtoupper($value['waveform'])));
+    $pvEssais->setCellValueByColumnAndRow($col, 16, str_replace(array("TRUE","TAPERED"), "", strtoupper($value['waveform'])));
 
     if (isset($value['denomination']['denomination_1'])) {
       $pvEssais->setCellValueByColumnAndRow($col, 17, $value['dim1']);
@@ -671,6 +671,11 @@ ElseIf ($split['test_type_abbr']=="Str")	{
     $pvEssais->setCellValueByColumnAndRow($col, 33, $value['c2_max_stress']);
     $pvEssais->setCellValueByColumnAndRow($col, 34, $value['c2_min_stress']);
     $pvEssais->setCellValueByColumnAndRow($col, 35, $value['c2_E_montant']);
+
+//PROBLEME VBA qui reecrivait pseudo stress sur l'emplacement min strain
+$value['c2_min_strain']=($value['c2_min_strain']>$value['c2_max_strain'])?$value['c2_max_strain']-$value['c2_delta_strain']:$value['c2_min_strain'];
+
+
     $pvEssais->setCellValueByColumnAndRow($col, 36, (isset($value['c2_max_strain'])?$value['c2_max_strain']-$value['c2_min_strain']:''));
     $pvEssais->setCellValueByColumnAndRow($col, 37, (isset($value['c2_max_strain'])?$value['c2_max_strain']-$value['c2_min_strain']-$value['c2_calc_inelastic_strain']:''));
     $pvEssais->setCellValueByColumnAndRow($col, 38, $value['c2_calc_inelastic_strain']);

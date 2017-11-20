@@ -29,6 +29,7 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'machines.machine'),
   Field::inst( 'eprouvettes.d_commentaire'),
   Field::inst( 'eprouvettes.q_commentaire'),
+  Field::inst( 'eprouvettes.valid'),
   Field::inst( 'eprouvettes.flag_qualite')
 //  Field::inst( 'techniciens.technicien')
 

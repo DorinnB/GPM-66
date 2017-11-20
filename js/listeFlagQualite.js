@@ -17,6 +17,10 @@ $(document).ready(function() {
       { label: "Frame",       name: "machines.machine", type:  "readonly" },
       { label: "Lab Comments",       name: "eprouvettes.d_commentaire", type: "textarea" },
       { label: "Quality Comment",       name: "eprouvettes.q_commentaire",  type: "textarea"},
+      { label: "Test Valid ?",       name: "eprouvettes.valid",
+        type: "radio",
+        options: [{ label: "Valid", value: 1 },{ label: "Void", value: 0 }]
+        },
       { label: "Reason:",              name: "incident_causes[].id_incident_cause",
           type: "select",
           multiple: true
@@ -60,6 +64,7 @@ $(document).ready(function() {
         { data: "eprouvettes.d_commentaire", width: "40%" },
         { data: "eprouvettes.flag_qualite" },
         { data: "eprouvettes.q_commentaire", width: "30%" },
+        { data: "eprouvettes.valid" },
         { data: "incident_causes", render: "[, ].incident_cause" }
       ],
       scrollY: '70vh',

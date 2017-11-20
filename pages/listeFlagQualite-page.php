@@ -18,6 +18,7 @@
 						<th><acronym title="">Lab Comm</acronym></th>
 						<th><acronym title="">Tech</acronym></th>
 						<th><acronym title="">Comm Qualite</acronym></th>
+						<th><acronym title="">Valid</acronym></th>
 						<th><acronym title="">Cause</acronym></th>
 					</tr>
 				</thead>
@@ -31,6 +32,7 @@
 						<th><acronym title="">Lab Comm</acronym></th>
 						<th><acronym title="">Tech</acronym></th>
 						<th><acronym title="">Comm Qualite</acronym></th>
+						<th><acronym title="">Valid</acronym></th>
 						<th><acronym title="">Cause</acronym></th>
 					</tr>
 				</tfoot>
