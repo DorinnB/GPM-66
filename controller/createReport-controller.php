@@ -196,7 +196,7 @@ If ($split['test_type_abbr']=="Loa")	{
       $pvEssais->setCellValueByColumnAndRow($col, 13, $value['c_frequence_STL']);
       $pvEssais->setCellValueByColumnAndRow($col, 14, $value['c_type_1_val']);
       $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']);
-    $pvEssais->setCellValueByColumnAndRow($col, 16, str_replace(array("True","Tapered"), "", strtoupper($value['waveform'])));
+    $pvEssais->setCellValueByColumnAndRow($col, 16, str_replace(array("True","Tapered"), "", strtoupper($value['c_waveform'])));
 
       if (isset($value['denomination']['denomination_1'])) {
         $pvEssais->setCellValueByColumnAndRow($col, 17, $value['dim1']);
@@ -315,7 +315,7 @@ If ($split['test_type_abbr']=="Loa")	{
       $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
       $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
       $pvEssais->setCellValueByColumnAndRow($c-3, 1, "No. DE TRAVAIL :");
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($c-3).(1))->getFont()->setBold(true);            
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($c-3).(1))->getFont()->setBold(true);
     }
 
 
