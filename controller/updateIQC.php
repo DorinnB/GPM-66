@@ -8,15 +8,7 @@ $db = new db(); // create a new object, class db()
 
 if (isset($_FILES['fileToUpload']['tmp_name']) AND $_FILES['fileToUpload']['tmp_name']!="")	{
 
-  if (isset($_POST['id_tbljob']) AND $_POST['id_tbljob']!="") {
 
-    $nomExplode = explode("-", $_FILES['fileToUpload']['name'] .'-a-a-a');
-    $nomExplode2 = explode(".", $nomExplode['1'] .'.a');
-    if ($nomExplode2['0']!=$_POST['id_tbljob']) {
-      echo 'This dimensionnal file don\'t match this split !';
-      exit();
-    }
-  }
 
 
 
@@ -52,6 +44,14 @@ if (isset($_FILES['fileToUpload']['tmp_name']) AND $_FILES['fileToUpload']['tmp_
   $highestRow = $sheet->getHighestRow();
 
 
+//check si l'id du fichier (A5) correspond a celui de GPM
+  if (isset($_POST['id_tbljob']) AND $_POST['id_tbljob']!="") {
+    $idJob=$sheet->getCell('A5')->getValue();
+    if ($idJob!=$_POST['id_tbljob']) {
+      echo 'This dimensionnal file don\'t match this split !';
+      exit();
+    }
+  }
 
 
 

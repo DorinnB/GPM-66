@@ -10,13 +10,14 @@ include '../models/split-model.php';
 // Création d'une instance
 $oSplit = new LstSplitModel($db,$_POST['id_tbljob']);
 
+
+
+$oSplit->updateCheck();
+
 //Update du statut des splits
 include '../models/statut-model.php';
 $oStatut = new StatutModel($db);
-	$oStatut->id_tbljob=$_POST['id_tbljob'];
-	$state=$oStatut->findStatut();
-
-  
-$oSplit->updateCheck();
+$oStatut->id_tbljob=$_POST['id_tbljob'];
+$state=$oStatut->findStatut();
 
 ?>
