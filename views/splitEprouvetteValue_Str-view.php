@@ -63,12 +63,12 @@
         <th><acronym title="suite">&sigma; min</acronym></th>
         <th><acronym title="suite">Cy half life</acronym></th>
         <th><acronym title="suite">E</acronym></th>
-        <th><acronym title="suite">&epsilon; max</acronym></th>
-        <th><acronym title="suite">&epsilon; min</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon;</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; e</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; p</acronym></th>
-        <th><acronym title="suite">&Delta;&epsilon; pm</acronym></th>
+        <th><acronym title="suite">&sigma; max</acronym></th>
+        <th><acronym title="suite">&sigma; min</acronym></th>
+        <th><acronym title="suite">&epsilon; Max</acronym></th>
+        <th><acronym title="suite">&epsilon; Min</acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Calculated">&Delta;&epsilon;<SUB>p</SUB></acronym></th>
+        <th><acronym title="Half Life Cycle Inelastic Strain Measured">&Delta;&epsilon;<SUB>pm</SUB></acronym></th>
         <th><acronym title="suite">Ni</acronym></th>
         <th><acronym title="suite">NF 75%</acronym></th>
       </tr>
