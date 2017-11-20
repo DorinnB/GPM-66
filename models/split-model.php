@@ -35,7 +35,7 @@ private $id;
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, tbljobs.id_rawData, rawData.name,
+          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, ST, tbljobs.id_rawData, rawData.name,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
             GROUP_CONCAT( DISTINCT round(c_temperature,0) ORDER BY c_temperature DESC SEPARATOR \' / \') as temperature,
             GROUP_CONCAT( DISTINCT round(c_frequence,1) ORDER BY c_frequence DESC SEPARATOR \' / \') as c_frequence,

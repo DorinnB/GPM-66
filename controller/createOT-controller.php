@@ -78,7 +78,7 @@ $objReader->setIncludeCharts(TRUE);
 
 
 
-
+//var_dump($split);
 
 
 
@@ -391,155 +391,6 @@ $objReader->setIncludeCharts(TRUE);
 
 
     }
-    ElseIf ($split['test_type_abbr']==".Res")	{
-
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Default.xlsx");
-
-      $page=$objPHPExcel->getSheetByName('SUBCONTRACTING');
-
-      $val2Xls = array(
-
-        'C4'=> $split['job'].'-'.$split['split'],
-        'F2'=> $split['test_type'],
-        'D11'=> $split['customer'].'-'.$split['job'],
-        'D12'=> $split['po_number'],
-        'D13'=> $split['matiere'],
-        'D14'=> $split['dessin'],
-
-        'D19'=> $split['DyT_expected'],
-        'D21'=> $split['tbljob_commentaire'],
-
-        'D24'=> $split['tbljob_instruction']
-      );
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $page->setCellValue($key, $value);
-      }
-
-
-      $row = 24; // 1-based index
-      $col = 0;
-
-      foreach ($ep as $key => $value) {
-        //copy des styles des colonnes
-        for ($col = 1; $col <= 7; $col++) {
-          $style = $page->getStyleByColumnAndRow($col, $row);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
-          $page->duplicateStyle($style, $dstCell);
-        }
-
-        $page->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-        $page->setCellValueByColumnAndRow(3, $row, $value['c_commentaire']);
-
-        $row++;
-      }
-
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
-      //  $page->getPageSetup()->setPrintArea('A1:'.$colString.($max_row_q+50));
-
-
-    }
-    ElseIf ($split['test_type_abbr']==".Resssss")	{
-
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Res.xlsx");
-
-      $page=$objPHPExcel->getSheetByName('Res Stress Req');
-
-      $val2Xls = array(
-
-        'C1'=> $split['job'],
-        'D3' => $jobcomplet,
-        'D4'=> $split['compagnie'],
-        'D5'=> $split['po_number'],
-        'D6'=> $split['DyT_expected'],
-        'A9'=> $split['tbljob_commentaire'],
-        'G3'=> $split['matiere'],
-        'G4'=> $split['dessin'],
-        'A12'=> $split['tbljob_instruction']
-      );
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $page->setCellValue($key, $value);
-      }
-
-
-      $row = 16; // 1-based index
-      $col = 0;
-
-      foreach ($ep as $key => $value) {
-        //copy des styles des colonnes
-        for ($col = 1; $col <= 7; $col++) {
-          $style = $page->getStyleByColumnAndRow($col, $row);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
-          $page->duplicateStyle($style, $dstCell);
-        }
-
-        $page->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-        $page->setCellValueByColumnAndRow(3, $row, $value['c_commentaire']);
-
-        $row++;
-      }
-
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
-      //  $page->getPageSetup()->setPrintArea('A1:'.$colString.($max_row_q+50));
-
-
-    }
-    ElseIf ($split['test_type_abbr']==".Ma")	{
-
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Ma.xlsx");
-
-      $page=$objPHPExcel->getSheetByName('MRI Req');
-
-      $val2Xls = array(
-
-        'C1'=> $split['job'],
-        'D3' => $jobcomplet,
-        'D4'=> $split['compagnie'],
-        'D5'=> $split['po_number'],
-        'D6'=> $split['DyT_expected'],
-        'A9'=> $split['tbljob_commentaire'],
-        'H4'=> $split['ref_matiere'],
-        'A14'=> $split['tbljob_instruction']
-      );
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $page->setCellValue($key, $value);
-      }
-
-
-      $row = 18; // 1-based index
-      $col = 0;
-
-      foreach ($ep as $key => $value) {
-        //copy des styles des colonnes
-        for ($col = 0; $col <= 9; $col++) {
-          $style = $page->getStyleByColumnAndRow($col, 18);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
-          $page->duplicateStyle($style, $dstCell);
-          $page->mergeCells("A".($row).":C".($row));
-          $page->mergeCells("F".($row).":H".($row));
-        }
-
-        $page->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-        $page->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-        $page->setCellValueByColumnAndRow(4, $row, $split['specification']);
-        $page->setCellValueByColumnAndRow(5, $row, $value['c_commentaire']);
-
-        $row++;
-      }
-
-      //zone d'impression
-      //$colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
-      $page->getPageSetup()->setPrintArea('A1:I'.($row-1));
-
-
-    }
     ElseIf ($split['test_type_abbr']=="IQC")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_IQC.xlsx");
@@ -621,6 +472,75 @@ $objReader->setIncludeCharts(TRUE);
       }
 
     }
+    ElseIf ($split['ST']=="1")	{
+
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Default.xlsx");
+
+      $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
+      $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
+
+      $val2Xls = array(
+        'B4'=> strtoupper(str_replace('.','',$split['test_type_abbr'])),
+        'C4'=> $split['job'].'-'.$split['split'],
+        'C5'=> date('Y-m-d'),
+        'C6'=> $split['entrepriseST'],
+        'C7'=> $split['lastnameST'].' '.$split['surnameST'],
+        'G2'=> strtoupper($split['test_type']),
+
+        'D12'=> $split['customer'].'-'.$split['job'],
+        'D13'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
+        'D14'=> $split['matiere'],
+        'D15'=> $split['dessin'],
+
+        'D20'=> $split['DyT_expected'],
+        'C21'=> $split['nbep'],
+        'C22'=> $split['specification'].' - '.$split['tbljob_instruction'],
+        'C23'=> $split['tbljob_commentaire']
+      );
+
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $pageEN->setCellValue($key, $value);
+        $pageFR->setCellValue($key, $value);
+      }
+
+
+      $row = 26; // 1-based index
+      $col = 0;
+
+      foreach ($ep as $key => $value) {
+        //copy des styles des colonnes
+        for ($col = 0; $col < 8; $col++) {
+          $style = $pageEN->getStyleByColumnAndRow($col, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+          $pageEN->duplicateStyle($style, $dstCell);
+
+          $style = $pageFR->getStyleByColumnAndRow($col, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+          $pageFR->duplicateStyle($style, $dstCell);
+        }
+
+        $pageEN->mergeCells('A'.$row.':C'.$row);
+        $pageEN->mergeCells('E'.$row.':H'.$row);
+        $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+        $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+        $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+
+        $pageFR->mergeCells('A'.$row.':C'.$row);
+        $pageFR->mergeCells('E'.$row.':H'.$row);
+        $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+        $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+        $pageFR->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+
+        $row++;
+      }
+
+      //zone d'impression
+      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+      $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+      $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+
+    }
 
     else {
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT INCONNU.xlsx");
@@ -634,11 +554,11 @@ $objReader->setIncludeCharts(TRUE);
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
     //$objWriter->setIncludeCharts(TRUE);
-    $objWriter->save('../lib/PHPExcel/files/OT-'.$_GET['id_tbljob'].'.xlsx');
+    $objWriter->save('../lib/PHPExcel/files/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx');
 
     // Redirect output to a client’s web browser (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="OT-'.$_GET['id_tbljob'].'.xlsx"');
+    header('Content-Disposition: attachment;filename="OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx"');
     header('Cache-Control: max-age=0');
     // If you're serving to IE 9, then the following may be needed
     header('Cache-Control: max-age=1');

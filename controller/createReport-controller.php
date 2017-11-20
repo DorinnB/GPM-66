@@ -125,18 +125,20 @@ If ($split['test_type_abbr']=="Loa")	{
     $pvEssais=$objPHPExcel->getSheetByName('PV');
     $courbes=$objPHPExcel->getSheetByName('Courbes');
 
+    $specifEssais = ($enTete->getCellByColumnAndRow(10, 19)->getValue()).$split['specification'].($enTete->getCellByColumnAndRow(11, 19)->getValue());
     $val2Xls = array(
 
       'J5' => $jobcomplet,
       'J9'=> $split['po_number'],
-      'C5'=> $split['genre'].' '.$split['lastname'].' '.$split['surname'],
-      'C6'=> $split['adresse'],
+      'C5'=> $split['lastname'].' '.$split['surname'],
+      'C6'=> $split['compagnie']."\n".$split['adresse'],
+      'J7'=> date("Y-m-d"),
 
       'E16'=> $split['ref_matiere'],
 
       'E17'=> $split['info_jobs_instruction'],
 
-      'E23'=> $split['specification'],
+      'E19'=> $specifEssais,
       'E26'=> $split['dessin'],
 
       'E34'=> $split['temperature'].' °C',
@@ -253,7 +255,7 @@ If ($split['test_type_abbr']=="Loa")	{
       $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
       $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
       $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
-      $pvEssais->setCellValueByColumnAndRow($col, 47, $value['temps_essais']);
+      $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
       if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
         $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
@@ -311,6 +313,7 @@ If ($split['test_type_abbr']=="Loa")	{
     //separation impression par $nbPage eprouvettes
     for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
       $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
+      $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
     }
 
 
@@ -531,18 +534,20 @@ ElseIf ($split['test_type_abbr']=="Str")	{
   $pvEssais=$objPHPExcel->getSheetByName('PV');
   $courbes=$objPHPExcel->getSheetByName('Courbes');
 
+  $specifEssais = ($enTete->getCellByColumnAndRow(10, 19)->getValue()).$split['specification'].($enTete->getCellByColumnAndRow(11, 19)->getValue());
+
   $val2Xls = array(
 
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
     'C5'=> $split['genre'].' '.$split['lastname'].' '.$split['surname'],
-    'C6'=> $split['adresse'],
-
+    'C6'=> $split['compagnie']."\n".$split['adresse'],
+    'J7'=> date("Y-m-d"),
     'E16'=> $split['ref_matiere'],
 
     'E17'=> $split['info_jobs_instruction'],
+    'E19'=> $specifEssais,
 
-    'E23'=> $split['specification'],
     'E26'=> $split['dessin'],
 
     'E34'=> $split['temperature'].' °C',
