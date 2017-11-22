@@ -453,7 +453,7 @@ class EprouvetteModel
       IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock,
       E_RT, c1_E_montant, c1_max_strain, c1_min_strain, c1_max_stress, c1_min_stress, c2_cycle, c2_E_montant, c2_max_stress, c2_min_stress, c2_max_strain, c2_min_strain, c2_calc_inelastic_strain, c2_meas_inelastic_strain, Ni, Nf75, dilatation,
       c2_delta_strain, c2_strain_e,
-      dim1, dim2, dim3,
+      dim1, dim2, dim3, gage,
       type_chauffage, chauffage,
       cell_load_gamme, cell_displacement_gamme,
       ind_temps_top.ind_temp as ind_temp_top,
@@ -678,7 +678,7 @@ class EprouvetteModel
       WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
         AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
         AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-        AND ((cycle_final IS NOT NULL AND d_checked>0) OR (cycle_estime IS NOT NULL) OR (runout is not null)) 
+        AND ((cycle_final IS NOT NULL AND d_checked>0) OR (cycle_estime IS NOT NULL) OR (runout is not null))
       GROUP by id_job, c_type_1_val, c_type_2_val';
 
       /*

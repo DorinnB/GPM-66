@@ -319,7 +319,7 @@ $style_gray = array(
         'B13' => $essai['machine'],
         'B15' => '40001',
         'B16' => $essai['enregistreur'],
-        'B17' => $essai['extensometre'],        
+        'B17' => $essai['extensometre'],
         'F13' => $compresseur,
         'F17' => $ind_temp,
         'F15' => $coil,
@@ -423,7 +423,7 @@ $style_gray = array(
 
 
     }
-    ElseIf ($essai['test_type_abbr']=="Str")	{
+    ElseIf ($essai['test_type_abbr']=="Str"  OR $essai['test_type_abbr']=="IF")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT Str.xlsx");
 
