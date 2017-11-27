@@ -134,7 +134,7 @@
           <td <?= $epHisto2[$k]['machine'] ?>><?= $ep[$k]['machine'] ?></td>
           <td <?= $epHisto2[$k]['date'] ?>><?= $ep[$k]['date'] ?></td>
           <td <?= $epHisto2[$k]['waveform'] ?>><?= $ep[$k]['waveform'] ?></td>
-          <td class="chartCycle decimal0 <?= $ep[$k]['Cycle_min_nonAtteint']  ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
+          <td class="chartCycle decimal0 <?= $ep[$k]['Cycle_min_nonAtteint']  ?> Cycle_final_valid<?= $ep[$k]['Cycle_final_valid'] ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
           <td <?= $epHisto2[$k]['Rupture'] ?>><?= $ep[$k]['Rupture'] ?></td>
           <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>"<?= $epHisto2[$k]['Fracture'] ?>><?= $ep[$k]['Fracture'] ?></td>
           <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:$ep[$k]['temps_essais_calcule']) ?></td>

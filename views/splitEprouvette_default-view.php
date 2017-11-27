@@ -134,7 +134,7 @@
           <td><?= $ep[$k]['machine'] ?></td>
           <td><?= $ep[$k]['date'] ?></td>
           <td><?= $ep[$k]['waveform'] ?></td>
-          <td><?= $ep[$k]['Cycle_final'] ?></td>
+          <td class="Cycle_final_valid<?= $ep[$k]['Cycle_final_valid'] ?>"><?= $ep[$k]['Cycle_final'] ?></td>
           <td><?= $ep[$k]['Rupture'] ?></td>
           <td><?= $ep[$k]['Fracture'] ?></td>
 <td style=" white-space: pre;"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:'<i style="font-size : 75%;">'.$ep[$k]['temps_essais_calcule'].'</i>') ?></td>
