@@ -35,9 +35,9 @@ class LstEtatMachines
       $req="SELECT
         max(machine) as machine,
         sum(cumul)/60 as cumul,
-        SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage'),cumul,0))/60 as cycling,
+        SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable'),cumul,0))/60 as cycling,
         SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
-        SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','Switchable','STL','Stop','Straightening','Report','Analysis'),cumul,0))/60 as noncycling,
+        SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','STL','Stop','Straightening','Report','Analysis'),cumul,0))/60 as noncycling,
         SUM(if(etatmachine in ('Send'),cumul,0))/60 as send,
         SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52),cumul,0))/60 as noTest,
         SUM(if(etatmachine='Send' AND etape in (30,47),cumul,0))/60 as waitingCustomer,

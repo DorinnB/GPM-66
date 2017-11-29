@@ -1,53 +1,222 @@
 $("#myChart").click(function(e) {
 
-  endLevel_X=  [];
-  endLevel_Y=  [];
+
   chartFile=  [];
+
+
   //pour chaque ligne du tableau eprouvettes
   $('#table_ep').find('tr.chartTR').each( function (i) {
     //on cherche ceux ou il y a un nombre de cycle (en otant les espaces)
-    if ($(this).find('.chartCycle').html().replace(/ /g,'')>0) {
-      endLevel_X.push($(this).find('.chartCycle').html().replace(/ /g,''));
-      endLevel_Y.push($(this).find('.chartNiveau').html().replace(/ /g,''));
+    if ($(this).find('.chartFile').html().replace(/ /g,'')>0) {
       chartFile.push('File : '+$(this).find('.chartFile').html().replace(/ /g,''));
     }
   });
 
-  console.log(endLevel_X);
-  console.log(endLevel_Y);
+
   console.log(chartFile);
 
 
 
-    var trace1 = {
-      x: endLevel_X,
-      y: endLevel_Y,
+  //Graph Dimensionel 1
+  if ($('.chartIQCdim1')[0]) {
+    chartFile=  [];
+    endLevel_IQCdim1_Y=  [];
+    //pour chaque ligne du tableau eprouvettes
+    $('#table_ep').find('tr.chartTR').each( function (i) {
+      //on cherche ceux ou il y a un dimensionnel (en otant les espaces)
+      chartFile.push('Specimen : '+$(this).find('.chartFile').html().replace(/ /g,''));
+      endLevel_IQCdim1_Y.push($(this).find('.chartIQCdim1').html().replace(/ /g,''));
+    });
+
+    var traceIQCdim1 = {
+      y: endLevel_IQCdim1_Y,
       text: chartFile,
       mode: 'markers'
     };
 
-    var trace2 = {
-      x: [2, 3, 4, 5],
-      y: [16, 5, 11, 10],
-      mode: 'lines'
+    var dataIQCdim1 = [ traceIQCdim1 ];
+
+    var layoutIQCdim1 = {
+      title:'Dimensional',
+      xaxis: {
+        autorange: true,
+        showgrid: false,
+        zeroline: false,
+        showline: false,
+        autotick: true,
+        ticks: '',
+        showticklabels: false
+      },
+      yaxis: {title: 'mm'}
     };
 
-    var trace3 = {
-      x: [1, 2, 3, 4],
-      y: [12, 9, 15, 12],
-      mode: 'lines+markers'
+    if ($( "#chartIQCdim1" ).length == 0) {
+      $( "#chart" ).append( "<div class='item active'><div id='chartIQCdim1' class='chart'></div></div>" );
+    }
+
+    Plotly.newPlot('chartIQCdim1', dataIQCdim1, layoutIQCdim1);
+  }
+
+    //Graph Dimensionel 2
+    if ($('.chartIQCdim2')[0]) {
+      chartFile=  [];
+      endLevel_IQCdim2_Y=  [];
+      //pour chaque ligne du tableau eprouvettes
+      $('#table_ep').find('tr.chartTR').each( function (i) {
+        //on cherche ceux ou il y a un dimensionnel (en otant les espaces)
+        chartFile.push('Specimen : '+$(this).find('.chartFile').html().replace(/ /g,''));
+        endLevel_IQCdim2_Y.push($(this).find('.chartIQCdim2').html().replace(/ /g,''));
+      });
+
+      var traceIQCdim2 = {
+        y: endLevel_IQCdim2_Y,
+        text: chartFile,
+        mode: 'markers'
+      };
+
+      var dataIQCdim2 = [ traceIQCdim2 ];
+
+      var layoutIQCdim2 = {
+        title:'Dimensional',
+        xaxis: {
+          autorange: true,
+          showgrid: false,
+          zeroline: false,
+          showline: false,
+          autotick: true,
+          ticks: '',
+          showticklabels: false
+        },
+        yaxis: {title: 'mm'}
+      };
+
+      if ($( "#chartIQCdim2" ).length == 0) {
+        $( "#chart" ).append( "<div class='item'><div id='chartIQCdim2' class='chart'></div></div>" );
+      }
+
+      Plotly.newPlot('chartIQCdim2', dataIQCdim2, layoutIQCdim2);
+    }
+
+    //Graph Dimensionel 2
+    if ($('.chartIQCdim3')[0]) {
+      chartFile=  [];
+      endLevel_IQCdim3_Y=  [];
+      //pour chaque ligne du tableau eprouvettes
+      $('#table_ep').find('tr.chartTR').each( function (i) {
+        //on cherche ceux ou il y a un dimensionnel (en otant les espaces)
+        chartFile.push('Specimen : '+$(this).find('.chartFile').html().replace(/ /g,''));
+        endLevel_IQCdim3_Y.push($(this).find('.chartIQCdim3').html().replace(/ /g,''));
+      });
+
+      var traceIQCdim3 = {
+        y: endLevel_IQCdim3_Y,
+        text: chartFile,
+        mode: 'markers'
+      };
+
+      var dataIQCdim3 = [ traceIQCdim3 ];
+
+      var layoutIQCdim3 = {
+        title:'Dimensional',
+        xaxis: {
+          autorange: true,
+          showgrid: false,
+          zeroline: false,
+          showline: false,
+          autotick: true,
+          ticks: '',
+          showticklabels: false
+        },
+        yaxis: {title: 'mm'}
+      };
+
+      if ($( "#chartIQCdim3" ).length == 0) {
+        $( "#chart" ).append( "<div class='item active'><div id='chartIQCdim3' class='chart'></div></div>" );
+      }
+
+      Plotly.newPlot('chartIQCdim3', dataIQCdim3, layoutIQCdim3);
+    }
+
+
+
+  //Graph Nb cycle
+  if ($('.chartNiveau')[0]) {
+
+    endLevel_Cycle_X=  [];
+    endLevel_Cycle_Y=  [];
+    //pour chaque ligne du tableau eprouvettes
+    $('#table_ep').find('tr.chartTR').each( function (i) {
+      //on cherche ceux ou il y a un nombre de cycle (en otant les espaces)
+      endLevel_Cycle_X.push($(this).find('.chartCycle').html().replace(/ /g,''));
+      endLevel_Cycle_Y.push($(this).find('.chartNiveau').html().replace(/ /g,''));
+    });
+
+    var traceCycle = {
+      x: endLevel_Cycle_X,
+      y: endLevel_Cycle_Y,
+      text: chartFile,
+      mode: 'markers'
     };
 
-  //  var data = [ trace1, trace2, trace3 ];
-    var data = [ trace1 ];
+    var dataCycle = [ traceCycle ];
 
-    var layout = {
+    var layoutCycle = {
       title:'Cycle vs Requirement Endlevel',
       xaxis: {title: 'Cycle', type: 'log'},
       yaxis: {title: $('#ChartTitreCons').attr('data-titre')},
     };
 
-    Plotly.newPlot('chart2', data, layout);
+    if ($( "#chartCycle" ).length == 0) {
+      $( "#chart" ).append( "<div class='item active'><div id='chartCycle' class='chart'></div></div>" );
+    }
+
+    Plotly.newPlot('chartCycle', dataCycle, layoutCycle);
+  }
 
 
-  });
+
+  //Graph Module ambiant
+  if ($('.chartErt')[0]) {
+
+    endLevel_Ert_X=  [];
+    endLevel_Ert_Y=  [];
+    //pour chaque ligne du tableau eprouvettes
+    $('#table_ep').find('tr.chartTR').each( function (i) {
+      //on cherche ceux ou il y a un nombre de cycle (en otant les espaces)
+      endLevel_Ert_X.push($(this).find('.chartFile').html().replace(/ /g,''));
+      endLevel_Ert_Y.push($(this).find('.chartErt').html().replace(/ /g,''));
+    });
+
+    var traceErt = {
+      x: endLevel_Ert_Y,
+      y: endLevel_Ert_Y,
+      text: chartFile,
+      mode: 'markers'
+    };
+
+    var dataErt = [ traceErt ];
+
+    var layoutErt = {
+      title:'Modulus',
+      xaxis: {title: 'Modulus GPa'}
+    };
+
+    if ($( "#chartErt" ).length == 0) {
+      $( "#chart" ).append( "<div class='item'><div id='chartErt' class='chart'></div></div>" );
+    }
+
+    Plotly.newPlot('chartErt', dataErt, layoutErt);
+  }
+
+
+  var trace3 = {
+    x: [1, 2, 3, 4],
+    y: [12, 9, 15, 12],
+    mode: 'lines+markers'
+  };
+
+  //  var data = [ trace1, trace2, trace3 ];
+
+
+
+});

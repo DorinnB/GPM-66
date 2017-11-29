@@ -51,13 +51,13 @@
 
     <tbody>
       <?php for($k=0;$k < count($ep);$k++): ?>
-        <tr>
+        <tr class="chartTR">
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
-          <td class="dispo selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
+          <td class="dispo selectable chartFile" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?></td>
           <?php for($i=1;$i <= count($dimDenomination);$i++): ?>
-            <td <?= $epHisto2[$k]['dim'.$i] ?>><?= $ep[$k]['dim'.$i]  ?></td>
+            <td class="chartIQC<?=  'dim'.$i  ?>" <?= $epHisto2[$k]['dim'.$i] ?>><?= $ep[$k]['dim'.$i]  ?></td>
           <?php  endfor  ?>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['c_commentaire'] !=""):  ?>

@@ -1,6 +1,6 @@
 
 <style>
-#chart2{
+.chart{
 max-width: 80%;
 margin: 0 10%;
 min-height: 400px;
@@ -16,10 +16,8 @@ min-height: 400px;
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-          <div class="item active">
-            <div id="chart2"></div>
-          </div>
+        <div id="chart" class="carousel-inner">
+
         </div>
 
         <!-- Controls -->

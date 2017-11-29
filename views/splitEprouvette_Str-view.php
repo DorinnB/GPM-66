@@ -184,7 +184,7 @@
 
           <td class="decimal3" <?= $epHisto2[$k]['dilatation'] ?>><?= $ep[$k]['dilatation'] ?></td>
 
-          <td class="checkValue_E_RT decimal1" <?= $epHisto2[$k]['E_RT'] ?>><?= $ep[$k]['E_RT'] ?></td>
+          <td class="checkValue_E_RT decimal1 chartErt" <?= $epHisto2[$k]['E_RT'] ?>><?= $ep[$k]['E_RT'] ?></td>
 
           <td class="checkValue_c1_E_montant decimal1" <?= $epHisto2[$k]['c1_E_montant'] ?>><?= $ep[$k]['c1_E_montant'] ?></td>
           <td class="checkValue_c1_max_stress decimal1" <?= $epHisto2[$k]['c1_max_stress'] ?>><?= $ep[$k]['c1_max_stress'] ?></td>
