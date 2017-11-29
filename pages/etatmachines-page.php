@@ -19,15 +19,24 @@
 	$traceY5= "";
 	$traceY6= "";
 
-	foreach ($oEtatMachines->getAllEtatMachines_machine() as $row)	{
-		$traceX .= ',"'.$row['machine'].' '.date("m-Y", strtotime($row['periode'])).'"';
+	foreach ($oEtatMachines->getAllEtatMachines_machine((isset($_GET['filtre'])?$_GET['filtre']:'')) as $row)	{
 
-		$traceY1 .=','.$row['cycling'];
-		$traceY2 .=','.$row['rampToTemp'];
-		$traceY3 .=','.$row['noncycling'];
-		$traceY4 .=','.$row['noTest'];
-		$traceY5 .=','.$row['waitingCustomer'];
-		$traceY6 .=','.$row['waitingLab'];
+		if (isset($_GET['filtre']) AND $_GET['filtre']=="Year") {
+			$traceX .=',"'.date("Y", strtotime($row['periode'])).'"';
+		}
+		elseif (isset($_GET['filtre']) AND $_GET['filtre']=="Month") {
+			$traceX .=',"'.date("M-Y", strtotime($row['periode'])).'"';
+		}
+		else {
+		$traceX .=',"'.$row['machine'].'"';
+		}
+
+		$traceY1 .=','.($row['cycling']);
+		$traceY2 .=','.($row['rampToTemp']);
+		$traceY3 .=','.($row['noncycling']);
+		$traceY4 .=','.($row['noTest']);
+		$traceY5 .=','.($row['waitingCustomer']);
+		$traceY6 .=','.($row['waitingLab']);
 	}
 ?>
 
@@ -83,7 +92,14 @@ var trace6 = {
 
 var data = [trace1, trace2, trace3, trace4, trace5, trace6];
 
-var layout = {barmode: 'stack'};
+var layout = {
+	barmode: 'stack',
+	title:'Frame Occupancy',
+	xaxis: {title: '<?=	isset($_GET['filtre'])?$_GET['filtre']:'Frame'	?>',
+tickformat :".0f"
+},
+	yaxis: {title: 'Occupancy Time (hours)'},
+};
 
 Plotly.newPlot('chartEtatMachine', data, layout);
 

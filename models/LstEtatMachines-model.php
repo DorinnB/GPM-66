@@ -19,9 +19,21 @@ class LstEtatMachines
       return $this->db->getAll($req);
     }
 
-    public function getAllEtatMachines_machine() {
+    public function getAllEtatMachines_machine($filtre="Frame") {
+
+      if ($filtre=="Year") {
+        $filtered='YEAR(periode)';
+      }
+      if ($filtre=="Month") {
+        $filtered='MONTH(periode)';
+      }
+      else {
+        $filtered='machine';
+      }
+
+
       $req="SELECT
-        machine,
+        max(machine) as machine,
         sum(cumul)/60 as cumul,
         SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage'),cumul,0))/60 as cycling,
         SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
@@ -39,11 +51,11 @@ class LstEtatMachines
           LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
           LEFT JOIN statuts on statuts.id_statut=etatmachine_machines.id_statut_temp
 
-        group by machine, periode;";
+        group by ".$filtered." ;";
       return $this->db->getAll($req);
     }
 
-    public function getAllEtatMachines_split() {
+    public function getAllEtatMachines_split($id_tbljob) {
       $req="SELECT
           machine,
           sum(cumul)/60 as cumul,
@@ -62,8 +74,8 @@ class LstEtatMachines
           LEFT JOIN tbljobs on tbljobs.id_tbljob=etatmachine_machines.id_tbljob
           LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
           LEFT JOIN statuts on statuts.id_statut=etatmachine_machines.id_statut_temp
-
-        group by machine;";
+        WHERE id_job='.$this->bd->quote($id_tbljob).'
+        group by id_tbljob;";
       return $this->db->getAll($req);
     }
 
