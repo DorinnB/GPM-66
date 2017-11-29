@@ -5,8 +5,10 @@
 #page-content-wrapper .btn-group  {
   color:black;
 }
-}
 
+.modebar, .modebar-group  {
+    background-color: white !important;
+}
 .form-group input, .form-group select{
 color:black;
 border-radius: 10px;
