@@ -21,7 +21,8 @@
 			</div>
 		</div>
 	</div>
-
+	<div id='export-menu'>
+	</div>
 	<?php include('controller/splitChart-controller.php'); ?>
 </div>
 <script type="text/javascript" src="js/split.js"></script>

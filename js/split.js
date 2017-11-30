@@ -133,6 +133,24 @@ $("#flecheDownJob").click(function(e) {
   });
 });
 
+
+$("#export").contextmenu(function (event) {
+
+    // Avoid the real one
+    event.preventDefault();
+
+    // Show contextmenu
+    $("#export-menu").finish().toggle(100).
+
+    // In the right position (the mouse)
+    css({
+        top: (event.pageY - 210) + "px",
+        left: (event.pageX -150)+ "px"
+    });
+        $('#export-menu').load('controller/report-icone-controller.php?id_tbljob='+$('#id_tbljob').val());
+});
+
+
 $("#save").click(function() {
   save();
 });
