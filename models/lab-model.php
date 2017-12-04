@@ -75,6 +75,8 @@ class LabModel
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
         LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
         LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
         LEFT JOIN postes ON postes.id_poste=prestart.id_poste
@@ -82,6 +84,7 @@ class LabModel
 
         WHERE check_rupture<=0
           AND currentBlock="Send"
+          AND etape<80
 
         order by machine';
         //echo $req;
@@ -94,6 +97,8 @@ class LabModel
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
         LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
         LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
         LEFT JOIN postes ON postes.id_poste=prestart.id_poste
@@ -103,6 +108,7 @@ class LabModel
           AND currentBlock="Send"
           AND n_fichier>48150
           AND n_essai !=1
+          AND etape<80
 
         order by machine';
         //echo $req;
