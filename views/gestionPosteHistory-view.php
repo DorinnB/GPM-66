@@ -38,7 +38,7 @@
         <th><acronym title='Temperature Recorder Bot'>Bot</acronym></th>
         <th><acronym title='Compressor'>C.</acronym></th>
         <th><acronym title='Station'>S.</acronym></th>
-
+        <th><acronym title='Technicien'>Tech.</acronym></th>
 
       </tr>
     </thead>
@@ -80,7 +80,7 @@
         <th><acronym title='Temperature Recorder Bot'>Bot</acronym></th>
         <th><acronym title='Compressor'>C.</acronym></th>
         <th><acronym title='Station'>S.</acronym></th>
-
+        <th><acronym title='Technicien'>Tech.</acronym></th>
 
       </tr>
     </tfoot>
@@ -142,7 +142,7 @@
           <td><?= $history[$k]['ind_temp_bot'] ?></td>
           <td><?= $history[$k]['compresseur'] ?></td>
           <td><?= $history[$k]['poste'] ?></td>
-
+          <td><?= $history[$k]['id_operateur'] ?></td>
         </tr>
       <?php endfor ?>
     </tbody>

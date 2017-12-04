@@ -55,7 +55,7 @@ class PosteModel
           cell_displacement_serial, cell_load_serial,
           cartouche_stroke, cartouche_load, cartouche_strain, enregistreur, extensometre, o1.outillage as outillage_top, o2.outillage as outillage_bot, chauffage, i1.ind_temp as ind_temp_top, i2.ind_temp as ind_temp_strap, i3.ind_temp as ind_temp_bot,  IF( compresseur = 1,  "&#10004;",  "" ) as compresseur, postes.date,
           Disp_P,	Disp_i,	Disp_D,	Disp_Conv,	Disp_Sens,	Load_P,	Load_i,	Load_D,	Load_Conv,	Load_Sens,	Strain_P,	Strain_i,	Strain_D,	Strain_Conv,	Strain_Sens,
-          poste_commentaire, poste_reason
+          poste_commentaire, poste_reason, id_operateur
 				FROM postes
 				LEFT JOIN enregistreurs ON enregistreurs.id_enregistreur=postes.id_enregistreur
         LEFT JOIN cell_displacement ON cell_displacement.id_cell_displacement=postes.id_cell_displacement
