@@ -28,6 +28,8 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.c_frequence_STL')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.c_type_1_val')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.c_type_2_val')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.c_type_3_val')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.c_type_4_val')->setFormatter( 'Format::nullEmpty' ),    
   Field::inst( 'eprouvettes.Cycle_min')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.runout')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.cycle_estime')->setFormatter( 'Format::nullEmpty' ),

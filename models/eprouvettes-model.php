@@ -24,7 +24,7 @@ public function __set($property,$value) {
 
 		$req = 'SELECT eprouvettes.id_eprouvette,
           master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) as c_temp, c_frequence, c_cycle_STL, c_frequence_STL,
-          c_type_1_val, c_type_2_val, c1.consigne_type as c_1_type, c2.consigne_type as c_2_type, c_unite,
+          c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val, c1.consigne_type as c_1_type, c2.consigne_type as c_2_type, c_unite,
            flag_qualite,
            Cycle_min, runout, cycle_estime, c_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3, dessins.type, id_dessin_type,
            d_commentaire, young,

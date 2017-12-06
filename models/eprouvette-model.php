@@ -63,7 +63,7 @@ class EprouvetteModel
 
     $req = 'SELECT eprouvettes.id_eprouvette,
     master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
-    c_type_1_val, c_type_2_val,
+    c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val,
     Cycle_min, runout, cycle_estime, c_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3,
     d_commentaire, check_rupture, flag_qualite, checked,
     n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Rupture, Fracture,
@@ -439,7 +439,7 @@ class EprouvetteModel
 
       $req = 'SELECT eprouvettes.id_eprouvette,
       master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
-      c_type_1_val, c_type_2_val, c1.consigne_type AS c_1_type, c2.consigne_type AS c_2_type, Lo, c_unite,
+      c_type_1_val, c_type_2_val,  c_type_3_val, c_type_4_val, c_type_5_val, c1.consigne_type AS c_1_type, c2.consigne_type AS c_2_type, Lo, c_unite,
       Cycle_min, runout, cycle_estime, c_commentaire, q_commentaire, c_checked, d_checked, type,id_dessin_type, dessin, ref_matiere, enregistreur, extensometre,
       cartouche_load, cartouche_stroke, cartouche_strain, t1.technicien AS operateur, t2.technicien AS controleur,
       n_essai, n_fichier, machine, enregistrementessais.date,
