@@ -171,7 +171,7 @@ class LstJobsModel
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
-          po_number, instruction
+          po_number, instruction, specification
 				FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
@@ -187,11 +187,30 @@ class LstJobsModel
         return $this->db->getAll($req);
     }
 
+    public function searchSpecification($searchInfo="") {
+		$req = 'SELECT id_tbljob,
+					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					job, split, test_type_abbr,
+          po_number, instruction, specification
+				FROM eprouvettes
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+          LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+				  LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+				  LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+				  LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+          LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+				WHERE tbljob_actif=1 AND eprouvette_actif=1
+        AND specification LIKE '.$this->db->quote('%'.$searchInfo.'%').'
+        GROUP BY tbljobs.id_tbljob
+				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+        ';
+        return $this->db->getAll($req);
+    }
     public function searchPO($searchInfo="") {
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
-          po_number, instruction
+          po_number, instruction, specification
 				FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
@@ -211,7 +230,7 @@ class LstJobsModel
 		$req = 'SELECT id_tbljob,
 					tbljobs.id_statut, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
-          po_number, instruction
+          po_number, instruction, specification
 				FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
           LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
