@@ -17,7 +17,7 @@
         <th><acronym title="Lab Level 1">1-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Lab Level 2">2-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
 
-        <th><acronym title="Estimated Time (h)">Tps Est.</acronym></th>
+        <th><acronym title="Estimated Time (h)">Est. (h)</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
@@ -91,11 +91,11 @@
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons3']  ?>" <?= $epHisto2[$k]['c_type_3_val'] ?>><?= $ep[$k]['c_type_3_val'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons4']  ?>" <?= $epHisto2[$k]['c_type_4_val'] ?>><?= $ep[$k]['c_type_4_val'] ?></td>
-          <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= $ep[$k]['runout'] ?></td>
+          <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= $ep[$k]['runout']/3600 ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> chartMax"><?= $ep[$k]['max'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?>"><?= $ep[$k]['min'] ?></td>
 
-          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" ><?= $ep[$k]['cycle_estime'] ?></td>
+          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" ><?= $ep[$k]['cycle_estime']/3600 ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['comm'].$ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['comm'].$ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['comm'].$ep[$k]['c_commentaire'] !=""):  ?>
               <div class="head hide">Order Comment</div>
@@ -137,7 +137,7 @@
           <td <?= $epHisto2[$k]['machine'] ?>><?= $ep[$k]['machine'] ?></td>
           <td <?= $epHisto2[$k]['date'] ?>><?= $ep[$k]['date'] ?></td>
 
-          <td class="chartCycle decimal0 <?= $ep[$k]['Cycle_min_nonAtteint']  ?> Cycle_final_valid<?= $ep[$k]['Cycle_final_valid'] ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
+          <td class="chartCycle decimal1 <?= $ep[$k]['Cycle_min_nonAtteint']  ?> Cycle_final_valid<?= $ep[$k]['Cycle_final_valid'] ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
           <td <?= $epHisto2[$k]['Rupture'] ?>><?= $ep[$k]['Rupture'] ?></td>
           <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>"<?= $epHisto2[$k]['Fracture'] ?>><?= $ep[$k]['Fracture'] ?></td>
           <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:$ep[$k]['temps_essais_calcule']) ?></td>

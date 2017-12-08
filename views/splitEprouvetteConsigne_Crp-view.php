@@ -12,8 +12,8 @@
         <th>1-<?= $split['cons2'] ?></th>
         <th>2-Level</th>
         <th>2-<?= $split['cons2'] ?></th>
-        <th>Runout (h)</th>
-        <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
+        <th>Runout (s)</th>
+        <th><acronym title="Estimated Duration">Est. (s)</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
 
         <th><acronym title="Test Number">Test</acronym></th>

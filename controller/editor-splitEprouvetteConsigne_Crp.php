@@ -68,7 +68,7 @@ Editor::inst( $db, 'eprouvettes' )
     ->on( 'preEdit', function ( $editor, $values ) {
         $editor
             ->field( 'eprouvettes.c_frequence' )
-            ->setValue( 1/3600 );
+            ->setValue( 1 );
     } )
 
   ->process($_POST)

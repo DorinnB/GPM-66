@@ -11,13 +11,6 @@
 
 
     <div class="form-group">
-      <label for="tbljob_frequence">Frequency :</label>
-      <input type="text" class="form-control" name="tbljob_frequence" value="<?= $split['tbljob_frequence'] ?>">
-    </div>
-
-
-
-    <div class="form-group">
       <label for="Units">Units :</label>
       <select class="form-control" name="c_unite">
         <option value="%" <?=  ($split['c_unite']=="%")?'selected':'' ?>>%</option>

@@ -220,7 +220,7 @@ for($k=0;$k < count($ep);$k++)	{
 
   }
 
-
+$ep[$k]['Cycle_final']=$ep[$k]['Cycle_final']/3600;
 
   //Formatage des données
 

@@ -9,10 +9,6 @@
     </p>
 
     <p class="title">
-      <span class="name">Frequency :</span>
-      <span class="value"><?= $tbljobHisto2['tbljob_frequence'] ?> <?= isset($split['tbljob_frequence'])?$split['tbljob_frequence']:"" ?></span>
-    </p>
-    <p class="title">
       <span class="name">Temperature :</span>
       <span class="value"><?= $splitEp['temperature'] ?></span>
     </p>
