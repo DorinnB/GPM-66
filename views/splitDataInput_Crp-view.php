@@ -16,16 +16,6 @@
     </div>
 
 
-    <div class="form-group">
-      <label for="Consigne 2">Ramp System :</label>
-      <select class="form-control" name="c_type_2">
-        <?php foreach ($Consigne as $row): ?>
-          <?php if (substr($row['consigne_type'],0,4)=="Ramp") :  ?>
-            <option value="<?= $row['id_consigne_type'] ?>" <?=  ($row['id_consigne_type']==$split['id_c_type_2'])?'selected':''    ?>><?= $row['consigne_type'] ?></option>
-          <?php endif   ?>
-        <?php endforeach ?>
-      </select>
-    </div>
 
     <div class="form-group">
       <label for="Units">Units :</label>

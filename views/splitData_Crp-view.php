@@ -34,7 +34,7 @@
     </p>
     <p class="title">
       <span class="name">Cust Order :</span>
-      <span class="value"><?= 'Level & '.$split['c_type_2'].' ('. $split['c_unite'].')'  ?></span>
+      <span class="value"><?= 'Level ('. $split['c_unite'].') & Rampe (s)' ?></span>
     </p>
     <p class="title">
       <span class="name">Raw Data :</span>

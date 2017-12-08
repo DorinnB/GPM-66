@@ -61,8 +61,16 @@ if ($essai['name'] == 'GE' ) {
   $essai['name'] = 'None';
 }
 else {
-    $essai['GE_Type_Job'] = 'No';
+  $essai['GE_Type_Job'] = 'No';
 }
+
+
+//Crp
+$essai['niveau1']=($essai['c_unite']=="Mpa")?$essai['c_type_1_val']/$essai['area']:$essai['c_type_1_val'];
+$essai['niveau2']=($essai['c_unite']=="Mpa")?$essai['c_type_3_val']/$essai['area']:$essai['c_type_3_val'];
+$essai['rampe1']=$essai['c_type_2_val'];
+$essai['rampe2']=$essai['c_type_4_val'];
+
 
 
 //on charge le model
@@ -105,9 +113,9 @@ foreach ($variableTS_GPM as $key => $value) {
   $VariableData_node->appendChild($Values = $xml_doc->createElement('Values'));
   $Values->appendChild($Value = $xml_doc->createElement('Value', $value));
 
-if (isset($variableUnit[$key])) {
-  $VariableData_node->appendChild($unit_node = $xml_doc->createElement('Unit', $variableUnit[$key]));
-}
+  if (isset($variableUnit[$key])) {
+    $VariableData_node->appendChild($unit_node = $xml_doc->createElement('Unit', $variableUnit[$key]));
+  }
 
 
   $AoVariableData_node->appendChild($VariableData_node);

@@ -14,8 +14,8 @@
         <th>2-Level</th>
         <th>2-<?= $split['cons2'] ?></th>
         <th>Runout (h)</th>
-        <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
-        <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
+        <th><acronym title="Lab Level 1">1-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
+        <th><acronym title="Lab Level 2">2-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
 
         <th><acronym title="Estimated Time (h)">Tps Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
