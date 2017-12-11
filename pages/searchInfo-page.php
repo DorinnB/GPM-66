@@ -22,7 +22,6 @@
 							<th><acronym title="Customer Instruction">Cust. Inst.</acronym></th>
 						</tr>
 					</thead>
-
 					<tbody>
 						<?php foreach ($searchJobs as $key => $value) : ?>
 							<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
@@ -36,7 +35,6 @@
 							</tr>
 						<?php endforeach  ?>
 					</tbody>
-
 					<tbody style="border-top:5px solid white;">
 						<?php foreach ($searchSpecification as $key => $value) : ?>
 							<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
@@ -50,8 +48,6 @@
 							</tr>
 						<?php endforeach  ?>
 					</tbody>
-
-
 					<tbody style="border-top:5px solid white;">
 						<?php foreach ($searchPO as $key => $value) : ?>
 							<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
@@ -65,9 +61,8 @@
 							</tr>
 						<?php endforeach  ?>
 					</tbody>
-
 					<tbody style="border-top:5px solid white;">
-						<?php foreach ($searchPO as $key => $value) : ?>
+						<?php foreach ($searchInst as $key => $value) : ?>
 							<tr onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
 								<td><?=	$value['customer']	?></td>
 								<td><?=	$value['job']	?></td>
