@@ -457,7 +457,7 @@ $objReader->setIncludeCharts(TRUE);
         $oldData->setCellValueByColumnAndRow(11, $row, $value['protection']);
         $oldData->setCellValueByColumnAndRow(12, $row, $value['autre']);
 
-        $oldData->setCellValueByColumnAndRow(13, $row, $ep[$key]['d_commentaire']);
+        $oldData->setCellValueByColumnAndRow(13, $row, $value['d_commentaire']);
         $oldData->setCellValueByColumnAndRow(14, $row, $value['date_IQC']);
 
         $oldData->setCellValueByColumnAndRow(15, $row, $value['technicien']);
@@ -541,7 +541,6 @@ $objReader->setIncludeCharts(TRUE);
       $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
 
     }
-
     else {
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT INCONNU.xlsx");
     }
