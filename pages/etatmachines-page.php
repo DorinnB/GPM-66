@@ -19,6 +19,7 @@
 	$traceY5= "";
 	$traceY6= "";
 
+
 	foreach ($oEtatMachines->getAllEtatMachines_machine((isset($_GET['filtre'])?$_GET['filtre']:'')) as $row)	{
 
 		if (isset($_GET['filtre']) AND $_GET['filtre']=="Year") {
@@ -30,13 +31,15 @@
 		else {
 		$traceX .=',"'.$row['machine'].'"';
 		}
+$total=$row['cycling']+$row['rampToTemp']+$row['noncycling']+$row['noTest']+$row['waitingCustomer']+$row['waitingLab'];
 
-		$traceY1 .=','.($row['cycling']);
-		$traceY2 .=','.($row['rampToTemp']);
-		$traceY3 .=','.($row['noncycling']);
-		$traceY4 .=','.($row['noTest']);
-		$traceY5 .=','.($row['waitingCustomer']);
-		$traceY6 .=','.($row['waitingLab']);
+		$traceY1 .=','.number_format($row['cycling']/$total*100,1);
+		$traceY2 .=','.number_format($row['rampToTemp']/$total*100,1);
+		$traceY3 .=','.number_format($row['noncycling']/$total*100,1);
+		$traceY4 .=','.number_format($row['noTest']/$total*100,1);
+		$traceY5 .=','.number_format($row['waitingCustomer']/$total*100,1);
+		$traceY6 .=','.number_format($row['waitingLab']/$total*100,1);
+
 	}
 ?>
 
@@ -98,7 +101,7 @@ var layout = {
 	xaxis: {title: '<?=	isset($_GET['filtre'])?$_GET['filtre']:'Frame'	?>',
 tickformat :".0f"
 },
-	yaxis: {title: 'Occupancy Time (hours)'},
+	yaxis: {title: 'Occupancy Time (%)'},
 };
 
 Plotly.newPlot('chartEtatMachine', data, layout);
