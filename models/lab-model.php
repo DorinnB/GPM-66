@@ -18,6 +18,7 @@ class LabModel
 
        split, machine, postes.id_machine, poste, id_job, n_essai,
         c_frequence, c_frequence_STL, c_cycle_STL, d_frequence, d_frequence_STL, Cycle_STL, runout, c_temperature,
+        statut, etape,
         texte_machine_forecast, icone_file, icone_name, prio_machine_forecast, etape
         FROM enregistrementessais
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette

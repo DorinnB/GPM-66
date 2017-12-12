@@ -75,6 +75,7 @@ class AnnexeIQCModel
 
     WHERE eprouvettes.id_job='.$idjob.'
     AND eprouvettes.eprouvette_actif=1
+    AND master_eprouvettes.master_eprouvette_actif=1
     ORDER by master_eprouvettes.id_master_eprouvette ASC';
     //echo $req;
     return $this->db->getAll($req);

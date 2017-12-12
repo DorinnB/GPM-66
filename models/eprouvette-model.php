@@ -672,14 +672,17 @@ class EprouvetteModel
 
     public function getEstimatedCycle(){
         //d_checked>0 pour activer le calcul du temps uniquement si les données sont validé, essai terminé ou ecrit manuellement (cycle_estime ecrit)
-      $req='SELECT ifnull(AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)),avg(runout)) AS cycle_estime, c_type_1_val, c_type_2_val
-      FROM eprouvettes
-      LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
-      WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-        AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-        AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-        AND ((cycle_final IS NOT NULL AND d_checked>0) OR (cycle_estime IS NOT NULL) OR (runout is not null))
-      GROUP by id_job, c_type_1_val, c_type_2_val';
+        $req='SELECT ifnull(AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)),avg(runout)) AS cycle_estime, c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val
+        FROM eprouvettes
+        LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
+        WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+          AND ifnull(c_type_1_val,"*") = (SELECT ifnull(c_type_1_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+          AND ifnull(c_type_2_val,"*") = (SELECT ifnull(c_type_2_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+          AND ifnull(c_type_3_val,"*") = (SELECT ifnull(c_type_3_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+          AND ifnull(c_type_4_val,"*") = (SELECT ifnull(c_type_4_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+          AND ifnull(c_type_5_val,"*") = (SELECT ifnull(c_type_5_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
+          AND ((cycle_final IS NOT NULL AND d_checked>0) OR (cycle_estime IS NOT NULL) OR (runout is not null))
+        GROUP by id_job, c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val';
 
       /*
         // calcul sans ternir compte du d_checked >0
