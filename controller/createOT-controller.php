@@ -483,19 +483,19 @@ $objReader->setIncludeCharts(TRUE);
         'B4'=> strtoupper(str_replace('.','',$split['test_type_abbr'])),
         'C4'=> $split['job'].'-'.$split['split'],
         'C5'=> date('Y-m-d'),
-        'C6'=> $split['entrepriseST'],
-        'C7'=> $split['lastnameST'].' '.$split['surnameST'],
+        'C7'=> $split['entrepriseST'],
+        'C8'=> $split['lastnameST'].' '.$split['surnameST'],
         'G2'=> strtoupper($split['test_type']),
 
-        'D12'=> $split['customer'].'-'.$split['job'],
-        'D13'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
-        'D14'=> $split['matiere'],
-        'D15'=> $split['dessin'],
+        'D13'=> $split['customer'].'-'.$split['job'],
+        'D14'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
+        'D15'=> $split['matiere'],
+        'D16'=> $split['dessin'],
 
-        'D20'=> $split['DyT_expected'],
-        'C21'=> $split['nbep'],
-        'C22'=> $split['specification'].' - '.$split['tbljob_instruction'],
-        'C23'=> $split['tbljob_commentaire']
+        'D21'=> $split['DyT_expected'],
+        'C22'=> $split['nbep'],
+        'C23'=> $split['specification'].' - '.$split['tbljob_instruction'],
+        'C24'=> $split['tbljob_commentaire']
       );
 
       //Pour chaque element du tableau associatif, on update les cellules Excel
@@ -505,7 +505,7 @@ $objReader->setIncludeCharts(TRUE);
       }
 
 
-      $row = 26; // 1-based index
+      $row = 27; // 1-based index
       $col = 0;
 
       foreach ($ep as $key => $value) {
