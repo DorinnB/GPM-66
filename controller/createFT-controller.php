@@ -423,7 +423,122 @@ $style_gray = array(
 
 
     }
-    ElseIf ($essai['test_type_abbr']=="Str"  OR $essai['test_type_abbr']=="IF")	{
+    ElseIf ($essai['test_type_abbr']=="Crp")	{
+
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT Crp.xlsx");
+
+      $val2Xls = array(
+        'B7' => $identification,
+        'B8' => $essai['dessin'],
+        'B9' => $essai['ref_matiere'],
+        'B13' => $essai['machine'],
+        'B15' => '40001',
+        'B16' => $essai['enregistreur'],
+        'B17' => $essai['extensometre'],
+        'F13' => $compresseur,
+        'F17' => $ind_temp,
+        'F15' => $coil,
+        'F16' => $four,
+        'B24' => $essai['cell_load_gamme'],
+        'B23' => $essai['cell_displacement_gamme'],
+        'B28' => "6",
+        'D28' => "-6",
+
+        'I7' => $jobcomplet,
+        'I8' => $essai['n_essai'],
+        'I9' => $essai['n_fichier'],
+        'I10' => $essai['date'],
+        'I11' => $essai['operateur'],
+        'I12' => $essai['controleur'],
+
+        'J17' => $essai['operateur'],
+        'K20' => $essai['c_temperature'],
+        'K21' => $tempCorrected,
+        'K22' => "N/A",
+        'K23' => "N/A",
+        'I22' => "N/A",
+        'I23' => "Ramp",
+
+        'I24' => $essai['dim1'],
+        'K24' => $essai['dim2'],
+        'K25' => $essai['dim3'],
+        'I25' => $area,
+
+        'K52' => $STL,
+        'I52' => $F_STL,
+        'J46' => $essai['Cycle_min'],
+        'J49' => $runout,
+
+        'A53' => $essai['comm'].' / '.$essai['c_commentaire']
+      );
+
+
+
+      if ($essai['c_unite']=="MPa")	{
+        $arrayUnits = array(
+          'I28' => $essai['c_type_1_val'],
+          'I29' => $essai['c_type_2_val'],
+          'I30' => $essai['c_type_3_val'],
+          'I31' => $essai['c_type_4_val'],
+
+          'J28' => isset($essai['c_type_1_val'])?$essai['c_type_1_val']*$area/1000:'',
+
+          'J30' => $essai['c_type_3_val']*$area/1000,
+
+
+          'B29' =>number_format((max($essai['c_type_1_val'],$essai['c_type_3_val'])*$area/1000*1.05), 1, '.', ',').'*',
+          'D29' => "-1(*)"
+        );
+      }
+      Elseif ($essai['c_unite']=="kN")	{
+        $arrayUnits = array(
+          'J28' => $essai['c_type_1_val'],
+          'I29' => $essai['c_type_2_val'].' s',
+          'J30' => $essai['c_type_3_val'],
+          'I31' => $essai['c_type_4_val'].' s',
+
+          'B29' => number_format((max($essai['c_type_1_val'],$essai['c_type_3_val'])*1.05), 1, '.', ',').'*',
+          'D29' => "-1(*)"
+        );
+      }
+      Else	{
+        $arrayUnits = array(
+          'J28' => "ERREUR d'unité"
+        );
+      }
+
+
+
+      //affichage du checkeur temperature uniquement si temperature
+      if ($essai['c_temperature']>=50) {
+        $val2Xls['J18'] = $essai['controleur'];
+      }
+      else {
+        $objPHPExcel->getActiveSheet()->getStyle('F15:F17')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('B37')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('K20')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('D35:K38')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('H34:K34')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('H42:I42')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('J18:K18')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('I20')->applyFromArray( $style_gray );
+        $objPHPExcel->getActiveSheet()->getStyle('K21')->applyFromArray( $style_gray );
+
+        $objPHPExcel->getActiveSheet()->setCellValue('B38', '');
+      }
+
+
+
+      $val2Xls = array_merge($val2Xls, $arrayUnits);
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $objPHPExcel->getActiveSheet()->setCellValue($key, $value);
+      }
+
+
+
+    }
+    ElseIf ($essai['test_type_abbr']=="Str"  OR $essai['test_type_abbr']=="IF" OR $essai['test_type_abbr']=="IRlx")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT Str.xlsx");
 
@@ -616,9 +731,9 @@ $style_gray = array(
 
 
     }
-else {
-  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT INCONNU.xlsx");
-}
+    else {
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT INCONNU.xlsx");
+    }
 
 
 

@@ -50,7 +50,7 @@ class LabModel
 
     public function getCheckList() {
       $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, split, machine, poste, id_job,
-        machine, t1.technicien as operateur, t2.technicien as controleur, currentBlock, tbljobs.id_tbljob
+        machine, t1.technicien as operateur, t2.technicien as controleur, IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock, tbljobs.id_tbljob
 
         FROM enregistrementessais
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
@@ -64,7 +64,7 @@ class LabModel
         LEFT JOIN techniciens t1 ON t1.id_technicien=enregistrementessais.id_operateur
         LEFT JOIN techniciens t2 ON t2.id_technicien=enregistrementessais.id_controleur
 
-        WHERE currentBlock_temp="Check" OR (Cycle_final>0 AND id_controleur=0)
+        WHERE IF(currentBlock is null,currentBlock_temp, currentBlock)="Check" OR (Cycle_final>0 AND id_controleur=0)
         order by machine';
         //echo $req;
         return $this->db->getAll($req);

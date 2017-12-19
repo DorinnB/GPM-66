@@ -10,9 +10,9 @@
         <th><acronym title="Temperature">T°</acronym></th>
 
         <th id="ChartTitreCons" data-titre="Level">1-Level</th>
-        <th>1-<?= $split['cons2'] ?></th>
+        <th>1-Ramp (s)</th>
         <th>2-Level</th>
-        <th>2-<?= $split['cons2'] ?></th>
+        <th>2-Ramp (s)</th>
         <th>Runout (h)</th>
         <th><acronym title="Lab Level 1">1-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Lab Level 2">2-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
@@ -87,15 +87,15 @@
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td class="decimal1" <?= $epHisto2[$k]['c_temp'] ?>><?= $ep[$k]['c_temp'] ?></td>
-          <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?=  $split['ChartCons1']  ?>" <?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
-          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
-          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons3']  ?>" <?= $epHisto2[$k]['c_type_3_val'] ?>><?= $ep[$k]['c_type_3_val'] ?></td>
+          <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
+          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons3']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
+          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons1']  ?>" <?= $epHisto2[$k]['c_type_3_val'] ?>><?= $ep[$k]['c_type_3_val'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons4']  ?>" <?= $epHisto2[$k]['c_type_4_val'] ?>><?= $ep[$k]['c_type_4_val'] ?></td>
-          <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= $ep[$k]['runout']/3600 ?></td>
+          <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= (isset($ep[$k]['runout'])?$ep[$k]['runout']/3600:'') ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> chartMax"><?= $ep[$k]['max'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?>"><?= $ep[$k]['min'] ?></td>
 
-          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" ><?= $ep[$k]['cycle_estime']/3600 ?></td>
+          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" ><?= (($ep[$k]['cycle_estime']!='')?$ep[$k]['cycle_estime']/3600:'') ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['comm'].$ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['comm'].$ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['comm'].$ep[$k]['c_commentaire'] !=""):  ?>
               <div class="head hide">Order Comment</div>

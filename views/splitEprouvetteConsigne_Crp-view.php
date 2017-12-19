@@ -9,9 +9,9 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>1-Level</th>
-        <th>1-<?= $split['cons2'] ?></th>
+        <th>1-Ramp (s)</th>
         <th>2-Level</th>
-        <th>2-<?= $split['cons2'] ?></th>
+        <th>2-Ramp (s)</th>
         <th>Runout (s)</th>
         <th><acronym title="Estimated Duration">Est. (s)</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
@@ -28,9 +28,9 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>1-Level</th>
-        <th>1-<?= $split['cons2'] ?></th>
+        <th>1-Ramp (s)</th>
         <th>2-Level</th>
-        <th>2-<?= $split['cons2'] ?></th>
+        <th>2-Ramp (s)</th>
         <th>Runout (h)</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
