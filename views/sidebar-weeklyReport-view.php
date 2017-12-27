@@ -4,19 +4,11 @@
 		<li class="sidebar-brand">
 			MENU
 		</li>
-		<li id="button">
-		</li>
 		<li>
-			<a href="index.php?page=followup&filtreFollowup=ALL">Follow Up ALL Split</a>
-		</li>
-		<li>
-			<a href="index.php?page=followup&filtreFollowup=ALLNoTime">Follow Up All No Time</a>
+			<a href="index.php?page=followup">Follow Up</a>
 		</li>
 		<li>
 			<a href="index.php?page=followupJob&filtreFollowup=100">Follow Up JOB</a>
-		</li>
-		<li>
-			<a href="index.php?page=WeeklyReport">Weekly Report</a>
 		</li>
 		<li>
 			<a href="index.php?page=ListeEssais">Test list</a>

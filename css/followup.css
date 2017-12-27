@@ -72,6 +72,19 @@ meter{
   background-color: darkgreen;
   color: darkgreen;
 }
+
+.clickable-row {
+    cursor: pointer;
+}
+.commentaire {
+   height:100%;
+   width:100%;
+   resize: none;
+   background-color: inherit;
+   text-align: left;
+   border: 0px;
+}
+
 /*
 meter::-webkit-meter-optimum-value {
   background: red;

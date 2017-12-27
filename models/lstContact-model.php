@@ -24,7 +24,8 @@ class ContactModel
     }
 
     public function getClient($ref_customer) {
-      $req='SELECT compagnie FROM contacts where ref_customer = '.$ref_customer.' AND contact_actif=1 ORDER BY surname;';
+      $req='SELECT * FROM entreprises
+      where id_entreprise = '.$ref_customer;
 
         return $this->db->getOne($req);
     }

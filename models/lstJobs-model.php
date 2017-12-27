@@ -308,4 +308,60 @@ class LstJobsModel
       //echo $req;
       return $this->db->getALL($req);
     }
+
+    public function getWeeklyReportCust($customer) {
+  	    $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment,
+            count(id_master_eprouvette) as nbep, count(id_master_eprouvette) as nbep, SUM(if(master_eprouvette_inOut_A is not null, 1, 0)) AS nbreceived, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
+            GROUP_CONCAT(DISTINCT
+                         if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), "&nbsp;",contacts.surname),""),
+                         if(contacts2.lastname is not null, concat("<br/>", LEFT(contacts2.lastname , 1), "&nbsp;",contacts2.surname),""),
+                         if(contacts3.lastname is not null, concat("<br/>", LEFT(contacts3.lastname , 1), "&nbsp;",contacts3.surname),""),
+                         if(contacts4.lastname is not null, concat("<br/>", LEFT(contacts4.lastname , 1), "&nbsp;",contacts4.surname),"")
+                         )as contacts
+  				FROM info_jobs
+          LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
+          LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
+          LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
+          LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+          LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
+  				WHERE info_job_actif=1 and job>13333 and customer='.$customer.'
+          GROUP BY job
+  				ORDER BY job DESC
+          ';
+        return $this->db->getAll($req);
+    }
+
+    public function getWeeklyReportJob($id_infojob) {
+        $req = 'SELECT id_tbljob,
+            tbljobs.id_statut, statut_color, statut_client,customer, statuts.etape, statuts.statut,
+            job, split, test_type_abbr, DyT_Cust,
+            count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
+            count((eprouvettes.id_eprouvette)) as nbtestplanned,
+            if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
+            CONVERT((if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier))/count(DISTINCT(eprouvettes.id_master_eprouvette))*100), SIGNED INTEGER) as nbpercent,
+            IF(tbljobs.DyT_Cust>NOW(),0,1) as delay
+          FROM eprouvettes
+          LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+            LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+            LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+            LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+            LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+            LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+          WHERE tbljob_actif=1 AND eprouvette_actif=1 AND auxilaire=0 AND info_jobs.id_info_job='.$id_infojob.'
+          GROUP BY tbljobs.id_tbljob
+          ORDER BY split ASC';
+        return $this->db->getAll($req);
+    }
+
+    public function updateWeeklyReport($id, $comment) {
+
+      $reqUpdateWeeklyReport='UPDATE info_jobs
+      SET weeklyComment = '.(($comment=="")? "NULL" : $this->db->quote($comment)).'
+      WHERE id_info_job = '.$this->db->quote($id);
+
+      //echo $reqUpdateWeeklyReport;
+      $this->db->query($reqUpdateWeeklyReport);
+
+    }
+
 }

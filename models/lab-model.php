@@ -35,12 +35,13 @@ class LabModel
 
         LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
 
-        WHERE n_fichier in (SELECT max(n_fichier)
+        WHERE n_fichier IN (SELECT max(n_fichier)
         FROM `enregistrementessais`
         LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
         LEFT JOIN postes ON postes.id_poste=prestart.id_poste
+        WHERE id_eprouvette IS NOT NULL
         GROUP BY postes.id_machine)
-        AND machine is not null
+        AND machine IS NOT NULL
         order by machine';
         //echo $req;
         return $this->db->getAll($req);
@@ -50,7 +51,7 @@ class LabModel
 
     public function getCheckList() {
       $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, split, machine, poste, id_job,
-        machine, t1.technicien as operateur, t2.technicien as controleur, IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock, tbljobs.id_tbljob
+        machine, t1.technicien as operateur, t2.technicien as controleur, IF(currentBlock IS NULL,currentBlock_temp, currentBlock) as currentBlock, tbljobs.id_tbljob
 
         FROM enregistrementessais
         LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette

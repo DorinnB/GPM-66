@@ -1,1 +1,1 @@
-<?= $client['compagnie'] ?>
+<?= $client['entreprise'] ?>
