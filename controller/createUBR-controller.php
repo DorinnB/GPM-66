@@ -145,9 +145,9 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //$objWriter->setIncludeCharts(TRUE);
 $objWriter->save('../lib/PHPExcel/files/UBR-'.$date.'.xlsx');
 
-//Copy du fichier vers //SRV-DC01/data/ADMINISTRATION/UBR/
+//Copy du fichier vers //SRVDC/DONNEES/ADMINISTRATION/UBR/
 $srcfile='../lib/PHPExcel/files/UBR-'.$date.'.xlsx';
-$dstfile = '//SRV-DC01/data/ADMINISTRATION/UBR/UBR-'.$date.'.xlsx';
+$dstfile = '//SRVDC/DONNEES/ADMINISTRATION/UBR/UBR-'.$date.'.xlsx';
 copy($srcfile, $dstfile);
 
 

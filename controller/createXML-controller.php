@@ -128,10 +128,10 @@ $xml_string = $xml_doc->saveXML();
 
 
 
-$fp = fopen('//SRV-DC01/data/labo/Computer/BDD/XMLforTS/'.$essai['n_fichier'].'.xml', 'w');
+$fp = fopen('//SRVDC/DONNEES/labo/Computer/BDD/XMLforTS/'.$essai['n_fichier'].'.xml', 'w');
 fwrite($fp, $xml_string);
 fclose($fp);
-$fp = fopen('//SRV-DC01/data/labo/Computer/GPM/XMLforTS/'.$essai['n_fichier'].'.xml', 'w');
+$fp = fopen('//SRVDC/DONNEES/labo/Computer/GPM/XMLforTS/'.$essai['n_fichier'].'.xml', 'w');
 fwrite($fp, $xml_string);
 fclose($fp);
 ?>

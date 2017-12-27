@@ -28,7 +28,7 @@ foreach ($element as $value) {
 }
 
 
-$srcfile = '//SRV-DC01/data/LABO/Computer/GPM/TestList.txt';
+$srcfile = '//Srvdc/donnees/LABO/Computer/GPM/TestList.txt';
 
 $myfile = file_put_contents($srcfile, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 

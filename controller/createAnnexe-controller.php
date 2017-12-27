@@ -21,7 +21,7 @@ $split=$oSplit->getSplit();
 
 
 /*
-$dir_source = '//SRV-DC01/data/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/'.'ANNEXE PDF/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
+$dir_source = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/'.'ANNEXE PDF/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
 $dir_dest='../temp/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
 
 //check si le repertoire source existe et on copie sur GPM les annexes

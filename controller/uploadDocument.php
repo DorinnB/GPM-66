@@ -13,7 +13,7 @@ $oDocument = new DocumentModel($db);
 
 
 
-$uploads_dir = '//SRV-DC01/data/labo/Computer/BDD/Document/'.$_POST['type'];
+$uploads_dir = '//SRVDC/DONNEES/labo/Computer/BDD/Document/'.$_POST['type'];
 
 $tmp_name = $_FILES["file-input"]["tmp_name"];
 $name = $_FILES["file-input"]["name"];
