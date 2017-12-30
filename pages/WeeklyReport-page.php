@@ -9,7 +9,7 @@ include('controller/weeklyReport-controller.php');
 		<div class="row" style="height:5%;">
 			<div class="col-md-1 col-centered" style="height:100%;float: none;margin: 0 auto; padding-top:2px;">
 				<div class="btn-group" style="width:100%;">
-					<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="splitStatut" style="float:none;">
+					<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="customer" data-id="<?=	$_GET['customer']	?>" style="float:none;">
 						<?= $customer['id_entreprise'].' '.$customer['entreprise'] ?> <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu statut" style="max-height: 500px;overflow-y: auto;overflow-x: hidden;">
@@ -20,9 +20,9 @@ include('controller/weeklyReport-controller.php');
 				</div>
 			</div>
 		</div>
-		<form id="formWeeklyReport" action="controller/updateWeeklyReport.php" method="POST" onsubmit="return validateForm()" style="height:95%;">
+		<form id="formWeeklyReport" method="POST" style="height:95%;">
 			<div style="height:93%; overflow:auto; width:100%;">
-				<table class="table table-striped table-condensed table-hover table-bordered">
+				<table class="table table-striped table-condensed table-hover table-bordered" id="tableWeeklyReport">
 					<thead>
 						<tr>
 							<td>PO/Instructions</td>
@@ -63,7 +63,7 @@ include('controller/weeklyReport-controller.php');
 									<td><?=	$v['DyT_Cust']	?></td>
 								</tr>
 							<?php endforeach	?>
-							<tr><td colspan="11" style="background-color:black;">&nbsp;</td></tr>
+							<tr><td colspan="11" style="background-color:black;line-height:30%;">&nbsp;</td></tr>
 						<?php endforeach	?>
 					</tbody>
 				</table>

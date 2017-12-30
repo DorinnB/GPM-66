@@ -4,7 +4,7 @@ $db = new db(); // create a new object, class db()
 
 
 
-var_dump($_POST);
+//var_dump($_POST);
 
 
 
@@ -18,5 +18,5 @@ foreach ($_POST as $key => $value) {
   $oJob->updateWeeklyReport($id, $value);
 }
 
+
 ?>
-<script type='text/javascript'>document.location.replace('../index.php?page=followup');</script>

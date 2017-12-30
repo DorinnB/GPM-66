@@ -313,11 +313,18 @@ class LstJobsModel
   	    $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment,
             count(id_master_eprouvette) as nbep, count(id_master_eprouvette) as nbep, SUM(if(master_eprouvette_inOut_A is not null, 1, 0)) AS nbreceived, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
             GROUP_CONCAT(DISTINCT
-                         if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), "&nbsp;",contacts.surname),""),
-                         if(contacts2.lastname is not null, concat("<br/>", LEFT(contacts2.lastname , 1), "&nbsp;",contacts2.surname),""),
-                         if(contacts3.lastname is not null, concat("<br/>", LEFT(contacts3.lastname , 1), "&nbsp;",contacts3.surname),""),
-                         if(contacts4.lastname is not null, concat("<br/>", LEFT(contacts4.lastname , 1), "&nbsp;",contacts4.surname),"")
-                         )as contacts
+             if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), "&nbsp;",contacts.surname),""),
+             if(contacts2.lastname is not null, concat("<br/>", LEFT(contacts2.lastname , 1), "&nbsp;",contacts2.surname),""),
+             if(contacts3.lastname is not null, concat("<br/>", LEFT(contacts3.lastname , 1), "&nbsp;",contacts3.surname),""),
+             if(contacts4.lastname is not null, concat("<br/>", LEFT(contacts4.lastname , 1), "&nbsp;",contacts4.surname),"")
+           )as contacts,
+           GROUP_CONCAT(DISTINCT
+            if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), " ",contacts.surname),""),
+            if(contacts2.lastname is not null, concat("\r", LEFT(contacts2.lastname , 1), " ",contacts2.surname),""),
+            if(contacts3.lastname is not null, concat("\r", LEFT(contacts3.lastname , 1), " ",contacts3.surname),""),
+            if(contacts4.lastname is not null, concat("\r", LEFT(contacts4.lastname , 1), " ",contacts4.surname),"")
+          )as contactsXLS
+
   				FROM info_jobs
           LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
           LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
