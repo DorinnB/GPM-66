@@ -147,6 +147,10 @@ div.DTE .form-control {
   color:yellow;
   font-weight:bold;
 }
+#DTE_Field_eprouvettes-stepcase_type  {
+  background-color: #44546A;
+  color:yellow;
+}
 .modal div.DTE .form-control {
   border-radius: 4px;
   color:darkblue;

@@ -440,6 +440,7 @@ class EprouvetteModel
       $req = 'SELECT eprouvettes.id_eprouvette,
       master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) AS c_temp, c_temperature, c_frequence, c_cycle_STL, c_frequence_STL,
       c_type_1_val, c_type_2_val,  c_type_3_val, c_type_4_val, c_type_5_val, c1.consigne_type AS c_1_type, c2.consigne_type AS c_2_type, Lo, c_unite,
+      stepcase_type, c3.consigne_type as steptype, stepcase_val,
       Cycle_min, runout, cycle_estime, c_commentaire, q_commentaire, c_checked, d_checked, type,id_dessin_type, dessin, ref_matiere, enregistreur, extensometre,
       cartouche_load, cartouche_stroke, cartouche_strain, t1.technicien AS operateur, t2.technicien AS controleur,
       n_essai, n_fichier, machine, enregistrementessais.date,
@@ -503,6 +504,7 @@ class EprouvetteModel
       LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
       LEFT JOIN consigne_types c1 ON c1.id_consigne_type=tbljobs.c_1
       LEFT JOIN consigne_types c2 ON c2.id_consigne_type=tbljobs.c_2
+      LEFT JOIN consigne_types c3 ON c3.id_consigne_type=eprouvettes.stepcase_type
       LEFT JOIN matieres ON matieres.id_matiere=id_matiere_std
       LEFT JOIN rawdata ON rawdata.id_rawData=tbljobs.id_rawdata
 

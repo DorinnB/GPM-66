@@ -41,6 +41,8 @@ else {
 $estimatedTimeLeft=0;
 $unestimatedTestLeft=0;
 $shortTest=0;
+$nbStepcase=0;  //nombre de stepcase à incrementer
+
 
 //declaration des variables calculées
 for($k=0;$k < count($ep);$k++)	{
@@ -344,7 +346,19 @@ for($k=0;$k < count($ep);$k++)	{
   </script>
   ';
 
+//detection des StepCases
+$nbStepcase+=($ep[$k]['stepcase_val']>0)?1:0;
+}
 
+  $classStepcase="hidden";
+if ($nbStepcase>0) {
+  $classStepcase="";
+  echo '
+  <script>
+  $("#other_name").html("Stepcase :");
+  $("#other_value").html("'.$nbStepcase.'");
+  </script>
+  ';
 }
 
 

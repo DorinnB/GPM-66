@@ -43,6 +43,10 @@
       <span class="name">Raw Data :</span>
       <span class="value <?= ($split['id_rawData']==0)?'':'RawData' ?>"><?= $tbljobHisto2['name'] ?> <?= $split['name'] ?></span>
     </p>
+    <p class="title">
+      <span class="name" id="other_name"></span>
+      <span class="value" id="other_value"></span>
+    </p>
   </div>
 
   <div class="bs-example avancement" data-example-id="basic-forms">

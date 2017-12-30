@@ -239,7 +239,8 @@ $style_gray = array(
         'J46' => $essai['Cycle_min'],
         'J49' => $runout,
 
-        'A53' => $essai['comm'].' / '.$essai['c_commentaire']
+        'A53' => $essai['comm'].' / '.$essai['c_commentaire'],
+        'J53' => (($essai['stepcase_val']>0)?'Stepcase : '.$essai['steptype'].' / '.$essai['stepcase_val']:'')
       );
 
 

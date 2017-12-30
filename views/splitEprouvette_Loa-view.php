@@ -13,6 +13,8 @@
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
+        <th class="<?= $classStepcase ?>"><acronym title="StepCase Consigne">S+ C</acronym></th>
+        <th class="<?= $classStepcase ?>"><acronym title="Step">S+ S</acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
@@ -51,6 +53,8 @@
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
+        <th class="<?= $classStepcase ?>"><acronym title="StepCase Consigne">S+ C</acronym></th>
+        <th class="<?= $classStepcase ?>"><acronym title="Step">S+ S</acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
@@ -90,6 +94,8 @@
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> chartMax"><?= $ep[$k]['max'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?>"><?= $ep[$k]['min'] ?></td>
+          <td class="<?= $classStepcase ?>"><?= $ep[$k]['steptype'] ?></td>
+          <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?= $classStepcase ?>"><?= $ep[$k]['stepcase_val'] ?></td>
           <td class="decimal0" <?= $epHisto2[$k]['Cycle_min'] ?>><?= $ep[$k]['Cycle_min'] ?></td>
           <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= $ep[$k]['runout'] ?></td>
           <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" ><?= $ep[$k]['cycle_estime'] ?></td>

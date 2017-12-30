@@ -29,6 +29,18 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.c_frequence_STL')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.c_type_1_val')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.c_type_2_val')->setFormatter( 'Format::nullEmpty' ),
+
+
+Field::inst( 'eprouvettes.stepcase_type' )
+    ->options( Options::inst()
+        ->table( 'consigne_types' )
+        ->value( 'id_consigne_type' )
+        ->label( 'consigne_type' )
+    ),
+Field::inst( 'consigne_types.consigne_type' ),
+
+
+Field::inst( 'eprouvettes.stepcase_val')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.Cycle_min')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.runout')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.cycle_estime')->setFormatter( 'Format::nullEmpty' ),
@@ -51,6 +63,8 @@ Editor::inst( $db, 'eprouvettes' )
     ->leftJoin( 'prestart', 'prestart.id_prestart', '=', 'enregistrementessais.id_prestart' )
     ->leftJoin( 'postes', 'postes.id_poste', '=', 'prestart.id_poste' )
     ->leftJoin( 'machines', 'machines.id_machine', '=', 'postes.id_machine' )
+
+->leftJoin( 'consigne_types', 'consigne_types.id_consigne_type', '=', 'eprouvettes.stepcase_type' )
 
   ->where('id_job',(isset($_POST['idJob'])?$_POST['idJob']:0))
     ->where('eprouvette_actif',1)
