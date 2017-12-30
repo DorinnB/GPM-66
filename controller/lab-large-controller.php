@@ -9,6 +9,8 @@ include_once 'models/lab-model.php';
 $oTest = new LabModel($db);
 $test=$oTest->getTest();
 
+$splitToDo=$oTest->getTestToStart();
+
 
 //variable des etats des machines (run, stop, wip) pour la vue lab
 $runStop=array();

@@ -190,9 +190,18 @@
       <div class="row">
         <div class="col-md-2">
         </div>
-        <div class="col-md-9">
-          <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Frame Running : '.array_count_values($runStop)['RUN'].'</div>':'') ?>
-          <?= (isset(array_count_values($runStop)['WIP'])?'<div style="background-color:Sienna;border: 1px solid black;"> Frame WIP : '.array_count_values($runStop)['WIP'].'</div>':'') ?>
+        <div class="col-md-4">
+          <div style="background-color:;border: 1px solid black;">Frame</div>
+          <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Running : '.array_count_values($runStop)['RUN'].'</div>':'') ?>
+          <?= (isset(array_count_values($runStop)['WIP'])?'<div style="background-color:Sienna;border: 1px solid black;"> WIP : '.array_count_values($runStop)['WIP'].'</div>':'') ?>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4">
+                    <div style="background-color:;border: 1px solid black;">Split</div>
+<?php foreach ($splitToDo as $row): ?>
+          <div style="background-color:<?=  $row['statut_color']  ?>;border: 1px solid black;"><?= $row['statut'].' '.$row['nb'] ?></div>
+<?php endforeach  ?>
         </div>
         <div class="col-md-1">
         </div>

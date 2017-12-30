@@ -480,8 +480,8 @@ $objReader->setIncludeCharts(TRUE);
       $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
 
       $val2Xls = array(
-        'B4'=> strtoupper(str_replace('.','',$split['test_type_abbr'])),
-        'C4'=> $split['job'].'-'.$split['split'],
+        'B4'=> (($split['id_entrepriseST']==1001)?"MRI":strtoupper(str_replace('.','',$split['test_type_abbr']))),
+        'C4'=> (($split['id_entrepriseST']==1001)?$split['job']:$split['job'].'-'.$split['split']),
         'C5'=> date('Y-m-d'),
         'C7'=> $split['entrepriseST'],
         'C8'=> $split['lastnameST'].' '.$split['surnameST'],
@@ -489,7 +489,7 @@ $objReader->setIncludeCharts(TRUE);
 
         'D13'=> $split['customer'].'-'.$split['job'],
         'D14'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
-        'D15'=> $split['matiere'],
+        'D15'=> $split['ref_matiere'],
         'D16'=> $split['dessin'],
 
         'D21'=> $split['DyT_expected'],

@@ -47,7 +47,21 @@ class LabModel
         return $this->db->getAll($req);
     }
 
+    public function getTestToStart() {
+      $req='SELECT max(statut) as statut,max(statut_color) as statut_color, max(etape) as etape, count(etape) as nb
+        FROM tbljobs
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+        LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 
+        WHERE tbljob_actif=1 AND ST=0 AND auxilaire=0 AND (
+        etape=55 OR etape=30 OR etape=40 Or etape=53 or etape=48)
+        group by etape
+        order by etape asc';
+        //echo $req;
+        return $this->db->getAll($req);
+    }
 
     public function getCheckList() {
       $req='SELECT info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, split, machine, poste, id_job,
