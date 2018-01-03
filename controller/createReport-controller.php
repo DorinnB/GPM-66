@@ -632,7 +632,7 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
     $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
     $pvEssais->setCellValueByColumnAndRow($col, 30, $value['min']);
 
-
+    $pvEssais->setCellValueByColumnAndRow($col, 41, $value['Cycle_STL']);
     $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
     $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
@@ -652,7 +652,10 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
       $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
     }
 
-
+    if ($value['c_cycle_STL']!='') {  //on affiche les lignes du STL
+      $pvEssais->getRowDimension(13)->setVisible();
+      $pvEssais->getRowDimension(41)->setVisible();
+    }
 
     if ($value['q_commentaire']!="") {
 
