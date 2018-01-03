@@ -1,8 +1,8 @@
 <?php
 
-$dir_source = '//Srvdc/donnees/job/#TEMPLATE';
-$dir_dest = '//Srvdc/donnees/job/'.$_POST['ref_customer'].'/'.$_POST['ref_customer'].'-'.$_POST['job'];
-$dir_dest_customer = '//Srvdc/donnees/job/'.$_POST['ref_customer'];
+$dir_source = '//Srvdc/donnees/JOB/#TEMPLATE';
+$dir_dest = '//Srvdc/donnees/JOB/'.$_POST['ref_customer'].'/'.$_POST['ref_customer'].'-'.$_POST['job'];
+$dir_dest_customer = '//Srvdc/donnees/JOB/'.$_POST['ref_customer'];
 
 //check si le repertoire job n'existe pas
 if(!is_dir($dir_dest)){

@@ -44,8 +44,8 @@
       <span class="value <?= ($split['id_rawData']==0)?'':'RawData' ?>"><?= $tbljobHisto2['name'] ?> <?= $split['name'] ?></span>
     </p>
     <p class="title">
-      <span class="name" id="other_name"></span>
-      <span class="value" id="other_value"></span>
+      <span class="name" id="stepcase_data_name"></span>
+      <span class="value" id="stepcase_data_value"></span>
     </p>
   </div>
 

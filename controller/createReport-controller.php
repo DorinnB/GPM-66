@@ -254,7 +254,7 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
 
 }
 
-elseIf ($split['test_type_abbr']=="Loa")	{
+elseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
 
   $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Loa".$language.".xlsx");
 
@@ -408,6 +408,41 @@ elseIf ($split['test_type_abbr']=="Loa")	{
         $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
         $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
       }
+
+
+//tableau pour le stepcase
+if ($value['stepcase_val']!='' AND $value['Cycle_final']>0) {
+  $stepcaseDone=floor($value['Cycle_final']/$value['runout']);
+  $nbCycleStepcase=$value['Cycle_final']-$value['runout']*$stepcaseDone;
+  $stepcaseInitial=($split['c_type_1']==$value['steptype'])?$value['c_type_1_val']:$value['c_type_2_val'];
+
+
+
+
+  $oEprouvette->niveaumaxmin(
+    $value['c_1_type'],
+    $value['c_2_type'],
+    $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0),
+    $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0)
+  );
+$ep[$k]['max']=$oEprouvette->MAX();
+$ep[$k]['min']=$oEprouvette->MIN();
+  $pvEssais->setCellValueByColumnAndRow($col, 27, $value['max']);
+  $pvEssais->setCellValueByColumnAndRow($col, 28, ($value['max']+$value['min'])/2);
+  $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
+  $pvEssais->setCellValueByColumnAndRow($col, 30, $value['min']);
+
+  $pvEssais->setCellValueByColumnAndRow($col, 31, $nbCycleStepcase);
+
+  //$texte="Stepcase sur ".$value['steptype']." pas ".$value['stepcase_val']." ".$split['c_unite']." et runout à ".$value['runout']." cycles, niveau initial ".$stepcaseInitial.", final ".($stepcaseInitial+$value['stepcase_val']*($stepcaseDone)).". Cycle d'arrêt au niveau ".$nbCycleStepcase;
+$texte="Stepcase sur ".$value['steptype'].", pas ".$value['stepcase_val']." ".$split['c_unite']." et runout à ".$value['runout']." cycles, niveau initial ".number_format($stepcaseInitial, 3, '.', ' ')." ".$split['c_unite'].", ".($stepcaseDone+1)."ème pas. Nb cycles total : ".$value['Cycle_final'].".";
+
+
+
+
+
+$value['q_commentaire']=$texte.' '.$value['q_commentaire'];
+}
 
 
 

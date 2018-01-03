@@ -9,8 +9,12 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
+        <th><acronym title="StepCase Consigne">S+ C</acronym></th>
+        <th><acronym title="Step">S+ S</acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
@@ -28,8 +32,12 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>        
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
+        <th><acronym title="StepCase Consigne">S+ C</acronym></th>
+        <th><acronym title="Step">S+ S</acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>

@@ -24,9 +24,9 @@ else {
   $split['ChartCons2']='';
   $split['ChartTitreCons']=$split['c_type_1'].' ('.$split['c_unite'].')';
 }
-  $split['ChartCons3']='';
-    $split['ChartCons4']='';
-      $split['ChartCons5']='';
+$split['ChartCons3']='';
+$split['ChartCons4']='';
+$split['ChartCons5']='';
 
 
 
@@ -41,6 +41,7 @@ else {
 $estimatedTimeLeft=0;
 $unestimatedTestLeft=0;
 $shortTest=0;
+$nbSTL=0;       //nombre de STL à incrementer
 $nbStepcase=0;  //nombre de stepcase à incrementer
 
 
@@ -346,17 +347,24 @@ for($k=0;$k < count($ep);$k++)	{
   </script>
   ';
 
-//detection des StepCases
-$nbStepcase+=($ep[$k]['stepcase_val']>0)?1:0;
+  //detection des STL
+  $nbSTL+=($ep[$k]['c_cycle_STL']!='')?1:0;
+  //detection des StepCases
+  $nbStepcase+=($ep[$k]['stepcase_val']!='')?1:0;
 }
 
-  $classStepcase="hidden";
+$classSTL="hidden";
+if ($nbSTL>0) {
+  $classSTL="";
+
+}
+$classStepcase="hidden";
 if ($nbStepcase>0) {
   $classStepcase="";
   echo '
   <script>
-  $("#other_name").html("Stepcase :");
-  $("#other_value").html("'.$nbStepcase.'");
+  $("#stepcase_data_name").html("Stepcase :");
+  $("#stepcase_data_value").html("'.$nbStepcase.'");
   </script>
   ';
 }

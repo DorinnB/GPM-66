@@ -240,11 +240,12 @@ $style_gray = array(
         'J49' => $runout,
 
         'A53' => $essai['comm'].' / '.$essai['c_commentaire'],
-        'J53' => (($essai['stepcase_val']>0)?'Stepcase : '.$essai['steptype'].' / '.$essai['stepcase_val']:'')
+        'J53' => (($essai['stepcase_val']!='')?'Stepcase : '.$essai['steptype'].' / '.$essai['stepcase_val']:'')
+
       );
 
 
-
+      //calcul niveau + limits
       if ($essai['c_unite']=="MPa")	{
         $arrayUnits = array(
           'I28' => $oEprouvette->MAX(),
@@ -280,6 +281,9 @@ $style_gray = array(
 
 
 
+
+
+
       //affichage du checkeur temperature uniquement si temperature
       if ($essai['c_temperature']>=50) {
         $val2Xls['J18'] = $essai['controleur'];
@@ -306,7 +310,40 @@ $style_gray = array(
         $objPHPExcel->getActiveSheet()->setCellValue($key, $value);
       }
 
+      //tableau pour le stepcase
+      if ($essai['stepcase_val']!='') {
+        $objPHPExcel->getActiveSheet()->setCellValue('H54', 'Stepcase n°');
+        $objPHPExcel->getActiveSheet()->setCellValue('I54', 'Max ('.$essai['c_unite'].')');
+        $objPHPExcel->getActiveSheet()->setCellValue('J54', 'Min ('.$essai['c_unite'].')');
+        $objPHPExcel->getActiveSheet()->setCellValue('K54', 'Runout');
+        for ($i=0; $i <5 ; $i++) {
+          $oEprouvette->niveaumaxmin(
+            $essai['c_1_type'],
+            $essai['c_2_type'],
+            $essai['c_type_1_val']+(($essai['c_1_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0),
+            $essai['c_type_2_val']+(($essai['c_2_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0)
+          );
+          $objPHPExcel->getActiveSheet()->setCellValue('H'.(55+$i), 'Stepcase '.($i+1));
+          $objPHPExcel->getActiveSheet()->setCellValue('I'.(55+$i), $oEprouvette->MAX());
+          $objPHPExcel->getActiveSheet()->setCellValue('J'.(55+$i), $oEprouvette->MIN());
+          $objPHPExcel->getActiveSheet()->setCellValue('K'.(55+$i), $runout*($i+1));
 
+
+          //calcul des limites avec le niveau le plus extreme des 5 stepcases
+          if ($essai['c_unite']=="MPa")	{
+            $objPHPExcel->getActiveSheet()->setCellValue('B29', number_format(max($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 29)->getValue(),$oEprouvette->MAX()*$area/1000+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5)), 1, '.', ','));
+            $objPHPExcel->getActiveSheet()->setCellValue('D29', number_format(min($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 29)->getValue(),$oEprouvette->MIN()*$area/1000-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5)), 1, '.', ','));
+          }
+          Elseif ($essai['c_unite']=="kN")	{
+            $objPHPExcel->getActiveSheet()->setCellValue('B29', number_format(max($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 29)->getValue(),$oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 1, '.', ','));
+            $objPHPExcel->getActiveSheet()->setCellValue('D29', number_format(min($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 29)->getValue(),$oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 1, '.', ','));
+          }
+        }
+        //on ajoute * apres les limites pour signifier l'incertitude des limites
+        $objPHPExcel->getActiveSheet()->setCellValue('B29', number_format($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 29)->getValue(), 1, '.', ',').'*');
+        $objPHPExcel->getActiveSheet()->setCellValue('D29', number_format($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 29)->getValue(), 1, '.', ',').'*');
+
+      }
 
     }
     ElseIf ($essai['test_type_abbr']=="LoS" OR $essai['test_type_abbr']=="Dwl")	{

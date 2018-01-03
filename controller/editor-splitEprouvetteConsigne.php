@@ -31,16 +31,20 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.c_type_2_val')->setFormatter( 'Format::nullEmpty' ),
 
 
-Field::inst( 'eprouvettes.stepcase_type' )
-    ->options( Options::inst()
-        ->table( 'consigne_types' )
-        ->value( 'id_consigne_type' )
-        ->label( 'consigne_type' )
-    ),
-Field::inst( 'consigne_types.consigne_type' ),
+  Field::inst( 'eprouvettes.stepcase_type' )
+      ->options( Options::inst()
+          ->table( 'consigne_types' )
+          ->value( 'id_consigne_type' )
+          ->label( 'consigne_type' )
+          ->where( function ($q) {
+            $q->where( 'id_consigne_type', '(SELECT c_1 FROM tbljobs WHERE id_tbljob="'.$_POST['idJob'].'")', 'IN', false );
+            $q->or_where( 'id_consigne_type', '(SELECT c_2 FROM tbljobs WHERE id_tbljob="'.$_POST['idJob'].'")', 'IN', false );
+          })
+      ),
+  Field::inst( 'consigne_types.consigne_type' ),
 
 
-Field::inst( 'eprouvettes.stepcase_val')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.stepcase_val')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.Cycle_min')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.runout')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.cycle_estime')->setFormatter( 'Format::nullEmpty' ),

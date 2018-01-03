@@ -30,6 +30,8 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
@@ -47,6 +49,7 @@
         <th>Machine</th>
         <th>Date</th>
         <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="STL Cycles">STL</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
@@ -60,6 +63,8 @@
         <th>ID</th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
+        <th><acronym title="Switch To Load">STL</acronym></th>
+        <th><acronym title="Load Frequency">F.STL</acronym></th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
@@ -77,6 +82,7 @@
         <th>Machine</th>
         <th>Date</th>
         <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="STL Cycles">STL</acronym></th>        
         <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
