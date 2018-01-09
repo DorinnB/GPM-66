@@ -21,7 +21,7 @@
 			</div>
 		</div>
 	</div>
-	<div id='export-menu'>
+	<div id='report-contextual-menu'>
 	</div>
 	<?php include('controller/splitChart-controller.php'); ?>
 </div>

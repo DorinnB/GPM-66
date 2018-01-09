@@ -47,15 +47,21 @@ public function __construct($db,$id)
     public function getAllSplit() {
 
     $req = 'SELECT id_tbljob, test_type, test_type_abbr, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire,
-        DyT_expected, DyT_SubC, DyT_Cust
+        DyT_expected, DyT_SubC, DyT_Cust, refSubC, statut, statut_color, etape,
+        report_Q, report_DT, report_date, report_rev, report_rawdata, id_rawData,
+        count(distinct master_eprouvettes.id_master_eprouvette) as expected,
+        sum(if(master_eprouvettes.master_eprouvette_inOut_B is not null,1,0)) as shipped
 
         FROM tbljobs
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
         LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
         LEFT JOIN master_eprouvettes on master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
         WHERE tbljobs.id_info_job = (SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id.')
           AND tbljob_actif=1
           AND master_eprouvette_actif=1
+          AND eprouvette_actif=1
         GROUP BY id_tbljob
         ORDER BY phase ASC';
         //echo $req;

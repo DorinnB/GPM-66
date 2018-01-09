@@ -68,9 +68,9 @@
 					</a>
 				</acronym>
 			</div>
-			<div class="col-md-4" id="export" style="height:33%">
+			<div class="col-md-4" id="report" style="height:33%">
 				<acronym title="Create Report">
-					<a href="controller/createReport-controller.php?id_tbljob=<?=	$split['id_tbljob']	?>">
+					<a href="#">
 						<img type="image" src="img/export.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 					</a>
 				</acronym>

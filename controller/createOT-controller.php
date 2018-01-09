@@ -492,7 +492,7 @@ $objReader->setIncludeCharts(TRUE);
         'D15'=> $split['ref_matiere'],
         'D16'=> $split['dessin'],
 
-        'D21'=> $split['DyT_expected'],
+        'D21'=> $split['DyT_SubC'],
         'C22'=> $split['nbep'],
         'C23'=> $split['specification'].' - '.$split['tbljob_instruction'],
         'C24'=> $split['tbljob_commentaire']

@@ -12,7 +12,7 @@
 			</div>
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%">carré 3</div>
-				<div class="col-md-6" style="height:100%">carré 4</div>
+	<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'views/logupdate.php'; ?></div>
 			</div>
 		</div>
 		<div class="col-md-12 unique" id="pageunique" style="height:100%; display:none;">

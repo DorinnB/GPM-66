@@ -102,7 +102,7 @@ cursor:pointer;
 
 
 
-#export-menu {
+#report-contextual-menu {
 display: none;
 z-index: 1000;
 position: absolute;
@@ -115,10 +115,10 @@ color: #333;
 border-radius: 5px;
 }
 
-#export-menu li {
+#report-contextual-menu li {
 cursor: pointer;
 }
 
-#export-menu li:hover {
+#report-contextual-menu li:hover {
 background-color: #DEF;
 }
