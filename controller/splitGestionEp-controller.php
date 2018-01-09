@@ -37,19 +37,7 @@ $oDocument = new DocumentModel($db);
 
 
 
-//on masque tous les champs
-echo'
-<script type="text/javascript">
-document.getElementById("newTest").style.display = "none";
-document.getElementById("prepa").style.display = "none";
-document.getElementById("eval").style.display = "none";
 
-document.getElementById("prestart").style.display = "none";
-
-
-document.getElementById("delete").style.display = "none";
-document.getElementById("cancel").style.display = "none";
-</script>';
 
 echo '  <script type="text/javascript">';
 //affichage des champs utiles
@@ -123,6 +111,23 @@ if ($eprouvette['flag_qualite']>0) {
  }
 
 
+//affichage des commentaires (consigne, job unchecked ou read onenote)
+if ($eprouvette['c_checked']<=0 OR $eprouvette['checked']<=0 OR $checkTechSplit)  {
+    echo '<script type="text/javascript">
+    $("#Comments").toggle();
+    $("#notComments").toggle();
+  $("#hideInfo_icone").toggleClass("glyphicon-eye-close").toggleClass("glyphicon-eye-open");
+    </script>';
+}
 
-// Affichage du résultat
-include '../views/splitGestionEp-view.php';
+
+// Affichage du splitgestionEp selon le type de test
+$filenameGestionEp = '../views/splitGestionEp_'.$eprouvette['test_type_abbr'].'-view.php';
+if (file_exists($filenameGestionEp)) {
+  $splitGestionEp = $filenameGestionEp;
+}
+else{
+  $splitGestionEp = '../views/splitGestionEp_default-view.php';
+}
+
+include $splitGestionEp;

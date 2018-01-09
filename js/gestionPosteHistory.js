@@ -42,11 +42,6 @@ $(document).ready(function() {
 });
 
 
-// Gestion Eprouvette
-function gestionEp(idEp) {
-  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
-}
-
 
 
 //affichage et disparition automatique du popover en mouse hover

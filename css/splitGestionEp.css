@@ -99,3 +99,7 @@
 #check_rupture{
   cursor: pointer;
 }
+.newval  {
+  color:gray;
+  font-style: italic;
+}

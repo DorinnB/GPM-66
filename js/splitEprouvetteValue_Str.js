@@ -195,13 +195,6 @@ $(document).ready(function() {
 
 
 
-// Gestion Eprouvette
-function gestionEp(idEp) {
-  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
-}
-
-
-
 function save() {
   $.ajax({
     type: "POST",

@@ -1,4 +1,3 @@
-
 <script type="text/javascript" src="js/splitGestionEp.js"></script>
 <div class="modal-dialog">
 
@@ -17,26 +16,26 @@
         <div class="row" style="height:100%;">
           <div class="col-sm-4" style="height:100%;">
             <ul  class="nav nav-pills nav-stacked" style="height:100%;">
-              <li style="height:25%;" id="newTest">
+              <li style="height:25%;display:none;" id="newTest">
                 <a href="#1a" data-toggle="tab" style="line-height:7vh;"><p>NEW TEST</p></a>
               </li>
-              <li style="height:25%;" id="prepa">
+              <li style="height:25%;display:none;" id="prepa">
                 <a href="#1b" data-toggle="tab" style="line-height:7vh;"><p>PREPA</p></a>
               </li>
-              <li style="height:25%;" id="eval">
+              <li style="height:25%;display:none;" id="eval">
                 <a href="#1e" data-toggle="tab" style="line-height:7vh;"><p>EVAL</p></a>
               </li>
               <li style="height:25%;" id="document">
                 <a href="#1d" data-toggle="tab" style="line-height:7vh;"><p>DOC</p></a>
               </li>
-              <li style="height:25%;" id="prestart">
+              <li style="height:25%;display:none;" id="prestart">
                 <a href="#1c" data-toggle="tab" style="line-height:7vh;"><p>PRESTART CHECKLIST</p></a>
               </li>
               <li style="height:25%;" id="retest"><a href="#2a" data-toggle="tab" style="line-height:7vh;">RETEST</a>
               </li>
-              <li style="height:25%;" id="delete"><a href="#3a" data-toggle="tab" style="line-height:7vh;">DELETE</a>
+              <li style="height:25%;display:none;" id="delete"><a href="#3a" data-toggle="tab" style="line-height:7vh;">DELETE</a>
               </li>
-              <li style="height:25%;"id="cancel"><a href="#3b" data-toggle="tab" style="line-height:7vh;">CANCEL</a>
+              <li style="height:25%;display:none;"id="cancel"><a href="#3b" data-toggle="tab" style="line-height:7vh;">CANCEL</a>
               </li>
             </ul>
           </div>

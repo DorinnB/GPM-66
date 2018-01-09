@@ -109,7 +109,7 @@ var table = $('#table_ep').DataTable( {
     { data: "machines.machine" },
     { data: "enregistrementessais.date" },
     { data: "eprouvettes.waveform" },
-    { data: "eprouvettes.Cycle_STL" },    
+    { data: "eprouvettes.Cycle_STL" },
     { data: "eprouvettes.Cycle_final" },
     { data: "eprouvettes.Rupture" },
     { data: "eprouvettes.Fracture" },
@@ -180,10 +180,4 @@ function save() {
       alert('ERREUR lors de la modification des données du split. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
     }
   });
-}
-
-
-// Gestion Eprouvette
-function gestionEp(idEp) {
-  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
 }

@@ -202,14 +202,6 @@ document.getElementById("table_ep_filter").style.display = "none";
 } );
 
 
-
-// Gestion Eprouvette
-function gestionEp(idEp) {
-  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
-}
-
-
-
 function save() {
   $.ajax({
     type: "POST",

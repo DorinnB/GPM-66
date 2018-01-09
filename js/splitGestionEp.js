@@ -12,8 +12,42 @@ $("#openPrestart").click(function() {
   document.getElementById("1a").style.display = "none";
 });
 
+// Hide Consigne/job unchecked and onenote
+$("#hideInfo").click(function() {
+  $("#Comments").toggle();
+  $("#notComments").toggle();
+$("#hideInfo_icone").toggleClass("glyphicon-eye-close").toggleClass("glyphicon-eye-open");
+});
 
 $(document).ready(function(){
+
+  $( "#eprouvette_InOut_A" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+  $( "#eprouvette_InOut_A" ).change(function() {
+    $("#checkAux").val("save");
+    $("#d_checked").children('img').attr('src', 'img/nextJob.png');
+    $("#d_checked").css('background-color','');
+  });
+  $( "#eprouvette_InOut_B" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+  $( "#eprouvette_InOut_B" ).change(function() {
+    $("#checkAux").val("save");
+    $("#d_checked").children('img').attr('src', 'img/nextJob.png');
+    $("#d_checked").css('background-color','');    
+  });
+
+
+
   $('#newTestForm > div > select').each(function() {
     if ($(this).val() != '0') {
       $('#submit_newTest').removeAttr('disabled');    //si la machine est deja presente, on enleve le disabled
@@ -181,6 +215,26 @@ $("#check_rupture").click(function(e) {
     });
   }
 });
+
+$("#d_checked").click(function(e) {
+  //update que si c'est un save, ou bien un check d'un autre opérateur
+  if ($("#checkAux").val()=='save' || ( $("#checkAux").val()=='check' && -$("#d_checked").attr('data-d_checked')!=iduser)) {
+    $.ajax({
+      type: "POST",
+      url: 'controller/updateAux.php',
+      dataType: "json",
+      data: $("#update_Aux").serialize(),
+      success : function(data, statut){
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+$('#idEp').val());
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de la l\insertion des valeurs ou du check. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez d\'inserer une non-valeur.');
+      }
+    });
+  }
+});
+
 
 $("#flagQualite").click(function(e) {
   flagQualite($("#flagQualite"));

@@ -1,3 +1,7 @@
+// Gestion Eprouvette
+function gestionEp(idEp) {
+  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
+}
 
 $('#table_ep').selectable ({
   filter:"td.selectable",
@@ -6,8 +10,6 @@ $('#table_ep').selectable ({
     if ($(ui.selecting).hasClass('open-GestionEp')) {
       $('#gestionEp').modal('show');
       gestionEp($(ui.selecting).data('id'));
-      //$("#id_gestionEp").html($(ui.selecting).data('id'));
-
     }
   },
   selected: function( event, ui ) {
@@ -75,10 +77,7 @@ $(document).ready(function() {
 } );
 
 
-// Gestion Eprouvette
-function gestionEp(idEp) {
-  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
-}
+
 
 
 
