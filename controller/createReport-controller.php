@@ -23,6 +23,30 @@ $oSplit = new LstSplitModel($db,$_GET['id_tbljob']);
 
 $split=$oSplit->getSplit();
 
+//adresse
+$i=0;
+if (isset($split['departement'])) {
+  $adresse[$i]='departement';
+  $i++;
+}
+if (isset($split['rue1'])) {
+  $adresse[$i]='rue1';
+  $i++;
+}
+if (isset($split['rue2'])) {
+  $adresse[$i]='rue2';
+  $i++;
+}
+if (isset($split['ville'])) {
+  $adresse[$i]='ville';
+  $i++;
+}
+if (isset($split['pays'])) {
+  $adresse[$i]='pays';
+  $i++;
+}
+
+
 
 // Rendre votre modèle accessible
 include '../models/eprouvettes-model.php';
@@ -32,9 +56,30 @@ include '../models/eprouvette-model.php';
 $oEprouvettes = new LstEprouvettesModel($db,$_GET['id_tbljob']);
 $ep=$oEprouvettes->getAllEprouvettes();
 
+$MA['MArefSubC']='';
+$MA['MAspecifs']='';
+
 for($k=0;$k < count($ep);$k++)	{
   $oEprouvette = new EprouvetteModel($db,$ep[$k]['id_eprouvette']);
   $ep[$k]=$oEprouvette->getTest();
+
+  //récupération des splits .MA effectué
+  $ep2[$k]=$oEprouvette->getWorkflow();
+
+  //suppression des split non .MA en otant les ; de separation (si existant)
+  if (isset($ep2[$k]['MArefSubC'])) {
+    $ep2[$k]['MArefSubC']=str_replace(';', '', $ep2[$k]['MArefSubC']);
+  }
+  if (isset($ep2[$k]['MAspecifs'])) {
+    $ep2[$k]['MAspecifs']=str_replace(';', '', $ep2[$k]['MAspecifs']);
+  }
+  //si le split .MA exist, on supprime les doublons grace aux clé de l'array
+  $MA['MArefSubC'][$ep2[$k]['MArefSubC']]=1;
+  $MA['MAspecifs'][$ep2[$k]['MAspecifs']]=1;
+
+
+
+
 
   $oEprouvette->dimension($ep[$k]['type'],$ep[$k]['dim1'],$ep[$k]['dim2'],$ep[$k]['dim3']);
   //$denomination=$oEprouvette->dimDenomination();
@@ -63,6 +108,14 @@ for($k=0;$k < count($ep);$k++)	{
   $four="x";
 
 }
+
+
+
+
+
+$MArefSubC=implode(" - ",array_keys($MA['MArefSubC']));
+$MAspecifs=implode(" - ",array_keys($MA['MAspecifs']));
+
 
 
 
@@ -285,6 +338,291 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
 
 }
 
+ElseIf (isset($_GET['language']) AND $_GET['language']=="V2" AND $split['test_type_abbr']=="Loa")	{
+
+  if( $template!='')  {
+    $objPHPExcel = $objReader->load($template);
+  }
+  else {
+    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Loa".$language.".xlsx");
+  }
+
+  $enTete=$objPHPExcel->getSheetByName('En-tête');
+  $pvEssais=$objPHPExcel->getSheetByName('PV');
+  $courbes=$objPHPExcel->getSheetByName('Courbes');
+
+
+  $val2Xls = array(
+
+    'G1'=> $split['test_type_cust'],
+
+    'B5'=> $split['compagnie'],
+    'B6'=> $split['prenom'].' '.$split['nom'],
+    'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
+    'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),
+    'B9'=> (isset($adresse[2])?$split[$adresse[2]]:''),
+    'B10'=> (isset($adresse[3])?$split[$adresse[3]]:''),
+    'B11'=> (isset($adresse[4])?$split[$adresse[4]]:''),
+
+    'F5' => $jobcomplet,
+    'F6'=> (($split['report_rev']=='')?($split['report_rev']+1-1).' - DRAFT':$split['report_rev']),
+    'F7'=> date("Y-m-d"),
+    'F9'=> $split['po_number'],
+
+    'C20'=> $split['customer'].'-'.$split['job'],
+
+    'C26'=> $split['ref_matiere'],
+    'C27'=> $split['nbep'],
+    'C28'=> $split['nbtestdone'],
+
+    //'C28' si .MA
+    'K30'=> ((isset($MArefSubC))?1:0),
+    'C31'=> $MArefSubC,
+    'C32'=> $MAspecifs,
+    'C33'=> $split['dessin'],
+
+    'C37'=> $split['specification'],
+
+    'C40'=> $split['waveform'],
+    'K41'=> $split['cell_load_capacity'],
+    'C42'=> $split['machines'],
+    'K43'=> $split['four'],
+    'L43'=> $split['coil']
+  );
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $enTete->setCellValue($key, $value);
+  }
+
+  //masquage des lignes d'adresse non utilisé
+  if (!isset($adresse[3])) {
+    $enTete->getRowDimension(10)->setVisible(false);
+    $enTete->getRowDimension(11)->setVisible(false);
+  }
+  if (!isset($adresse[4])) {
+    $enTete->getRowDimension(11)->setVisible(false);
+  }
+
+  //titre des lignes PV
+  $pvEssais->setCellValueByColumnAndRow(0, 14, $split['c_type_1']);
+  $pvEssais->setCellValueByColumnAndRow(2, 14, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+  $pvEssais->setCellValueByColumnAndRow(0, 15, $split['c_type_2']);
+  $pvEssais->setCellValueByColumnAndRow(2, 15, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+  $pvEssais->setCellValueByColumnAndRow(2, 27, $split['c_unite']);
+  $pvEssais->setCellValueByColumnAndRow(2, 28, $split['c_unite']);
+  $pvEssais->setCellValueByColumnAndRow(2, 29, $split['c_unite']);
+  $pvEssais->setCellValueByColumnAndRow(2, 30, $split['c_unite']);
+
+
+  $row = 0; // 1-based index
+  $col = 3;
+
+  $row_q=0;
+  $col_q=0;
+  $nb_q=0;
+  $max_row_q=0;
+  $nbPage=15;
+  $maxheight=0;
+
+
+
+  foreach ($ep as $key => $value) {
+    //copy des styles des colonnes
+    for ($row = 5; $row <= 48; $row++) {
+      $style = $pvEssais->getStyleByColumnAndRow(3, $row);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+      $pvEssais->duplicateStyle($style, $dstCell);
+    }
+
+    $pvEssais->setCellValueByColumnAndRow($col, 5, $value['prefixe']);
+    $pvEssais->setCellValueByColumnAndRow($col, 6, $value['nom_eprouvette']);
+
+    $pvEssais->setCellValueByColumnAndRow($col, 7, $value['n_essai']);
+    $pvEssais->setCellValueByColumnAndRow($col, 8, $value['n_fichier']);
+    $pvEssais->setCellValueByColumnAndRow($col, 9, $value['machine']);
+    $pvEssais->setCellValueByColumnAndRow($col, 10, $value['date']);
+    $pvEssais->setCellValueByColumnAndRow($col, 11, $value['c_temperature']);
+    $pvEssais->setCellValueByColumnAndRow($col, 12, $value['c_frequence']);
+    $pvEssais->setCellValueByColumnAndRow($col, 13, $value['c_frequence_STL']);
+    $pvEssais->setCellValueByColumnAndRow($col, 14, $value['c_type_1_val']);
+    $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']);
+    $pvEssais->setCellValueByColumnAndRow($col, 16, str_replace(array("True","Tapered"), "", strtoupper($value['c_waveform'])));
+
+    if (isset($value['denomination']['denomination_1'])) {
+      $pvEssais->setCellValueByColumnAndRow($col, 17, $value['dim1']);
+      $pvEssais->setCellValueByColumnAndRow(1, 17, $value['denomination']['denomination_1']);
+      if ($value['dilatation']>1) {
+        $pvEssais->setCellValueByColumnAndRow($col, 21, $value['dim1']*$value['dilatation']);
+        $pvEssais->setCellValueByColumnAndRow(1, 21, $value['denomination']['denomination_1']);
+      }
+      else {
+        $pvEssais->getRowDimension(21)->setVisible(FALSE);
+      }
+    }
+    else {
+      $pvEssais->getRowDimension(17)->setVisible(FALSE);
+      $pvEssais->getRowDimension(21)->setVisible(FALSE);
+    }
+    if (isset($value['denomination']['denomination_2'])) {
+      $pvEssais->setCellValueByColumnAndRow($col, 18, $value['dim2']);
+      $pvEssais->setCellValueByColumnAndRow(1, 18, $value['denomination']['denomination_2']);
+      if ($value['dilatation']>1) {
+        $pvEssais->setCellValueByColumnAndRow($col, 22, $value['dim2']*$value['dilatation']);
+        $pvEssais->setCellValueByColumnAndRow(1, 22, $value['denomination']['denomination_2']);
+      }
+      else {
+        $pvEssais->getRowDimension(22)->setVisible(FALSE);
+      }
+
+    }
+    else {
+      $pvEssais->getRowDimension(18)->setVisible(FALSE);
+      $pvEssais->getRowDimension(22)->setVisible(FALSE);
+    }
+    if (isset($value['denomination']['denomination_3'])) {
+      $pvEssais->setCellValueByColumnAndRow($col, 19, $value['dim3']);
+      $pvEssais->setCellValueByColumnAndRow(1, 19, $value['denomination']['denomination_3']);
+      if ($value['dilatation']>1) {
+        $pvEssais->setCellValueByColumnAndRow($col, 23, $value['dim3']*$value['dilatation']);
+        $pvEssais->setCellValueByColumnAndRow(1, 23, $value['denomination']['denomination_3']);
+      }
+      else {
+        $pvEssais->getRowDimension(23)->setVisible(FALSE);
+      }
+    }
+    else {
+      $pvEssais->getRowDimension(19)->setVisible(FALSE);
+      $pvEssais->getRowDimension(23)->setVisible(FALSE);
+    }
+
+
+    $pvEssais->setCellValueByColumnAndRow($col, 27, $value['max']);
+    $pvEssais->setCellValueByColumnAndRow($col, 28, ($value['max']+$value['min'])/2);
+    $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
+    $pvEssais->setCellValueByColumnAndRow($col, 30, $value['min']);
+
+
+    $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
+    $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
+    $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
+    $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
+
+    if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
+    }
+    else {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+
+    }
+    if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
+    }
+
+
+    //tableau pour le stepcase
+    if ($value['stepcase_val']!='' AND $value['Cycle_final']>0) {
+      $stepcaseDone=floor($value['Cycle_final']/($value['runout']+1));  //+1 pour eviter qu'un essay NR soit considérer du step d'apres.
+      $nbCycleStepcase=$value['Cycle_final']-$value['runout']*$stepcaseDone;
+      $stepcaseInitial=($split['c_type_1']==$value['steptype'])?$value['c_type_1_val']:$value['c_type_2_val'];
+
+
+
+
+      $oEprouvette->niveaumaxmin(
+        $value['c_1_type'],
+        $value['c_2_type'],
+        $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0),
+        $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0)
+      );
+      $value['max']=$oEprouvette->MAX();
+      $value['min']=$oEprouvette->MIN();
+
+      //on réecrit les niveaux et nb cycle final du step final
+      $pvEssais->setCellValueByColumnAndRow($col, 27, $value['max']);
+      $pvEssais->setCellValueByColumnAndRow($col, 28, ($value['max']+$value['min'])/2);
+      $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
+      $pvEssais->setCellValueByColumnAndRow($col, 30, $value['min']);
+
+      $pvEssais->setCellValueByColumnAndRow($col, 44, $nbCycleStepcase);
+
+      //$texte="Stepcase sur ".$value['steptype']." pas ".$value['stepcase_val']." ".$split['c_unite']." et runout à ".$value['runout']." cycles, niveau initial ".$stepcaseInitial.", final ".($stepcaseInitial+$value['stepcase_val']*($stepcaseDone)).". Cycle d'arrêt au niveau ".$nbCycleStepcase;
+      //$texte="Stepcase sur ".$value['steptype'].", pas ".enleverZero($value['stepcase_val'])." ".$split['c_unite'].", runout à ".number_format($value['runout'], 0, '.', ' ')." cycles et niveau initial ".enleverZero($stepcaseInitial)." ".$split['c_unite'].". Arrêt cycle ".number_format($value['Cycle_final'], 0, '.', ' ')." : ".($stepcaseDone+1)."ème pas.";
+
+      //commentaire test incrémental selon la langue
+      if ($language=='_USA') {
+        $texte="Incrémental test, initial step ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), step ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." every ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : step ".($stepcaseDone+1).".";
+      }
+      else {
+        $texte="Test incrémental, niveau initial ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), pas ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." tous les ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : pas ".($stepcaseDone+1).".";
+      }
+
+
+
+      $value['q_commentaire']=$texte.' '.$value['q_commentaire'];
+    }
+
+
+    $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+    //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
+    if ($col_q==$col) {
+      $pvEssais->setCellValueByColumnAndRow($col_q, 50, '');
+      $prev_value='';
+    }
+    else {
+      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
+    }
+
+
+    if ($value['q_commentaire']!="") {
+
+      $nb_q+=1; //on incremente le nombre de commentaire
+
+      $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
+      $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
+      $pvEssais->getRowDimension(50)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $prev_value);
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(50)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
+
+    $col++;
+  }
+
+  //zone d'impression
+  //colstring = on augmente la zone d'impression, non pas a la derniere eprouvette mais a la serie de $nbpage d'apres.
+  $colString = PHPExcel_Cell::stringFromColumnIndex((ceil(($col-3)/$nbPage)*$nbPage+3)-1);
+  $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(50));
+
+  //separation impression par $nbPage eprouvettes
+  for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
+    $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
+    $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
+    $pvEssais->setCellValueByColumnAndRow($c-3, 1, "No. DE TRAVAIL :");
+    $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($c-3).(1))->getFont()->setBold(true);
+  }
+
+
+
+
+
+
+}
 elseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
 
   if( $template!='')  {
@@ -457,8 +795,8 @@ elseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
       $oEprouvette->niveaumaxmin(
         $value['c_1_type'],
         $value['c_2_type'],
-        $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0),
-        $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0)
+        $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?$stepcaseDone*$value['stepcase_val']:0),
+        $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?$stepcaseDone*$value['stepcase_val']:0)
       );
       $value['max']=$oEprouvette->MAX();
       $value['min']=$oEprouvette->MIN();
@@ -475,12 +813,12 @@ elseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
       //$texte="Stepcase sur ".$value['steptype'].", pas ".enleverZero($value['stepcase_val'])." ".$split['c_unite'].", runout à ".number_format($value['runout'], 0, '.', ' ')." cycles et niveau initial ".enleverZero($stepcaseInitial)." ".$split['c_unite'].". Arrêt cycle ".number_format($value['Cycle_final'], 0, '.', ' ')." : ".($stepcaseDone+1)."ème pas.";
 
       //commentaire test incrémental selon la langue
-if ($language=='_USA') {
-  $texte="Incrémental test, initial step ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), step ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." every ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : ".($stepcaseDone+1)."th step.";
-}
-else {
-  $texte="Test incrémental, niveau initial ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), pas ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." tous les ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : ".($stepcaseDone+1)."ème pas.";
-}
+      if ($language=='_USA') {
+        $texte="Incrémental test, initial step ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), step ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." every ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : step ".($stepcaseDone+1).".";
+      }
+      else {
+        $texte="Test incrémental, niveau initial ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), pas ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." tous les ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : pas ".($stepcaseDone+1).".";
+      }
 
 
 
@@ -488,21 +826,25 @@ else {
     }
 
 
+    $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+    //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
+    if ($col_q==$col) {
+      $pvEssais->setCellValueByColumnAndRow($col_q, 50, '');
+      $prev_value='';
+    }
+    else {
+      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
+    }
+
 
     if ($value['q_commentaire']!="") {
 
-      $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
       $nb_q+=1; //on incremente le nombre de commentaire
-
-      //recup du commentaire precedent
-      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
 
       $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
       $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
       $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
       $pvEssais->getRowDimension(50)->setRowHeight(-1);
-
-
 
 
       //calcul de la hauteur max de la cellule de commentaire Qualité
@@ -707,20 +1049,26 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
       $pvEssais->getRowDimension(41)->setVisible();
     }
 
+
+    $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+    //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
+    if ($col_q==$col) {
+      $pvEssais->setCellValueByColumnAndRow($col_q, 50, '');
+      $prev_value='';
+    }
+    else {
+      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
+    }
+
+
     if ($value['q_commentaire']!="") {
 
-      $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
       $nb_q+=1; //on incremente le nombre de commentaire
-
-      //recup du commentaire precedent
-      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
 
       $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
       $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
       $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
       $pvEssais->getRowDimension(50)->setRowHeight(-1);
-
-
 
 
       //calcul de la hauteur max de la cellule de commentaire Qualité
@@ -939,23 +1287,25 @@ ElseIf ($split['test_type_abbr']=="Str")	{
     }
 
 
-
+    $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+    //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
+    if ($col_q==$col) {
+      $pvEssais->setCellValueByColumnAndRow($col_q, 50, '');
+      $prev_value='';
+    }
+    else {
+      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
+    }
 
 
     if ($value['q_commentaire']!="") {
 
-      $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
       $nb_q+=1; //on incremente le nombre de commentaire
-
-      //recup du commentaire precedent
-      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
 
       $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
       $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
       $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
       $pvEssais->getRowDimension(50)->setRowHeight(-1);
-
-
 
 
       //calcul de la hauteur max de la cellule de commentaire Qualité
@@ -1169,23 +1519,25 @@ ElseIf ($split['test_type_abbr']=="PS")	{
     }
 
 
-
+    $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+    //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
+    if ($col_q==$col) {
+      $pvEssais->setCellValueByColumnAndRow($col_q, 50, '');
+      $prev_value='';
+    }
+    else {
+      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
+    }
 
 
     if ($value['q_commentaire']!="") {
 
-      $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
       $nb_q+=1; //on incremente le nombre de commentaire
-
-      //recup du commentaire precedent
-      $prev_value = $pvEssais->getCellByColumnAndRow($col_q, 50)->getValue();
 
       $pvEssais->setCellValueByColumnAndRow($col, 48, '('.($nb_q).')');
       $pvEssais->setCellValueByColumnAndRow($col_q, 50, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
       $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'50:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
       $pvEssais->getRowDimension(50)->setRowHeight(-1);
-
-
 
 
       //calcul de la hauteur max de la cellule de commentaire Qualité

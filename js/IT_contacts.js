@@ -11,9 +11,18 @@ $(document).ready(function() {
     table: "#table_contacts",
     fields: [
       { label: "Gender", name: "contacts.genre"  },
-      { label: "Lastname", name: "contacts.lastname"  },
-      { label: "Surname", name: "contacts.surname"  },
+
+
       { label: "Adress", name: "contacts.adresse"  },
+
+      { label: "First Name", name: "contacts.prenom"  },
+      { label: "Last Name", name: "contacts.nom"  },
+      { label: "Dpt", name: "contacts.departement"  },
+      { label: "Street", name: "contacts.rue1"  },
+      { label: "Street", name: "contacts.rue2"  },
+      { label: "Town", name: "contacts.ville"  },
+      { label: "Country", name: "contacts.pays"  },
+
       { label: "Email", name: "contacts.email"  },
       { label: "Cell nb", name: "contacts.telephone"  },
       { label: "Office (responsable...)", name: "contacts.poste" },
@@ -36,14 +45,22 @@ $(document).ready(function() {
       url : "controller/editor-contacts.php",
       type: "POST"
     },
-    order: [[ 9, "desc" ],[0,"asc"]],
+    order: [[ 13, "desc" ],[0,"asc"]],
     columns: [
       { data: "entreprises.id_entreprise" },
       { data: "entreprises.entreprise" },
-      { data: "contacts.genre" },
-      { data: "contacts.lastname" },
-      { data: "contacts.surname" },
+
+
       { data: "contacts.adresse" },
+
+      { data: "contacts.prenom" },
+      { data: "contacts.nom" },
+      { data: "contacts.departement" },
+      { data: "contacts.rue1" },
+      { data: "contacts.rue2" },
+      { data: "contacts.ville" },
+      { data: "contacts.pays" },
+
       { data: "contacts.email" },
       { data: "contacts.telephone" },
       { data: "contacts.poste" },
@@ -53,7 +70,7 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging: false,
     keys: {
-      columns: [5,6,7,8,9],
+      columns: [5,6,7,8,9,10,11,12,13],
       editor:  editor
     },
     select: {
@@ -67,7 +84,7 @@ $(document).ready(function() {
 
 
   table
-  .column( '9' )
+  .column( '14' )
   .search( '1' )
   .draw();
 

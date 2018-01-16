@@ -19,9 +19,17 @@ Editor::inst( $db, 'contacts' )
 ->pkey( 'contacts.id_contact' )
 ->fields(
   Field::inst( 'contacts.genre'),
-  Field::inst( 'contacts.lastname'),
-  Field::inst( 'contacts.surname'),
+
   Field::inst( 'contacts.adresse'),
+
+  Field::inst( 'contacts.prenom'),
+  Field::inst( 'contacts.nom'),
+  Field::inst( 'contacts.departement'),
+  Field::inst( 'contacts.rue1'),
+  Field::inst( 'contacts.rue2'),
+  Field::inst( 'contacts.ville'),
+  Field::inst( 'contacts.pays'),
+
   Field::inst( 'contacts.email'),
   Field::inst( 'contacts.telephone'),
   Field::inst( 'contacts.poste'),
@@ -32,7 +40,7 @@ Editor::inst( $db, 'contacts' )
           ->label( 'entreprise' )
       ),
   Field::inst( 'entreprises.entreprise' ),
-  Field::inst( 'entreprises.id_entreprise' ),  
+  Field::inst( 'entreprises.id_entreprise' ),
   Field::inst( 'contacts.contact_actif')
   )
   ->leftJoin( 'entreprises',     'entreprises.id_entreprise',          '=', 'contacts.ref_customer' )

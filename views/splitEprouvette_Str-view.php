@@ -196,8 +196,8 @@
           <td class="checkValue_c2_E_montant decimal1" <?= $epHisto2[$k]['c2_E_montant'] ?>><?= $ep[$k]['c2_E_montant'] ?></td>
           <td class="checkValue_c2_max_stress decimal1 chartStressMax" <?= $epHisto2[$k]['c2_max_stress'] ?>><?= $ep[$k]['c2_max_stress'] ?></td>
           <td class="checkValue_c2_min_stress decimal1" <?= $epHisto2[$k]['c2_min_stress'] ?>><?= $ep[$k]['c2_min_stress'] ?></td>
-          <td class="decimal2 chartStrainRange" <?= $epHisto2[$k]['c2_delta_strain'] ?>><?= $ep[$k]['c2_delta_strain'] ?></td>
-          <td class="decimal2" <?= $epHisto2[$k]['c2_strain_e'] ?>><?= $ep[$k]['c2_strain_e'] ?></td>
+          <td class="decimal2 chartStrainRange"><?= $ep[$k]['c2_max_strain']-$ep[$k]['c2_min_strain'] ?></td>
+          <td class="decimal2"><?= $ep[$k]['c2_max_strain']-$ep[$k]['c2_min_strain']-$ep[$k]['c2_calc_inelastic_strain'] ?></td>
           <td class="decimal2" <?= $epHisto2[$k]['c2_calc_inelastic_strain'] ?>><?= $ep[$k]['c2_calc_inelastic_strain'] ?></td>
           <td class="decimal2" <?= $epHisto2[$k]['c2_meas_inelastic_strain'] ?>><?= $ep[$k]['c2_meas_inelastic_strain'] ?></td>
 

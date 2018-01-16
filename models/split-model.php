@@ -27,19 +27,23 @@ private $id;
 
     public function getSplit() {
 //ADD AFFICHAGE DESSIN en concat
-		$req = 'SELECT id_tbljob, tbljobs.id_info_job,
+		$req = 'SELECT tbljobs.id_tbljob, tbljobs.id_info_job,
           customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,schedule_recommendation,
-          contacts.genre, contacts.lastname, contacts.surname, contacts.compagnie, contacts.email as email, contacts.telephone as telephone,
+          contacts.genre, contacts.lastname, contacts.surname, contacts.compagnie, contacts.email as email, contacts.telephone as telephone, contacts.prenom, contacts.nom, contacts.departement, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
           contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2, contacts2.email as email2, contacts2.telephone as telephone2,
           contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3, contacts3.email as email3, contacts3.telephone as telephone3,
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, ST, tbljobs.id_rawData, rawData.name,
+          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
             GROUP_CONCAT( DISTINCT round(c_temperature,0) ORDER BY c_temperature DESC SEPARATOR \' / \') as temperature,
             GROUP_CONCAT( DISTINCT round(c_frequence,1) ORDER BY c_frequence DESC SEPARATOR \' / \') as c_frequence,
             GROUP_CONCAT( DISTINCT round(c_frequence_STL,1) ORDER BY c_frequence_STL DESC SEPARATOR \' / \') as c_frequence_STL,
+            GROUP_CONCAT( DISTINCT machine SEPARATOR \' / \') as machines,
+            GROUP_CONCAT( DISTINCT cell_load_capacity SEPARATOR \' / \') as cell_load_capacity,
+            sum(if(type_chauffage="Four",1,0)) as four,
+            sum(if(type_chauffage="Coil",1,0)) as coil,
           type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
           type1.id_consigne_type as id_c_type_1, type2.id_consigne_type as id_c_type_2,
           DyT_SubC, DyT_expected, DyT_Cust, available_expected, report_send,
@@ -48,7 +52,7 @@ private $id;
 contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.lastname as lastnameST, contactST.surname as surnameST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
 
           count(distinct master_eprouvettes.id_master_eprouvette) as nbep,
-          count(distinct id_eprouvette) as nbtest,
+          count(distinct eprouvettes.id_eprouvette) as nbtest,
           count(n_essai) as nbtestdone,
           COUNT(DISTINCT CASE WHEN n_essai is null THEN master_eprouvettes.id_master_eprouvette END) nbepleft,
           COUNT(DISTINCT CASE WHEN d_checked <=0 THEN master_eprouvettes.id_master_eprouvette END) nbepCheckedleft,
@@ -103,6 +107,12 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
 				LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
 				LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
         LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+        LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
+        LEFT JOIN postes ON postes.id_poste=prestart.id_poste
+        LEFT JOIN machines ON machines.id_machine=postes.id_machine
+        LEFT JOIN chauffages ON chauffages.id_chauffage=postes.id_chauffage
+        LEFT JOIN cell_load ON cell_load.id_cell_load=postes.id_cell_load
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
         LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
@@ -121,10 +131,10 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
         LEFT JOIN techniciens as t2 on t2.id_technicien=tbljobs.checked
 
 
-				WHERE id_tbljob='.$this->id.'
+				WHERE tbljobs.id_tbljob='.$this->id.'
         AND eprouvette_actif=1
         AND master_eprouvette_actif=1
-        GROUP BY id_tbljob';
+        GROUP BY tbljobs.id_tbljob';
 //echo $req;
         return $this->db->getOne($req);
     }
@@ -241,7 +251,8 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
 
     public function updateReportSend($id_reportSend){
       $reqUpdate='UPDATE `tbljobs` SET
-        `report_send` = '.$this->db->quote($id_reportSend).'
+        `report_send` = '.$this->db->quote($id_reportSend).',
+        report_date = "'.date('Y-m-d').'"
        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
     //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -262,7 +273,45 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
       $reqUpdate='UPDATE `tbljobs` SET `phase` = '.$phase.', `split` = '.$this->splitNumber.' WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
       echo $reqUpdate;
       $this->db->query($reqUpdate);
+    }
 
+    public function updateCheckQ(){
+      //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
+      $reqUpdate='
+        UPDATE `tbljobs`
+        SET `report_Q` = if(report_Q=0,'.$_COOKIE['id_user'].',sign(report_Q)*-'.$_COOKIE['id_user'].')
+        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+      //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+      			echo json_encode($maReponse);
+    }
+
+    public function updateCheckTM(){
+      //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
+      $reqUpdate='
+        UPDATE `tbljobs`
+        SET `report_TM` = if(report_TM=0,'.$_COOKIE['id_user'].',sign(report_TM)*-'.$_COOKIE['id_user'].')
+        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+      //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+      			echo json_encode($maReponse);
+    }
+
+    public function updateRawData(){
+      //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
+      $reqUpdate='
+        UPDATE `tbljobs`
+        SET `report_rawdata` = if( 	report_rawdata =0,'.$_COOKIE['id_user'].',sign( 	report_rawdata )*-'.$_COOKIE['id_user'].')
+        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+      //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+      			echo json_encode($maReponse);
     }
 
     public function findStatut(){

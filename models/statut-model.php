@@ -67,6 +67,8 @@ class StatutModel
 
   public function findStatut(){
     $req='SELECT
+    if(report_Q>0,1,0) as report_Q,
+    if(report_TM>0,1,0) as report_TM,
     if(report_send>0,1,0) as report_send,
         if(checked>0,1,0) as OT_checked,
         sum(if(master_eprouvette_inOut_A is null,1,0)) as nb_awaiting_specimen,
@@ -160,7 +162,7 @@ class StatutModel
     $id_statut=0;
 
     if ($state['report_send']==1) {
-      $id_statut=80;
+      $id_statut=90;
       $statut='Completed';
     }
     elseif ($state['OT_checked']==0) {
@@ -192,6 +194,17 @@ class StatutModel
         elseif ($state['nb_before_end']==0) { //plus d'essai a faire
           $id_statut=70;
           $statut='FQC';
+
+
+if ($state['report_Q']>0) {
+  $id_statut=71;
+  $statut='FQC Q done';
+}
+if (($state['report_Q']>0 AND $state['report_TM']>0)) {
+  $id_statut=80;
+  $statut='Report Ready';
+}
+
         }
         else {  //s'il reste des essais a faire
           if ($state['nb_consigne_dispo']>0) { //ready to start

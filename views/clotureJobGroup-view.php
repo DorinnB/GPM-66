@@ -3,9 +3,8 @@
     <thead>
       <tr>
         <th rowspan="2">Groupe</th>
-        <th rowspan="2" style="width:5%">Nb</th>
         <?php  foreach ($splits as $splitJob): ?>
-          <th><?= $splitJob['split'].' - '.$splitJob['test_type_abbr']  ?></th>
+          <th  style="background-color:<?= $splitJob['statut_color']  ?>;"><?= $splitJob['split'].' - '.$splitJob['test_type_abbr'].' ('.$splitJob['nbep'].' ep)'  ?></th>
         <?php  endforeach  ?>
       </tr>
       <tr>
@@ -19,7 +18,6 @@
       <?php foreach ($groupes as $key => $line): ?>
         <tr>
           <td>Group <?= $key+1 ?></td>
-          <td><?= $split['nbep'] ?></td>
           <?php  foreach ($splits as $splitJob): ?>
             <?php if (isset($groupes[$key]['split'][$splitJob['id_tbljob']])) : ?>
               <?php if (is_numeric($splitJob['split'])) :  ?>

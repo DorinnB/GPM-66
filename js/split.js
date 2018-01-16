@@ -104,7 +104,7 @@ $("#report").contextmenu(function (event) {
 
     // In the right position (the mouse)
     css({
-        top: (event.pageY - 210) + "px",
+        top: (event.pageY - 260) + "px",
         left: (event.pageX -150)+ "px"
     });
         $('#report-contextual-menu').load('views/report-icone-view.php?id_tbljob='+$('#id_tbljob').val());

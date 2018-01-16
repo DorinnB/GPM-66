@@ -4,10 +4,9 @@
     <thead>
       <tr>
         <th rowspan=2>Groupe</th>
-        <th rowspan=2 style="width:5%">Nb</th>
         <th rowspan=2 class="selectableTitle" data-id="<?=  $split['available_expected'] ?>" data-IO="available_expected" data-value="<?= $split['available_expected']   ?>" data-oldValue="<?= $split['available_expected']   ?>">Receipt</th>
         <?php  foreach ($splits as $splitJob): ?>
-          <th colspan=2><?= $splitJob['split'].' - '.$splitJob['test_type_abbr']  ?></th>
+          <th colspan=2><?= $splitJob['split'].' - '.$splitJob['test_type_abbr'].' ('.$splitJob['nbep'].' ep)'   ?></th>
         <?php  endforeach  ?>
       </tr>
       <tr>
@@ -26,7 +25,6 @@
     <tfoot>
       <tr>
         <th>Groupe</th>
-        <th>Nb</th>
         <th>receipt</th>
         <?php  foreach ($splits as $splitJob): ?>
           <?php if ($splitJob['ST'] == 1) :  ?>
@@ -44,8 +42,6 @@
       <?php foreach ($groupes as $key => $line): ?>
         <tr>
           <td>Group <?= $key+1 ?></td>
-          <td><?= $split['nbep'] ?></td>
-
           <td class="selectable" data-id="<?=  (($split['available_expected']=="")?" ":$split['available_expected']) ?>" data-IO="available_expected" data-oldValue="<?= $split['available_expected']   ?>"><?= $split['available_expected'] ?></td>
 
           <?php  foreach ($splits as $splitJob): ?>
