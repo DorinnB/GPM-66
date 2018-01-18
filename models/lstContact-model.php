@@ -19,7 +19,7 @@ class ContactModel
     }
 
     public function getContact($ref_customer) {
-      $req='SELECT * FROM contacts where ref_customer = '.$ref_customer.' AND contact_actif=1 ORDER BY surname;';
+      $req='SELECT * FROM contacts where ref_customer = '.$ref_customer.' AND contact_actif=1 ORDER BY nom;';
         return $this->db->getAll($req);
     }
 

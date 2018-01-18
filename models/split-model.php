@@ -35,7 +35,7 @@ private $id;
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev,
+          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev, invoice_type, invoice_date, invoice_commentaire,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
             GROUP_CONCAT( DISTINCT round(c_temperature,0) ORDER BY c_temperature DESC SEPARATOR \' / \') as temperature,
             GROUP_CONCAT( DISTINCT round(c_frequence,1) ORDER BY c_frequence DESC SEPARATOR \' / \') as c_frequence,
@@ -275,11 +275,27 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
       $this->db->query($reqUpdate);
     }
 
+    public function updateRev(){
+      //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
+      $reqUpdate='
+        UPDATE `tbljobs`
+        SET report_rev = if(report_rev is null,0,report_rev + 1)
+        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+      //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+      			echo json_encode($maReponse);
+    }
+
     public function updateCheckQ(){
       //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
       $reqUpdate='
         UPDATE `tbljobs`
-        SET `report_Q` = if(report_Q=0,'.$_COOKIE['id_user'].',sign(report_Q)*-'.$_COOKIE['id_user'].')
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        SET `report_Q` = if(report_Q=0,'.$_COOKIE['id_user'].',sign(report_Q)*-'.$_COOKIE['id_user'].'),
+          id_statut_temp=70,
+          report_rev = if(report_rev is null,0,report_rev)
         WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -292,7 +308,9 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
       //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
       $reqUpdate='
         UPDATE `tbljobs`
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
         SET `report_TM` = if(report_TM=0,'.$_COOKIE['id_user'].',sign(report_TM)*-'.$_COOKIE['id_user'].')
+          , id_statut_temp=70
         WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -314,6 +332,22 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
       			echo json_encode($maReponse);
     }
 
+        public function updateInvoice(){
+          //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
+          $reqUpdate='
+            UPDATE `tbljobs`
+            LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+            SET invoice_type = '.$this->invoice_type.',
+            invoice_date ='.$this->invoice_date.',
+            invoice_commentaire ='.$this->invoice_commentaire.'
+
+            WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+          //echo $reqUpdate;
+          $result = $this->db->query($reqUpdate);
+
+          $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+          			echo json_encode($maReponse);
+        }
     public function findStatut(){
       $req='SELECT
           sum(if(master_eprouvette_inOut_A is null,0,1)) as nbInOut_A,

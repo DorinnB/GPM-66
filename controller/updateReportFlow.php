@@ -10,7 +10,10 @@ include '../models/split-model.php';
 // Création d'une instance
 $oSplit = new LstSplitModel($db,$_POST['idtbljob']);
 
-if ($_POST['role']=="Q") {
+if ($_POST['role']=="rev") {
+  $oSplit->updateRev();
+}
+elseif ($_POST['role']=="Q") {
   $oSplit->updateCheckQ();
 }
 elseif ($_POST['role']=="TM") {
@@ -19,6 +22,13 @@ elseif ($_POST['role']=="TM") {
 elseif ($_POST['role']=="RawData") {
   $oSplit->updateRawData();
 }
+elseif ($_POST['role']=="invoice") {
+  $oSplit->invoice_type=isset($_POST['invoice_type'])?$_POST['invoice_type']:"";
+  $oSplit->invoice_date=isset($_POST['invoice_date'])?$_POST['invoice_date']:"";
+  $oSplit->invoice_commentaire=isset($_POST['invoice_commentaire'])?$_POST['invoice_commentaire']:"";
+  $oSplit->updateInvoice();
+}
+
 
 //Update du statut du job
 include '../models/statut-model.php';

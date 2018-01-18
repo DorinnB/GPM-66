@@ -21,7 +21,7 @@
           <?php  foreach ($splits as $splitJob): ?>
             <?php if (isset($groupes[$key]['split'][$splitJob['id_tbljob']])) : ?>
               <?php if (is_numeric($splitJob['split'])) :  ?>
-                <td style="border: 1px solid yellow; background-color:<?=$splitJob['statut_color']  ?>;"><?= $splitJob['etape']  ?></td>
+                <td style="border: 3px solid yellow; background-color:<?=$splitJob['statut_color']  ?>;"><?= $splitJob['etape']  ?></td>
             <?php else: ?>
                 <td style="background-color:<?=$splitJob['statut_color']  ?>;"><?= $splitJob['etape']  ?></td>
               <?php endif ?>

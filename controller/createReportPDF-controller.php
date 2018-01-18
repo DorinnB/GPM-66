@@ -35,13 +35,16 @@ if(is_dir($Annexe)){
 
 if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 
+  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Report_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+
+  if (file_exists($filename)) { unlink ($filename); }
+
   $cmd='C:/wamp/www/GPM/lib/'.$cmdReport.$cmdAnnexe.'PDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
   //echo $cmd.'</br>';
   pclose(popen("start /B ". $cmd, "r"));
 
   //system("cmd /k C:/wamp/www/GPM/temp/test.bat");
 
-  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Report_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 
   $tempMax=0;
   while( !file_exists($filename) OR $tempMax>60)  {
@@ -59,13 +62,17 @@ if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 }
 elseif ($cmdAnnexe!='') { //si $cmd n'est pas vide, on execute le bon batch
 
+  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Annexe_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+
+  if (file_exists($filename)) { unlink ($filename); }
+
+
   $cmd='C:/wamp/www/GPM/lib/'.$cmdAnnexe.'PDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
   //echo $cmd.'</br>';
   pclose(popen("start /B ". $cmd, "r"));
 
   //system("cmd /k C:/wamp/www/GPM/temp/test.bat");
 
-  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Annexe_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 
   $tempMax=0;
   while( !file_exists($filename) OR $tempMax>60)  {
