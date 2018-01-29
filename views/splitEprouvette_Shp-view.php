@@ -13,6 +13,7 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
+        <th><acronym title="Rupture Check">R.</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </thead>
@@ -29,6 +30,7 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
+        <th><acronym title="Rupture Check">R.</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </tfoot>
@@ -37,7 +39,7 @@
       <?php for($k=0;$k < count($ep);$k++): ?>
         <tr>
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
-          <td class="dispo selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
+          <td class="dispo open-GestionEp selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td><?= $ep[$k]['dessin'] ?></td>
@@ -74,6 +76,7 @@
             <?php endif ?>
           </td>
 
+          <td class="dCheckEp" data-dchecked="<?= max(0,$ep[$k]['check_rupture']) ?>" <?= $epHisto2[$k]['check_rupture'] ?>><?= $ep[$k]['check_rupture'] ?></td>
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 
         </tr>

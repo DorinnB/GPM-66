@@ -28,11 +28,7 @@ $(document).ready(function(){
     selectOtherMonths: true,
     dateFormat: "yy-mm-dd"
   });
-  $( "#eprouvette_InOut_A" ).change(function() {
-    $("#checkAux").val("save");
-    $("#d_checked").children('img').attr('src', 'img/nextJob.png');
-    $("#d_checked").css('background-color','');
-  });
+
   $( "#eprouvette_InOut_B" ).datepicker({
     showWeek: true,
     firstDay: 1,
@@ -40,13 +36,14 @@ $(document).ready(function(){
     selectOtherMonths: true,
     dateFormat: "yy-mm-dd"
   });
-  $( "#eprouvette_InOut_B" ).change(function() {
+
+
+//Si une valeur change, on modifie le bouton save en "new"
+  $('.MaJ').change(function() {
     $("#checkAux").val("save");
     $("#d_checked").children('img').attr('src', 'img/nextJob.png');
-    $("#d_checked").css('background-color','');    
+    $("#d_checked").css('background-color','');
   });
-
-
 
   $('#newTestForm > div > select').each(function() {
     if ($(this).val() != '0') {
@@ -218,7 +215,13 @@ $("#check_rupture").click(function(e) {
 
 $("#d_checked").click(function(e) {
   //update que si c'est un save, ou bien un check d'un autre opérateur
-  if ($("#checkAux").val()=='save' || ( $("#checkAux").val()=='check' && -$("#d_checked").attr('data-d_checked')!=iduser)) {
+  //  if ($("#checkAux").val()=='save' || ( $("#checkAux").val()=='check' && -$("#d_checked").attr('data-d_checked')!=iduser)) {
+
+  confirmation=true;
+  if ($("#checkAux").val()=='cancel') {
+    var confirmation = confirm('Cancel this task ? All check will be canceled');
+  }
+  if (confirmation) {
     $.ajax({
       type: "POST",
       url: 'controller/updateAux.php',
@@ -229,10 +232,16 @@ $("#d_checked").click(function(e) {
       },
       error : function(resultat, statut, erreur) {
         console.log(Object.keys(resultat));
-        alert('ERREUR lors de la l\insertion des valeurs ou du check. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez d\'inserer une non-valeur.');
+        alert('ERREUR lors de la l\'insertion des valeurs ou du check. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez d\'inserer une non-valeur.');
       }
     });
   }
+
+
+
+
+
+
 });
 
 

@@ -13,6 +13,15 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
+        <th>Ovl-T1</th>
+        <th>Ovl-T2</th>
+        <th>Ovl-T</th>
+        <th>Ovl-C1</th>
+        <th>Ovl-C2</th>
+        <th>Ovl-C</th>
+        <th>Ovl-B1</th>
+        <th>Ovl-B2</th>
+        <th>Ovl-B</th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </thead>
@@ -29,6 +38,15 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
+        <th>Ovl-T1</th>
+        <th>Ovl-T2</th>
+        <th>Ovl-T</th>
+        <th>Ovl-C1</th>
+        <th>Ovl-C2</th>
+        <th>Ovl-C</th>
+        <th>Ovl-B1</th>
+        <th>Ovl-B2</th>
+        <th>Ovl-B</th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </tfoot>
@@ -37,7 +55,7 @@
       <?php for($k=0;$k < count($ep);$k++): ?>
         <tr>
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
-          <td class="dispo selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
+          <td class="dispo open-GestionEp selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td><?= $ep[$k]['dessin'] ?></td>
@@ -73,8 +91,21 @@
               </div>
             <?php endif ?>
           </td>
+          <td><?= $ep[$k]['val_1'] ?></td>
+          <td><?= $ep[$k]['val_2'] ?></td>
+          <td><?= ((($ep[$k]['val_1'])*$ep[$k]['val_2']*$ep[$k]['dim1']>0)?
+          sprintf("%.2f%%",abs($ep[$k]['val_1']-$ep[$k]['val_2'])/$ep[$k]['dim1']*100):'') ?></td>
+          <td><?= $ep[$k]['val_3'] ?></td>
+          <td><?= $ep[$k]['val_4'] ?></td>
+          <td><?= ((($ep[$k]['val_3'])*$ep[$k]['val_4']*$ep[$k]['dim1']>0)?
+          sprintf("%.2f%%",abs($ep[$k]['val_3']-$ep[$k]['val_4'])/$ep[$k]['dim1']*100):'') ?></td>
+          <td><?= $ep[$k]['val_5'] ?></td>
+          <td><?= $ep[$k]['val_6'] ?></td>
+          <td><?= ((($ep[$k]['val_5'])*$ep[$k]['val_6']*$ep[$k]['dim1']>0)?
+          sprintf("%.2f%%",abs($ep[$k]['val_5']-$ep[$k]['val_6'])/$ep[$k]['dim1']*100):'') ?></td>
 
-          <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
+
+          <td class="dCheckEp unselectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 
         </tr>
 

@@ -7,36 +7,37 @@ $db = new db(); // create a new object, class db()
 include '../models/eprouvette-model.php';
 
 // Création d'une instance
-$oEprouvette = new EprouvetteModel($db,$_POST['idEp']);
+$oEprouvette = new EprouvetteModel($db,$_POST['idEprouvette']);
+
 
 if($_POST['iduser']!=0){
 
   $oEprouvette->iduser=$_POST['iduser'];
 
-//On supprime les POST n'etant pas des valeurs Aux
-$data = array_diff_key($_POST, [
-  'checkAux' => "***",
-  'idEp' => "***",
-  'iduser' => "***"]
-);
+  //On supprime les POST n'etant pas des valeurs Aux
+  $data = array_diff_key($_POST, [
+    'checkAux' => "***",
+    'idEprouvette' => "***",
+    'iduser' => "***"]
+  );
 
 
 
 
   if ($_POST['checkAux']=="save") {
-
-    //  $oEprouvette->Rupture=$_POST['Rupture'];
-
-      $oEprouvette->updateAux($data);
-$oEprouvette->createTechSplit($_POST['iduser']);
-      //$maReponse = array('id_eprouvette' => $_POST['idEp']);
-      //echo json_encode($maReponse);
-
+    //met check_rupture et d_checked à -user --- ajoute tous les champs de l'opération
+    $oEprouvette->updateAux($data);
+    $oEprouvette->createTechSplit($_POST['iduser']);
   }
-  else {
-      $oEprouvette->updateDCheck($_POST['iduser']);
-$oEprouvette->createTechSplit($_POST['iduser']);      
-    //$oEprouvette->updateCheckRupture($_POST['iduser']);
+  elseif ($_POST['checkAux']=="valid") {
+    //met check_rupture et d_checked à +user
+    $oEprouvette->updateAuxValid();
+    $oEprouvette->createTechSplit($_POST['iduser']);
+  }
+  elseif ($_POST['checkAux']=="cancel") {
+    //met check_rupture et d_checked à -user
+    $data=array();
+    $oEprouvette->updateAux($data);
   }
 
 

@@ -7,11 +7,11 @@
         <th rowspan=2>Prefixe</th>
         <th rowspan=2>ID</th>
         <th rowspan=2>Dwg</th>
-        <th rowspan=2>Initiale</th>
+        <th rowspan=2>Initial<br/>Receipt</th>
         <?php  foreach ($splits as $splitInOut): ?>
           <th colspan=3><?= $splitInOut['split'].'-'.$splitInOut['test_type_abbr']  ?></th>
         <?php  endforeach  ?>
-        <th rowspan=2>Finale</th>
+        <th rowspan=2>Final<br/>Return</th>
       </tr>
       <tr>
         <?php  foreach ($splits as $splitInOut): ?>

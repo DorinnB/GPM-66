@@ -68,6 +68,8 @@ class EprouvetteModel
     d_commentaire, check_rupture, flag_qualite, checked,
     n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Rupture, Fracture,
     eprouvette_InOut_A, eprouvette_InOut_B,
+    val_1,val_2,val_3,val_4,val_5,val_6,
+    comments,
 
     IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) as Cycle_STL,
     IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final,
@@ -292,11 +294,11 @@ class EprouvetteModel
 
   public function updateAux($data){
         $reqUpdate='UPDATE `eprouvettes` SET
-         	check_rupture = '.$_COOKIE['id_user'].',
-          `d_checked` = -'.$_COOKIE['id_user'];
+         	check_rupture = -'.$this->iduser.',
+          `d_checked` = -'.$this->iduser;
 
         foreach ($data as $key => $value) {
-          $reqUpdate.=', '.$key.'='.$this->db->quote($value);
+          $reqUpdate.=', '.$key.'='.(($value=="")? "NULL" : $this->db->quote($value));
         }
 
         $reqUpdate.='
@@ -307,6 +309,18 @@ class EprouvetteModel
         $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $_COOKIE['id_user']);
         echo json_encode($maReponse);
       }
+
+      public function updateAuxValid(){
+            $reqUpdate='UPDATE `eprouvettes` SET
+             	check_rupture = '.$this->iduser.',
+              `d_checked` = '.$this->iduser.'
+              WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
+
+            $result = $this->db->query($reqUpdate);
+
+            $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => $_COOKIE['id_user']);
+            echo json_encode($maReponse);
+          }
 
     public function previousNextTest($sens){
       $reqSelect='SELECT eprouvettes.id_eprouvette, n_essai, id_job
@@ -479,6 +493,7 @@ class EprouvetteModel
       ind_temps_strap.ind_temp as ind_temp_strap,
       ind_temps_bot.ind_temp as ind_temp_bot,
       name,
+      val_1,val_2,val_3,val_4,val_5,val_6,
       master_eprouvette_inOut_A,
       if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
         TRUNCATE(

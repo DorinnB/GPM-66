@@ -96,7 +96,9 @@ td .ui-selecting { background-color: #FECA40; }
 .open-GestionEp, .checkEp, .dCheckEp, .flag_qualite  {
   cursor: pointer;
 }
-
+.unselectable {
+  cursor:default;
+}
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #5B9BD5;
