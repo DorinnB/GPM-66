@@ -7,7 +7,7 @@
    #   Last Change   : 08/02/2015
    #
    ##################################################################### */
-   
+
 /*@import url(http://fonts.googleapis.com/css?family=Roboto);
 
 * {
@@ -143,5 +143,5 @@
 }
 
 .form-control {
-  border-radius: 0px;
+  /*border-radius: 0px;*/
 }

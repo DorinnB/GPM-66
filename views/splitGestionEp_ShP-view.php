@@ -19,14 +19,9 @@
               <li style="height:25%;display:none;" id="newTest">
                 <a href="#1a" data-toggle="tab" style="line-height:7vh;"><p>NEW TEST</p></a>
               </li>
-
-              <li style="height:25%;display:none;" id="eval">
-                <a href="#1e" data-toggle="tab" style="line-height:7vh;"><p>EVAL</p></a>
-              </li>
               <li style="height:25%;" id="document">
                 <a href="#1d" data-toggle="tab" style="line-height:7vh;"><p>DOC</p></a>
               </li>
-
               <li style="height:25%;" id="retest"><a href="#2a" data-toggle="tab" style="line-height:7vh;">RETEST</a>
               </li>
               <li style="height:25%;display:none;" id="delete"><a href="#3a" data-toggle="tab" style="line-height:7vh;">DELETE</a>
@@ -82,16 +77,16 @@
     </form>
   </div>
   <div class="col-md-2" style="position: relative; height:100%;">
-    <button type="button" id="flecheUp2" style="width:100%;background-color:dimgray;" title="Previous Test Number">
+    <button type="button" id="flecheUp3" style="width:100%;background-color:dimgray;" title="Previous Specimen">
       <span class="glyphicon glyphicon-chevron-up"></span>
     </button>
 
-    <button type="button" id="hideInfo" style="width:100%;background-color:dimgray;margin-top:10px;" title="Previous Test Number">
-      <span id="hideInfo_icone" class="glyphicon glyphicon-eye-close"><br/>Caution</span>
+    <button type="button" id="hideInfo" style="width:100%;background-color:dimgray;margin-top:10px;" title="Show/Hide Info-Task">
+      <span id="hideInfo_icone" class="glyphicon glyphicon-eye-close"><br/>Info</span>
     </button>
 
     <div class="check<?=	$eprouvette['d_checked']	?>" id="d_checked" data-d_checked="<?= $eprouvette['d_checked'] ?>" style="position:absolute; bottom:0; background-color:<?=	($eprouvette['d_checked']==0)?'':(($eprouvette['d_checked']<=0)?'darkred':'darkgreen')	?>">
-      <img type="image" src="img/<?=	($eprouvette['d_checked']==0)?'nextJob.png':(($eprouvette['d_checked']<0)?'save.png':'check.png')	?>" style="height:65px;padding:5px; margin: auto;" title="<?=	($eprouvette['d_checked']<=0)?'Check Aux ('.abs($eprouvette['d_checked']).')':$eprouvette['d_checked']	?>">
+      <img type="image" src="img/<?=	($eprouvette['d_checked']==0)?'nextJob.png':(($eprouvette['d_checked']<0)?'save.png':'check.png')	?>" style="height:60px;padding:5px; margin: auto;" title="<?=	($eprouvette['d_checked']<=0)?'Check Aux ('.abs($eprouvette['d_checked']).')':$eprouvette['d_checked']	?>">
     </div>
 
   </div>
@@ -111,7 +106,7 @@
       <div id="save_d_commentaire" style="cursor:pointer;">
         <img type="image" src="img/save.png" style="height:60px; padding:5px 5px;display: block; margin: auto;">
       </div>
-      <button type="button" id="flecheDown2" style="width:100%;background-color:dimgray;" title="Next Test Number">
+      <button type="button" id="flecheDown3" style="width:100%;background-color:dimgray;" title="Next Specimen">
         <span class="glyphicon glyphicon-chevron-down"></span>
       </button>
     </div>

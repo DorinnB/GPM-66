@@ -375,6 +375,23 @@ class EprouvetteModel
       echo json_encode($maReponse);
     }
 
+    public function previousNextSpecimen($sens){
+
+      $req='SELECT eprouvettes.id_eprouvette
+      FROM `eprouvettes`
+      WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette='.$this->id.')
+      AND eprouvette_actif=1
+      AND id_eprouvette'.$sens.$this->id.'
+      ORDER BY id_eprouvette '.(($sens=="<")?"DESC":"ASC").'
+      LIMIT 1;';
+
+      //echo $req2;
+      $result = $this->db->isOne($req);
+
+      $maReponse =  $result;
+      echo json_encode($maReponse);
+    }
+
     public function addFlagQualite(){
       $reqUpdate='UPDATE `eprouvettes` SET
       `flag_qualite` = '.$_COOKIE['id_user'].'

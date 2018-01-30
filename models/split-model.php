@@ -34,6 +34,7 @@ private $id;
           contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3, contacts3.email as email3, contacts3.telephone as telephone3,
           contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
+          GE, specific_protocol, special_instruction, staircase,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
           statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev, invoice_type, invoice_date, invoice_commentaire,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
@@ -174,6 +175,12 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
         `tbljob_instruction` = '.$this->tbljob_instruction.',
         `comments` = '.$this->comments.',
         `DyT_expected` = '.$this->DyT_expected.',
+
+        `GE` = '.$this->GE.',
+        `special_instruction` = '.$this->special_instruction.',
+        `specific_protocol` = '.$this->specific_protocol.',
+        `staircase` = '.$this->staircase.',
+
         `checked` = 0,
         `modif` = '.$_COOKIE['id_user'].'
        WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';

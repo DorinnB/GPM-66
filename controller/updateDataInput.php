@@ -27,5 +27,14 @@ $oSplit->DyT_expected=(isset($_POST['DyT_expected']) AND $_POST['DyT_expected']!
 $oSplit->tbljob_instruction=isset($_POST['tbljob_instruction'])?$_POST['tbljob_instruction']:"";
 $oSplit->comments=isset($_POST['comments'])?$_POST['comments']:"";
 
+
+$oSplit->GE=isset($_POST['GE'])?$_POST['GE']:0;
+$oSplit->special_instruction=isset($_POST['special_instruction'])?$_POST['special_instruction']:"NULL";
+$oSplit->specific_protocol=isset($_POST['specific_protocol'])?$_POST['specific_protocol']:0;
+$oSplit->staircase=isset($_POST['staircase'])?$_POST['staircase']:0;
+
+
+
+
 $oSplit->updateDataInput();
 ?>

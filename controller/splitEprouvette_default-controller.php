@@ -363,6 +363,7 @@ if ($nbStepcase>0) {
   $classStepcase="";
   echo '
   <script>
+  $("#stepcase_data").css("display", "block");
   $("#stepcase_data_name").html("Stepcase :");
   $("#stepcase_data_value").html("'.$nbStepcase.'");
   </script>

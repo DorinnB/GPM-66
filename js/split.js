@@ -181,6 +181,13 @@ $("#save").click(function() {
   save();
 });
 
+
+$(".openDocument").click(function(e) {
+// on ouvre dans une fenêtre le fichier passé en paramètre.
+window.open("controller/openDocument-controller?file_type="+$(this).attr('data-type')+"&file_name="+$(this).attr('data-file'),'Document','width=670,height=930,top=50,left=50');
+});
+
+
 //Selon le navigateur utilisé, on detecte le style de transition utilisé
 function whichTransitionEvent(){
   var t,

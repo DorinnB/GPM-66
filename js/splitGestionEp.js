@@ -338,6 +338,51 @@ $("#flecheDown2").click(function(e) {
     }
   });
 });
+$("#flecheUp3").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextTest.php',
+    dataType: "json",
+    data:  {
+      idEp:$("#idEp").val(),
+      sens:'<',
+      type:'specimen'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_eprouvette']!== undefined) {
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+data['id_eprouvette']);
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche d\'essai. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});
+$("#flecheDown3").click(function(e) {
+  $.ajax({
+    type: "POST",
+    url: 'controller/previousNextTest.php',
+    dataType: "json",
+    data:  {
+      idEp:$("#idEp").val(),
+      sens:'>',
+      type:'specimen'
+    }
+    ,
+    success : function(data, statut){
+      if (data['id_eprouvette']!== undefined) {
+        $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+data['id_eprouvette']);
+      }
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      alert('ERREUR lors de la recherche d\'essai. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+});
+
 
 $("#save_d_commentaire").click(function(e) {
 

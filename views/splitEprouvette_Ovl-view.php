@@ -13,6 +13,9 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
+        <?php  foreach ($dimDenomination as $dimTexte): ?>
+          <th><?= $dimTexte  ?></th>
+        <?php  endforeach  ?>
         <th>Ovl-T1</th>
         <th>Ovl-T2</th>
         <th>Ovl-T</th>
@@ -38,6 +41,9 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
+        <?php  foreach ($dimDenomination as $dimTexte): ?>
+          <th><?= $dimTexte  ?></th>
+        <?php  endforeach  ?>
         <th>Ovl-T1</th>
         <th>Ovl-T2</th>
         <th>Ovl-T</th>
@@ -91,6 +97,9 @@
               </div>
             <?php endif ?>
           </td>
+          <?php for($i=1;$i <= count($dimDenomination);$i++): ?>
+            <td class="decimal3" ><?= $ep[$k]['dim'.$i]  ?></td>
+          <?php  endfor  ?>
           <td><?= $ep[$k]['val_1'] ?></td>
           <td><?= $ep[$k]['val_2'] ?></td>
           <td><?= ((($ep[$k]['val_1'])*$ep[$k]['val_2']*$ep[$k]['dim1']>0)?

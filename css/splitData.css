@@ -19,9 +19,13 @@
   background-color: lightgreen;
 }
 
-.RawData  {
+.warning  {
   color:yellow;
   font-weight: bold;
+}
+.warning:hover, .warning:focus {
+  color:orange;
+
 }
 
 #splitData  {
@@ -65,11 +69,14 @@
   border-radius: 0;
 }
 
-.designation:after  {
-  content: "DESIGNATION";
+.testInfo:after  {
+  content: "TEST INFO";
+}
+.advancedTestInfo:after  {
+  content: "ADVANCED TEST INFO";
 }
 .avancement:after  {
-  content: "AVANCEMENT";
+  content: "PROGRESSION";
 }
 .planning:after  {
   content: "PLANNING";

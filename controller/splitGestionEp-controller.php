@@ -57,7 +57,6 @@ elseif ($eprouvette['id_controleur']=="0") {
 }
 else {
   echo'
-  document.getElementById("eval").style.display = "block";
   document.getElementById("eval").className += " active";
   document.getElementById("1e").className += " active";
   ';

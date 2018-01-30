@@ -71,6 +71,7 @@ class StatutModel
     if(report_TM>0,1,0) as report_TM,
     if(report_send>0,1,0) as report_send,
     if(checked>0,1,0) as OT_checked,
+    if(staircase>0 OR specific_protocol>0,1,0) as specific_protocol,
     sum(if(master_eprouvette_inOut_A is null,1,0)) as nb_awaiting_specimen,
 
     sum(if((eprouvette_inOut_A is not null or enregistrementessais.date is not null) and
@@ -177,8 +178,14 @@ class StatutModel
             }
             else {
               if ($state['nb_consigne_dispo']==0) {  //derniere consigne
-                $id_statut=51;
-                $statut='Last Condition';
+                if ($state['specific_protocol']>0) {  //si on sait quoi faire apres
+                  $id_statut=50;
+                  $statut='Running';
+                }
+                else {  //si l'on a pas de consigne (ni protocole ni client)
+                  $id_statut=51;
+                  $statut='Last Condition';
+                }
               }
               else {  //running
                 $id_statut=50;
@@ -212,9 +219,17 @@ class StatutModel
                 $statut='Ready to Start';
               }
               else {
-                if ($state['nb_ep_dispo_sans_consigne']>0) {
-                  $id_statut=30;
-                  $statut='Awaiting Consigne';
+                if ($state['nb_ep_dispo_sans_consigne']>0) {  //plus de consigne
+
+                  if ($state['specific_protocol']>0) {  //si on sait quoi faire apres
+                    $id_statut=80;
+                    $statut='Report Ready';
+                  }
+                  else {  //aucune consigne (job ou client) pour continuer
+                    $id_statut=30;
+                    $statut='Awaiting Consigne';
+                  }
+
                 }
                 elseif ($state['nb_awaiting_specimen']>0) { //attente specimen
                   $id_statut=20;

@@ -22,7 +22,7 @@
               <li style="height:25%;display:none;" id="prepa">
                 <a href="#1b" data-toggle="tab" style="line-height:7vh;"><p>PREPA</p></a>
               </li>
-              <li style="height:25%;display:none;" id="eval">
+              <li style="height:25%;" id="eval">
                 <a href="#1e" data-toggle="tab" style="line-height:7vh;"><p>EVAL</p></a>
               </li>
               <li style="height:25%;" id="document">

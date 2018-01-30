@@ -17,6 +17,8 @@ $oEprouvette->previousNextMachine($_POST['sens']);
 elseif ($_POST['type']=="split") {
 $oEprouvette->previousNextTest($_POST['sens']);
 }
-
+elseif ($_POST['type']=="specimen") {
+$oEprouvette->previousNextSpecimen($_POST['sens']);
+}
 
 ?>
