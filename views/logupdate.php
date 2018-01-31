@@ -2,8 +2,8 @@
 GPM's update list
 </h3>
 <p style="color:white;">
-06 Jan 2018 -> copie auto sur msgbox des reports dans job. Choix des repertoire temp/final a faire.<br /> 
-03 Jan 2018 -> ajout Aux Cut et à étendre à tous les test auxiliaire.<br />
-              ajout StepCase sur Flx et Loa<br />
-              ajout double frequence sur LoS
+Jan 2018 -> Creation des drafts des reports + AnnexePDF.<br />
+            Gestion des Aux (Cut, Shp, Ovl)
+            Ajouts advanced test info (staircase...) et maj des statuts staircase
+            OpenDocument pour IP
 </p>

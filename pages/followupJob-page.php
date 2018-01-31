@@ -87,7 +87,20 @@
 						?></td>
 
 						<td><?= $row['ref_pricing'] ?></td>
-						<td><?= $row['devis'] ?></td>
+						
+						<?php if (strlen($row['devis'])>15):  ?>
+							<td class="popover-markup" data-placement="left"><?= ($row['devis']=="" OR strlen($row['devis'])<15)?$row['devis']:substr($row['devis'],0,15)." [...]" ?>
+								<div class="head hide">Instructions</div>
+								<div class="content hide">
+									<div class="form-group">
+										<textarea class"bubble_instruction" rows="5" cols="50" style="width:100%;" disabled><?= $row['devis'] ?></textarea>
+									</div>
+								</div>
+							<?php else: ?>
+								<td><?= $row['devis'] ?></td>
+							<?php endif ?>
+						</td>
+
 						<?php if (strlen($row['po_number'])>15):  ?>
 							<td class="popover-markup" data-placement="left"><?= ($row['po_number']=="" OR strlen($row['po_number'])<15)?$row['po_number']:substr($row['po_number'],0,15)." [...]" ?>
 								<div class="head hide">PO Number</div>

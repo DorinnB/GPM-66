@@ -222,8 +222,8 @@ class StatutModel
                 if ($state['nb_ep_dispo_sans_consigne']>0) {  //plus de consigne
 
                   if ($state['specific_protocol']>0) {  //si on sait quoi faire apres
-                    $id_statut=80;
-                    $statut='Report Ready';
+                    $id_statut=40;
+                    $statut='Ready to Start';
                   }
                   else {  //aucune consigne (job ou client) pour continuer
                     $id_statut=30;
