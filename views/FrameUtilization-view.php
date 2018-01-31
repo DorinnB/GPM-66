@@ -1,9 +1,9 @@
-<link href="css/dailyFrameUtilization.css" rel="stylesheet">
-<script type="text/javascript" src="js/etatmachines.js"></script>
+<link href="css/frameUtilization.css" rel="stylesheet">
+
 <script src="lib/plotly/plotly-latest.min.js"></script>
 
 
-<a href="index.php?page=dailyFrameUtilization" style="height:100%;">
+<a href="index.php?page=frameUtilization" style="height:100%;">
 
   <div id="chartEtatMachine" style="height:100%;"></div>
 

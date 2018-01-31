@@ -12,4 +12,4 @@ $_GET['filtre']=isset($_GET['filtre'])?$_GET['filtre']:'Lab';
 
 
 
- include('views/dailyFrameUtilization-view.php');
+ include('views/frameUtilization-view.php');

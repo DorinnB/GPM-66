@@ -14,9 +14,6 @@
 			<a href="index.php?page=ListeEssais">Test list</a>
 		</li>
 		<li>
-			<a href="index.php?page=etatmachines">Frame Occupency</a>
-		</li>
-		<li>
 			<a href="../ticket/index.php?project=1">Issues Tracker</a>
 		</li>
 	</ul>

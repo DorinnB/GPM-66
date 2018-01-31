@@ -15,43 +15,43 @@ $machines=$oPostes->getAllMachine();
 				Day Frame <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
-				<li><a href="index.php?page=dailyFrameUtilization&group=Day&filtre=Lab">Lab</a></li>
+				<li><a href="index.php?page=frameUtilization&group=Day&filtre=Lab">Lab</a></li>
 				<li role="separator" class="divider"></li>
 				<?php foreach ($machines as $key => $value) :	?>
-					<li><a href="index.php?page=dailyFrameUtilization&group=Day&filtre=<?=	$value['id_machine'] ?>"><?=	$value['machine'] ?></a></li>
+					<li><a href="index.php?page=frameUtilization&group=Day&filtre=<?=	$value['id_machine'] ?>"><?=	$value['machine'] ?></a></li>
 				<?php endforeach	?>
 
 			</ul>
 		</div>
 
 
-		<a href="index.php?page=dailyFrameUtilization&group=Month&filtre=Frame" class="btn btn-default" role="button">This Month</a>
+		<a href="index.php?page=frameUtilization&group=Month&filtre=Frame" class="btn btn-default" role="button">This Month</a>
 
 		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Month Frame <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
-				<li><a href="index.php?page=dailyFrameUtilization&group=Month&filtre=Lab">Lab</a></li>
+				<li><a href="index.php?page=frameUtilization&group=Month&filtre=Lab">Lab</a></li>
 				<li role="separator" class="divider"></li>
 				<?php foreach ($machines as $key => $value) :	?>
-					<li><a href="index.php?page=dailyFrameUtilization&group=Month&filtre=<?=	$value['id_machine'] ?>"><?=	$value['machine'] ?></a></li>
+					<li><a href="index.php?page=frameUtilization&group=Month&filtre=<?=	$value['id_machine'] ?>"><?=	$value['machine'] ?></a></li>
 				<?php endforeach	?>
 			</ul>
 		</div>
 
 
-		<a href="index.php?page=dailyFrameUtilization&group=Year&filtre=Frame" class="btn btn-default" role="button">This Year</a>
+		<a href="index.php?page=frameUtilization&group=Year&filtre=Frame" class="btn btn-default" role="button">This Year</a>
 
 		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Year Frame<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
-				<li><a href="index.php?page=dailyFrameUtilization&group=Year&filtre=Lab">Lab</a></li>
+				<li><a href="index.php?page=frameUtilization&group=Year&filtre=Lab">Lab</a></li>
 				<li role="separator" class="divider"></li>
 				<?php foreach ($machines as $key => $value) :	?>
-					<li><a href="index.php?page=dailyFrameUtilization&group=Year&filtre=<?=	$value['id_machine'] ?>"><?=	$value['machine'] ?></a></li>
+					<li><a href="index.php?page=frameUtilization&group=Year&filtre=<?=	$value['id_machine'] ?>"><?=	$value['machine'] ?></a></li>
 				<?php endforeach	?>
 			</ul>
 		</div>
@@ -59,7 +59,7 @@ $machines=$oPostes->getAllMachine();
 
 	</div>
 	<div style="height:95%">
-		<?php include('controller/dailyFrameUtilization-controller.php'); ?>
+		<?php include('controller/frameUtilization-controller.php'); ?>
 	</div>
 </div>
 <?php
