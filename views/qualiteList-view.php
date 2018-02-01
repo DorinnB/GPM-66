@@ -1,10 +1,10 @@
 <link href="css/qualiteList.css" rel="stylesheet">
-<div class="container" id="qualiteList" style="width:100%">
-  <h3>Quality List
+<div class="" id="qualiteList" style="width:100%; height:90%;">
+  <h3 style="height:5%;">Quality List
   </h3>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="row" style="border-bottom:2px solid white;">
+  <div class="row" style="height:95%;">
+    <div class="col-md-12" style="height:100%;">
+      <div class="row" style="height:10%;overflow-y:scroll;border-bottom:2px solid white;">
         <div class="col-md-3">
           <div class="col-md-12 titre">
             Unchecked
@@ -22,11 +22,11 @@
         </div>
         <div class="col-md-3">
           <div class="col-md-12 titre">
-            <i>Report Check</i>
+            Report Check
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="height:90%;overflow-y:scroll">
         <div class="col-md-3">
           <?php foreach ($uncheckedJob as $key => $value) : ?>
             <div class="col-md-12 valeur" onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
@@ -49,6 +49,11 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-3">
+          <?php foreach ($oInOut->FQC() as $key => $value) : ?>
+            <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
         </div>
       </div>
     </div>

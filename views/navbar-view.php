@@ -18,7 +18,7 @@
 			<li><a href="index.php?page=followup"><acronym title="Follow UP">Follow UP</acronym></a></li>
 			<li><a href="index.php?page=followupSubC&filtreFollowup=SubC"><acronym title="Follow UP">Follow UP SubC</acronym></a></li>
 			<li><a href="index.php?page=subC"><acronym title="SubC View">SubC</acronym></a></li>
-			<li><a href="#"><i>Finan</i></a></li>
+			<li><a href="index.php?page=administrative"><acronym title="Administrative View">Administrative</acronym></a></li>			
 			<li><a href="index.php?page=IT"><acronym title="IT Managment">IT</acronym></a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

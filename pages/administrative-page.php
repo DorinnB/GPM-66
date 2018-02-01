@@ -1,6 +1,6 @@
 <script type="text/javascript" src="jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 <link rel="stylesheet" href="jquery/jquery-ui-1.12.1.custom/jquery-ui.css">
-<script type="text/javascript" src="js/labo.js"></script>
+<script type="text/javascript" src="js/subC.js"></script>
 
 <!-- Page Content -->
 <div id="split-nav" style="height:100%">
@@ -11,7 +11,7 @@
 				<div class="col-md-6" style="height:100%; overflow: auto;"></div>
 			</div>
 			<div class="row" style="height:50%;">
-				<div class="col-md-6" style="height:100%;"><?php include 'controller/qualiteList-controller.php'; ?></div>
+				<div class="col-md-6" style="height:100%"><?php include 'controller/administrativeList-controller.php'; ?></div>
 				<div class="col-md-6" style="height:100%">carré 4</div>
 			</div>
 		</div>
@@ -30,11 +30,3 @@
 require('views/splitGestionEpBlank-view.php');
 require('views/login-view.php');
 ?>
-
-
-
-<?php //affichage du job directement depuis l'url
-if (isset($_GET['id_tbljob'])) {
-	echo "<script> goto('split','id_tbljob',".$_GET['id_tbljob'].",'noModif');</script>";
-}
- ?>
