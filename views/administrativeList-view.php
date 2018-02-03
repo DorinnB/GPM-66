@@ -61,7 +61,7 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->subCLag() as $key => $value) : ?>
+          <?php foreach ($oInOut->overdueSubC() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
             </a>
@@ -72,7 +72,7 @@
   </div>
   <div class="row" style="height:47%;border-top:2px solid white;">
     <div class="col-md-12" style="height:100%;">
-      <div class="row" style="height:25%;overflow-y:scroll;border-bottom:2px solid white;">
+      <div class="row" style="height:24%;overflow-y:scroll;border-bottom:2px solid white;">
         <div class="col-md-2">
           <div class="col-md-12 titre">
             Out Ready
@@ -108,7 +108,7 @@
         <div class="col-md-2">
           <?php foreach ($oInOut->outReady() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-              <?= $value['job']  ?>
+              <?= $value['job'].'-'.$value['split']  ?>
             </a>
           <?php endforeach  ?>
         </div>

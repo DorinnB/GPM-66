@@ -72,7 +72,7 @@
               <?php else: ?>
                 <td><?= $epA[$line[$splitInOut['id_tbljob']]]['enregistrementessais_date'] ?></td>
                 <td class="done" data-done="<?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?>"><?= $epA[$line[$splitInOut['id_tbljob']]]['done']  ?></td>
-                <td><?= ($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']>0)?date('Y-m-d',($epA[$line[$splitInOut['id_tbljob']]]['report_creation_date']-25569)*86400):""   ?></td>
+                <td><?= $epA[$line[$splitInOut['id_tbljob']]]['eprouvette_inOut_B']   ?></td>
               <?php endif ?>
             <?php else: ?>
               <td class="noInOut"></td>

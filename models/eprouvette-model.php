@@ -261,7 +261,8 @@ class EprouvetteModel
 
     public function updateDCheck($iduser){
       $reqUpdate='UPDATE `eprouvettes` SET
-      `d_checked` = '.$iduser.'
+      `d_checked` = '.$iduser.',
+      eprouvette_InOut_B=if(eprouvette_InOut_B IS NULL, NOW(), eprouvette_InOut_B)
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -272,7 +273,8 @@ class EprouvetteModel
 
     public function updateRemoveDCheck($iduser){
       $reqUpdate='UPDATE `eprouvettes` SET
-      `d_checked` = -'.$_COOKIE['id_user'].'
+      `d_checked` = -'.$_COOKIE['id_user'].',
+      eprouvette_InOut_B=NULL
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);

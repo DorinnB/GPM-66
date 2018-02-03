@@ -86,11 +86,13 @@ class INOUT
     FROM master_eprouvettes
     LEFT JOIN info_jobs ON info_jobs.id_info_job=master_eprouvettes.id_info_job
     LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     WHERE master_eprouvette_inOut_A IS NULL
     AND master_eprouvette_actif = 1
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND job>13327
+    AND etape!=100
     GROUP BY info_jobs.id_info_job
     ORDER BY job DESC
     ';
@@ -128,7 +130,7 @@ class INOUT
     return $this->db->getAll($req);
   }
 
-  public function subCLag(){
+  public function overdueSubC(){
     $req='SELECT tbljobs.id_tbljob, job, split
     FROM tbljobs
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
@@ -139,7 +141,7 @@ class INOUT
     AND info_job_actif=1
     AND tbljob_actif=1
     AND ST = 1
-    AND etape < 90
+    AND etape < 70
     ORDER BY job DESC
     ';
     return $this->db->getAll($req);
@@ -166,10 +168,12 @@ class INOUT
     $req='SELECT min(tbljobs.id_tbljob) as id_tbljob, min(job) as job
     FROM tbljobs
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     WHERE po_number is null
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND job>13327
+    AND etape!=100
     GROUP BY info_jobs.id_info_job
     ORDER BY job DESC
     ';
@@ -192,10 +196,12 @@ class INOUT
     return $this->db->getAll($req);
   }
 
-  public function outReady(){
+  public function outReady(){ //chercher l'etape et si =100, ne pas afficher
     $req='SELECT job, split, id_tbljob
     FROM tbljobs
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     WHERE (
       SELECT sum(if(eprouvettes.eprouvette_inOut_B IS NOT NULL,0,1))
       FROM master_eprouvettes
@@ -207,6 +213,7 @@ class INOUT
       GROUP BY eprouvettes.id_job
     ) = 0
     AND split>0
+    AND etape!=100
     GROUP BY id_tbljob
     ORDER BY id_tbljob DESC';
 
@@ -243,7 +250,6 @@ class INOUT
     WHERE (etape = 70 OR etape=71)
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND job>13327
     ORDER BY job DESC, split ASC
     ';
     return $this->db->getAll($req);
@@ -258,7 +264,6 @@ class INOUT
     WHERE etape = 80
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND job>13327
     ORDER BY job DESC, split ASC
     ';
     return $this->db->getAll($req);
@@ -273,7 +278,6 @@ class INOUT
     WHERE etape = 90
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND job>13327
     AND invoice_type!=2
 
     GROUP BY job

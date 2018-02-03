@@ -93,7 +93,7 @@
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td class="decimal1" <?= $epHisto2[$k]['c_temp'] ?>><?= $ep[$k]['c_temp'] ?></td>
-          <td class="decfimal1" <?= $epHisto2[$k]['c_frequence'] ?>><?= $ep[$k]['c_frequence'] ?></td>
+          <td class="" <?= $epHisto2[$k]['c_frequence'] ?>><?= $ep[$k]['c_frequence'] ?></td>
 
           <td class="decimal0 <?= $epHisto2[$k]['c_cycle_STL'] ?> <?= $classSTL ?>"><?= $ep[$k]['c_cycle_STL'] ?></td>
           <td class="decimal1 <?= $epHisto2[$k]['c_frequence_STL'] ?> <?= $classSTL ?>"><?= $ep[$k]['c_frequence_STL'] ?></td>

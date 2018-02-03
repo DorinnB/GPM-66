@@ -182,3 +182,15 @@ class LstEtatMachines
   }
 
 }
+
+/*SELECT date, count(n_fichier), test_type
+
+FROM enregistrementessais
+left join eprouvettes on eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
+left join tbljobs on tbljobs.id_tbljob=eprouvettes.id_job
+left join test_type on test_type.id_test_type=tbljobs.id_type_essai
+
+where date in (select periode from etatmachine_jours)
+and enregistrementessais.id_eprouvette is not null
+group by date, test_type
+*/
