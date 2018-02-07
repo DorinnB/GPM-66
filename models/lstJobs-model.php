@@ -34,7 +34,7 @@ class LstJobsModel
     public function getAllFollowup($filtreFollowup="final") {
 
       if ($filtreFollowup=='ALL') {
-        $reqfiltre='AND etape <90';
+        $reqfiltre='AND etape <=90';
         $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
         IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
           available_expected,
@@ -43,7 +43,7 @@ class LstJobsModel
         $limit='LIMIT 1000';
       }
       elseif ($filtreFollowup=='SubC') {
-        $reqfiltre='AND ST=1 AND etape <90';
+        $reqfiltre='AND ST=1 AND etape <=90';
         $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
         IF((SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) is null,
           available_expected,
