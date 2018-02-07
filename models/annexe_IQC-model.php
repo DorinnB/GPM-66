@@ -108,6 +108,7 @@ class AnnexeIQCModel
     WHERE master_eprouvettes.prefixe'.$wherePrefixe.'
     AND master_eprouvettes.nom_eprouvette='.$this->db->quote($id).'
     AND id_job='.$this->db->quote($idjob).'
+    AND eprouvette_actif=1
     ';
 
     return $this->db->isOne($req);
