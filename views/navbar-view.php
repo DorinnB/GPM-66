@@ -15,10 +15,13 @@
 			<li><a href="index.php?page=main"><acronym title="Main View">ALL</acronym></a></li>
 			<li><a href="index.php?page=labo"><acronym title="LAB View">LAB</acronym></a></li>
 			<li><a href="index.php?page=qualite"><acronym title="QUALITY View">Quality</acronym></a></li>
+
+<li><a href="index.php?page=followupJob"><acronym title="Follow UP">Follow UP JOB</acronym></a></li>
+
 			<li><a href="index.php?page=followup"><acronym title="Follow UP">Follow UP</acronym></a></li>
 			<li><a href="index.php?page=followupSubC&filtreFollowup=SubC"><acronym title="Follow UP">Follow UP SubC</acronym></a></li>
 			<li><a href="index.php?page=subC"><acronym title="SubC View">SubC</acronym></a></li>
-			<li><a href="index.php?page=administrative"><acronym title="Administrative View">Administrative</acronym></a></li>			
+			<li><a href="index.php?page=administrative"><acronym title="Administrative View">Administrative</acronym></a></li>
 			<li><a href="index.php?page=IT"><acronym title="IT Managment">IT</acronym></a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

@@ -14,13 +14,15 @@
 					<th><acronym title='N-Test Started'>NT</acronym></th>
 					<th><acronym title='No Test MRSAS'>NS</acronym></th>
 					<th><acronym title='Test % (en temps)'>T %</acronym></th>
+					<th><acronym title='Customer Name'>Cie</acronym></th>
 					<th><acronym title='Cust.'>Cust.</acronym></th>
 					<th><acronym title='Job'>Job</acronym></th>
 					<th><acronym title='Split'>Split</acronym></th>
-					<th><acronym title='Customer Name'>Cie</acronym></th>
+					<th><acronym title='Tests type'>Type</acronym></th>
+
 					<th><acronym title='PO Number'>PO</acronym></th>
 					<th><acronym title='Customer Instructions'>Cust. Inst</acronym></th>
-					<th><acronym title='Tests type'>Type</acronym></th>
+
 					<th><acronym title='Temperature °C'>T°C</acronym></th>
 					<th><acronym title='Material'>Material</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
@@ -31,23 +33,25 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<th>Phase</th>
-					<th>NT</th>
-					<th>NS</th>
-					<th>T %</th>
-					<th>Cust.</th>
-					<th>Job</th>
-					<th>Split</th>
-					<th>Cie</th>
-					<th>PO</th>
-					<th>Cust. Inst</th>
-					<th>Type</th>
-					<th>T°C</th>
-					<th>Material</th>
-					<th>Drawing</th>
-					<th>Avail.</th>
-					<th>Dy T.</th>
-					<th>Exp T.</th>
+					<th><acronym title='Phase'>Phase</acronym></th>
+					<th><acronym title='N-Test Started'>NT</acronym></th>
+					<th><acronym title='No Test MRSAS'>NS</acronym></th>
+					<th><acronym title='Test % (en temps)'>T %</acronym></th>
+					<th><acronym title='Customer Name'>Cie</acronym></th>
+					<th><acronym title='Cust.'>Cust.</acronym></th>
+					<th><acronym title='Job'>Job</acronym></th>
+					<th><acronym title='Split'>Split</acronym></th>
+					<th><acronym title='Tests type'>Type</acronym></th>
+
+					<th><acronym title='PO Number'>PO</acronym></th>
+					<th><acronym title='Customer Instructions'>Cust. Inst</acronym></th>
+
+					<th><acronym title='Temperature °C'>T°C</acronym></th>
+					<th><acronym title='Material'>Material</acronym></th>
+					<th><acronym title='Drawing'>Drawing</acronym></th>
+					<th><acronym title='Availability'>Avail.</acronym></th>
+					<th><acronym title='Delivery Time'>Dy T.</acronym></th>
+					<th><acronym title='Expected Time'>Exp. T.</acronym></th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -66,10 +70,12 @@
 						<td><?= $row['nbstart'] ?></td>
 						<td><?= $row['nbep'] ?></td>
 						<td class="progress"><meter value="<?= $row['nbpercent'] ?>" min="0" max="100" color-sttut="<?= $row['nbpercent'] ?>"><?= $row['nbpercent'] ?></meter></td>
+
+						<td><acronym title='<?= $row['entreprise'] ?>'><?= $row['entreprise_abbr'] ?></acronym></td>
 						<td><?= $row['customer'] ?></td>
 						<td><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
 						<td><?= $row['split'] ?></td>
-						<td><acronym title='<?= $row['entreprise'] ?>'><?= $row['entreprise_abbr'] ?></acronym></td>
+						<td><?= $row['test_type_abbr'] ?></td>
 
 						<?php if (strlen($row['po_number'])>15):  ?>
 							<td class="popover-markup" data-placement="left"><?= ($row['po_number']=="" OR strlen($row['po_number'])<15)?$row['po_number']:substr($row['po_number'],0,15)." [...]" ?>
@@ -97,7 +103,7 @@
 							<?php endif ?>
 						</td>
 
-						<td><?= $row['test_type_abbr'] ?></td>
+
 						<td><?= round($row['temperature'],1) ?></td>
 						<td><?= $row['ref_matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>

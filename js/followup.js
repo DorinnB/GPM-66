@@ -10,7 +10,7 @@ $(document).ready(function() {
       orderData: [6, 7]
     }
   ],
-  order: [[ 0, "asc" ],[5, "asc" ]],
+  order: [[ 0, "asc" ],[6, "asc" ]],
   scrollY: '79vh',
   scrollCollapse: true,
   paging: false,

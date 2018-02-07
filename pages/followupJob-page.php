@@ -14,9 +14,12 @@
 					<th><acronym title='Nb Specimen'>NS</acronym></th>
 					<th><acronym title='Test MRSAS'>I.</acronym></th>
 					<th><acronym title='SubC'>S.</acronym></th>
+
+					<th><acronym title='Customer Name'>Cie</acronym></th>
 					<th><acronym title='Cust.'>Cust.</acronym></th>
 					<th><acronym title='Job'>Job</acronym></th>
-					<th><acronym title='Customer Name'>Cie</acronym></th>
+					<th><acronym title='Tests type'>Type</acronym></th>
+
 					<th><acronym title='Contacts'>Contacts</acronym></th>
 
 					<th><acronym title='Pricing'>Pricing</acronym></th>
@@ -26,7 +29,7 @@
 					<th><acronym title='Instruction'>Instruction</acronym></th>
 					<th><acronym title='Comments'>Comments</acronym></th>
 
-					<th><acronym title='Tests type'>Type</acronym></th>
+
 					<th><acronym title='Material'>Material</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
 
@@ -40,9 +43,12 @@
 					<th><acronym title='Nb Specimen'>NS</acronym></th>
 					<th><acronym title='Test MRSAS'>I.</acronym></th>
 					<th><acronym title='SubC'>S.</acronym></th>
+
+					<th><acronym title='Customer Name'>Cie</acronym></th>
 					<th><acronym title='Cust.'>Cust.</acronym></th>
 					<th><acronym title='Job'>Job</acronym></th>
-					<th><acronym title='Customer Name'>Cie</acronym></th>
+					<th><acronym title='Tests type'>Type</acronym></th>
+
 					<th><acronym title='Contacts'>Contacts</acronym></th>
 
 					<th><acronym title='Pricing'>Pricing</acronym></th>
@@ -52,7 +58,7 @@
 					<th><acronym title='Instruction'>Instruction</acronym></th>
 					<th><acronym title='Comments'>Comments</acronym></th>
 
-					<th><acronym title='Tests type'>Type</acronym></th>
+
 					<th><acronym title='Material'>Material</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
 
@@ -74,12 +80,12 @@
 						<td><?= $row['nbep'] ?></td>
 						<td class="location<?= $row['mrsas'] ?>"><?= $row['mrsas'] ?></td>
 						<td class="location<?= $row['subc'] ?>"><?= $row['subc'] ?></td>
-
+<td><acronym title='<?= $row['entreprise'] ?>'><?= $row['entreprise_abbr'] ?></acronym></td>
 						<td><?= $row['customer'] ?></td>
 						<td><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
 
+					<td><?= $row['test_type_abbr'] ?></td>
 
-						<td><acronym title='<?= $row['entreprise'] ?>'><?= $row['entreprise_abbr'] ?></acronym></td>
 						<td><?= (isset($row['surname'])?$row['lastname'][0].'. '.$row['surname']:"")
 						.(isset($row['surname2'])?" - ".$row['lastname2'][0].'. '.$row['surname2']:"")
 						.(isset($row['surname3'])?" - ".$row['lastname3'][0].'. '.$row['surname3']:"")
@@ -87,7 +93,7 @@
 						?></td>
 
 						<td><?= $row['ref_pricing'] ?></td>
-						
+
 						<?php if (strlen($row['devis'])>15):  ?>
 							<td class="popover-markup" data-placement="left"><?= ($row['devis']=="" OR strlen($row['devis'])<15)?$row['devis']:substr($row['devis'],0,15)." [...]" ?>
 								<div class="head hide">Instructions</div>
@@ -141,7 +147,7 @@
 							<?php endif ?>
 						</td>
 
-						<td><?= $row['test_type_abbr'] ?></td>
+
 						<td><?= $row['ref_matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
 
