@@ -98,7 +98,7 @@ class LstEtatMachines
       SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
       SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','STL','Stop','Straightening','Report','Analysis','Restart'),cumul,0))/60 as noncycling,
       SUM(if(etatmachine in ('Send'),cumul,0))/60 as send,
-      SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52),cumul,0))/60 as noTest,
+      SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52 OR etape=20),cumul,0))/60 as noTest,
       SUM(if(etatmachine='Send' AND etape in (30,47),cumul,0))/60 as waitingCustomer,
       SUM(if(etatmachine='Send' AND etape in (40,46,48,50,51),cumul,0))/60 as waitingLab,
 
@@ -156,7 +156,7 @@ class LstEtatMachines
       SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
       SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','STL','Stop','Straightening','Report','Analysis','Restart'),cumul,0))/60 as noncycling,
       SUM(if(etatmachine in ('Send'),cumul,0))/60 as send,
-      SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52),cumul,0))/60 as noTest,
+      SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52 OR etape=20),cumul,0))/60 as noTest,
       SUM(if(etatmachine='Send' AND etape in (30,47),cumul,0))/60 as waitingCustomer,
       SUM(if(etatmachine='Send' AND etape in (40,46,48,50,51),cumul,0))/60 as waitingLab,
 

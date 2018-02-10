@@ -30,6 +30,11 @@
             Overdue SubC
           </div>
         </div>
+        <div class="col-md-2">
+          <div class="col-md-12 titre">
+            InOut Error
+          </div>
+        </div>
       </div>
       <div class="row" style="height:75%;overflow-y:scroll;">
         <div class="col-md-2">
@@ -64,6 +69,13 @@
           <?php foreach ($oInOut->overdueSubC() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
+        </div>
+        <div class="col-md-2">
+          <?php foreach ($oInOut->inOutError() as $key => $value) : ?>
+            <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'] ?>
             </a>
           <?php endforeach  ?>
         </div>

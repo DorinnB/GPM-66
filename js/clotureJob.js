@@ -188,7 +188,7 @@ $(".report_send").click(function(e) {
       },
       error : function(resultat, statut, erreur) {
         console.log(Object.keys(resultat));
-        alert('ERREUR lors de l insertion au planning. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+        alert('ERREUR lors de l enregistrement de l envoi du rapport. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
       }
     });
   }

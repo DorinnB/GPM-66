@@ -461,7 +461,7 @@ $style_gray = array(
 
 
     }
-    ElseIf ($essai['test_type_abbr']=="Crp")	{
+    ElseIf ($essai['test_type_abbr']=="Crp" OR $essai['test_type_abbr']=="ICr")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT Crp.xlsx");
 

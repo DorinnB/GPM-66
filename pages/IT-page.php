@@ -10,6 +10,9 @@
 if (isset($_GET['tool'])) {
 	include 'views/IT-'.$_GET['tool'].'-view.php';
 }
+else {
+echo '<script>$("#wrapper").removeClass("toggled");</script>';
+}
 ?>
 
 

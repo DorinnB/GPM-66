@@ -17,10 +17,13 @@
 			<a href="index.php?page=IT&tool=dessins">Dessins</a>
 		</li>
 		<li>
-			<a href="index.php?page=IT&tool=matieres">Material</a>
+			<a href="index.php?page=IT&tool=matieres">Materials</a>
 		</li>
 		<li>
 			<a href="index.php?page=IT&tool=outillages">Tools</a>
+		</li>
+		<li>
+			<a href="index.php?page=IT&tool=tempConvertors">Temp Convertors</a>
 		</li>
 		<li>
 			<a href="controller/createUBR-controller.php">UBR</a>
