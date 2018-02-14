@@ -56,5 +56,15 @@ class PLANNINGLAB
     $result = $this->db->query($reqDelete);
   }
 
-
+  public function getPlanningSplit($id_tbljob){
+    $req='SELECT GROUP_CONCAT( distinct machine ORDER BY machine ASC SEPARATOR " ") as machines
+    FROM planninglab
+    LEFT JOIN machines ON machines.id_machine=planninglab.id_machine
+    WHERE id_tbljob='.$this->db->quote($id_tbljob).'
+    AND date >= NOW()
+    GROUP BY id_tbljob
+    ';
+    //echo $req;
+    return $this->db->getOne($req);
+  }
 }

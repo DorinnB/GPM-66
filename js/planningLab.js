@@ -27,6 +27,7 @@ $(document).ready(function() {
     paging: false,
     scrollX: true,
     info:false,
+ ordering: false,
     fixedColumns:   {leftColumns: 1}
   });
 
@@ -63,12 +64,34 @@ $(document).ready(function() {
 
 
 
+  $('.popover-markup').hover(function(){
+    //mise en couleur des cases de ce split
+      val=$(this).attr('data-id_tbljob');
+      $('.popover-markup').each(function() {
+          if ($(this).attr('data-id_tbljob')==val) {
+            $(this).toggleClass('highlight');
+          }
+          else {
+            $(this).removeClass('highlight');
+          }
+     });
+  });
 
   $('.machine').click(function(){
     $('#id_tbljob_actif').attr('data-id_tbljob',$(this).attr('data-id_tbljob'));
     $('#id_tbljob_actif').attr('data-customer',$(this).attr('data-customer'));
     $('#id_tbljob_actif').attr('data-job',$(this).attr('data-job'));
     $('#id_tbljob_actif').attr('data-split', $(this).attr('data-split'));
+    //mise en couleur des cases de ce split
+      val=$(this).attr('data-id_tbljob');
+      $('.selectable').each(function() {
+          if ($(this).attr('data-id_tbljob')==val) {
+            $(this).toggleClass('highlight');
+          }
+          else {
+            $(this).removeClass('highlight');
+          }
+     });
   });
   $('#gomme').click(function(){
     $('#id_tbljob_actif').attr('data-id_tbljob','');
@@ -76,6 +99,7 @@ $(document).ready(function() {
     $('#id_tbljob_actif').attr('data-job','');
     $('#id_tbljob_actif').attr('data-split', '');
   });
+
 
 
 

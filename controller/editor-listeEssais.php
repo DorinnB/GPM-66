@@ -47,7 +47,7 @@ Editor::inst( $db, 'enregistrementessais' )
 ->leftJoin( 'techniciens as op',     'op.id_technicien',          '=', 'enregistrementessais.id_operateur' )
 ->leftJoin( 'techniciens as chk',     'chk.id_technicien',          '=', 'enregistrementessais.id_controleur' )
 
-->where('n_fichier',44000,'>')
+->where('n_fichier',47000,'>')
 ->where('enregistrementessais.id_eprouvette', null, '!=' )
 
 ->process($_POST)

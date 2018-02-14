@@ -47,6 +47,10 @@
         <button type="button" id="load250" class="btn-group-xs">250</button>
       </span>
     </p>
+    <p class="title">
+      <span class="name">Frames Planned :</span>
+      <span class="value"><?=  isset($machines['machines'])?$machines['machines']:'Not Planned' ?></span>
+    </p>
     <p class="title <?= ($split['GE']==0)?'hide':'' ?>">
       <span class="name">GE Test :</span>
       <span class="value warning"><?= ($split['GE']==0)?'':'YES' ?></span>

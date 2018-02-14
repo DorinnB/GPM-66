@@ -37,7 +37,11 @@
 						?>
 						<?php foreach ($lstJobs as $key => $value) :	?>
 							<?php if ($value['id_tbljob']==$id_tbljob) : ?>
-									<div class="hide" style="background-color:inherit; color:inherit;"><?= $value['customer'].'-'.$value['job'].'-'.$value['split']	?></div>
+								<div class="hide" style="background-color:inherit; color:inherit;">
+									<a href="index.php?page=split&id_tbljob=<?= $value['id_tbljob'] ?>">
+										<?= $value['customer'].'-'.$value['job'].'-'.$value['split']	?>
+									</a>
+								</div>
 								<div class="content hide">
 
 									<div class="form-group">
@@ -51,17 +55,17 @@
 								</div>
 							<?php endif ?>
 						<?php endforeach ?>
-					<?php if ($id_tbljob==10) : ?>
-<div class="hide" style="background-color:inherit; color:inherit;">Cal Extenso</div>
-<?php elseif ($id_tbljob==11) : ?>
-	<div class="hide" style="background-color:inherit; color:inherit;">Alignement</div>
-<?php elseif ($id_tbljob==12) : ?>
-	<div class="hide" style="background-color:inherit; color:inherit;">Cal Temperature</div>
-<?php elseif ($id_tbljob==13) : ?>
-	<div class="hide" style="background-color:inherit; color:inherit;">Dummy</div>
-<?php elseif ($id_tbljob==14) : ?>
-	<div class="hide" style="background-color:inherit; color:inherit;">???</div>
-<?php endif ?>
+						<?php if ($id_tbljob==10) : ?>
+							<div class="hide" style="background-color:inherit; color:inherit;">Cal Extenso</div>
+						<?php elseif ($id_tbljob==11) : ?>
+							<div class="hide" style="background-color:inherit; color:inherit;">Alignement</div>
+						<?php elseif ($id_tbljob==12) : ?>
+							<div class="hide" style="background-color:inherit; color:inherit;">Cal Temperature</div>
+						<?php elseif ($id_tbljob==13) : ?>
+							<div class="hide" style="background-color:inherit; color:inherit;">Dummy</div>
+						<?php elseif ($id_tbljob==14) : ?>
+							<div class="hide" style="background-color:inherit; color:inherit;">???</div>
+						<?php endif ?>
 					</td>
 				<?php endforeach ?>
 			</tr>

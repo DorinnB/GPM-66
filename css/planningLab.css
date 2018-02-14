@@ -18,6 +18,9 @@ input{
   color:black;
 }
 
+td, th{
+  padding-right:5px !important;
+}
 
 .today  {
   border-left: 5px solid black !important;
@@ -55,6 +58,13 @@ input{
   ) !important;
 }
 
+  .highlight {
+    animation: blinker 1s linear infinite;
+  }
+
+  @keyframes blinker {
+    50% { opacity: 0.5; }
+  }
 
 
 [data-color='X'],[data-color='L'], [data-color='e'], [data-color='u'], [data-color='?']    {

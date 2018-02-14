@@ -19,7 +19,10 @@ include 'models/histo-model.php';
 $oHisto = new HistoModel($db);
 
 
+include 'models/planningLab-model.php';
+$oPlanningLab = new PLANNINGLAB($db);
 
+$machines=$oPlanningLab->getPlanningSplit($_GET['id_tbljob']);
 
 
 

@@ -5,13 +5,10 @@
 			MENU
 		</li>
 		<li>
-			<a href="index.php?page=PlanningLab">Planning Lab</a>
+			<a href="index.php?page=createPlanningLab">Update Planning Lab</a>
 		</li>
 		<li>
 			<a href="index.php?page=forecast">Forecast</a>
-		</li>
-		<li>
-			<a href="index.php?page=gestionPoste">Frame Management</a>
 		</li>
 		<li>
 			<a href="index.php?page=ListeEssais">Test list</a>
