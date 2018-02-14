@@ -4,12 +4,31 @@ $(document).ready(function() {
   var tableJob = $('#table_planningJob').DataTable({
 
     order: [[ 1, "desc" ]],
-    scrollY: '79vh',
+        scrollY:        '80vh',
     scrollCollapse: true,
     paging: false,
     scrollX: true,
+    info:false,
   });
+  var tableJobFrame = $('#table_planningJobFrame').DataTable({
+    order: [[ 0, "asc" ]],
+            scrollY:        '80vh',
+    scrollCollapse: true,
+    paging: false,
+    scrollX: true,
+    info:false,
+    fixedColumns:   {leftColumns: 1}
+  });
+  var tableJobFrame2 = $('#table_planningJobFrame2').DataTable({
 
+    order: [[ 0, "asc" ]],
+            scrollY:        '100vh',
+    scrollCollapse: true,
+    paging: false,
+    scrollX: true,
+    info:false,
+    fixedColumns:   {leftColumns: 1}
+  });
 
   $('#container').css('display', 'block');
 
@@ -32,8 +51,15 @@ $(document).ready(function() {
     });
   });
 
-  document.getElementById("table_planningJob_filter").style.display = "none";
-
+  if (document.getElementById("table_planningJob_filter")) {
+    document.getElementById("table_planningJob_filter").style.display = "none";
+  }
+  if (document.getElementById("table_planningJobFrame_filter")) {
+    document.getElementById("table_planningJobFrame_filter").style.display = "none";
+  }
+  if (document.getElementById("table_planningJobFrame2_filter")) {
+    document.getElementById("table_planningJobFrame2_filter").style.display = "none";
+  }
 
 
 
@@ -59,7 +85,12 @@ $(document).ready(function() {
     selected: function( event, ui ) {
       if ($(ui.selected).attr('data-id_tbljob')!=$('#id_tbljob_actif').attr('data-id_tbljob')) {
         $(ui.selected).attr('data-id_tbljob',$('#id_tbljob_actif').attr('data-id_tbljob'));
-        $(ui.selected).html($('#id_tbljob_actif').attr('data-job').slice(-2)+"-"+$('#id_tbljob_actif').attr('data-split'));
+        if ($.isNumeric( $('#id_tbljob_actif').attr('data-job') )) {
+          $(ui.selected).html($('#id_tbljob_actif').attr('data-job').slice(-2)+"-"+$('#id_tbljob_actif').attr('data-split'));
+        }
+        else {
+          $(ui.selected).html($('#id_tbljob_actif').attr('data-split'));
+        }
         $(ui.selected).attr('data-color',$('#id_tbljob_actif').attr('data-job').slice(-1));
       }
       else {
@@ -112,7 +143,36 @@ $(document).ready(function() {
 
   tableJob.columns.adjust().draw();
 
+
+
+  $('#table_planningJobFrame2 tbody tr td:not(:first-child)').each(function(){
+    var colSpan=1;
+    while( $(this).text() == $(this).next().text() ){
+      $(this).next().remove();
+      colSpan++;
+    }
+    $(this).attr('colSpan',colSpan);
+    $(this).css('text-align','center');
+
+    $(this).children('div').eq(0).removeClass('hide');
+  });
+
+
+  $('.popover-markup').popover({
+    html: true,
+    container:'body',
+    trigger: "hover",
+    title: function () {
+      return $(this).find('.head').html();
+    },
+    content: function () {
+      return $(this).find('.content').html();
+    }
+  });
+
 } );
+
+
 
 
 //calcul des nombre de jour planifié

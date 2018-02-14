@@ -1,4 +1,4 @@
-<table id="table_planningJobFrame" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
+<table id="table_planningJobFrame" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:95%; white-space:nowrap;">
 	<thead>
 		<tr>
 			<th rowspan=2>

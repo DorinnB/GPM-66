@@ -1,4 +1,4 @@
-#page-content-wrapper div{
+#split-nav div{
   color:white;
   background-color: rgb(68, 84, 106);
 }
@@ -9,6 +9,15 @@
 .table-hover tbody tr:hover , .table-hover tbody tr:hover th {
   background-color: #5B9BD5;
 }
+
+table.DTFC_Cloned tr {
+  background-color: rgb(68, 84, 106) !important;
+}
+
+input{
+  color:black;
+}
+
 
 .today  {
   border-left: 5px solid black !important;
@@ -48,7 +57,10 @@
 
 
 
-
+[data-color='X'],[data-color='L'], [data-color='e'], [data-color='u'], [data-color='?']    {
+  background-color:darkred !important;
+    color:white;
+}
 [data-color='0'], [data-color='0'] a  {
   background-color:darkgreen;
     color:white;

@@ -120,7 +120,7 @@ class LstEtatMachines
 
       if ($filtre=="Lab") { //jours Lab
         $filterBy='';
-        $groupBy='machine,';
+        $groupBy='';
       }
       elseif ($filtre=="Frame") {
         $groupBy='machine,';
@@ -169,7 +169,9 @@ class LstEtatMachines
       LEFT JOIN statuts on statuts.id_statut=etatmachine_machines.id_statut_temp
       ".$filterBy."
       GROUP BY ".$groupBy." ;";
+
       echo $req;
+
       return $this->db->getAll($req);
 
 

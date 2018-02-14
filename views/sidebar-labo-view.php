@@ -5,6 +5,9 @@
 			MENU
 		</li>
 		<li>
+			<a href="index.php?page=createPlanningLab">Planning Lab</a>
+		</li>
+		<li>
 			<a href="index.php?page=forecast">Forecast</a>
 		</li>
 		<li>

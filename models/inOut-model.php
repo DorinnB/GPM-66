@@ -359,6 +359,7 @@ LEFT JOIN enregistrementessais on enregistrementessais.id_eprouvette=eprouvettes
       )>=1)
     )
     AND etape!=100
+    AND tbljobs.tbljob_actif=1
     GROUP BY job
     ORDER BY job DESC
     ';
