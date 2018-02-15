@@ -502,12 +502,16 @@ class EprouvetteModel
       info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
       signal_true, signal_tapered, young, flag_qualite, check_rupture,
       d_commentaire,
+
       IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock,
       E_RT, c1_E_montant, c1_max_strain, c1_min_strain, c1_max_stress, c1_min_stress, c2_cycle, c2_E_montant, c2_max_stress, c2_min_stress, c2_max_strain, c2_min_strain, c2_calc_inelastic_strain, c2_meas_inelastic_strain, Ni, Nf75, dilatation,
       c2_delta_strain, c2_strain_e,
       dim1, dim2, dim3, gage,
       type_chauffage, chauffage,
-      cell_load_gamme, cell_displacement_gamme,
+      cell_load_gamme, cell_displacement_gamme, cell_displacement_serial, cell_load_serial,
+      Disp_P, Disp_i, Disp_D, Disp_Conv, Disp_Sens, Load_P, Load_i, Load_D, Load_Conv, Load_Sens, Strain_P, Strain_i, Strain_D, Strain_Conv, Strain_Sens,
+outillage_tops.outillage as outillage_top, outillage_bots.outillage as outillage_bot,
+
       ind_temps_top.ind_temp as ind_temp_top,
       ind_temps_strap.ind_temp as ind_temp_strap,
       ind_temps_bot.ind_temp as ind_temp_bot,
@@ -549,6 +553,8 @@ class EprouvetteModel
       LEFT JOIN ind_temps as ind_temps_top ON ind_temps_top.id_ind_temp=postes.id_ind_temp_top
       LEFT JOIN ind_temps as ind_temps_strap ON ind_temps_strap.id_ind_temp=postes.id_ind_temp_strap
       LEFT JOIN ind_temps as ind_temps_bot ON ind_temps_bot.id_ind_temp=postes.id_ind_temp_bot
+LEFT JOIN outillages outillage_tops ON outillage_tops.id_outillage=postes.id_outillage_top
+LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_outillage_bot
 
       LEFT JOIN techniciens t1 ON t1.id_technicien=enregistrementessais.id_operateur
       LEFT JOIN techniciens t2 ON t2.id_technicien=enregistrementessais.id_controleur

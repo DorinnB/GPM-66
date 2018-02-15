@@ -138,7 +138,7 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
 }
 
 $enTete->setCellValue("B4", $date);
-
+$objPHPExcel->setActiveSheetIndex(0);
 
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');

@@ -55,15 +55,7 @@ $essai['ts_waveform'] = $true.$waveform.$tapered;
 
 $essai['tempCorrected']=$oEprouvette->getTempCorrected();
 
-//cas des essais type GE. On bascule le rawdata en none et on active la variable ts GE_Type_Job
-if ($essai['name'] == 'GE' ) {
-  $essai['GE_Type_Job'] = 'Yes';
-  $essai['name'] = 'None';
-}
-else {
-  $essai['GE_Type_Job'] = 'No';
-}
-
+$essai['GE']=($essai['GE'] == 1 )?'Yes':'No';
 
 //Crp
 $essai['niveau1']=($essai['c_unite']=="Mpa")?$essai['c_type_1_val']*$essai['area']/1000:$essai['c_type_1_val'];

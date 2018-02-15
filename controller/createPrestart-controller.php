@@ -66,6 +66,8 @@ $style_gray = array(
 
     $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Prestart.xlsx");
 
+      $dailyCheckOLD=$objPHPExcel->getSheetByName('DAILYCHECK OLD');
+
     $val2Xls = array(
       'D6' => $prestart['machine'],
       'M6' => $prestart ['customer'].'-'.$prestart ['job']. '-'.$prestart ['split'],
@@ -102,40 +104,56 @@ $style_gray = array(
 
 
 
-
-    /*
-    //affichage du checkeur temperature uniquement si temperature
-    if ($essai['c_temperature']>=50) {
-    $val2Xls['J18'] = $essai['controleur'];
-  }
-  else {
-  $objPHPExcel->getActiveSheet()->getStyle('F15:F17')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('B37')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('K20')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('D35:K38')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('H34:K34')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('H42:I42')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('J18:K18')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('I20')->applyFromArray( $style_gray );
-  $objPHPExcel->getActiveSheet()->getStyle('K21')->applyFromArray( $style_gray );
-
-  $objPHPExcel->getActiveSheet()->setCellValue('B38', '');
+//Pour chaque element du tableau associatif, on update les cellules Excel
+foreach ($val2Xls as $key => $value) {
+  $dailyCheckOLD->setCellValue($key, $value);
 }
 
-*/
+
+$dailyCheckOLD->getProtection()->setSheet(true);
+$dailyCheckOLD->getProtection()->setPassword("metcut44");
+
+
+
+
+
+      $dailyCheck=$objPHPExcel->getSheetByName('DAILYCHECK');
+
+    $val2Xls = array(
+      'Q2' => 'CHECKLIST - '.$prestart ['job']. '-'.$prestart ['split'],
+
+      'A4' => $prestart ['customer'].'-'.$prestart ['job']. '-'.$prestart ['split'],
+      'C4' => $prestart['machine'],
+      'E4' => $prestart['date'],
+      'G4' => $prestart['cell_load_gamme'],
+      'I4' => $prestart['shunt_cal'],
+      'I5' => '(_______)',
+      'O4' => $prestart['technicien'],
+
+      'A7' => (($prestart['valid_extenso']==1)?'x':'o'),
+      'C7' => (($prestart['valid_temperature']==1)?'x':'o'),
+      'E7' => (($prestart['valid_temperature_line']==1)?'x':'o'),
+      'G7' => (($prestart['valid_alignement']==1)?'x':'o'),
+      'I7' => (($prestart['tune']==1)?'Dummy':(($prestart['tune']==2)?'Same Param.':' ')),
+      'K7' => (($prestart['signal_true']==1)?'x':'o'),
+      'O7' => (($prestart['signal_tapered']==1)?'x':'o'),
+    );
+
+
 
 //Pour chaque element du tableau associatif, on update les cellules Excel
 foreach ($val2Xls as $key => $value) {
-  $objPHPExcel->getActiveSheet()->setCellValue($key, $value);
+  $dailyCheck->setCellValue($key, $value);
 }
 
 
+$dailyCheck->getProtection()->setSheet(true);
+$dailyCheck->getProtection()->setPassword("metcut44");
 
-//exit;
 
-$objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
-$objPHPExcel->getActiveSheet()->getProtection()->setPassword("metcut44");
 
+
+      $objPHPExcel->setActiveSheetIndex(0);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('../lib/PHPExcel/files/Prestart-'.$_GET['id_prestart'].'.xlsx');
