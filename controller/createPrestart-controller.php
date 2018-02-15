@@ -136,6 +136,7 @@ $dailyCheckOLD->getProtection()->setPassword("metcut44");
       'G7' => (($prestart['valid_alignement']==1)?'x':'o'),
       'I7' => (($prestart['tune']==1)?'Dummy':(($prestart['tune']==2)?'Same Param.':' ')),
       'K7' => (($prestart['signal_true']==1)?'x':'o'),
+      'M7' => $eprouvette['c_waveform'],      
       'O7' => (($prestart['signal_tapered']==1)?'x':'o'),
     );
 
