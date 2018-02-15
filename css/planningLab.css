@@ -72,42 +72,42 @@ td, th{
     color:white;
 }
 [data-color='0'], [data-color='0'] a  {
-  background-color:darkgreen;
+  background-color:darkgreen !important;
     color:white;
 }
 [data-color='1'], [data-color='1'] a  {
-  background-color:sienna;
+  background-color:sienna !important;
     color:white;
 }
 [data-color='2'], [data-color='2'] a  {
-  background-color:darkblue;
+  background-color:darkblue !important;
     color:white;
 }
 [data-color='3'], [data-color='3'] a  {
-  background-color:yellow;
+  background-color:yellow !important;
     color:black;
 }
 [data-color='4'], [data-color='4'] a  {
-  background-color:purple;
+  background-color:purple !important;
     color:white;
 }
 [data-color='5'], [data-color='5'] a  {
-  background-color:darkred;
+  background-color:darkred !important;
     color:white;
 }
 [data-color='6'], [data-color='6'] a  {
-  background-color:olive;
+  background-color:olive !important;
     color:white;
 }
 [data-color='7'], [data-color='7'] a  {
-  background-color:lightblue;
+  background-color:lightblue !important;
     color:black;
 }
 [data-color='8'], [data-color='8'] a  {
-  background-color:orange;
+  background-color:orange !important;
     color:black;
 }
 [data-color='9'], [data-color='9'] a {
-  background-color:pink;
+  background-color:pink !important;
   color:black;
 }

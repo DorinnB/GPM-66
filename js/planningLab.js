@@ -82,6 +82,16 @@ $(document).ready(function() {
     $('#id_tbljob_actif').attr('data-customer',$(this).attr('data-customer'));
     $('#id_tbljob_actif').attr('data-job',$(this).attr('data-job'));
     $('#id_tbljob_actif').attr('data-split', $(this).attr('data-split'));
+    $('#id_tbljob_actif').attr('data-color',$(this).attr('data-color'));
+
+if (($(this).attr('data-id_tbljob')>=10) & ($(this).attr('data-id_tbljob')<=15)) {
+  $('#id_tbljob_actif').html($(this).html());
+}
+else {
+
+    $('#id_tbljob_actif').html($(this).attr('data-customer')+'-'+$(this).attr('data-job')+'-'+$(this).attr('data-split'));
+}
+
     //mise en couleur des cases de ce split
       val=$(this).attr('data-id_tbljob');
       $('.selectable').each(function() {
@@ -98,6 +108,11 @@ $(document).ready(function() {
     $('#id_tbljob_actif').attr('data-customer','');
     $('#id_tbljob_actif').attr('data-job','');
     $('#id_tbljob_actif').attr('data-split', '');
+    $('#id_tbljob_actif').attr('data-color','');
+
+    $('#id_tbljob_actif').html('');
+
+
   });
 
 
