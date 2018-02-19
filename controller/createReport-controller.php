@@ -329,12 +329,17 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
     $pvEssais->setCellValueByColumnAndRow($col, 96, (($value['Cycle_final']<$value['Cycle_min'])?'Non conforme':'Conforme'));
 
 
-    if (($value['d_checked']<=0 AND $value['n_fichier']>0) OR $value['flag_qualite']>0) {
-      $pvEssais->setCellValueByColumnAndRow($col, 123, "Unchecked");
-    }
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->setCellValueByColumnAndRow($col, 123, "RUNNING");
     }
+    elseif (($value['d_checked']<=0 AND $value['n_fichier']>0) OR $value['flag_qualite']>0) {
+      $pvEssais->setCellValueByColumnAndRow($col, 123, "Unchecked");
+    }
+    else {
+      $pvEssais->setCellValueByColumnAndRow($col, 123, "");
+    }
+
+
 
     $pvEssais->setCellValueByColumnAndRow($col, 117, $value['q_commentaire']);
 
@@ -518,19 +523,20 @@ ElseIf (isset($_GET['language']) AND $_GET['language']=="V2" AND $split['test_ty
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
     $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
-    if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
-      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
-    }
-    else {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
-
-    }
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
       $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
     }
+    elseif ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
+    }
+    else {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "");
+    }
+
 
 
     //tableau pour le stepcase
@@ -777,19 +783,20 @@ elseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
     $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
-    if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
-      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
-    }
-    else {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
-
-    }
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
       $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
     }
+    elseif ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+
+    }
+    else {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "");
+    }
+
 
 
     //tableau pour le stepcase
@@ -1039,19 +1046,20 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
     $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
-    if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
-      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
-    }
-    else {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
-
-    }
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
       $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
     }
+    elseif ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
+    }
+    else {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "");
+    }
+
 
     if ($value['c_cycle_STL']!='') {  //on affiche les lignes du STL
       $pvEssais->getRowDimension(13)->setVisible();
@@ -1281,19 +1289,20 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
     $pvEssais->setCellValueByColumnAndRow($col, 47, $value['temps_essais']);
 
-    if (($value['d_checked']<=0 AND $value['n_fichier']>0) OR $value['flag_qualite']>0) {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
-      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
-    }
-    else {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
-
-    }
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
       $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
     }
+    elseif (($value['d_checked']<=0 AND $value['n_fichier']>0) OR $value['flag_qualite']>0) {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
+    }
+    else {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "");
+    }
+
 
 
     $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
@@ -1513,20 +1522,20 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
     $pvEssais->setCellValueByColumnAndRow($col, 47, $value['temps_essais']);
 
-    if ($value['d_checked']<=0 AND $value['n_fichier']>0) {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
-      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
-    }
-    else {
-      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
 
-    }
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'4')->applyFromArray( $style_running );
       $pvEssais->setCellValueByColumnAndRow($col, 4, "RUNNING");
     }
-
+    elseif ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_unchecked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "Unchecked");
+    }
+    else {
+      $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'4:'.PHPExcel_Cell::stringFromColumnIndex($col).'47')->applyFromArray( $style_checked );
+      $pvEssais->setCellValueByColumnAndRow($col, 4, "");
+    }
 
     $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
     //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
