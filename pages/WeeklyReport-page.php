@@ -1,5 +1,5 @@
 
-<link href="css/followup.css" rel="stylesheet">
+<link href="css/weeklyReport.css" rel="stylesheet">
 <?php
 include('controller/weeklyReport-controller.php');
 ?>
@@ -22,7 +22,7 @@ include('controller/weeklyReport-controller.php');
 		</div>
 		<form id="formWeeklyReport" method="POST" style="height:95%;">
 			<div style="height:93%; overflow:auto; width:100%;">
-				<table class="table table-striped table-condensed table-hover table-bordered" id="tableWeeklyReport">
+				<table class="table table-condensed table-bordered" id="tableWeeklyReport">
 					<thead>
 						<tr>
 							<td>PO/Instructions</td>
@@ -46,8 +46,8 @@ include('controller/weeklyReport-controller.php');
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['job']	?></td>
 								<td>0</td>
 								<td>Reception Matière</td>
-								<td><?=	$value['nbep']	?></td>
 								<td><?=	$value['nbreceived']	?></td>
+								<td><?=	$value['nbep']	?></td>
 								<td><?=	(isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:'')	?></td>
 								<td><?=	$value['available_expected']	?></td>
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>" style="height:100%;"><textarea class="commentaire" name="weeklycomment_<?=	$value['id_info_job']	?>" ><?= $value['weeklyComment'] ?></textarea></td>

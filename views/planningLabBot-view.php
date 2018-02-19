@@ -2,7 +2,7 @@
 
 <div class="col-md-2" style="height:100%">
 	Selected Split
-	<div id="id_tbljob_actif" style="float:left; margin: 5px;" data-id_tbljob="" data-customer="" data-job="" data-split="" data-color=""></div>
+	<div id="id_tbljob_actif" style="height:30px; margin: 5px;" data-id_tbljob="" data-customer="" data-job="" data-split="" data-color=""></div>
 </div>
 <div class="col-md-8" style="height:100%">
 
@@ -20,7 +20,7 @@
 		Cal Temperature
 	</div>
 	<div style="float:left; margin: 5px;" class="machine" data-id_tbljob="13" data-customer="0" data-job="u" data-split="Dum" data-color="u">
-		<img class="pull-left" type="image" src="img/dummy.jpg" style="max-width:100%; max-height:30px; padding:5px;display: block; margin: auto;" />
+		<img class="pull-left" type="image" src="img/dummy.png" style="max-width:100%; max-height:30px; padding:5px;display: block; margin: auto;" />
 		Dummy
 	</div>
 	<div style="float:left; margin: 5px;" class="machine" data-id_tbljob="14" data-customer="0" data-job="?" data-split="???" data-color="?">
