@@ -22,7 +22,16 @@ class DwgModel
     }
 
 
-    public function dimension($format){
+    public function dimensions($id_dessin_type){
+      $req = 'SELECT denomination_1, denomination_2, denomination_3
+      FROM dessin_types
+      WHERE id_dessin_type='.$id_dessin_type;
+      //echo $req.'<br/><br/>';
+      return $this->db->getOne($req);
+    }
+
+
+    public function OLDdimension($format){
       if ($format=="Cylindrique")	{
         $this->_dimDenomination=array("Diam.");
       }

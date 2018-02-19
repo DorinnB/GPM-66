@@ -109,10 +109,13 @@ for($k=0;$k < count($ep);$k++)	{
     //on sauvegarde le format d'eprouvette (pour voir s'il change)
     $format=  $ep[$k]['type'];
 
-    $oEp->dimension($ep[$k]['type'], $ep[$k]['dim1'], $ep[$k]['dim2'], $ep[$k]['dim3']);
-
-    $dimDenomination=$oEp->dimDenomination();
-    $nbDim = count($dimDenomination);
+    $dimDenomination=$oEp->dimensions($ep[$k]['id_dessin_type'], $ep[$k]['dim1'], $ep[$k]['dim2'], $ep[$k]['dim3']);
+    //suppression des dimensions null
+    foreach ($dimDenomination as $index => $data) {
+      if ($data=='') {
+        unset($dimDenomination[$index]);
+      }
+    }
 
 
 

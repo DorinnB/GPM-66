@@ -24,9 +24,13 @@ else {
 }
 
 
-$oEprouvette->dimension($essai['type'],$essai['dim1'],$essai['dim2'],$essai['dim3']);
-$nb_dim=count($oEprouvette->dimDenomination());
-$essai['area'] = $oEprouvette->area();
+$essai['area'] = $oEprouvette->calculArea($essai['id_dessin_type'],$essai['dim1'],$essai['dim2'],$essai['dim3'])['area'];
+
+
+
+
+
+
 
 $oEprouvette->niveaumaxmin($essai['c_1_type'], $essai['c_2_type'], $essai['c_type_1_val'], $essai['c_type_2_val']);
 $essai['max'] = $oEprouvette->MAX();
@@ -79,7 +83,7 @@ foreach ($oXMLforTS->getAllXMLforTS($essai['id_test_type']) as $key => $value) {
   $variableUnit[$value['ts']]=$value['unit'];
 }
 
-
+//var_dump($variableTS_GPM);
 //on ajoute manuellement le nom d'ep
 //  $variableTS_GPM['SpecimenId'] = isset($essai['prefixe'])?$essai['prefixe'].'-'.$essai['nom_eprouvette']:$essai['nom_eprouvette'];
 

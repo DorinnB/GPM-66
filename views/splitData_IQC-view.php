@@ -12,9 +12,9 @@
       <span class="name">Drawing :</span>
       <span class="value"><?= $split['dessin'] ?></span>
     </p>
-    <?php for($i=1;$i<=count($nomDimension);$i++): ?>
+    <?php for($i=1;$i<=count($dimDenomination);$i++): ?>
       <p class="title">
-        <span class="name"><?= $nomDimension[$i-1] ?> :</span>
+        <span class="name"><?= $dimDenomination[$i-1] ?> :</span>
         <span class="value"><?= $Dwg['nominal_'.$i] ?> <?= ($Dwg['tolerance_plus_'.$i]==$Dwg['tolerance_moins_'.$i])?'&plusmn;'.$Dwg['tolerance_plus_'.$i]:'+'.$Dwg['tolerance_plus_'.$i].'-'.$Dwg['tolerance_moins_'.$i] ?></span>
       </p>
     <?php  endfor  ?>

@@ -24,10 +24,19 @@ $essai['comm']=(isset($workflow['comm']))?$workflow['comm']:"";
 
 
 
-$oEprouvette->dimension($essai['type'],$essai['dim1'],$essai['dim2'],$essai['dim3']);
-$denomination=$oEprouvette->dimDenomination();
-$nb_dim=count($denomination);
-$area = $oEprouvette->area();
+$dimDenomination=$oEprouvette->dimensions($essai['id_dessin_type']);
+
+//suppression des dimensions null
+foreach ($dimDenomination as $index => $data) {
+
+  if ($data=='') {
+    unset($dimDenomination[$index]);
+  }
+}
+$dimDenomination = array_values($dimDenomination);  //Conversion de l'array "keys" en "numeric"
+
+$area = $oEprouvette->calculArea($essai['id_dessin_type'],$essai['dim1'],$essai['dim2'],$essai['dim3'])['area'];
+
 
 $oEprouvette->niveaumaxmin($essai['c_1_type'], $essai['c_2_type'], $essai['c_type_1_val'], $essai['c_type_2_val']);
 
@@ -470,11 +479,11 @@ $style_gray = array(
         'C19' => $essai['ref_matiere'],
         'E19' => $essai['c_frequence'],
         'G19' => $true.$essai['c_waveform'].$tapered,
-        'K18' => ((isset($denomination[0])?$denomination[0]:' ')),
+        'K18' => ((isset($dimDenomination[0])?$dimDenomination[0]:' ')),
         'K19' => $essai['dim1'],
-        'M18' => ((isset($denomination[1])?$denomination[1]:' ')),
+        'M18' => ((isset($dimDenomination[1])?$dimDenomination[1]:' ')),
         'M19' => $essai['dim2'],
-        'O18' => ((isset($denomination[2])?$denomination[2]:' ')),
+        'O18' => ((isset($dimDenomination[2])?$dimDenomination[2]:' ')),
         'O19' => $essai['dim3'],
 
         'B22' => '_',
@@ -986,11 +995,11 @@ $style_gray = array(
         'C19' => $essai['ref_matiere'],
         'E19' => $essai['c_frequence'],
         'G19' => $true.$essai['c_waveform'].$tapered,
-        'K18' => ((isset($denomination[0])?$denomination[0]:' ')),
+        'K18' => ((isset($dimDenomination[0])?$dimDenomination[0]:' ')),
         'K19' => $essai['dim1'],
-        'M18' => ((isset($denomination[1])?$denomination[1]:' ')),
+        'M18' => ((isset($dimDenomination[1])?$dimDenomination[1]:' ')),
         'M19' => $essai['dim2'],
-        'O18' => ((isset($denomination[2])?$denomination[2]:' ')),
+        'O18' => ((isset($dimDenomination[2])?$dimDenomination[2]:' ')),
         'O19' => $essai['dim3'],
 
         'J21' => 'End level ('.$essai['c_unite'].')',

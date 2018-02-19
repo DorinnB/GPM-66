@@ -80,15 +80,24 @@ for($k=0;$k < count($ep);$k++)	{
 
 
 
+  $dimDenomination=$oEprouvette->dimensions($ep[$k]['id_dessin_type']);
 
-  $oEprouvette->dimension($ep[$k]['type'],$ep[$k]['dim1'],$ep[$k]['dim2'],$ep[$k]['dim3']);
-  //$denomination=$oEprouvette->dimDenomination();
-  //$nb_dim=count($denomination);
+  //suppression des dimensions null
+  foreach ($dimDenomination as $index => $data) {
+
+    if ($data=='') {
+      unset($dimDenomination[$index]);
+    }
+  }
+
+  $ep[$k]['denomination'] =$dimDenomination;
+  $ep[$k]['area'] = $oEprouvette->calculArea($ep[$k]['id_dessin_type'],$ep[$k]['dim1'],$ep[$k]['dim2'],$ep[$k]['dim3'])['area'];
+
+
+
   $oEprouvette->niveaumaxmin($ep[$k]['c_1_type'], $ep[$k]['c_2_type'], $ep[$k]['c_type_1_val'], $ep[$k]['c_type_2_val']);
   $ep[$k]['max']=$oEprouvette->MAX();
   $ep[$k]['min']=$oEprouvette->MIN();
-
-  $ep[$k]['denomination'] = $oEprouvette->denomination($ep[$k]['id_dessin_type'], $ep[$k]['dim1'], $ep[$k]['dim2'], $ep[$k]['dim3']);
 
 
 
@@ -1236,7 +1245,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
     }
 
     $pvEssais->setCellValueByColumnAndRow($col, 20, $value['E_RT']);
-    $pvEssais->setCellValueByColumnAndRow($col, 24, (isset($value['dilatation'])?$value['denomination']['area']*$value['dilatation']*$value['dilatation']:''));
+    $pvEssais->setCellValueByColumnAndRow($col, 24, (isset($value['dilatation'])?$value['area']*$value['dilatation']*$value['dilatation']:''));
     $pvEssais->setCellValueByColumnAndRow($col, 25, (isset($value['dilatation'])?$value['Lo']*$value['dilatation']:''));
 
     $pvEssais->setCellValueByColumnAndRow($col, 26, $value['c1_E_montant']);
@@ -1473,7 +1482,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
     }
 
     $pvEssais->setCellValueByColumnAndRow($col, 20, $value['E_RT']);
-    $pvEssais->setCellValueByColumnAndRow($col, 24, (isset($value['dilatation'])?$value['denomination']['area']*$value['dilatation']*$value['dilatation']:''));
+    $pvEssais->setCellValueByColumnAndRow($col, 24, (isset($value['dilatation'])?$value['area']*$value['dilatation']*$value['dilatation']:''));
     $pvEssais->setCellValueByColumnAndRow($col, 25, (isset($value['dilatation'])?$value['Lo']*$value['dilatation']:''));
 
     $pvEssais->setCellValueByColumnAndRow($col, 26, $value['c1_E_montant']);
@@ -1586,7 +1595,7 @@ else {
 
 
 
-
+//exit;
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);

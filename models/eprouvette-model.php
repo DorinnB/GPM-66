@@ -515,7 +515,7 @@ outillage_tops.outillage as outillage_top, outillage_bots.outillage as outillage
       ind_temps_top.ind_temp as ind_temp_top,
       ind_temps_strap.ind_temp as ind_temp_strap,
       ind_temps_bot.ind_temp as ind_temp_bot,
-      name,
+      name, GE,
       val_1,val_2,val_3,val_4,val_5,val_6,
       master_eprouvette_inOut_A,
       if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
@@ -585,9 +585,30 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
 
 
 
+    public function calculArea($id_dessin_type, $dim_1, $dim_2, $dim_3){
+      $req = 'SELECT calcul_area
+      FROM dessin_types
+      WHERE id_dessin_type='.$id_dessin_type;
+      //echo $req.'<br/><br/>';
+      $result = $this->db->getOne($req);
+
+      $calcul_area=$result['calcul_area'];
+      eval( "\$return['area'] = $calcul_area;" );
+
+      return $return;
+    }
+
+    public function dimensions($id_dessin_type){
+      $req = 'SELECT denomination_1, denomination_2, denomination_3
+      FROM dessin_types
+      WHERE id_dessin_type='.$id_dessin_type;
+      //echo $req.'<br/><br/>';
+      return $this->db->getOne($req);
+    }
 
 
-    public function denomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
+
+    public function OLDdenomination($id_dessin_type, $dim_1, $dim_2, $dim_3){
       $req = 'SELECT denomination_1, denomination_2, denomination_3, calcul_area
       FROM dessin_types
       WHERE id_dessin_type='.$id_dessin_type;
@@ -601,7 +622,7 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
     }
 
 
-    public function dimension($format, $dim1, $dim2, $dim3){
+    public function OLDdimension($format, $dim1, $dim2, $dim3){
       if ($format=="Cylindrique")	{
         $this->_dimDenomination=array("Diam.");
         $this->_area=$dim1*$dim1*pi()/4;

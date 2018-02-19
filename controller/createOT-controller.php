@@ -31,11 +31,19 @@ for($k=0;$k < count($ep);$k++)	{
   $oEprouvette = new EprouvetteModel($db,$ep[$k]['id_eprouvette']);
   $ep[$k]=$oEprouvette->getTest();
 
-  $oEprouvette->dimension($ep[$k]['type'],$ep[$k]['dim1'],$ep[$k]['dim2'],$ep[$k]['dim3']);
 
 
+  $dimDenomination=$oEprouvette->dimensions($ep[$k]['id_dessin_type']);
 
-  $ep[$k]['denomination'] = $oEprouvette->denomination($ep[$k]['id_dessin_type'], $ep[$k]['dim1'], $ep[$k]['dim2'], $ep[$k]['dim3']);
+  //suppression des dimensions null
+  foreach ($dimDenomination as $index => $data) {
+
+    if ($data=='') {
+      unset($dimDenomination[$index]);
+    }
+  }
+
+  $ep[$k]['denomination'] =$dimDenomination;
 
 
 

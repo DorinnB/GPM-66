@@ -311,7 +311,7 @@ class LstJobsModel
 
     public function getWeeklyReportCust($customer) {
   	    $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment,
-            count(id_master_eprouvette) as nbep, count(id_master_eprouvette) as nbep, SUM(if(master_eprouvette_inOut_A is not null, 1, 0)) AS nbreceived, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
+            count(DISTINCT case when master_eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbreceived, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
             GROUP_CONCAT(DISTINCT
              if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), "&nbsp;",contacts.surname),""),
              if(contacts2.lastname is not null, concat("<br/>", LEFT(contacts2.lastname , 1), "&nbsp;",contacts2.surname),""),
@@ -331,7 +331,10 @@ class LstJobsModel
           LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
           LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
           LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
+          LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
   				WHERE info_job_actif=1 and job>13333 and customer='.$customer.'
+          AND master_eprouvette_actif=1 AND eprouvette_actif=1
+          AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_date is null)
           GROUP BY job
   				ORDER BY job DESC
           ';
@@ -354,7 +357,8 @@ class LstJobsModel
             LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
             LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
             LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-          WHERE tbljob_actif=1 AND eprouvette_actif=1 AND auxilaire=0 AND info_jobs.id_info_job='.$id_infojob.'
+          LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+          WHERE tbljob_actif=1 AND eprouvette_actif=1 AND master_eprouvette_actif=1 AND auxilaire=0 AND info_jobs.id_info_job='.$id_infojob.'
           GROUP BY tbljobs.id_tbljob
           ORDER BY split ASC';
         return $this->db->getAll($req);

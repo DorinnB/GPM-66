@@ -64,13 +64,14 @@ class AnnexeIQCModel
     nominal_1, tolerance_plus_1, tolerance_moins_1,
     nominal_2, tolerance_plus_2, tolerance_moins_2,
     nominal_3, tolerance_plus_3, tolerance_moins_3,
-    c_checked, d_checked, flag_qualite, type,
+    c_checked, d_checked, flag_qualite, type, dessin_types.id_dessin_type,
     c_commentaire, d_commentaire, q_commentaire, date_IQC, id_tech, technicien,
     master_eprouvette_inOut_A
     FROM eprouvettes
     LEFT JOIN annexe_IQC ON annexe_IQC.id_annexe_iqc=eprouvettes.id_eprouvette
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
+LEFT JOIN dessin_types ON dessin_types.id_dessin_type=dessins.id_dessin_type
     LEFT JOIN techniciens ON techniciens.id_technicien=annexe_IQC.id_tech
 
     WHERE eprouvettes.id_job='.$idjob.'
