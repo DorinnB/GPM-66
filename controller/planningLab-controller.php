@@ -2,8 +2,10 @@
 include_once('models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
 
-$nbJourPlanning=31*6;
-$nbAvantNow=5;
+$nbJourPlanning=(isset($_GET['nbDayPlanned']))?$_GET['nbDayPlanned']:31*6;
+$nbAvantNow=(isset($_GET['nbDayBefore']))?$_GET['nbDayBefore']:5;
+
+
 
 
 // Rendre votre modèle accessible
