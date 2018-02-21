@@ -13,7 +13,6 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
-        <th><acronym title="Rupture Check">R.</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </thead>
@@ -30,7 +29,6 @@
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
-        <th><acronym title="Rupture Check">R.</acronym></th>
         <th><acronym title="Value Check">Valid</acronym></th>
       </tr>
     </tfoot>
@@ -76,7 +74,6 @@
             <?php endif ?>
           </td>
 
-          <td class="dCheckEp" data-dchecked="<?= max(0,$ep[$k]['check_rupture']) ?>" <?= $epHisto2[$k]['check_rupture'] ?>><?= $ep[$k]['check_rupture'] ?></td>
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 
         </tr>

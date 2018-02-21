@@ -12,3 +12,8 @@ function gotoMARCHEPLUS(Page,type,id,modif) {
 $("#table_id >tbody > tr").click(function(e) {
   goto('split','id_tbljob',$(this).data("id_tbljob"),'noModif');
 });
+
+
+function gestionEp(idEp) {
+  $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
+}
