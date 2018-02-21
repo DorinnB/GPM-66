@@ -34,15 +34,7 @@
 			<div class="col-md-4" id="email" style="height:33%">
 				<acronym title="Send Email to Check the Split">
 					<a href="
-					mailto: touisse@metcutfrance.com;pcueff@metcutfrance.com;fthomas@metcutfrance.com
-					?subject=New Job : <?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?>
-					&cc=jgalipaud@metcutfrance.com
-					&body=Nouveau split crée : <?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'].'&nbsp;-&nbsp;'.$split['split'] ?>. (Lien impossible avec cette methode)%0D%0A
-					Merci de le checker, de l'insérer dans le planning et de faire les trucs de compta/administration :p%0D%0A
-					%0D%0A
-					Cordialement,%0D%0A
-					%0D%0A
-					GPM
+					<?php include 'controller/checkSplitEmail-controller.php'; ?>
 					">
 					<img type="image" src="img/new-email.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" /></a>
 				</acronym>

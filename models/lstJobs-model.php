@@ -341,6 +341,38 @@ class LstJobsModel
         return $this->db->getAll($req);
     }
 
+    public function getWeeklyReportInfoJob($id_infojob) {
+        $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment,
+            count(DISTINCT case when master_eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbreceived, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
+            GROUP_CONCAT(DISTINCT
+             if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), "&nbsp;",contacts.surname),""),
+             if(contacts2.lastname is not null, concat("<br/>", LEFT(contacts2.lastname , 1), "&nbsp;",contacts2.surname),""),
+             if(contacts3.lastname is not null, concat("<br/>", LEFT(contacts3.lastname , 1), "&nbsp;",contacts3.surname),""),
+             if(contacts4.lastname is not null, concat("<br/>", LEFT(contacts4.lastname , 1), "&nbsp;",contacts4.surname),"")
+           )as contacts,
+           GROUP_CONCAT(DISTINCT
+            if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), " ",contacts.surname),""),
+            if(contacts2.lastname is not null, concat("\r", LEFT(contacts2.lastname , 1), " ",contacts2.surname),""),
+            if(contacts3.lastname is not null, concat("\r", LEFT(contacts3.lastname , 1), " ",contacts3.surname),""),
+            if(contacts4.lastname is not null, concat("\r", LEFT(contacts4.lastname , 1), " ",contacts4.surname),"")
+          )as contactsXLS
+
+          FROM info_jobs
+          LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
+          LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
+          LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
+          LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+          LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
+          LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
+          WHERE info_jobs.id_info_job='.$id_infojob.'
+          AND master_eprouvette_actif=1 AND eprouvette_actif=1
+          AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_date is null)
+          GROUP BY job
+          ORDER BY job DESC
+          ';
+        return $this->db->getOne($req);
+    }
+
     public function getWeeklyReportJob($id_infojob) {
         $req = 'SELECT id_tbljob,
             tbljobs.id_statut, statut_color, statut_client,customer, statuts.etape, statuts.statut,
