@@ -11,88 +11,96 @@ $(document).ready(function() {
     table: "#table_dessins",
     fields: [
       { label: "Dessin", name: "dessins.dessin"  },
-      { label: "dessin_types", name: "dessins.id_dessin_type", type: "select" },
-
-      { label: "nominal_1", name: "dessins.nominal_1"  },
-      { label: "tolerance_plus_1", name: "dessins.tolerance_plus_1"  },
-      { label: "tolerance_moins_1", name: "dessins.tolerance_moins_1"  },
-      { label: "nominal_2", name: "dessins.nominal_2"  },
-      { label: "tolerance_plus_2", name: "dessins.tolerance_plus_2"  },
-      { label: "tolerance_moins_2", name: "dessins.tolerance_moins_2"  },
-      { label: "nominal_3", name: "dessins.nominal_3"  },
-      { label: "tolerance_plus_3", name: "dessins.tolerance_plus_3"  },
-      { label: "tolerance_moins_3", name: "dessins.tolerance_moins_3"  },
-
-      { label: "Actif", name: "dessins.dessin_actif" },
-    ]
-  } );
-
-  // Setup - add a text input to each footer cell
-  $('#table_dessins tfoot th').each( function (i) {
-    var title = $('#table_dessins thead th').eq( $(this).index() ).text();
-    $(this).html( '<input type="text" placeholder="'+title+'" data-index="'+i+'" style="width:100%;"/>' );
-  } );
-
-
-
-  var table = $('#table_dessins').DataTable( {
-    dom: "Bfrtip",
-    ajax: {
-      url : "controller/editor-dessins.php",
-      type: "POST"
+      { label: "Grip", name: "dessins.gripType", type: "select",
+      options: [
+        "Cylindrical",
+        "Hydraulic Flat",
+        "Hydraulic",
+        "Other"
+      ]
     },
-    order: [[ 1, "asc" ],[0,"asc"]],
-    columns: [
-      { data: "dessins.dessin" },
-      { data: "dessin_types.dessin_type" },
+    { label: "Grip Dimension", name: "dessins.gripDimension"  },
 
-      { data: "dessins.nominal_1" },
-      { data: "dessins.tolerance_plus_1" },
-      { data: "dessins.tolerance_moins_1" },
-      { data: "dessins.nominal_2" },
-      { data: "dessins.tolerance_plus_2" },
-      { data: "dessins.tolerance_moins_2" },
-      { data: "dessins.nominal_3" },
-      { data: "dessins.tolerance_plus_3" },
-      { data: "dessins.tolerance_moins_3" },
+    { label: "nominal_1", name: "dessins.nominal_1"  },
+    { label: "tolerance_plus_1", name: "dessins.tolerance_plus_1"  },
+    { label: "tolerance_moins_1", name: "dessins.tolerance_moins_1"  },
+    { label: "nominal_2", name: "dessins.nominal_2"  },
+    { label: "tolerance_plus_2", name: "dessins.tolerance_plus_2"  },
+    { label: "tolerance_moins_2", name: "dessins.tolerance_moins_2"  },
+    { label: "nominal_3", name: "dessins.nominal_3"  },
+    { label: "tolerance_plus_3", name: "dessins.tolerance_plus_3"  },
+    { label: "tolerance_moins_3", name: "dessins.tolerance_moins_3"  },
 
-      { data: "dessins.dessin_actif" }
-    ],
-    scrollY: '65vh',
-    scrollCollapse: true,
-    paging: false,
-    keys: {
-      columns: [2,3,4,5,6,7,8,9,10,11],
-      editor:  editor
-    },
-    select: {
-      style:    'os',
-      blurable: true
-    },
-    buttons: [
-      { extend: "create", editor: editor }
-    ]
-  } );
+    { label: "Actif", name: "dessins.dessin_actif" },
+  ]
+} );
+
+// Setup - add a text input to each footer cell
+$('#table_dessins tfoot th').each( function (i) {
+  var title = $('#table_dessins thead th').eq( $(this).index() ).text();
+  $(this).html( '<input type="text" placeholder="'+title+'" data-index="'+i+'" style="width:100%;"/>' );
+} );
 
 
+
+var table = $('#table_dessins').DataTable( {
+  dom: "Bfrtip",
+  ajax: {
+    url : "controller/editor-dessins.php",
+    type: "POST"
+  },
+  order: [[ 1, "asc" ],[0,"asc"]],
+  columns: [
+    { data: "dessins.dessin" },
+    { data: "dessins.gripType" },
+    { data: "dessins.gripDimension" },
+    { data: "dessins.nominal_1" },
+    { data: "dessins.tolerance_plus_1" },
+    { data: "dessins.tolerance_moins_1" },
+    { data: "dessins.nominal_2" },
+    { data: "dessins.tolerance_plus_2" },
+    { data: "dessins.tolerance_moins_2" },
+    { data: "dessins.nominal_3" },
+    { data: "dessins.tolerance_plus_3" },
+    { data: "dessins.tolerance_moins_3" },
+
+    { data: "dessins.dessin_actif" }
+  ],
+  scrollY: '65vh',
+  scrollCollapse: true,
+  paging: false,
+  keys: {
+    columns: [3,4,5,6,7,8,9,10,11,12],
+    editor:  editor
+  },
+  select: {
+    style:    'os',
+    blurable: true
+  },
+  buttons: [
+    { extend: "create", editor: editor }
+  ]
+} );
+
+
+table
+.column( '12' )
+.search( '1' )
+.draw();
+
+
+$('#container').css('display', 'block');
+table.columns.adjust().draw();
+
+// Filter event handler
+$( table.table().container() ).on( 'keyup', 'tfoot input', function () {
   table
-  .column( '11' )
-  .search( '1' )
+  .column( $(this).data('index') )
+  .search( this.value )
   .draw();
+} );
 
-
-  $('#container').css('display', 'block');
-  table.columns.adjust().draw();
-
-  // Filter event handler
-  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-    table
-    .column( $(this).data('index') )
-    .search( this.value )
-    .draw();
-  } );
-
-  //table.columns.adjust().draw();
+//table.columns.adjust().draw();
 
 
 } );

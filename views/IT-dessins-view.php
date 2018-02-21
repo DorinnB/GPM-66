@@ -4,7 +4,8 @@
   <thead>
     <tr>
       <th>Drawing</th>
-      <th><acronym title="Drawing Type">Type</acronym></th>
+      <th><acronym title="Grip Type">G. Type</acronym></th>
+      <th><acronym title="Grip Dimension">G. Dim.</acronym></th>
       <th><acronym title="Nominal 1">Nom.</acronym></th>
       <th><acronym title="Tolerance 1 +">Tol+</acronym></th>
       <th><acronym title="Tolerance 1 -">Tol-</acronym></th>
@@ -20,7 +21,8 @@
   <tfoot>
     <tr>
       <th>Drawing</th>
-      <th><acronym title="Drawing Type">Type</acronym></th>
+      <th><acronym title="Grip Type">G. Type</acronym></th>
+      <th><acronym title="Grip Dimension">G. Dim.</acronym></th>
       <th><acronym title="Nominal 1">Nom.</acronym></th>
       <th><acronym title="Tolerance 1 +">Tol+</acronym></th>
       <th><acronym title="Tolerance 1 -">Tol-</acronym></th>

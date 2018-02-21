@@ -21,6 +21,11 @@ Editor::inst( $db, 'dessins' )
   Field::inst( 'dessins.dessin')
     ->validator( 'Validate::notEmpty' ),
 
+    Field::inst( 'dessins.gripType')
+    ->setFormatter( 'Format::ifEmpty', null ),
+    Field::inst( 'dessins.gripDimension')
+    ->setFormatter( 'Format::ifEmpty', null ),
+
   Field::inst( 'dessins.nominal_1')
     ->validator( 'Validate::numeric' )
     ->setFormatter( 'Format::ifEmpty', null ),
