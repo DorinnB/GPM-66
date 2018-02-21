@@ -115,14 +115,23 @@ $style_gray = array(
     $essai['ind_temp_top'] = (isset($essai['ind_temp_top']))? $essai['ind_temp_top'] : "";
     $essai['ind_temp_strap'] = (isset($essai['ind_temp_strap']))? $essai['ind_temp_strap'] : "";
     $essai['ind_temp_bot'] = (isset($essai['ind_temp_bot']))? $essai['ind_temp_bot'] : "";
+
+
     if ($essai['ind_temp_top'] == $essai['ind_temp_bot'] )	{		//groupement des ind.temp.
-      if ($essai['ind_temp_top'] == $essai['ind_temp_strap'])
-      $ind_temp = $essai['ind_temp_top'];
-      else
-      $ind_temp = $essai['ind_temp_top'].' / '.$essai['ind_temp_strap'];
+      if (($essai['ind_temp_top'] == $essai['ind_temp_strap'])) {
+        $ind_temp = $essai['ind_temp_top'];
+      }
+      elseif ( $essai['ind_temp_top']=="") {
+        $ind_temp = $essai['ind_temp_strap'];
+      }
+      else{
+        $ind_temp = $essai['ind_temp_top'].' / '.$essai['ind_temp_strap'];
+      }
     }
-    else
-    $ind_temp = $essai['ind_temp_top'].' / '.$essai['ind_temp_strap'].' / '.$essai['ind_temp_bot'];
+    else {
+      $ind_temp = $essai['ind_temp_top'].' / '.$essai['ind_temp_strap'].' / '.$essai['ind_temp_bot'];
+    }
+
 
     if (isset($essai['type_chauffage']) AND $essai['type_chauffage']=="Coil")	//chauffage coil
     $coil=$essai['chauffage'];
@@ -446,6 +455,7 @@ $style_gray = array(
 
         'A14' => $essai['enregistreur'],
         'C14' => '40001',
+        'D14' => $essai['Lo'],
         'E14' => $ind_temp,
 
 
@@ -490,7 +500,7 @@ $style_gray = array(
         'E22' => $essai['c_temperature'],
         'G22' => $tempCorrected,
         'I19' => $runout,
-        'O22' => $essai['Lo'].' ',
+        'O22' => $area,
 
         'B32' => '6',
         'C32' => '-6',
@@ -502,14 +512,14 @@ $style_gray = array(
         'A39' => $STL,
         'C39' => $F_STL,
 
-        'A48' => $essai['Cycle_min'],
-        'J28' => '_',
-        'C49' =>(($essai['Cycle_min']>0)?$essai['Cycle_min']:((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' ')),
-        'E49' => '_',
-        'K49' => '_',
+        'A53' => $essai['Cycle_min'],
+        'J27' => '_',
+        'C54' =>(($essai['Cycle_min']>0)?$essai['Cycle_min']:((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' ')),
+        'E54' => '_',
+        'K54' => '_',
 
 
-        'A53' => $essai['comm']
+        'A58' => $essai['comm']
 
       );
 
@@ -962,6 +972,7 @@ $style_gray = array(
 
         'A14' => $essai['enregistreur'],
         'C14' => '40001',
+        'D14' => $essai['Lo'],
         'E14' => $ind_temp,
 
 
@@ -1010,7 +1021,8 @@ $style_gray = array(
         'I19' => $runout,
         'K22' => $oEprouvette->MAX(),
         'M22' => $oEprouvette->MIN(),
-        'O22' => $essai['Lo'],
+        'O22' => $area,
+        'J27' => '_',
 
         'B32' => '3',
         'C32' => '-3',
@@ -1028,14 +1040,13 @@ $style_gray = array(
         'L40' => $essai['c_temperature'],
         'N40' => $tempCorrected,
 
-        'A47' => $essai['Cycle_min'],
-        'J27' => '_',
-        'C48' =>(($essai['Cycle_min']>0)?$essai['Cycle_min']:((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' ')),
-        'E48' => '_',
-        'K48' => '_',
+        'A53' => $essai['Cycle_min'],
+        'C54' =>(($essai['Cycle_min']>0)?$essai['Cycle_min']:((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' ')),
+        'E54' => '_',
+        'K54' => '_',
 
 
-        'A52' => $essai['comm']
+        'A58' => $essai['comm']
 
       );
 
@@ -1044,7 +1055,7 @@ $style_gray = array(
 
         $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
         $FT->getStyle('K34:L34')->applyFromArray( $style_gray );
-        $FT->getStyle('K42:O42')->applyFromArray( $style_gray );
+        $FT->getStyle('K41:O42')->applyFromArray( $style_gray );
 
         $FT->getStyle('A23:D23')->applyFromArray( $style_gray );
         $FT->getStyle('J23:P23')->applyFromArray( $style_gray );
