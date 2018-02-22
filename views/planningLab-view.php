@@ -13,7 +13,7 @@
 
 		<tr>
 			<?php foreach ($date as $key => $value) : ?>
-				<th>
+				<th class="<?= isHoliday(strtotime($value))?'ferie':'' ?>">
 					<?=	date('d', strtotime($value))	?>
 				</th>
 			<?php endforeach ?>
@@ -37,7 +37,7 @@
 						?>
 						<?php foreach ($lstJobs as $key => $value) :	?>
 							<?php if ($value['id_tbljob']==$id_tbljob) : ?>
-								<div class="hide" style="background-color:inherit; color:inherit;">
+								<div class="hide" style="background-color:inherit; color:inherit;" data-customer="<?= $value['customer']	?>">
 									<a href="index.php?page=split&id_tbljob=<?= $value['id_tbljob'] ?>">
 										<?= $value['customer'].'-'.$value['job'].'-'.$value['split']	?>
 									</a>

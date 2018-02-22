@@ -70,47 +70,69 @@ td, th{
   background-color : gray;
 }
 
+
+[data-customer] a{
+  color:inherit !important;
+}
+
+[data-customer] {
+    background-color:yellow !important;
+    color:black !important;
+}
+
+
+
+
+[data-customer='8003'] {
+  background-color:lightblue !important;
+  color:black !important;
+}
+[data-customer='8030'] {
+  background-color:plum !important;
+  color:black !important;
+}
+[data-customer='8043'] {
+  background-color:orange !important;
+  color:black !important;
+}
+[data-customer='8051'] {
+  background-color:gray !important;
+  color:white !important;
+}
+[data-customer='8093'] {
+  background-color:darkmagenta !important;
+  color:white !important;
+}
+[data-customer='8071'] {
+  background-color:Khaki  !important;
+  color:black !important;
+}
+[data-customer='8097'] {
+  background-color:darkgreen !important;
+  color:white !important;
+}
+[data-customer='8106'] {
+  background-color:sienna !important;
+  color:white !important;
+}
+[data-customer='8101'] {
+  background-color:lightgray !important;
+  color:black !important;
+}
+[data-customer='8077'] {
+  background-color:yellowgreen !important;
+  color:black !important;
+}
+[data-customer='8047'] {
+  background-color:maroon !important;
+  color:white !important;
+}
+[data-customer='8102'] {
+  background-color:olive !important;
+  color:white !important;
+}
+
 [data-color='X'],[data-color='L'], [data-color='e'], [data-color='u'], [data-color='?']    {
   background-color:darkred !important;
     color:white !important;
-}
-[data-color='0'], [data-color='0'] a  {
-  background-color:darkgreen !important;
-    color:white !important;
-}
-[data-color='1'], [data-color='1'] a  {
-  background-color:sienna !important;
-    color:white !important;
-}
-[data-color='2'], [data-color='2'] a  {
-  background-color:darkblue !important;
-    color:white !important;
-}
-[data-color='3'], [data-color='3'] a  {
-  background-color:yellow !important;
-    color:black !important;
-}
-[data-color='4'], [data-color='4'] a  {
-  background-color:purple !important;
-    color:white !important;
-}
-[data-color='5'], [data-color='5'] a  {
-  background-color:darkred !important;
-    color:white !important;
-}
-[data-color='6'], [data-color='6'] a  {
-  background-color:olive !important;
-    color:white !important;
-}
-[data-color='7'], [data-color='7'] a  {
-  background-color:lightblue !important;
-    color:black !important;
-}
-[data-color='8'], [data-color='8'] a  {
-  background-color:orange !important;
-    color:black !important;
-}
-[data-color='9'], [data-color='9'] a {
-  background-color:pink !important;
-  color:black !important;
 }

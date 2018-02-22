@@ -192,6 +192,8 @@ else {
     }
     $(this).attr('colSpan',colSpan);
     $(this).css('text-align','center');
+//je recup le customer, si on veut un code couleur customer    
+$(this).attr('data-customer',$(this).children('div').eq(0).attr('data-customer'));
 
     $(this).children('div').eq(0).removeClass('hide');
   });

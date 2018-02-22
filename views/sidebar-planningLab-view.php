@@ -5,7 +5,7 @@
 			MENU
 		</li>
 		<li>
-			<a href="index.php?page=createPlanningLab">Update Planning Lab</a>
+			<a href="index.php?page=createPlanningLab&nbDayPlanned=93&nbDayBefore=5&color=customer">Update Planning Lab</a>
 		</li>
 		<li>
 			<a href="index.php?page=forecast">Forecast</a>
