@@ -67,4 +67,14 @@ class PLANNINGLAB
     //echo $req;
     return $this->db->getOne($req);
   }
+
+  public function getPlanningDay(){
+    $req='SELECT count(*) as nb
+    FROM planninglab
+    WHERE planninglab.id_tbljob>50
+    AND date = CURDATE()
+    ';
+    //echo $req;
+    return $this->db->getOne($req);
+  }
 }

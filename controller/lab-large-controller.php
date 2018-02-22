@@ -11,6 +11,10 @@ $test=$oTest->getTest();
 
 $splitToDo=$oTest->getTestToStart();
 
+include_once 'models/planningLab-model.php';
+$oPlanningLab = new PLANNINGLAB($db);
+$planned=$oPlanningLab->getPlanningDay();
+
 
 //variable des etats des machines (run, stop, wip) pour la vue lab
 $runStop=array();
