@@ -527,6 +527,7 @@ $style_gray = array(
       if ($essai['c_temperature']<35) {
 
         $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
+        $FT->getStyle('E14:H14')->applyFromArray( $style_gray );
         $FT->getStyle('K34:L34')->applyFromArray( $style_gray );
 
         $FT->getStyle('A23:D23')->applyFromArray( $style_gray );
@@ -1054,6 +1055,7 @@ $style_gray = array(
       if ($essai['c_temperature']<35) {
 
         $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
+        $FT->getStyle('E14:H14')->applyFromArray( $style_gray );                
         $FT->getStyle('K34:L34')->applyFromArray( $style_gray );
         $FT->getStyle('K41:O42')->applyFromArray( $style_gray );
 
