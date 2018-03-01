@@ -514,7 +514,7 @@ $style_gray = array(
 
         'A53' => $essai['Cycle_min'],
         'J27' => '_',
-        'C54' =>(($essai['Cycle_min']>0)?$essai['Cycle_min']:((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' ')),
+        'C54' =>((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' '),
         'E54' => '_',
         'K54' => '_',
 
@@ -1042,7 +1042,7 @@ $style_gray = array(
         'N40' => $tempCorrected,
 
         'A53' => $essai['Cycle_min'],
-        'C54' =>(($essai['Cycle_min']>0)?$essai['Cycle_min']:((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' ')),
+        'C54' =>((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' '),
         'E54' => '_',
         'K54' => '_',
 
@@ -1055,7 +1055,7 @@ $style_gray = array(
       if ($essai['c_temperature']<35) {
 
         $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
-        $FT->getStyle('E14:H14')->applyFromArray( $style_gray );                
+        $FT->getStyle('E14:H14')->applyFromArray( $style_gray );
         $FT->getStyle('K34:L34')->applyFromArray( $style_gray );
         $FT->getStyle('K41:O42')->applyFromArray( $style_gray );
 
