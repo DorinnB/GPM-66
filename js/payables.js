@@ -86,20 +86,8 @@ $(document).ready(function() {
     .column( $(this).data('index') )
     .search( this.value )
     .draw();
-    alert (table.column( 13 ).data().sum());
   } );
 
-  $.fn.dataTable.Api.register( 'sum()', function () {
-      var sum = 0;
-
-      for ( var i=0, ien=this.length ; i<ien ; i++ ) {
-          sum += this[i];
-      }
-
-      return sum;
-  } );
-  //table.columns.adjust().draw();
-//a=table.column( 2 ).data().sum();
 
 } );
 

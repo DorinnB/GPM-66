@@ -6,6 +6,11 @@
   color:black;
 }
 
+caption {
+  font-size:xx-large;
+  text-align:center;
+  color:white;
+}
 
 .form-group input, .form-group select{
 color:black;

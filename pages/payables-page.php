@@ -8,7 +8,7 @@
 
     <div class="col-md-12" style="height:100%">
       <table id="table_payables" class="table table-condensed table-hover table-bordered dataTable" cellspacing="0" width="100%">
-        <caption>payables List</caption>
+        <caption>PAYABLES LIST</caption>
         <thead>
           <tr>
             <th></th>
