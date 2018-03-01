@@ -14,7 +14,7 @@
 			<a href="index.php?page=IT&tool=contacts">Contacts</a>
 		</li>
 		<li>
-			<a href="index.php?page=IT&tool=dessins">Dessins</a>
+			<a href="index.php?page=IT&tool=dessins">Drawings</a>
 		</li>
 		<li>
 			<a href="index.php?page=IT&tool=matieres">Materials</a>

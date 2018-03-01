@@ -20,7 +20,7 @@ $(document).ready(function() {
       ]
     },
     { label: "Grip Dimension", name: "dessins.gripDimension"  },
-
+    { label: "Format Type", name: "dessins.id_dessin_type", type: "select" },
     { label: "nominal_1", name: "dessins.nominal_1"  },
     { label: "tolerance_plus_1", name: "dessins.tolerance_plus_1"  },
     { label: "tolerance_moins_1", name: "dessins.tolerance_moins_1"  },
@@ -54,6 +54,7 @@ var table = $('#table_dessins').DataTable( {
     { data: "dessins.dessin" },
     { data: "dessins.gripType" },
     { data: "dessins.gripDimension" },
+    { data: "dessin_types.dessin_type" },
     { data: "dessins.nominal_1" },
     { data: "dessins.tolerance_plus_1" },
     { data: "dessins.tolerance_moins_1" },
@@ -70,7 +71,7 @@ var table = $('#table_dessins').DataTable( {
   scrollCollapse: true,
   paging: false,
   keys: {
-    columns: [3,4,5,6,7,8,9,10,11,12],
+    columns: [4,5,6,7,8,9,10,11,12,13],
     editor:  editor
   },
   select: {
@@ -84,7 +85,7 @@ var table = $('#table_dessins').DataTable( {
 
 
 table
-.column( '12' )
+.column( '13' )
 .search( '1' )
 .draw();
 

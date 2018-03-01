@@ -1,11 +1,12 @@
 <link href="css/XMLforTS.css" rel="stylesheet">
 <table id="table_dessins" class="table table-condensed table-hover table-bordered dataTable" cellspacing="0" width="100%">
-  <caption>Dessins List</caption>
+  <caption>Drawing List</caption>
   <thead>
     <tr>
       <th>Drawing</th>
       <th><acronym title="Grip Type">G. Type</acronym></th>
       <th><acronym title="Grip Dimension">G. Dim.</acronym></th>
+      <th><acronym title="Format Type">Format Type</acronym></th>
       <th><acronym title="Nominal 1">Nom.</acronym></th>
       <th><acronym title="Tolerance 1 +">Tol+</acronym></th>
       <th><acronym title="Tolerance 1 -">Tol-</acronym></th>
@@ -23,6 +24,7 @@
       <th>Drawing</th>
       <th><acronym title="Grip Type">G. Type</acronym></th>
       <th><acronym title="Grip Dimension">G. Dim.</acronym></th>
+      <th><acronym title="Format Type">Format Type</acronym></th>
       <th><acronym title="Nominal 1">Nom.</acronym></th>
       <th><acronym title="Tolerance 1 +">Tol+</acronym></th>
       <th><acronym title="Tolerance 1 -">Tol-</acronym></th>
