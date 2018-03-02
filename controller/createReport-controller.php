@@ -1280,7 +1280,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
     $pvEssais->setCellValueByColumnAndRow($col, 40,(isset($value['c2_max_strain'])?(($value['name']=="GE")?$value['c1_E_montant']*($value['c2_max_strain']-$value['c2_min_strain'])/2*10:$value['c2_E_montant']*($value['c2_max_strain']-$value['c2_min_strain'])/2*10):''));
 
-    $pvEssais->setCellValueByColumnAndRow($col, 41, ($value['Cycle_STL']==0)?"":$value['Cycle_STL']);
+    $pvEssais->setCellValueByColumnAndRow($col, 41, ($value['Cycle_STL']==0)?"NA":$value['Cycle_STL']);
     $pvEssais->setCellValueByColumnAndRow($col, 42, (($value['Ni']=="")?"NA":$value['Ni']));
     $pvEssais->setCellValueByColumnAndRow($col, 43, (($value['Nf75']=="")?"NA":$value['Nf75']));
     $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
@@ -1513,9 +1513,9 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
     $pvEssais->setCellValueByColumnAndRow($col, 40,(isset($value['c2_max_strain'])?(($value['name']=="GE")?$value['c1_E_montant']*($value['c2_max_strain']-$value['c2_min_strain'])/2*10:$value['c2_E_montant']*($value['c2_max_strain']-$value['c2_min_strain'])/2*10):''));
 
-    $pvEssais->setCellValueByColumnAndRow($col, 41, ($value['Cycle_STL']==0)?"":$value['Cycle_STL']);
-    $pvEssais->setCellValueByColumnAndRow($col, 42, $value['Ni']);
-    $pvEssais->setCellValueByColumnAndRow($col, 43, $value['Nf75']);
+    $pvEssais->setCellValueByColumnAndRow($col, 41, ($value['Cycle_STL']==0)?"NA":$value['Cycle_STL']);
+    $pvEssais->setCellValueByColumnAndRow($col, 42, (($value['Ni']=="")?"NA":$value['Ni']));
+    $pvEssais->setCellValueByColumnAndRow($col, 43, (($value['Nf75']=="")?"NA":$value['Nf75']));
     $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
     $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
