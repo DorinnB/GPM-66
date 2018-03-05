@@ -38,6 +38,7 @@ private $id;
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
           statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev, invoice_type, invoice_date, invoice_commentaire,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
+          other_1, other_2, other_3, other_4, other_5,
             GROUP_CONCAT( DISTINCT round(c_temperature,0) ORDER BY c_temperature DESC SEPARATOR \' / \') as temperature,
             GROUP_CONCAT( DISTINCT round(c_frequence,1) ORDER BY c_frequence DESC SEPARATOR \' / \') as c_frequence,
             GROUP_CONCAT( DISTINCT round(c_frequence_STL,1) ORDER BY c_frequence_STL DESC SEPARATOR \' / \') as c_frequence_STL,
@@ -180,6 +181,11 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
         `special_instruction` = '.$this->special_instruction.',
         `specific_protocol` = '.$this->specific_protocol.',
         `staircase` = '.$this->staircase.',
+        `other_1` = '.$this->other_1.',
+        `other_2` = '.$this->other_2.',
+        `other_3` = '.$this->other_3.',
+        `other_4` = '.$this->other_4.',
+        `other_5` = '.$this->other_5.',
 
         `checked` = 0,
         `modif` = '.$_COOKIE['id_user'].'

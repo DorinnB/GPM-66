@@ -519,7 +519,7 @@ $style_gray = array(
         'K54' => '_',
 
 
-        'A58' => $essai['comm']
+        'A58' => $essai['comm'].' / '.$essai['c_commentaire']
 
       );
 
@@ -600,7 +600,7 @@ $style_gray = array(
       }
 
 
-      $objPHPExcel->setActiveSheetIndex(0);
+//      $objPHPExcel->setActiveSheetIndex(0);
 
 
 
@@ -1047,7 +1047,7 @@ $style_gray = array(
         'K54' => '_',
 
 
-        'A58' => $essai['comm']
+        'A58' => $essai['comm'].' / '.$essai['c_commentaire']
 
       );
 
@@ -1074,7 +1074,7 @@ $style_gray = array(
       }
 
 
-      $objPHPExcel->setActiveSheetIndex(0);
+    //  $objPHPExcel->setActiveSheetIndex(0);
 
 
 

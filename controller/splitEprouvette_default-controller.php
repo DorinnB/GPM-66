@@ -176,15 +176,17 @@ for($k=0;$k < count($ep);$k++)	{
 
 
     $oEp->niveaumaxmin($ep[$k]['c_1_type'], $ep[$k]['c_2_type'],$ep[$k]['c_type_1_val'], $ep[$k]['c_type_2_val']);
+    $area = $oEp->calculArea($ep[$k]['id_dessin_type'],$ep[$k]['dim1'],$ep[$k]['dim2'],$ep[$k]['dim3'])['area'];
+
 
     $ep[$k]['max']="";
     $ep[$k]['min']="";
     $maxcell=0;
     //max min control
     if ($ep[$k]['c_unite']=="MPa") {
-      if ($oEp->area()>0) {
-        $ep[$k]['max']=round($oEp->MAX()*$oEp->area()/1000,3);
-        $ep[$k]['min']=round($oEp->MIN()*$oEp->area()/1000,3);
+      if ($area>0) {
+        $ep[$k]['max']=round($oEp->MAX()*$area/1000,3);
+        $ep[$k]['min']=round($oEp->MIN()*$area/1000,3);
         $maxcell=max(abs($ep[$k]['max']),abs($ep[$k]['min']));
       }
     }
@@ -196,7 +198,7 @@ for($k=0;$k < count($ep);$k++)	{
     elseif ($ep[$k]['c_unite']=="%") {
       $ep[$k]['max']=round($oEp->MAX(),3);
       $ep[$k]['min']=round($oEp->MIN(),3);
-      $maxcell=max(abs($ep[$k]['max']),abs($ep[$k]['min']))*$ep[$k]['young']*$oEp->area()/100;
+      $maxcell=max(abs($ep[$k]['max']),abs($ep[$k]['min']))*$ep[$k]['young']*$area/100;
     }
     else  {
       $ep[$k]['max']="?";

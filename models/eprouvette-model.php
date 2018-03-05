@@ -69,6 +69,7 @@ class EprouvetteModel
     n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Rupture, Fracture,
     eprouvette_InOut_A, eprouvette_InOut_B,
     val_1,val_2,val_3,val_4,val_5,val_6,
+    other_1, other_2, other_3, other_4, other_5,
     comments,
 
     IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) as Cycle_STL,
@@ -498,7 +499,7 @@ class EprouvetteModel
       tbljobs.waveform AS c_waveform, eprouvettes.waveform, signal_true, signal_tapered,
       IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) as Cycle_STL,
       IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final, IF(Cycle_final is null,0, 1) as Cycle_final_valid,
-      Rupture, Fracture,
+      Rupture, Fracture, other_1, other_2, other_3, other_4, other_5,
       info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
       signal_true, signal_tapered, young, flag_qualite, check_rupture,
       d_commentaire,

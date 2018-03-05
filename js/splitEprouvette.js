@@ -63,6 +63,13 @@ $(document).ready(function() {
     //              ]
   } );
 
+//pour le prestraining, on masque la mi-vie/1cycle de la 2eme rotation s'il n'y a pas de rotation
+  if ($("#rotation").html()=='No') {
+    table.columns( '.rotation' ).visible( false );
+    //table.columns( [ 45,46,47,48,49 ] ).visible( false, false );
+    //table.columns.adjust().draw( false ); // adjust column sizing and redraw
+  }
+
   // Filter event handler
   $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
     table

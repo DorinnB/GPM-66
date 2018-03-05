@@ -399,6 +399,116 @@ $objReader->setIncludeCharts(TRUE);
 
 
     }
+    If ($split['test_type_abbr']=="PS")	{
+
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_PS.xlsx");
+
+      $page=$objPHPExcel->getActiveSheet();
+
+
+      $val2Xls = array(
+
+        'L2' => $jobcomplet,
+        'C6'=> $split['tbljob_frequence'],
+        'G4'=> $split['dessin'],
+        'G5'=> $split['ref_matiere'],
+        'G6'=> $split['waveform'],
+        'K4'=> date("Y-m-d"),
+        'K5'=> $split['nomCreateur'],
+        'K6'=> $split['comCheckeur'],
+        'C24'=> $split['c_unite'],
+        'C25'=> $split['c_unite'],
+
+        'G9'=> (($split['other_1']==0)?'No':$split['other_1']),
+        'J9'=> $split['specification'],
+
+        'D42'=> $split['tbljob_instruction'],
+        'D47'=> $split['info_jobs_instruction']
+      );
+
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $page->setCellValue($key, $value);
+      }
+
+      //titre des lignes PV
+      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+
+
+      $row = 0; // 1-based index
+      $col = 3;
+      foreach ($ep as $key => $value) {
+
+        $page->setCellValueByColumnAndRow($col, 12, $value['prefixe']);
+        $page->setCellValueByColumnAndRow($col, 13, $value['nom_eprouvette']);
+
+        $page->setCellValueByColumnAndRow($col, 14, $value['n_essai']);
+        $page->setCellValueByColumnAndRow($col, 15, $value['n_fichier']);
+        $page->setCellValueByColumnAndRow($col, 16, $value['operateur']);
+        $page->setCellValueByColumnAndRow($col, 17, $value['machine']);
+        $page->setCellValueByColumnAndRow($col, 18, $value['date']);
+        $page->setCellValueByColumnAndRow($col, 19, $value['c_temperature']);
+        $page->setCellValueByColumnAndRow($col, 20, $value['c_frequence']);
+        $page->setCellValueByColumnAndRow($col, 21, $value['c_cycle_STL']);
+        $page->setCellValueByColumnAndRow($col, 22, $value['c_frequence_STL']);
+
+        if (isset($value['denomination']['denomination_1'])) {
+          $page->setCellValueByColumnAndRow($col, 23, $value['dim1']);
+          $page->setCellValueByColumnAndRow(0, 23, $value['denomination']['denomination_1']);
+        }
+        else {
+          $page->getRowDimension(23)->setVisible(FALSE);
+        }
+        if (isset($value['denomination']['denomination_2'])) {
+          $page->setCellValueByColumnAndRow($col, 24, $value['dim2']);
+          $page->setCellValueByColumnAndRow(0, 24, $value['denomination']['denomination_2']);
+        }
+        else {
+          $page->getRowDimension(24)->setVisible(FALSE);
+        }
+        if (isset($value['denomination']['denomination_3'])) {
+          $page->setCellValueByColumnAndRow($col, 25, $value['dim3']);
+          $page->setCellValueByColumnAndRow(0, 25, $value['denomination']['denomination_3']);
+        }
+        else {
+          $page->getRowDimension(25)->setVisible(FALSE);
+        }
+
+        $page->setCellValueByColumnAndRow($col, 26, $value['c_type_1_val']);
+        $page->setCellValueByColumnAndRow($col, 27, $value['c_type_2_val']);
+
+        $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+        $page->setCellValueByColumnAndRow($col, 28, $oEprouvette->MAX());
+        $page->setCellValueByColumnAndRow($col, 29, $oEprouvette->MIN());
+
+
+        $page->setCellValueByColumnAndRow($col, 30, $value['other_1']);
+        $page->setCellValueByColumnAndRow($col, 31, $value['runout']);
+
+          $col++;
+      }
+
+      //on masque l'orientation 2 s'il n'y en a pas
+      if ($split['other_1']==0) {
+        for ($j=35; $j <=38 ; $j++) {
+          $page->getRowDimension($j)->setVisible(FALSE);
+        }
+      }
+
+      $colImprimable=ceil(count($ep)/10)*10+3;
+      //zone d'impression
+      $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+      $page->getPageSetup()->setPrintArea('A1:'.$colString.'56');
+
+
+
+
+    }
+
     ElseIf ($split['test_type_abbr']=="IQC")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_IQC.xlsx");

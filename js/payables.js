@@ -56,7 +56,35 @@ $(document).ready(function() {
       { data: "payables.taux"  },
       { data: "payables.HT"  },
       { data: "payables.TVA"  },
-      { data: "payables.TTC"  },
+      { data: function ( row, type, val, meta ) {
+        dollar=(row.payables.USD*row.payables.taux).toFixed(2);
+        euro=(row.payables.HT*1+row.payables.TVA*1).toFixed(2);
+//selon si c'est en dollar ou euro, et si le champ TTC est rempli, on compare TTC et le calcul
+          if (row.payables.USD > 0) {
+            if (row.payables.TTC>0 && row.payables.TTC==dollar) {
+              return row.payables.TTC;
+            }
+            else if ((row.payables.TTC>0 && row.payables.TTC!=dollar)) {
+              return row.payables.TTC+"*";
+            }
+            else {
+              return (row.payables.USD*row.payables.taux).toFixed(2);
+            }
+          }
+          else {
+            if (row.payables.TTC>0 && row.payables.TTC==euro) {
+              return row.payables.TTC;
+            }
+            else if ((row.payables.TTC>0 && row.payables.TTC!=euro)) {
+              return row.payables.TTC+"*";
+            }
+            else {
+              return (row.payables.HT*1+row.payables.TVA*1).toFixed(2);
+            }
+
+          }
+        }
+      },
       { data: "payables.date_payable"  },
     ],
     scrollY: '65vh',

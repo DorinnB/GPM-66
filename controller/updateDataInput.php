@@ -32,8 +32,11 @@ $oSplit->GE=isset($_POST['GE'])?$_POST['GE']:0;
 $oSplit->special_instruction=isset($_POST['special_instruction'])?$_POST['special_instruction']:"NULL";
 $oSplit->specific_protocol=isset($_POST['specific_protocol'])?$_POST['specific_protocol']:0;
 $oSplit->staircase=isset($_POST['staircase'])?$_POST['staircase']:0;
-
-
+$oSplit->other_1=isset($_POST['other_1'])?$_POST['other_1']:"";
+$oSplit->other_2=isset($_POST['other_2'])?$_POST['other_2']:"";
+$oSplit->other_3=isset($_POST['other_3'])?$_POST['other_3']:"";
+$oSplit->other_4=isset($_POST['other_4'])?$_POST['other_4']:"";
+$oSplit->other_5=isset($_POST['other_5'])?$_POST['other_5']:"";
 
 
 $oSplit->updateDataInput();
