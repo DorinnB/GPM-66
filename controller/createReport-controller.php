@@ -1601,6 +1601,107 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
 
 }
+ElseIf ($split['test_type_abbr']=="Ovl")	{
+  if( $template!='')  {
+    $objPHPExcel = $objReader->load($template);
+  }
+  else {
+    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Ovl".$language.".xlsx");
+  }
+
+  $pvEssais=$objPHPExcel->getSheetByName('OVL');
+
+
+  $val2Xls = array(
+
+    'L1' => $jobcomplet,
+
+    'L7'=> $split['ref_matiere']
+
+  );
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $pvEssais->setCellValue($key, $value);
+  }
+
+
+
+  $row = 0; // 1-based index
+  $col = 2;
+
+  $row_q=0;
+  $col_q=0;
+  $nb_q=0;
+  $max_row_q=0;
+  $nbPage=10;
+  $maxheight=0;
+
+  foreach ($ep as $key => $value) {
+    //copy des styles des colonnes
+    for ($row = 12; $row <= 24; $row++) {
+      $style = $pvEssais->getStyleByColumnAndRow(2, $row);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+      $pvEssais->duplicateStyle($style, $dstCell);
+    }
+
+    $pvEssais->setCellValueByColumnAndRow($col, 12, $value['prefixe']);
+    $pvEssais->setCellValueByColumnAndRow($col, 13, $value['nom_eprouvette']);
+
+    $pvEssais->setCellValueByColumnAndRow($col, 14, $value['val_1']);
+    $pvEssais->setCellValueByColumnAndRow($col, 15, $value['val_2']);
+    $pvEssais->setCellValueByColumnAndRow($col, 16, (abs($value['val_1']-$value['val_2'])/$value['dim1']));
+    $pvEssais->setCellValueByColumnAndRow($col, 17, $value['val_3']);
+    $pvEssais->setCellValueByColumnAndRow($col, 18, $value['val_4']);
+    $pvEssais->setCellValueByColumnAndRow($col, 19, (abs($value['val_3']-$value['val_4'])/$value['dim1']));
+    $pvEssais->setCellValueByColumnAndRow($col, 20, $value['val_5']);
+    $pvEssais->setCellValueByColumnAndRow($col, 21, $value['val_6']);
+    $pvEssais->setCellValueByColumnAndRow($col, 22, (abs($value['val_5']-$value['val_6'])/$value['dim1']));
+
+
+    if ($value['q_commentaire']!="") {
+
+      $nb_q+=1; //on incremente le nombre de commentaire
+
+      $pvEssais->setCellValueByColumnAndRow($col, 25, '('.($nb_q).')');
+      $pvEssais->setCellValueByColumnAndRow($col_q, 27, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'27:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
+      $pvEssais->getRowDimension(27)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $prev_value);
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(27)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
+
+    $col++;
+  }
+
+  //zone d'impression
+  //colstring = on augmente la zone d'impression, non pas a la derniere eprouvette mais a la serie de $nbpage d'apres.
+  $colString = PHPExcel_Cell::stringFromColumnIndex((ceil(($col-3)/$nbPage)*$nbPage+3)-1);
+  $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(50));
+
+  //separation impression par $nbPage eprouvettes
+  for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
+    $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
+  }
+
+
+
+
+
+
+
+}
 else {
   if( $template!='')  {
     $objPHPExcel = $objReader->load($template);
