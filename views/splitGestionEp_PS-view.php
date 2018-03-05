@@ -153,31 +153,31 @@
                 <div class="row" style="padding: 0px 10px; border-bottom: medium solid  #536E94; border-top: medium solid #536E94;">
                   <form class="form-group" style="height:100%;" id="update_Aux">
 
-                  <div class="col-md-10">
-                    <div class="col-md-4">
-                      <label for="val_1" class="small">Res. Load :</label>
-                      <input type="text" class="form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS1_0':'PS1_1' ?>" name="val_1" value="<?= $eprouvette['val_1'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
-                      <input type="text" class="form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS2_0':'PS2_1' ?>" name="val_2" value="<?= $eprouvette['val_2'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
-                    </div>
-                    <div class="col-md-4 col-md-offset-1">
-                      <label for="val_3" class="small">Straightning&nbsp;(mm)&nbsp;:</label>
-                      <input type="text" class="form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS1_0':'PS1_1' ?>" name="val_3" value="<?= $eprouvette['val_3'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
-                      <input type="text" class="form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS2_0':'PS2_1' ?>" name="val_4" value="<?= $eprouvette['val_4'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
-                    </div>
-
-                    <div class="col-md-2 col-md-offset-1">
-                      <label for="val_5" class="small">APS&nbsp;:</label>
-                      <input type="text" class="form-control input-sm" name="val_5" value="<?= $eprouvette['val_5'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
-                    </div>
-</div>
-
-                    <div class="col-md-2 check<?=	$eprouvette['d_checked']	?>" id="d_checked" data-d_checked="<?= $eprouvette['d_checked'] ?>" style="background-color:<?=	($eprouvette['d_checked']==0)?'':(($eprouvette['d_checked']<=0)?'darkred':'darkgreen')	?>">
-                        <img type="image" src="img/<?=	($eprouvette['d_checked']==0)?'nextJob.png':(($eprouvette['d_checked']<0)?'save.png':'check.png')	?>" style="height:65px;padding:5px; margin: auto;" title="<?=	($eprouvette['d_checked']<=0)?'Check Aux ('.($eprouvette['d_checked']).')':$eprouvette['d_checked']	?>">
+                    <div class="col-md-10">
+                      <div class="col-md-4">
+                        <label for="val_1" class="small">Res. Load :</label>
+                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS1_0':'PS1_1' ?>" name="val_1" value="<?= $eprouvette['val_1'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS2_0':'PS2_1' ?>" name="val_2" value="<?= $eprouvette['val_2'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                      </div>
+                      <div class="col-md-4 col-md-offset-1">
+                        <label for="val_3" class="small">Straightning&nbsp;(mm)&nbsp;:</label>
+                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS1_0':'PS1_1' ?>" name="val_3" value="<?= $eprouvette['val_3'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS2_0':'PS2_1' ?>" name="val_4" value="<?= $eprouvette['val_4'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
                       </div>
 
-                      <input type="hidden" id="checkAux" name="checkAux" value="<?=  ($eprouvette['d_checked']==0)?'save':(($eprouvette['d_checked']<0)?'valid':'cancel')	?>">
-                      <input type="hidden" id="idEprouvette" name="idEprouvette" value="<?=  $_GET['idEp'] ?>">
-                      <input type="hidden" name="iduser" value="<?=  $_COOKIE['id_user'] ?>">
+                      <div class="col-md-2 col-md-offset-1">
+                        <label for="val_5" class="small">APS&nbsp;:</label>
+                        <input type="text" class="MaJ form-control input-sm" name="val_5" value="<?= $eprouvette['val_5'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2 check<?=	$eprouvette['d_checked']	?>" id="d_checked" data-d_checked="<?= $eprouvette['d_checked'] ?>" style="background-color:<?=	($eprouvette['d_checked']==0)?'':(($eprouvette['d_checked']<=0)?'darkred':'darkgreen')	?>">
+                      <img type="image" src="img/<?=	($eprouvette['d_checked']==0)?'nextJob.png':(($eprouvette['d_checked']<0)?'save.png':'check.png')	?>" style="height:65px;padding:5px; margin: auto;" title="<?=	($eprouvette['d_checked']<=0)?'Check Aux ('.($eprouvette['d_checked']).')':$eprouvette['d_checked']	?>">
+                    </div>
+
+                    <input type="hidden" id="checkAux" name="checkAux" value="<?=  ($eprouvette['d_checked']==0)?'save':(($eprouvette['d_checked']<0)?'valid':'cancel')	?>">
+                    <input type="hidden" id="idEprouvette" name="idEprouvette" value="<?=  $_GET['idEp'] ?>">
+                    <input type="hidden" name="iduser" value="<?=  $_COOKIE['id_user'] ?>">
 
                   </form>
                 </div>
