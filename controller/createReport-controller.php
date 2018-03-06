@@ -1529,7 +1529,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
     $pvEssais->setCellValueByColumnAndRow($col, 39, $value['runout']*2);
     $pvEssais->setCellValueByColumnAndRow($col, 40, $value['val_4']);
 
-    $pvEssais->setCellValueByColumnAndRow($col, 47, $value['val_4']);
+    $pvEssais->setCellValueByColumnAndRow($col, 47, $value['val_5']);
 
 
 
