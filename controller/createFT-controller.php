@@ -600,7 +600,7 @@ $style_gray = array(
       }
 
 
-//      $objPHPExcel->setActiveSheetIndex(0);
+      $objPHPExcel->setActiveSheetIndex(0);
 
 
 
@@ -1074,7 +1074,7 @@ $style_gray = array(
       }
 
 
-    //  $objPHPExcel->setActiveSheetIndex(0);
+      $objPHPExcel->setActiveSheetIndex(0);
 
 
 
@@ -1172,7 +1172,10 @@ $style_gray = array(
         //->getStyle($key)->applyFromArray( $style_white )
       }
 
-
+      if ($essai['other_1']==0) {
+        $FT1->getStyle('E63:K63')->applyFromArray( $style_gray );
+        $FT1->getStyle('A67:K70')->applyFromArray( $style_gray );
+      }
 
     }
     else {
