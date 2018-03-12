@@ -399,7 +399,7 @@ $objReader->setIncludeCharts(TRUE);
 
 
     }
-    If ($split['test_type_abbr']=="PS")	{
+    ElseIf ($split['test_type_abbr']=="PS")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_PS.xlsx");
 
@@ -432,10 +432,10 @@ $objReader->setIncludeCharts(TRUE);
       }
 
       //titre des lignes PV
-      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 26, $split['c_type_1']);
+      $page->setCellValueByColumnAndRow(2, 26, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow(1, 27, $split['c_type_2']);
+      $page->setCellValueByColumnAndRow(2, 27, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -486,7 +486,7 @@ $objReader->setIncludeCharts(TRUE);
         $page->setCellValueByColumnAndRow($col, 29, $oEprouvette->MIN());
 
 
-        $page->setCellValueByColumnAndRow($col, 30, $value['other_1']);
+        $page->setCellValueByColumnAndRow($col, 30, $value['other_2']);
         $page->setCellValueByColumnAndRow($col, 31, $value['runout']);
 
           $col++;
@@ -508,7 +508,6 @@ $objReader->setIncludeCharts(TRUE);
 
 
     }
-
     ElseIf ($split['test_type_abbr']=="IQC")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_IQC.xlsx");

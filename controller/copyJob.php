@@ -2,6 +2,17 @@
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
 ?>
+
+<h3>
+	Processing...<br/>
+	Make take up to few seconds</br>
+
+</h3>
+
+<div id="spoiler" style="display:none">
+
+
+
 <?php
 
 
@@ -42,5 +53,14 @@ foreach ($oInfoJob->getTbljobs() as $tbljob) {
 
 
  ?>
- <br/>
-<a href="../index.php?page=updateJob&id_tbljob=<?= $newIdTbljob  ?>">Job copied</a>
+
+
+
+
+</div>
+
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
+<br/><br/>
+<a href="../index.php?page=updateJob&id_tbljob=<?= $newIdTbljob ?>">click here if you aren't redirected</a>
+<br/><br/>
+<script type='text/javascript'>document.location.replace('../index.php?page=updateJob&id_tbljob=<?= $newIdTbljob?>');</script>

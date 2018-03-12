@@ -48,7 +48,7 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging:         false,
     info: false,
-    fixedColumns:   {leftColumns: 4},
+    fixedColumns:   {leftColumns: 10},
     order: [[ 0, "asc" ],[3, "asc" ]],
     columnDefs: [
       {

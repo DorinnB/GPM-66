@@ -177,13 +177,13 @@
           <td class="decimal2" <?= $epHisto2[$k]['c1_max_strain'] ?>><?= $ep[$k]['c1_max_strain'] ?></td>
           <td class="decimal2" <?= $epHisto2[$k]['c1_min_strain'] ?>><?= $ep[$k]['c1_min_strain'] ?></td>
           <td class="decimal2" <?= $epHisto2[$k]['val_1'] ?>><?= $ep[$k]['val_1'] ?></td>
-          <td class="decimal2" <?= $epHisto2[$k]['val_2'] ?>><?= $ep[$k]['val_2'] ?></td>
+          <td class="decimal2" <?= $epHisto2[$k]['val_3'] ?>><?= $ep[$k]['val_3'] ?></td>
           <td class="decimal2" <?= $epHisto2[$k]['c2_cycle'] ?>><?= $ep[$k]['c2_cycle'] ?></td>
           <td class="checkValue_c2_max_stress decimal1 chartStressMax" <?= $epHisto2[$k]['c2_max_stress'] ?>><?= (isset($ep[$k]['c2_max_stress'])?$ep[$k]['c2_max_stress']*$area/1000:'') ?></td>
           <td class="checkValue_c2_min_stress decimal1" <?= $epHisto2[$k]['c2_min_stress'] ?>><?= (isset($ep[$k]['c2_min_stress'])?$ep[$k]['c2_min_stress']*$area/1000:'') ?></td>
           <td class="decimal2"><?= $ep[$k]['c2_max_strain'] ?></td>
           <td class="decimal2"><?= $ep[$k]['c2_min_strain'] ?></td>
-          <td class="decimal2"<?= $epHisto2[$k]['val_3'] ?>><?= $ep[$k]['val_3'] ?></td>
+          <td class="decimal2"<?= $epHisto2[$k]['val_2'] ?>><?= $ep[$k]['val_2'] ?></td>
           <td class="decimal2"<?= $epHisto2[$k]['val_4'] ?>><?= $ep[$k]['val_4'] ?></td>
           <td class="decimal2" <?= $epHisto2[$k]['val_5'] ?>><?= $ep[$k]['val_5'] ?></td>
           <td class="dCheckEp" data-dchecked="<?= max(0,$ep[$k]['check_rupture']) ?>" <?= $epHisto2[$k]['check_rupture'] ?>><?= $ep[$k]['check_rupture'] ?></td>
