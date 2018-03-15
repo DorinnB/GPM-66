@@ -44,7 +44,19 @@ var table = $('#table_test_type').DataTable( {
     { data: "test_type.final" },
     { data: "test_type.auxilaire" },
     { data: "test_type.ST" },
-      { data: "pricinglists", render: "[, ].pricingList" },
+
+    {data: null,
+  render: function(data, type, row, meta) {
+            var pricinglists = '';
+            //loop through all the row pricinglists to build output string
+            for (var item in row.pricinglists) {
+               var pricinglist = row.pricinglists[item];
+                pricinglists = pricinglists + pricinglist.prodCode + '-' + pricinglist.OpnCode + '  ';
+            }
+            return pricinglists;
+
+          }
+      },
     { data: "test_type.test_type_actif" }
   ],
   scrollY: '65vh',

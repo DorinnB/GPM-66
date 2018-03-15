@@ -15,10 +15,16 @@ $oWorkflow = new WORKFLOW($db,$_GET['id_tbljob']);
 $splits=$oWorkflow->getAllSplit();
 
 
+// Rendre votre modèle accessible
+include 'models/invoice-model.php';
+// Création d'une instance
+$oInvoices = new InvoiceModel($db);
 
 
 
-var_dump($splits);
+
+
+//var_dump($splits);
 
 
 

@@ -39,20 +39,25 @@ Editor::inst( $db, 'test_type' )
   )
 
 ->join(
-        Mjoin::inst( 'pricinglists' )
-            ->link( 'test_type.id_test_type', 'test_type_pricinglists.id_test_type' )
-            ->link( 'pricinglists.id_pricingList', 'test_type_pricinglists.id_test_type_pricingList' )
+      Mjoin::inst( 'pricinglists' )
+          ->link( 'test_type.id_test_type', 'test_type_pricinglists.id_test_type' )
+          ->link( 'pricinglists.id_pricingList', 'test_type_pricinglists.id_pricingList' )
 
-            ->fields(
-                Field::inst( 'id_pricingList' )
-                    ->validator( 'Validate::required' )
-                    ->options( Options::inst()
-                        ->table( 'pricinglists' )
-                        ->value( 'id_pricingList' )
-                        ->label( 'pricingList' )
-                    ),
-                Field::inst( 'pricingList' )
-            )
+          ->fields(
+              Field::inst( 'id_pricingList' )
+                  ->validator( 'Validate::required' )
+                  ->options( Options::inst()
+                      ->table( 'pricinglists' )
+                      ->value( 'id_pricingList' )
+                      ->label( array('prodCode', 'OpnCode', 'pricingList') )
+                      ->render( function ( $row ) {
+                          return $row['prodCode'].'-'.$row['OpnCode'].' : '.$row['pricingList'];
+                      } )
+                      ->order( 'id_pricingList' )
+                  ),
+              Field::inst( 'prodCode' ),
+              Field::inst( 'OpnCode' )
+          )
 )
   ->process($_POST)
   ->json();
