@@ -65,6 +65,8 @@
 							<div class="hide" style="background-color:inherit; color:inherit;">Dummy</div>
 						<?php elseif ($id_tbljob==14) : ?>
 							<div class="hide" style="background-color:inherit; color:inherit;">???</div>
+						<?php elseif ($id_tbljob==15) : ?>
+							<div class="hide" style="background-color:inherit; color:inherit;">MTS</div>
 						<?php endif ?>
 					</td>
 				<?php endforeach ?>

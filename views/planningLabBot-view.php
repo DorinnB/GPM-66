@@ -27,7 +27,10 @@
 		<img class="pull-left" type="image" src="img/question.png" style="max-width:100%; max-height:30px; padding:5px;display: block; margin: auto;" />
 		Unregistered Job
 	</div>
-
+	<div style="float:left; margin: 5px;" class="machine" data-id_tbljob="15" data-customer="0" data-job="?" data-split="MTS" data-color="?">
+		<img class="pull-left" type="image" src="img/mts.png" style="max-width:100%; max-height:30px; padding:5px;display: block; margin: auto;" />
+		MTS
+	</div>
 </div>
 <div class="col-md-1" id="gomme" style="height:100%">
 	<img type="image" src="img/gomme.png" style="max-width:100%; max-height:100%; padding:5px;display: block; margin: auto;" />

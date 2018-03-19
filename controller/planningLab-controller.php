@@ -166,6 +166,9 @@ foreach ($lstFrames as $frame)  {
     elseif ($value['id_tbljob']==14) {
       $planningJob[$frame['id_machine']][$value['date']]   =   '???';
     }
+    elseif ($value['id_tbljob']==15) {
+      $planningJob[$frame['id_machine']][$value['date']]   =   'MTS';
+    }
     else {
       $planningJob[$frame['id_machine']][$value['date']]   =   substr($value['job'], -2).'-'.$value['split'];
     }

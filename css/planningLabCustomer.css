@@ -132,7 +132,7 @@ td, th{
   color:white !important;
 }
 
-[data-color='X'],[data-color='L'], [data-color='e'], [data-color='u'], [data-color='?']    {
+[data-color='X'],[data-color='L'], [data-color='e'], [data-color='u'], [data-color='?'],[data-color='T']    {
   background-color:darkred !important;
     color:white !important;
 }
