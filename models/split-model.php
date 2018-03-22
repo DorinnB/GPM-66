@@ -36,7 +36,8 @@ private $id;
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           GE, specific_protocol, special_instruction, staircase,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev, invoice_type, invoice_date, invoice_commentaire,
+          statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev,
+          invoice_type, invoice_date, invoice_commentaire, invoice_lang, invoice_currency,
           specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
           other_1, other_2, other_3, other_4, other_5,
             GROUP_CONCAT( DISTINCT round(c_temperature,0) ORDER BY c_temperature DESC SEPARATOR \' / \') as temperature,
@@ -51,7 +52,9 @@ private $id;
           DyT_SubC, DyT_expected, DyT_Cust, available_expected, report_send,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available,
           checked, comments, contacts.adresse,
-contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.lastname as lastnameST, contactST.surname as surnameST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
+          contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.lastname as lastnameST, contactST.surname as surnameST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
+
+entreprises.entreprise, entreprises.VAT, entreprises.MRSASRef, entreprises.billing_rue1, entreprises.billing_rue2, entreprises.billing_ville, entreprises.billing_pays,
 
           count(distinct master_eprouvettes.id_master_eprouvette) as nbep,
           count(distinct eprouvettes.id_eprouvette) as nbtest,
@@ -123,6 +126,7 @@ contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.last
         LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
         LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
         LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
+        LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
         LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
         LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
         LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std

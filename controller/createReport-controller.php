@@ -625,6 +625,25 @@ ElseIf (isset($_GET['language']) AND $_GET['language']=="V2" AND $split['test_ty
 
 
     }
+    if ($split['tbljob_commentaire_qualite']!="") {
+
+      $pvEssais->setCellValueByColumnAndRow($col_q, 51, $split['tbljob_commentaire_qualite']);
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'51:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'51');
+      $pvEssais->getRowDimension(51)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $pvEssais->getCellByColumnAndRow($col_q, 51)->getValue());
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(51)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
 
     $col++;
   }
@@ -638,7 +657,7 @@ ElseIf (isset($_GET['language']) AND $_GET['language']=="V2" AND $split['test_ty
   for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
     $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
     $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
-    $pvEssais->setCellValueByColumnAndRow($c-3, 1, "No. DE TRAVAIL :");
+    $pvEssais->setCellValueByColumnAndRow($c-3, 1,$pvEssais->getCellByColumnAndRow(15, 1)->getValue());
     $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($c-3).(1))->getFont()->setBold(true);
   }
 
@@ -886,6 +905,28 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
 
     }
 
+
+    if ($split['tbljob_commentaire_qualite']!="") {
+
+      $pvEssais->setCellValueByColumnAndRow($col_q, 51, $split['tbljob_commentaire_qualite']);
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'51:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'51');
+      $pvEssais->getRowDimension(51)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $pvEssais->getCellByColumnAndRow($col_q, 51)->getValue());
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(51)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
+
+
     $col++;
   }
 
@@ -894,11 +935,13 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
   $colString = PHPExcel_Cell::stringFromColumnIndex((ceil(($col-3)/$nbPage)*$nbPage+3)-1);
   $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(50));
 
+
+
   //separation impression par $nbPage eprouvettes
   for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
     $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
     $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
-    $pvEssais->setCellValueByColumnAndRow($c-3, 1, "No. DE TRAVAIL :");
+    $pvEssais->setCellValueByColumnAndRow($c-3, 1,$pvEssais->getCellByColumnAndRow(15, 1)->getValue());
     $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($c-3).(1))->getFont()->setBold(true);
   }
 
@@ -1110,6 +1153,25 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
 
 
     }
+    if ($split['tbljob_commentaire_qualite']!="") {
+
+      $pvEssais->setCellValueByColumnAndRow($col_q, 51, $split['tbljob_commentaire_qualite']);
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'51:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'51');
+      $pvEssais->getRowDimension(51)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $pvEssais->getCellByColumnAndRow($col_q, 51)->getValue());
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(51)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
 
     $col++;
   }
@@ -1123,7 +1185,7 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
   for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
     $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
     $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
-    $pvEssais->setCellValueByColumnAndRow($c-3, 1, "No. DE TRAVAIL :");
+    $pvEssais->setCellValueByColumnAndRow($c-3, 1,$pvEssais->getCellByColumnAndRow(15, 1)->getValue());
     $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($c-3).(1))->getFont()->setBold(true);
   }
 
@@ -1348,6 +1410,25 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
 
     }
+    if ($split['tbljob_commentaire_qualite']!="") {
+
+      $pvEssais->setCellValueByColumnAndRow($col_q, 51, $split['tbljob_commentaire_qualite']);
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'51:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'51');
+      $pvEssais->getRowDimension(51)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $pvEssais->getCellByColumnAndRow($col_q, 51)->getValue());
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(51)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
 
     $col++;
   }
@@ -1361,7 +1442,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
   for ($c=$nbPage+3; $c < ($col-1)+$nbPage ; $c+=$nbPage) {
     $pvEssais->setBreak( PHPExcel_Cell::stringFromColumnIndex($c).(1) , PHPExcel_Worksheet::BREAK_COLUMN );
     $pvEssais->setCellValueByColumnAndRow($c-1, 1, $jobcomplet);
-    $pvEssais->setCellValueByColumnAndRow($c-3, 1, "No. DE TRAVAIL :");
+    $pvEssais->setCellValueByColumnAndRow($c-3, 1,$pvEssais->getCellByColumnAndRow(10, 1)->getValue());
     $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($c-3).(1))->getFont()->setBold(true);
   }
 
@@ -1580,6 +1661,25 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
 
     }
+    if ($split['tbljob_commentaire_qualite']!="") {
+
+      $pvEssais->setCellValueByColumnAndRow($col_q, 51, $split['tbljob_commentaire_qualite']);
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'51:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'51');
+      $pvEssais->getRowDimension(51)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $pvEssais->getCellByColumnAndRow($col_q, 51)->getValue());
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(51)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
 
     $col++;
   }
@@ -1678,6 +1778,25 @@ ElseIf ($split['test_type_abbr']=="Ovl")	{
       }
       $maxheight=max($maxheight,$rc);
       $pvEssais->getRowDimension(27)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
+    if ($split['tbljob_commentaire_qualite']!="") {
+
+      $pvEssais->setCellValueByColumnAndRow($col_q, 51, $split['tbljob_commentaire_qualite']);
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'51:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'51');
+      $pvEssais->getRowDimension(51)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $pvEssais->getCellByColumnAndRow($col_q, 51)->getValue());
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(51)->setRowHeight($maxheight * 12.75 + 13.25);
 
 
     }

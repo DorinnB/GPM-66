@@ -22,7 +22,30 @@ $oInvoices = new InvoiceModel($db);
 
 
 
+//adresse
+$i=0;
+if (isset($split['entreprise'])) {
+  $adresse[$i]='entreprise';
+  $i++;
+}
+if (isset($split['billing_rue1'])) {
+  $adresse[$i]='billing_rue1';
+  $i++;
+}
+if (isset($split['billing_rue2'])) {
+  $adresse[$i]='billing_rue2';
+  $i++;
+}
+if (isset($split['billing_ville'])) {
+  $adresse[$i]='billing_ville';
+  $i++;
+}
+if (isset($split['billing_pays'])) {
+  $adresse[$i]='billing_pays';
+  $i++;
+}
 
+//var_dump($split);
 
 //var_dump($splits);
 
