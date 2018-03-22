@@ -75,7 +75,25 @@ $(document).ready(function() {
 
 
 
+  //calcul automatique des sommes après changement
+  $(".qteUser, .priceUnit").change(function(e){
+    qteUser=$(this).closest('form').find('.qteUser').find('input').val();
+    priceUnit=$(this).closest('form').find('.priceUnit').find('input').val();
+    $(this).parent().find('.totalUser').find('input').val(qteUser*priceUnit);
 
+    $('.decimal0').each( function (i) { //ajouter 2 digit sur le nombre
+      var num = parseFloat(this.value);
+      if (!isNaN(num)) {
+        this.value = parseFloat(this.value).toFixed(0);
+      }
+    });
+    $('.decimal2').each( function (i) { //ajouter 2 digit sur le nombre
+      var num = parseFloat(this.value);
+      if (!isNaN(num)) {
+        this.value = parseFloat(this.value).toFixed(2);
+      }
+        });
+  });
 
 
 
@@ -104,10 +122,10 @@ $(document).ready(function() {
 
     });
 
-//On ajoute aussi langue, currency et invoice_commentaire
-$("#invoiceJob").append('<input type="hidden" name="invoice_lang" value="'+$('#invoice_lang').parents().hasClass('off')+'"></input>');  //a cause de bootstrapToggle, on doit chercher la div au dessus si elle a la class off (ou rien)
-$("#invoiceJob").append('<input type="hidden" name="invoice_currency" value="'+$('#invoice_currency').parents().hasClass('off')+'"></input>');
-$("#invoiceJob").append('<input type="hidden" name="invoice_commentaire" value="'+$('#invoice_commentaire').val()+'"></input>');
+    //On ajoute aussi langue, currency et invoice_commentaire
+    $("#invoiceJob").append('<input type="hidden" name="invoice_lang" value="'+$('#invoice_lang').parents().hasClass('off')+'"></input>');  //a cause de bootstrapToggle, on doit chercher la div au dessus si elle a la class off (ou rien)
+    $("#invoiceJob").append('<input type="hidden" name="invoice_currency" value="'+$('#invoice_currency').parents().hasClass('off')+'"></input>');
+    $("#invoiceJob").append('<input type="hidden" name="invoice_commentaire" value="'+$('#invoice_commentaire').val()+'"></input>');
 
 
 
