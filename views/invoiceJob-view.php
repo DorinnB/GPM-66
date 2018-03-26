@@ -33,23 +33,14 @@
 						<span class="value"><?= $split['MRSASRef']	?></span>
 					</p>
 				</div>
-				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Contacts">
+				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Amount">
 					<p class="title">
-						<span class="name">Contact :</span>
-						<span class="value">
-							<acronym title="Tel : <?=	$split['telephone']	?>"><?= $split['lastname'].' '.$split['surname'] ?></acronym>
-							<acronym title="Send Email to Customer(s)">
-								<a href="
-								mailto: <?= $split['email']	?>
-								?subject=Job : <?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?>
-								&cc=<?= $split['email2']	?>;<?= $split['email3']	?>;<?= $split['email4']	?>
-								&body="><span class="glyphicon glyphicon-envelope"></span></a>
-							</acronym>
-						</span>
+						<span class="name">PO Amount :</span>
+						<span class="value"></span>
 					</p>
 					<p class="title">
-						<span class="name">Contact :</span>
-						<span class="value"><acronym title="Tel : <?=	$split['telephone2']	?>"><?= $split['lastname2'].' '.$split['surname2'] ?></acronym></span>
+						<span class="name">Invoice Total :</span>
+						<span class="value" id="invoiceTotal"></span>
 					</p>
 				</div>
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Internationalization">
@@ -73,6 +64,25 @@
 							<span class="value"><?= (($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']+$payable['TVA']) ?></span>
 						</p>
 					<?php endforeach ?>
+				</div>
+				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Contacts">
+					<p class="title">
+						<span class="name">Contact :</span>
+						<span class="value">
+							<acronym title="Tel : <?=	$split['telephone']	?>"><?= $split['lastname'].' '.$split['surname'] ?></acronym>
+							<acronym title="Send Email to Customer(s)">
+								<a href="
+								mailto: <?= $split['email']	?>
+								?subject=Job : <?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?>
+								&cc=<?= $split['email2']	?>;<?= $split['email3']	?>;<?= $split['email4']	?>
+								&body="><span class="glyphicon glyphicon-envelope"></span></a>
+							</acronym>
+						</span>
+					</p>
+					<p class="title">
+						<span class="name">Contact :</span>
+						<span class="value"><acronym title="Tel : <?=	$split['telephone2']	?>"><?= $split['lastname2'].' '.$split['surname2'] ?></acronym></span>
+					</p>
 				</div>
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Adress">
 					<p class="title">
@@ -99,7 +109,7 @@
 										<div class="col-md-1 code">
 											Metcut Code
 										</div>
-										<div class="col-md-5 pricingList">
+										<div class="col-md-6 pricingList">
 											Description
 										</div>
 										<div class="col-md-1 qteGPM">
@@ -111,11 +121,8 @@
 										<div class="col-md-1 priceUnit">
 											Prix Unitaire
 										</div>
-										<div class="col-md-1 totalGPM">
-											Total GPM
-										</div>
 										<div class="col-md-1 totalUser">
-											Total User
+											Total
 										</div>
 										<div class="col-md-1 delete">
 											Delete
@@ -127,14 +134,13 @@
 												<input class="newEntry" name="newEntry" value="" type="hidden">
 												<input class="id_invoiceLine" name="id_invoiceLine" value="<?= $invoicelines['id_invoiceline'] ?>" type="hidden">
 												<input class="id_info_job" name="id_info_job" value="<?= $invoicelines['id_info_job'] ?>" type="hidden">
-												<input class="id_tbljob" name="id_tbljob" value="<?= $invoicelines['id_tbljob'] ?>" type="hidden">
+												<input class="id_tbljob" name="id_tbljob" id="id_tbljob" value="<?= $invoicelines['id_tbljob'] ?>" type="hidden">
 												<input class="id_pricingList" name="id_pricingList" value="<?= $invoicelines['id_pricingList'] ?>" type="hidden">
 												<div class="col-md-1 code"><input class="form-control" name="code" value="<?= (($invoicelines['prodCode']=="")?"":$invoicelines['prodCode']."-").$invoicelines['OpnCode'] ?>" type="text" disabled></div>
-												<div class="col-md-5 pricingList"><input class="form-control" name="pricingList" value="<?= $invoicelines['pricingList'] ?>" type="text" <?= ($invoicelines['id_pricingList']>0)?"readonly":"" ?>></div>
+												<div class="col-md-6 pricingList"><input class="form-control" name="pricingList" value="<?= $invoicelines['pricingList'] ?>" type="text" <?= ($invoicelines['id_pricingList']>0)?"readonly":"" ?>></div>
 												<div class="col-md-1 qteGPM"><input class="form-control decimal0" name="qteGPM" value="<?= $invoicelines['qteGPM'] ?>" type="text" disabled></div>
 												<div class="col-md-1 qteUser"><input class="form-control decimal0" name="qteUser" value="<?= $invoicelines['qteUser'] ?>" type="text"></div>
 												<div class="col-md-1 priceUnit"><input class="form-control decimal2" name="priceUnit" value="<?= $invoicelines['priceUnit'] ?>" type="text"></div>
-												<div class="col-md-1 totalGPM"><input class="form-control decimal2" name="totalGPM" value="<?=	$invoicelines['qteGPM']*$invoicelines['priceUnit']	?>" type="text" disabled></div>
 												<div class="col-md-1 totalUser"><input class="form-control decimal2" name="totalUser" value="<?= $invoicelines['qteUser']*$invoicelines['priceUnit'] ?>" type="text" disabled></div>
 												<div class="col-md-1 delete">
 													<input class="toDelete" name="toDelete" value="" type="hidden">
@@ -155,12 +161,12 @@
 												<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
 											</button>
 										</div>
-										<div class="col-md-5">
+										<div class="col-md-6">
 											<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="<?=	$value['id_tbljob']	?>">
-												<option value="No">Add an Invoice Line</option>
-												<option value="0" data-prodCode="" data-OpnCode=" " data-pricingList="Other" data-price="">Other</option>
+												<option value="No" data-code ="" data-pricingListUSA="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
+												<option value="0" data-code ="" data-pricingListUSA="Others" data-pricingListFR="Others" data-prodCode="" data-OpnCode=" " data-pricingList="Other" data-price="">Other</option>
 												<?php foreach ($oInvoices->getAllInvoiceList($value['id_tbljob']) as $row): ?>
-													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingList="<?= $row['pricingList'] ?>" data-price="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
+													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingList'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.(($split['invoice_lang']==0)?$row['pricingListFR']:$row['pricingListUSA']) ?></option>
 												<?php endforeach ?>
 											</select>
 										</div>
@@ -177,7 +183,7 @@
 									<div class="col-md-1 code">
 										Metcut Code
 									</div>
-									<div class="col-md-5 pricingList">
+									<div class="col-md-6 pricingList">
 										Description
 									</div>
 									<div class="col-md-1 qteGPM">
@@ -189,11 +195,8 @@
 									<div class="col-md-1 priceUnit">
 										Prix Unitaire
 									</div>
-									<div class="col-md-1 totalGPM">
-										Total GPM
-									</div>
 									<div class="col-md-1 totalUser">
-										Total User
+										Total
 									</div>
 									<div class="col-md-1 delete">
 										Delete
@@ -209,11 +212,10 @@
 											<input class="id_tbljob" name="id_tbljob" value="<?= $invoicelines['id_tbljob'] ?>" type="hidden">
 											<input class="id_pricingList" name="id_pricingList" value="<?= $invoicelines['id_pricingList'] ?>" type="hidden">
 											<div class="col-md-1 code"><input class="form-control" name="code" value="<?= (($invoicelines['prodCode']=="")?"":$invoicelines['prodCode']."-").$invoicelines['OpnCode'] ?>" type="text" disabled></div>
-											<div class="col-md-5 pricingList"><input class="form-control" name="pricingList" value="<?= $invoicelines['pricingList'] ?>" type="text" <?= ($invoicelines['id_pricingList']>0)?"readonly":"" ?>></div>
+											<div class="col-md-6 pricingList"><input class="form-control" name="pricingList" value="<?= $invoicelines['pricingList'] ?>" type="text" <?= ($invoicelines['id_pricingList']>0)?"readonly":"" ?>></div>
 											<div class="col-md-1 qteGPM"><input class="form-control decimal0" name="qteGPM" value="" type="text" disabled></div>
 											<div class="col-md-1 qteUser"><input class="form-control decimal0" name="qteUser" value="<?= $invoicelines['qteUser'] ?>" type="text"></div>
 											<div class="col-md-1 priceUnit"><input class="form-control decimal2" name="priceUnit" value="<?= $invoicelines['priceUnit'] ?>" type="text"></div>
-											<div class="col-md-1 totalGPM"><input class="form-control" name="totalGPM" value="" type="text" disabled></div>
 											<div class="col-md-1 totalUser"><input class="form-control decimal2" name="totalUser" value="<?= $invoicelines['qteUser']*$invoicelines['priceUnit'] ?>" type="text" disabled></div>
 											<div class="col-md-1 delete">
 												<input class="toDelete" name="toDelete" value="" type="hidden">
@@ -229,12 +231,12 @@
 						<p class="title">
 							<div class="splitInvLine2">
 								<div class="row">
-									<div class="col-md-5 col-md-offset-1">
+									<div class="col-md-6 col-md-offset-1">
 										<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="">
-											<option value="No">Add an Invoice Line</option>
-											<option value="0" data-prodCode="" data-OpnCode=" " data-pricingList="Other" data-price="">Other</option>
+											<option value="No" data-code ="" data-pricingListUSA="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
+											<option value="0" data-code ="" data-pricingListUSA="Others" data-pricingListFR="Others" data-prodCode="" data-OpnCode=" " data-pricingList="Other" data-price="">Other</option>
 											<?php foreach ($oInvoices->getAllInvoiceList() as $row): ?>
-												<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingList="<?= $row['pricingList'] ?>" data-price="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
+												<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingList'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.(($split['invoice_lang']==0)?$row['pricingListFR']:$row['pricingListUSA']) ?></option>
 											<?php endforeach ?>
 										</select>
 									</div>
@@ -268,11 +270,10 @@
 		<input class="id_tbljob" name="id_tbljob" value="" type="hidden">
 		<input class="id_pricingList" name="id_pricingList" value="" type="hidden">
 		<div class="col-md-1 code"><input class="form-control" name="code" value="" type="text" disabled></div>
-		<div class="col-md-5 pricingList"><input class="form-control" name="pricingList" value="" type="text" readonly></div>
+		<div class="col-md-6 pricingList"><input class="form-control" name="pricingList" value="" type="text" readonly></div>
 		<div class="col-md-1 qteGPM"><input class="form-control" name="qteGPM" value="" type="text" disabled></div>
 		<div class="col-md-1 qteUser"><input class="form-control" name="qteUser" value="" type="text"></div>
 		<div class="col-md-1 priceUnit"><input class="form-control" name="priceUnit" value="" type="text"></div>
-		<div class="col-md-1 totalGPM"><input class="form-control" name="totalGPM" value="" type="text" disabled></div>
 		<div class="col-md-1 totalUser"><input class="form-control" name="totalUser" value="" type="text" disabled></div>
 		<div class="col-md-1 delete">
 			<input class="toDelete" name="toDelete" value="" type="hidden">

@@ -13,7 +13,21 @@ $(document).ready(function() {
     var OpnCode = $('option:selected', this).attr('data-OpnCode');
     var id_pricingList = $('option:selected', this).attr('data-id_pricingList');
     var pricingList = $('option:selected', this).attr('data-pricingList');
-    var price = $('option:selected', this).attr('data-price');
+
+    if ($('#invoice_lang').parents().hasClass('off')) { //off = euro
+      var pricingList = $('option:selected', this).attr('data-pricingListFR');
+    }
+    else {
+      var pricingList = $('option:selected', this).attr('data-pricingListUSA');
+    }
+
+    if ($('#invoice_currency').parents().hasClass('off')) { //off = euro
+      var price = $('option:selected', this).attr('data-euro');
+    }
+    else {
+      var price = $('option:selected', this).attr('data-USD');
+    }
+
 
     //on cherche où placer la nouvelle ligne
     a=$(this).parents().eq(3).find('div.splitInvLine');
@@ -74,6 +88,17 @@ $(document).ready(function() {
   });
 
 
+  //fonction de calcul auto du totalinvoice
+  function calculAuto() {
+    invoiceTotal=0;
+    $('.totalUser').find('input').each( function (i) {
+      var num = parseFloat(this.value);
+      if (!isNaN(num)) {
+        invoiceTotal=num+invoiceTotal;
+      }
+    });
+    $('#invoiceTotal').text(invoiceTotal.toFixed(2));
+  }
 
   //calcul automatique des sommes après changement
   $(".qteUser, .priceUnit").change(function(e){
@@ -81,6 +106,7 @@ $(document).ready(function() {
     priceUnit=$(this).closest('form').find('.priceUnit').find('input').val();
     $(this).parent().find('.totalUser').find('input').val(qteUser*priceUnit);
 
+    //on remet 2 chiffres après la virgule (ou 0)
     $('.decimal0').each( function (i) { //ajouter 2 digit sur le nombre
       var num = parseFloat(this.value);
       if (!isNaN(num)) {
@@ -92,13 +118,34 @@ $(document).ready(function() {
       if (!isNaN(num)) {
         this.value = parseFloat(this.value).toFixed(2);
       }
-        });
+    });
+
+    calculAuto();
+  });
+
+
+  $('#invoice_lang').change(function(e){
+    if ($(this).parents().hasClass('off')) {
+      $('option').each(function() {
+        $(this).text($(this).attr('data-code') + " " + $(this).attr('data-pricingListFR'));
+      });
+    }
+    else {
+      $('option').each(function() {
+        $(this).text($(this).attr('data-code') + " " + $(this).attr('data-pricingListUSA'));
+      });
+
+    }
   });
 
 
 
 
 
+
+
+  //après chargement de la page, on calcul la somme total de l'invoice
+  calculAuto();
 
 
 
@@ -130,7 +177,19 @@ $(document).ready(function() {
 
 
     //on envoi le formulaire d'envoi
-    document.getElementById("invoiceJob").submit();
+    $.ajax({
+      type: "POST",
+      url: "controller/updateInvoiceJob.php",
+      data: $("#invoiceJob").serialize(), // serializes the form's elements.
+      success: function(data)
+      {
+        window.location.href = 'controller/createInvoice-controller.php?id_tbljob='+$('#id_tbljob').val();
+        //location.reload();
+      }
+    });
+
+
+
 
   } );
 

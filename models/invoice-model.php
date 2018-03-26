@@ -15,13 +15,13 @@ class InvoiceModel
   public function getAllInvoiceList($id_tbljob="null") {
 
     if ($id_tbljob=="null") {
-      $req='SELECT pricinglists.id_pricingList, pricingList, prodCode, OpnCode, USD, EURO, temperature, pricingList_actif, id_test_type
+      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, prodCode, OpnCode, USD, EURO, temperature, pricingList_actif, id_test_type
       FROM `pricinglists`
       INNER JOIN test_type_pricinglists ON test_type_pricinglists.id_pricinglist=pricinglists.id_pricinglist
       WHERE id_test_type=0';
     }
     else {
-      $req='SELECT pricinglists.id_pricingList, pricingList, prodCode, OpnCode, USD, EURO, temperature, pricingList_actif
+      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, prodCode, OpnCode, USD, EURO, temperature, pricingList_actif
       FROM `tbljobs`
       INNER JOIN test_type_pricinglists ON test_type_pricinglists.id_test_type=tbljobs.id_type_essai
       INNER JOIN pricinglists ON pricinglists.id_pricingList=test_type_pricinglists.id_pricingList
@@ -147,7 +147,7 @@ class InvoiceModel
     $reqDelete = 'DELETE FROM invoicelines
     WHERE id_invoiceline='.$this->id_invoiceLine.';';
 
-    echo $reqDelete;
+    //echo $reqDelete;
     $this->db->execute($reqDelete);
   }
 
@@ -160,7 +160,7 @@ class InvoiceModel
     priceUnit='.$this->priceUnit.'
     WHERE id_invoiceline='.$this->id_invoiceLine.';';
 
-    echo $reqUpdate;
+    //echo $reqUpdate;
     $this->db->query($reqUpdate);
   }
 
@@ -170,7 +170,7 @@ class InvoiceModel
     (id_pricinglist, pricingList, qteUser, priceUnit,  id_info_job, id_tbljob)
     VALUES ('.$this->id_pricingList.', '.$this->pricingList.', '.$this->qteUser.', '.$this->priceUnit.', '.$this->id_info_job.', '.$this->id_tbljob.');';
 
-    echo $req;
+    //echo $req;
     $this->db->execute($req);
   }
 
@@ -183,7 +183,7 @@ class InvoiceModel
     invoice_commentaire='.$this->db->quote($comments).'
     WHERE id_info_job=(SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->db->quote($id_tbljob).');';
 
-    echo $reqUpdate;
+    //echo $reqUpdate;
     $this->db->query($reqUpdate);
   }
 

@@ -1,24 +1,13 @@
 <?php
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
-?>
-<h3>
-	Processing...<br/>
-	Make take up to few seconds</br>
 
-</h3>
-<a href="../index.php?page=invoiceJob&id_tbljob=<?= $_POST['id_tbljob'] ?>">click here if you aren't redirected</a>
-<br/><br/>
-<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
 
-<div id="spoiler" style="display:none">
-
-	<?php
 
 	// Rendre votre modèle accessible
 	include '../models/invoice-model.php';
 
-	var_dump($_POST);
+	//var_dump($_POST);
 
 	//on extrait id_tbljob et le commentaire invoiceJob
 	$id_tbljob=$_POST['id_tbljob'];
@@ -43,7 +32,7 @@ $db = new db(); // create a new object, class db()
 		$datapost = array();
 		parse_str($posts, $datapost);	//$datapost=l'array
 
-		var_dump($datapost);
+		//var_dump($datapost);
 
 		if ($datapost['id_invoiceLine']>0) {	//update d'une ligne existante
 
@@ -86,10 +75,6 @@ $db = new db(); // create a new object, class db()
 
 	}
 
-	?>
-</div>
 
 
-<script type='text/javascript'>
-	document.location.replace('../index.php?page=invoiceJob&id_tbljob=<?= $id_tbljob ?>');
-</script>
+?>
