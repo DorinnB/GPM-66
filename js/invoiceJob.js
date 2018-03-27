@@ -47,7 +47,7 @@ $(document).ready(function() {
     b.find('.priceUnit').find('input').val(price);
 
     //si la ligne est 0 "Others" on autorise le changement de description
-    if (value==0) {
+    if (prodCode=='') {
       b.find('.pricingList').find('input').prop("readonly", false);
     }
     //on reinitialise les select de new invoice line
@@ -183,8 +183,8 @@ $(document).ready(function() {
       data: $("#invoiceJob").serialize(), // serializes the form's elements.
       success: function(data)
       {
-        window.location.href = 'controller/createInvoice-controller.php?id_tbljob='+$('#id_tbljob').val();
-        //location.reload();
+        //window.location.href = 'controller/createInvoice-controller.php?id_tbljob='+$('#id_tbljob').val();
+        location.reload();
       }
     });
 

@@ -164,7 +164,6 @@
 										<div class="col-md-6">
 											<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="<?=	$value['id_tbljob']	?>">
 												<option value="No" data-code ="" data-pricingListUSA="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
-												<option value="0" data-code ="" data-pricingListUSA="Others" data-pricingListFR="Others" data-prodCode="" data-OpnCode=" " data-pricingList="Other" data-price="">Other</option>
 												<?php foreach ($oInvoices->getAllInvoiceList($value['id_tbljob']) as $row): ?>
 													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingList'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.(($split['invoice_lang']==0)?$row['pricingListFR']:$row['pricingListUSA']) ?></option>
 												<?php endforeach ?>
@@ -231,10 +230,14 @@
 						<p class="title">
 							<div class="splitInvLine2">
 								<div class="row">
-									<div class="col-md-6 col-md-offset-1">
+									<div class="col-md-1">
+										<button type="button" class="btn btn-success" aria-label="Left Align">
+											<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+										</button>
+									</div>
+									<div class="col-md-6">
 										<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="">
 											<option value="No" data-code ="" data-pricingListUSA="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
-											<option value="0" data-code ="" data-pricingListUSA="Others" data-pricingListFR="Others" data-prodCode="" data-OpnCode=" " data-pricingList="Other" data-price="">Other</option>
 											<?php foreach ($oInvoices->getAllInvoiceList() as $row): ?>
 												<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingList'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.(($split['invoice_lang']==0)?$row['pricingListFR']:$row['pricingListUSA']) ?></option>
 											<?php endforeach ?>
@@ -248,7 +251,30 @@
 				</div>
 
 				<div style="height:7%; width:100%; padding:10px 0px;">
-					<input type="submit" id="saveInvoiceJob" value="SAVE & PRINT" style="width:100%; background:black;" >
+
+
+					<div class="col-md-6" id="" style="height:100%; padding:0px;">
+						<a href="controller/createInvoice-controller.php?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+							<p style="font-size:small;height:100%;">
+								<img type="image" src="img/print.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+							</p>
+						</a>
+					</div>
+					<div class="row" style="height:100%">
+						<div class="col-md-6" id="saveInvoiceJob" style="height:100%; padding:0px;">
+							<a href="controller/openOnenote-controller?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+								<p style="font-size:small;height:100%;">
+									<img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+								</p>
+							</a>
+						</div>
+
+
+					</div>
+
+
+
+
 				</div>
 			</div>
 		</div>
@@ -259,7 +285,7 @@
 
 
 <form id="invoiceJob" method="POST" action="controller/updateInvoiceJob.php" style="display:none;">
-	<input type="hidden" name="id_tbljob" value="<?=	$split['id_tbljob'] ?>"</input>
+	<input type="hidden" name="id_tbljob" id="id_tbljob" value="<?=	$split['id_tbljob'] ?>"></input>
 </form>
 
 <div class="row" id="invLineVierge" style="display:none;">
