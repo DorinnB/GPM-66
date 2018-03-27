@@ -253,28 +253,20 @@
 				<div style="height:7%; width:100%; padding:10px 0px;">
 
 
-					<div class="col-md-6" id="" style="height:100%; padding:0px;">
+					<div class="col-md-12" id="printInvoiceJob" style="height:100%; padding:0px;">
 						<a href="controller/createInvoice-controller.php?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 							<p style="font-size:small;height:100%;">
 								<img type="image" src="img/print.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 							</p>
 						</a>
 					</div>
-					<div class="row" style="height:100%">
-						<div class="col-md-6" id="saveInvoiceJob" style="height:100%; padding:0px;">
+						<div class="col-md-12" id="saveInvoiceJob" style="height:100%; padding:0px; display:none;">
 							<a href="controller/openOnenote-controller?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 								<p style="font-size:small;height:100%;">
 									<img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 								</p>
 							</a>
 						</div>
-
-
-					</div>
-
-
-
-
 				</div>
 			</div>
 		</div>

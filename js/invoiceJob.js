@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+  //changement de l'icone print en save
+  $(document).on('input', function() {
+    $('#printInvoiceJob').css('display','none');
+    $('#saveInvoiceJob').css('display','block');
+  });
+
+
   newEntry=0; //nb de nouveau invoiceLine
 
   //Insertion InvoiceLine
@@ -60,6 +67,10 @@ $(document).ready(function() {
 
   //delete invoiceLine
   $('.deleteInvoiceLine').click(function () {
+
+    //changement de l'icone print en save
+    $('#printInvoiceJob').css('display','none');
+    $('#saveInvoiceJob').css('display','block');
 
     a=$(this).parent().parent();  //on remonte jusqu'a la div de la ligne
     if (a.find('newEntry').val()>0) {  //si on a newEntry, on supprime
@@ -125,6 +136,10 @@ $(document).ready(function() {
 
 
   $('#invoice_lang').change(function(e){
+    //changement de l'icone print en save
+    $('#printInvoiceJob').css('display','none');
+    $('#saveInvoiceJob').css('display','block');
+
     if ($(this).parents().hasClass('off')) {
       $('option').each(function() {
         $(this).text($(this).attr('data-code') + " " + $(this).attr('data-pricingListFR'));
@@ -138,7 +153,12 @@ $(document).ready(function() {
     }
   });
 
+  $('#invoice_currency').change(function(e){
+    //changement de l'icone print en save
+    $('#printInvoiceJob').css('display','none');
+    $('#saveInvoiceJob').css('display','block');
 
+  });
 
 
 
