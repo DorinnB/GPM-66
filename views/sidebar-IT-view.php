@@ -17,6 +17,9 @@
 			<a href="index.php?page=IT&tool=test_type">Test Types</a>
 		</li>
 		<li>
+			<a href="index.php?page=IT&tool=pricinglists">Pricing Lists</a>
+		</li>
+		<li>
 			<a href="index.php?page=IT&tool=dessins">Drawings</a>
 		</li>
 		<li>

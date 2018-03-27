@@ -114,8 +114,10 @@ $(document).ready(function() {
   //calcul automatique des sommes après changement
   $(".qteUser, .priceUnit").change(function(e){
     qteUser=$(this).closest('form').find('.qteUser').find('input').val();
+    qteGPM=$(this).closest('form').find('.qteGPM').find('input').val();
     priceUnit=$(this).closest('form').find('.priceUnit').find('input').val();
-    $(this).parent().find('.totalUser').find('input').val(qteUser*priceUnit);
+    totalUser=(qteUser ? qteUser : qteGPM)*priceUnit;
+    $(this).parent().find('.totalUser').find('input').val(totalUser);
 
     //on remet 2 chiffres après la virgule (ou 0)
     $('.decimal0').each( function (i) { //ajouter 2 digit sur le nombre
@@ -161,7 +163,8 @@ $(document).ready(function() {
   });
 
 
-
+  //invoice line + search
+  $(".addInvLine").select2();
 
 
   //après chargement de la page, on calcul la somme total de l'invoice
@@ -207,13 +210,14 @@ $(document).ready(function() {
         location.reload();
       }
     });
-
-
-
-
   } );
 
 
+
+  $(".openDocument").click(function(e) {
+  // on ouvre dans une fenêtre le fichier passé en paramètre.
+  window.open("controller/openDocument-controller?file_type="+$(this).attr('data-type')+"&file_name="+$(this).attr('data-file'),'Document','width=670,height=930,top=50,left=50');
+  });
 
 
 });

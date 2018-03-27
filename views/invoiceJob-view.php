@@ -21,6 +21,12 @@
 						<span class="value"></span>
 					</p>
 					<p class="title">
+						<span class="name">Quote :</span>
+						<span class="value">
+							<a href="#" class="openDocument" data-type="quote" data-file="<?= $split['devis'].'-'.$split['customer'] ?>.pdf"><?= $split['devis'] ?></a>
+						</span>
+					</p>
+					<p class="title">
 						<span class="name">Purchase Order :</span>
 						<span class="value"><?= $split['po_number']	?></span>
 					</p>
@@ -141,7 +147,7 @@
 												<div class="col-md-1 qteGPM"><input class="form-control decimal0" name="qteGPM" value="<?= $invoicelines['qteGPM'] ?>" type="text" disabled></div>
 												<div class="col-md-1 qteUser"><input class="form-control decimal0" name="qteUser" value="<?= $invoicelines['qteUser'] ?>" type="text"></div>
 												<div class="col-md-1 priceUnit"><input class="form-control decimal2" name="priceUnit" value="<?= $invoicelines['priceUnit'] ?>" type="text"></div>
-												<div class="col-md-1 totalUser"><input class="form-control decimal2" name="totalUser" value="<?= $invoicelines['qteUser']*$invoicelines['priceUnit'] ?>" type="text" disabled></div>
+												<div class="col-md-1 totalUser"><input class="form-control decimal2" name="totalUser" value="<?= (($invoicelines['qteUser']>0)?$invoicelines['qteUser']:$invoicelines['qteGPM'])*$invoicelines['priceUnit'] ?>" type="text" disabled></div>
 												<div class="col-md-1 delete">
 													<input class="toDelete" name="toDelete" value="" type="hidden">
 													<button type="button" class="btn btn-danger deleteInvoiceLine" aria-label="Left Align">
@@ -260,13 +266,13 @@
 							</p>
 						</a>
 					</div>
-						<div class="col-md-12" id="saveInvoiceJob" style="height:100%; padding:0px; display:none;">
-							<a href="controller/openOnenote-controller?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
-								<p style="font-size:small;height:100%;">
-									<img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
-								</p>
-							</a>
-						</div>
+					<div class="col-md-12" id="saveInvoiceJob" style="height:100%; padding:0px; display:none;">
+						<a href="controller/openOnenote-controller?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+							<p style="font-size:small;height:100%;">
+								<img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
+							</p>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
