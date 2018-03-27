@@ -422,8 +422,8 @@ $objReader->setIncludeCharts(TRUE);
         'G9'=> (($split['other_1']==0)?'No':$split['other_1']),
         'J9'=> $split['specification'],
 
-        'D42'=> $split['tbljob_instruction'],
-        'D47'=> $split['info_jobs_instruction']
+        'D47'=> $split['tbljob_instruction'],
+        'D52'=> $split['info_jobs_instruction']
       );
 
       //Pour chaque element du tableau associatif, on update les cellules Excel
