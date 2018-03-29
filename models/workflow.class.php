@@ -46,7 +46,7 @@ public function __construct($db,$id)
 
     public function getAllSplit() {
 
-    $req = 'SELECT id_tbljob, test_type, test_type_abbr, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire,
+    $req = 'SELECT id_tbljob, test_type, test_type_abbr, test_type_cust, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire,
         DyT_expected, DyT_SubC, DyT_Cust, refSubC, statut, statut_color, etape,
         report_Q, report_TM, report_date, report_rev, report_rawdata, id_rawData, report_send,
         count(distinct master_eprouvettes.id_master_eprouvette) as expected,

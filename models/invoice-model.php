@@ -47,7 +47,7 @@ class InvoiceModel
     invoicelines.pricingList,
     qteUser,
     if(type=1,
-      count(n_fichier),
+      SUM(IF((valid = 1) OR (n_fichier is not null),1,0)),
       if(type=2,
         sum(
           ceil(
@@ -194,6 +194,20 @@ class InvoiceModel
     $req='SELECT *
     FROM payables
     WHERE job=(SELECT job FROM tbljobs LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job WHERE id_tbljob='.$this->db->quote($id_tbljob).');';
+
+    return $this->db->getAll($req);
+  }
+
+  public function getAllInvoiceJob() {
+
+    $req='SELECT max(tbljobs.id_tbljob) as id_tbljob
+    FROM `tbljobs`
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+    LEFT JOIN invoicelines ON invoicelines.id_tbljob=tbljobs.id_tbljob
+    WHERE etape < 95
+    AND id_invoiceLine IS NOT NULL
+    GROUP BY tbljobs.id_info_job';
 
     return $this->db->getAll($req);
   }

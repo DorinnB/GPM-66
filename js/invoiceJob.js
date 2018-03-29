@@ -12,6 +12,11 @@ $(document).ready(function() {
   //Insertion InvoiceLine
   $(".addInvLine").change(function(e){
 
+    //changement de l'icone print en save
+    $('#printInvoiceJob').css('display','none');
+    $('#saveInvoiceJob').css('display','block');
+
+
     //on récupère les valeurs
     var id_info_job = $(this).attr('data-id_info_job');
     var id_tbljob = $(this).attr('data-id_tbljob');
@@ -215,8 +220,8 @@ $(document).ready(function() {
 
 
   $(".openDocument").click(function(e) {
-  // on ouvre dans une fenêtre le fichier passé en paramètre.
-  window.open("controller/openDocument-controller?file_type="+$(this).attr('data-type')+"&file_name="+$(this).attr('data-file'),'Document','width=670,height=930,top=50,left=50');
+    // on ouvre dans une fenêtre le fichier passé en paramètre.
+    window.open("controller/openDocument-controller?file_type="+$(this).attr('data-type')+"&file_name="+$(this).attr('data-file'),'Document','width=670,height=930,top=50,left=50');
   });
 
 
