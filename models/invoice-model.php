@@ -206,7 +206,7 @@ class InvoiceModel
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     LEFT JOIN invoicelines ON invoicelines.id_tbljob=tbljobs.id_tbljob
     WHERE etape < 95
-    AND id_invoiceLine IS NOT NULL
+    AND tbljob_actif=1
     GROUP BY tbljobs.id_info_job';
 
     return $this->db->getAll($req);

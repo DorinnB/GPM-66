@@ -86,10 +86,10 @@
 
 					<td><?= $row['test_type_abbr'] ?></td>
 
-						<td><?= (isset($row['surname'])?$row['lastname'][0].'. '.$row['surname']:"")
-						.(isset($row['surname2'])?" - ".$row['lastname2'][0].'. '.$row['surname2']:"")
-						.(isset($row['surname3'])?" - ".$row['lastname3'][0].'. '.$row['surname3']:"")
-						.(isset($row['surname4'])?" - ".$row['lastname4'][0].'. '.$row['surname4']:"")
+						<td><?= (isset($row['nom'])?$row['prenom'][0].'. '.$row['nom']:"")
+						.(isset($row['nom2'])?" - ".$row['prenom2'][0].'. '.$row['nom2']:"")
+						.(isset($row['nom3'])?" - ".$row['prenom3'][0].'. '.$row['nom3']:"")
+						.(isset($row['nom4'])?" - ".$row['prenom4'][0].'. '.$row['nom4']:"")
 						?></td>
 
 						<td><?= $row['ref_pricing'] ?></td>

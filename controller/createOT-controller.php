@@ -601,7 +601,7 @@ $objReader->setIncludeCharts(TRUE);
         'C4'=> (($split['id_entrepriseST']==1001)?$split['job']:$split['job'].'-'.$split['split']),
         'C5'=> date('Y-m-d'),
         'C7'=> $split['entrepriseST'],
-        'C8'=> $split['lastnameST'].' '.$split['surnameST'],
+        'C8'=> $split['prenomST'].' '.$split['nomST'],
         'G2'=> strtoupper($split['test_type']),
 
         'D13'=> $split['customer'].'-'.$split['job'],

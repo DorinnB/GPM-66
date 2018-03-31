@@ -134,10 +134,10 @@ class LstJobsModel
           count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
           if(sum(if(st=1,1,0))>0,1,0) as subc,
           if(sum(if(st=0,1,0))>0,1,0) as mrsas,
-          contacts.id_contact, contacts.lastname, contacts.surname,
-          contacts2.id_contact as id_contact2, contacts2.lastname as lastname2, contacts2.surname as surname2,
-          contacts3.id_contact as id_contact3, contacts3.lastname as lastname3, contacts3.surname as surname3,
-          contacts4.id_contact as id_contact4, contacts4.lastname as lastname4, contacts4.surname as surname4
+          contacts.id_contact, contacts.prenom, contacts.nom,
+          contacts2.id_contact as id_contact2, contacts2.prenom as prenom2, contacts2.nom as nom2,
+          contacts3.id_contact as id_contact3, contacts3.prenom as prenom3, contacts3.nom as nom3,
+          contacts4.id_contact as id_contact4, contacts4.prenom as prenom4, contacts4.nom as nom4
 
         FROM eprouvettes
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
@@ -310,19 +310,19 @@ class LstJobsModel
     }
 
     public function getWeeklyReportCust($customer) {
-  	    $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment,
+  	    $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment, max(instruction) as instruction,
             count(DISTINCT case when master_eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbreceived, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
             GROUP_CONCAT(DISTINCT
-             if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), "&nbsp;",contacts.surname),""),
-             if(contacts2.lastname is not null, concat("<br/>", LEFT(contacts2.lastname , 1), "&nbsp;",contacts2.surname),""),
-             if(contacts3.lastname is not null, concat("<br/>", LEFT(contacts3.lastname , 1), "&nbsp;",contacts3.surname),""),
-             if(contacts4.lastname is not null, concat("<br/>", LEFT(contacts4.lastname , 1), "&nbsp;",contacts4.surname),"")
+             if(contacts.prenom is not null, concat(LEFT(contacts.prenom , 1), "&nbsp;",contacts.nom),""),
+             if(contacts2.prenom is not null, concat("<br/>", LEFT(contacts2.prenom , 1), "&nbsp;",contacts2.nom),""),
+             if(contacts3.prenom is not null, concat("<br/>", LEFT(contacts3.prenom , 1), "&nbsp;",contacts3.nom),""),
+             if(contacts4.prenom is not null, concat("<br/>", LEFT(contacts4.prenom , 1), "&nbsp;",contacts4.nom),"")
            )as contacts,
            GROUP_CONCAT(DISTINCT
-            if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), " ",contacts.surname),""),
-            if(contacts2.lastname is not null, concat("\r", LEFT(contacts2.lastname , 1), " ",contacts2.surname),""),
-            if(contacts3.lastname is not null, concat("\r", LEFT(contacts3.lastname , 1), " ",contacts3.surname),""),
-            if(contacts4.lastname is not null, concat("\r", LEFT(contacts4.lastname , 1), " ",contacts4.surname),"")
+            if(contacts.prenom is not null, concat(LEFT(contacts.prenom , 1), " ",contacts.nom),""),
+            if(contacts2.prenom is not null, concat("\r", LEFT(contacts2.prenom , 1), " ",contacts2.nom),""),
+            if(contacts3.prenom is not null, concat("\r", LEFT(contacts3.prenom , 1), " ",contacts3.nom),""),
+            if(contacts4.prenom is not null, concat("\r", LEFT(contacts4.prenom , 1), " ",contacts4.nom),"")
           )as contactsXLS
 
   				FROM info_jobs
@@ -345,16 +345,16 @@ class LstJobsModel
         $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment,
             count(DISTINCT case when master_eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbreceived, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
             GROUP_CONCAT(DISTINCT
-             if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), "&nbsp;",contacts.surname),""),
-             if(contacts2.lastname is not null, concat("<br/>", LEFT(contacts2.lastname , 1), "&nbsp;",contacts2.surname),""),
-             if(contacts3.lastname is not null, concat("<br/>", LEFT(contacts3.lastname , 1), "&nbsp;",contacts3.surname),""),
-             if(contacts4.lastname is not null, concat("<br/>", LEFT(contacts4.lastname , 1), "&nbsp;",contacts4.surname),"")
+             if(contacts.prenom is not null, concat(LEFT(contacts.prenom , 1), "&nbsp;",contacts.nom),""),
+             if(contacts2.prenom is not null, concat("<br/>", LEFT(contacts2.prenom , 1), "&nbsp;",contacts2.nom),""),
+             if(contacts3.prenom is not null, concat("<br/>", LEFT(contacts3.prenom , 1), "&nbsp;",contacts3.nom),""),
+             if(contacts4.prenom is not null, concat("<br/>", LEFT(contacts4.prenom , 1), "&nbsp;",contacts4.nom),"")
            )as contacts,
            GROUP_CONCAT(DISTINCT
-            if(contacts.lastname is not null, concat(LEFT(contacts.lastname , 1), " ",contacts.surname),""),
-            if(contacts2.lastname is not null, concat("\r", LEFT(contacts2.lastname , 1), " ",contacts2.surname),""),
-            if(contacts3.lastname is not null, concat("\r", LEFT(contacts3.lastname , 1), " ",contacts3.surname),""),
-            if(contacts4.lastname is not null, concat("\r", LEFT(contacts4.lastname , 1), " ",contacts4.surname),"")
+            if(contacts.prenom is not null, concat(LEFT(contacts.prenom , 1), " ",contacts.nom),""),
+            if(contacts2.prenom is not null, concat("\r", LEFT(contacts2.prenom , 1), " ",contacts2.nom),""),
+            if(contacts3.prenom is not null, concat("\r", LEFT(contacts3.prenom , 1), " ",contacts3.nom),""),
+            if(contacts4.prenom is not null, concat("\r", LEFT(contacts4.prenom , 1), " ",contacts4.nom),"")
           )as contactsXLS
 
           FROM info_jobs

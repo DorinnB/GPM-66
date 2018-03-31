@@ -29,10 +29,10 @@ private $id;
 //ADD AFFICHAGE DESSIN en concat
 		$req = 'SELECT tbljobs.id_tbljob, tbljobs.id_info_job,
           customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,schedule_recommendation,
-          contacts.genre, contacts.lastname, contacts.surname, contacts.compagnie, contacts.email as email, contacts.telephone as telephone, contacts.prenom, contacts.nom, contacts.departement, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
-          contacts2.genre as genre2, contacts2.lastname as lastname2, contacts2.surname as surname2, contacts2.compagnie as compagnie2, contacts2.email as email2, contacts2.telephone as telephone2,
-          contacts3.genre as genre3, contacts3.lastname as lastname3, contacts3.surname as surname3, contacts3.compagnie as compagnie3, contacts3.email as email3, contacts3.telephone as telephone3,
-          contacts4.genre as genre4, contacts4.lastname as lastname4, contacts4.surname as surname4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
+          contacts.genre, contacts.prenom, contacts.nom, contacts.compagnie, contacts.email as email, contacts.telephone as telephone, contacts.prenom, contacts.nom, contacts.departement, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
+          contacts2.genre as genre2, contacts2.prenom as prenom2, contacts2.nom as nom2, contacts2.compagnie as compagnie2, contacts2.email as email2, contacts2.telephone as telephone2,
+          contacts3.genre as genre3, contacts3.prenom as prenom3, contacts3.nom as nom3, contacts3.compagnie as compagnie3, contacts3.email as email3, contacts3.telephone as telephone3,
+          contacts4.genre as genre4, contacts4.prenom as prenom4, contacts4.nom as nom4, contacts4.compagnie as compagnie4, contacts4.email as email4, contacts4.telephone as telephone4,
           tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
           GE, specific_protocol, special_instruction, staircase,
           createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
@@ -52,7 +52,7 @@ private $id;
           DyT_SubC, DyT_expected, DyT_Cust, available_expected, report_send,
           (SELECT DyT_expected FROM tbljobs t WHERE t.id_info_job=tbljobs.id_info_job AND t.phase<tbljobs.phase AND DyT_expected IS NOT NULL ORDER BY phase DESC LIMIT 1) AS available,
           checked, comments, contacts.adresse,
-          contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.lastname as lastnameST, contactST.surname as surnameST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
+          contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.prenom as prenomST, contactST.nom as nomST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
 
 entreprises.entreprise, entreprises.VAT, entreprises.MRSASRef, entreprises.billing_rue1, entreprises.billing_rue2, entreprises.billing_ville, entreprises.billing_pays,
 

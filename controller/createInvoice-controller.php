@@ -81,7 +81,15 @@ $styleBorder = array(
     )
   )
 );
-
+$styleSplit = array(
+  'fill' => array(
+      'type' => PHPExcel_Style_Fill::FILL_SOLID,
+      'color' => array('rgb' => 'A0A0A0')
+  ),
+  'font'  => array(
+       'bold'  => true
+   )
+);
 
 //nom du fichier excel d'UBR
 $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Invoice.xlsx");
@@ -120,8 +128,10 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
 
   //style monetaire
   $currency=($split['invoice_currency']==0)?'€':'$';
+  $currencyDollar=($split['invoice_currency']==0)?'':' $';
+  $currencyEuro=($split['invoice_currency']==0)?' €':'';
 
-  $page->getStyle("G14")->getNumberFormat()->setFormatCode('### ##0.00 '.$currency);
+  $page->getStyle("G14")->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
 
   //pour chaque split
@@ -129,10 +139,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
 
     //on ecrit l'intitulé du split
     $page->setCellValueByColumnAndRow(1, $row, $value['split'].' - '.$value['test_type_cust']);
-  $style = $page->getStyleByColumnAndRow(1, 13);
-    $dstCell = PHPExcel_Cell::stringFromColumnIndex(1) . (string)($row);
-    $page->duplicateStyle($style, $dstCell);
-
+    $page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
 
     $intituleSplit=$row;
     $row++;
@@ -143,12 +150,6 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     foreach ($oInvoices->getInvoiceListSplit($value['id_tbljob']) as $invoicelines) {
       //s'ily a une une quantité
       if ($invoicelines['qteUser']>0 OR $invoicelines['qteGPM']>0) {
-        //on copy le style
-        for ($colStyle = 0; $colStyle <= 6; $colStyle++) {
-          $style = $page->getStyleByColumnAndRow($colStyle, 14);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($colStyle) . (string)($row);
-          $page->duplicateStyle($style, $dstCell);
-        }
 
         if ($invoicelines['prodCode']=="") {
           $code="O-".$nCode;
@@ -163,6 +164,9 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
         $page->setCellValueByColumnAndRow(4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
         $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
         $page->setCellValueByColumnAndRow(6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
+
+        $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
+        $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
         $row++;
         $nbLines++;
@@ -185,12 +189,6 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
     //s'ily a une une quantité
     if ($invoicelines['qteUser']>0) {
-      //on copy le style
-      for ($colStyle = 0; $colStyle <= 6; $colStyle++) {
-        $style = $page->getStyleByColumnAndRow($colStyle, 14);
-        $dstCell = PHPExcel_Cell::stringFromColumnIndex($colStyle) . (string)($row);
-        $page->duplicateStyle($style, $dstCell);
-      }
 
       if ($invoicelines['prodCode']=="") {
         $code="O-".$nCode;
@@ -206,6 +204,9 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
       $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
       $page->setCellValueByColumnAndRow(6, $row, $invoicelines['qteUser']*$invoicelines['priceUnit']);
 
+      $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
+      $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
+
       $row++;
     }
   }
@@ -215,6 +216,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   $row++;
   $row++;
 
+  //Bloc total
   if (substr($split['VAT'],0,2)=='FR') {  //si client francais=> TVA
 
     $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(8, 4)->getValue());
@@ -223,7 +225,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
     $page->setCellValueByColumnAndRow(6, $row,'=sum(G13:G'.($row-1).')');
-    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode('### ##0.00 '.$currency);
+    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
     $row++;
     $row++;
@@ -233,7 +235,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     $page->getStyleByColumnAndRow(4, $row)->getAlignment()
     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
     $page->setCellValueByColumnAndRow(6, $row,'=20%*G'.($row-2));
-    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode('### ##0.00 '.$currency);
+    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
     $row++;
     $row++;
 
@@ -243,7 +245,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
     $page->getStyle('E'.$row.':G'.$row)->applyFromArray($styleBorder);
     $page->setCellValueByColumnAndRow(6, $row,'=G'.($row-2).'+G'.($row-4));
-    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode('### ##0.00 '.$currency);
+    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
     $row++;
     $row++;
 
@@ -253,7 +255,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
 
     $dt = date("Y-m-d");
     $page->setCellValueByColumnAndRow(6, $row, date( "Y-m-d", strtotime( "$dt +7 day" ) ));
-      $row++;
+    $row++;
   }
   else {    //pas de TVA
 
@@ -263,7 +265,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
     $page->setCellValueByColumnAndRow(6, $row,'=sum(G13:G'.($row-1).')');
-    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode('### ##0.00 '.$currency);
+    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
     $row++;
     $row++;
@@ -275,7 +277,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
     $page->getStyle('E'.$row.':G'.$row)->applyFromArray($styleBorder);
     $page->setCellValueByColumnAndRow(6, $row,'=G'.($row-2).'+G'.($row-4));
-    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode('### ##0.00 '.$currency);
+    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
     $row++;
     $row++;
 
@@ -288,14 +290,14 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     $row++;
   }
 
-  if ($currency=="€") {
+  if ($split['invoice_currency']==0) {  //si euro
     $page->setCellValueByColumnAndRow(0, $row, $page->getCellByColumnAndRow(8, 9)->getValue());
     $page->getStyleByColumnAndRow(0, $row)->getFont()->setSize(8);
     $row++;
     $page->setCellValueByColumnAndRow(0, $row, $page->getCellByColumnAndRow(8, 10)->getValue());
     $page->getStyleByColumnAndRow(0, $row)->getFont()->setSize(8);
   }
-  else {
+  else {  //si dollar
     $page->setCellValueByColumnAndRow(0, $row, $page->getCellByColumnAndRow(9, 9)->getValue());
     $page->getStyleByColumnAndRow(0, $row)->getFont()->setSize(8);
     $row++;

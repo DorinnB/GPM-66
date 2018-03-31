@@ -13,12 +13,26 @@ include_once '../models/invoice-model.php';
 $oInvoice = new InvoiceModel($db);
 $invoices=$oInvoice->getAllInvoiceJob();
     //pour chaque job ayant une invoiceline, on crée la facture dans UBR
+      echo '<script>function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}';
 foreach ($invoices as $key => $value) {
-  echo '<script>
-  window.open("createInvoice-controller.php?UBR=1&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
-  </script>';
-}
+echo '
 
+window.open("createInvoice-controller.php?UBR=1&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
+
+sleep(5000);
+';
+
+
+}
+      echo '</script>';
+exit;
 
 
 

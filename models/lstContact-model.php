@@ -9,7 +9,7 @@ class ContactModel
     }
 
     public function getAllContact() {
-      $req='SELECT * FROM contacts where contact_actif=1 ORDER BY surname;';
+      $req='SELECT * FROM contacts where contact_actif=1 ORDER BY nom;';
         return $this->db->getAll($req);
     }
 

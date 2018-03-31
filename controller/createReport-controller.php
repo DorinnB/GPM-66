@@ -685,7 +685,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
 
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
-    'C5'=> $split['lastname'].' '.$split['surname'],
+    'C5'=> $split['prenom'].' '.$split['nom'],
     'C6'=> $split['compagnie']."\n".$split['adresse'],
     'J7'=> date("Y-m-d"),
 
@@ -972,7 +972,7 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
 
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
-    'C5'=> $split['lastname'].' '.$split['surname'],
+    'C5'=> $split['prenom'].' '.$split['nom'],
     'C6'=> $split['compagnie']."\n".$split['adresse'],
     'J7'=> date("Y-m-d"),
 
@@ -1211,7 +1211,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
-    'C5'=> $split['lastname'].' '.strtoupper($split['surname']),
+    'C5'=> $split['prenom'].' '.strtoupper($split['nom']),
     'C6'=> $split['compagnie']."\n".$split['adresse'],
     'J7'=> date("Y-m-d"),
     'E16'=> $split['ref_matiere'],
@@ -1468,7 +1468,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
-    'C5'=> $split['genre'].' '.$split['lastname'].' '.$split['surname'],
+    'C5'=> $split['genre'].' '.$split['prenom'].' '.$split['nom'],
     'C6'=> $split['adresse'],
 
     'E16'=> $split['ref_matiere'],

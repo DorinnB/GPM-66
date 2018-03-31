@@ -20,7 +20,7 @@
       </p>
       <p class="title">
         <span class="name">Contact :</span>
-        <span class="value"><?= $split['lastnameST'].' '.$split['surnameST'] ?></span>
+        <span class="value"><?= $split['prenomST'].' '.$split['nomST'] ?></span>
       </p>
     </div>
 

@@ -75,7 +75,7 @@
 					<p class="title">
 						<span class="name">Contact :</span>
 						<span class="value">
-							<acronym title="Tel : <?=	$split['telephone']	?>"><?= $split['lastname'].' '.$split['surname'] ?></acronym>
+							<acronym title="Tel : <?=	$split['telephone']	?>"><?= $split['prenom'].' '.$split['nom'] ?></acronym>
 							<acronym title="Send Email to Customer(s)">
 								<a href="
 								mailto: <?= $split['email']	?>
@@ -87,7 +87,7 @@
 					</p>
 					<p class="title">
 						<span class="name">Contact :</span>
-						<span class="value"><acronym title="Tel : <?=	$split['telephone2']	?>"><?= $split['lastname2'].' '.$split['surname2'] ?></acronym></span>
+						<span class="value"><acronym title="Tel : <?=	$split['telephone2']	?>"><?= $split['prenom2'].' '.$split['nom2'] ?></acronym></span>
 					</p>
 				</div>
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Adress">
