@@ -11,7 +11,7 @@ include '../models/eprouvette-model.php';
 $oEprouvette = new EprouvetteModel($db,$_GET['idEp']);
 $eprouvette=$oEprouvette->getEprouvette();
 
-$checkTechSplit=$oEprouvette->checkTechSplit($_COOKIE['id_user']);
+$checkTechSplit=(isset($_COOKIE['id_user']))?$oEprouvette->checkTechSplit($_COOKIE['id_user']):'';
 
 
 // Rendre votre modèle accessible
