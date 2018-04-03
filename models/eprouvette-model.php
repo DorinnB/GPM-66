@@ -520,15 +520,15 @@ outillage_tops.outillage as outillage_top, outillage_bots.outillage as outillage
       val_1,val_2,val_3,val_4,val_5,val_6,
       master_eprouvette_inOut_A,
       if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
-        TRUNCATE(
+        CEIL(
           if(IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) is null and c_cycle_STL is null,
             IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
             if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL),
               (IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL)/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL))/c_frequence_STL)/3600,
               (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
             )
-          ),
-        1),
+          )
+        ),
       "") as temps_essais_calcule,
       temps_essais,
 
