@@ -9,16 +9,6 @@ include_once '../models/eprouvette-model.php';
 include_once '../models/invoice-model.php';
 
 
-// Création d'une instance
-$oInvoice = new InvoiceModel($db);
-$invoices=$oInvoice->getAllInvoiceJob();
-    //pour chaque job ayant une invoiceline, on crée la facture dans UBR
-foreach ($invoices as $key => $value) {
-  echo '<script>
-  window.open("createInvoice-controller.php?UBR=1&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
-  </script>';
-}
-
 
 
 
