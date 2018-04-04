@@ -70,27 +70,35 @@ for($k=0;$k < count($ep);$k++)	{
   //disponibilite eprouvette
   if ($ep[$k]['d_checked']>0) {
     $ep[$k]['dispo']='6';
+    $ep[$k]['dispoText']='Completed';
   }
   elseif (strtolower($ep[$k]['currentBlock'])=='send') {
     $ep[$k]['dispo']='5';
+    $ep[$k]['dispoText']='Data UnChecked';
   }
   elseif ($ep[$k]['n_fichier']>0) {
     $ep[$k]['dispo']='4';
+    $ep[$k]['dispoText']='Running';
   }
   else if (isset($workflow['ST']) & $workflow['ST']>0) {
     $ep[$k]['dispo']='0';
+    $ep[$k]['dispoText']='Awaiting Specimen';
   }
   elseif (isset($workflow['local']) & $workflow['local']>0) {
     $ep[$k]['dispo']='1';
+    $ep[$k]['dispoText']='Awaiting Previous Split';
   }
   elseif ($ep[$k]['c_checked']<=0) {
     $ep[$k]['dispo']='2';
+    $ep[$k]['dispoText']='Consigne UnChecked';
   }
   elseif ($ep[$k]['c_checked']>0) {
     $ep[$k]['dispo']='3';
+    $ep[$k]['dispoText']='Ready to Test';
   }
   elseif (isset($ep[$k]['master_eprouvette_inOut_A']) & $ep[$k]['master_eprouvette_inOut_A']>0) {
     $ep[$k]['dispo']='3';
+    $ep[$k]['dispoText']='Ready to Test';
   }
 
 

@@ -36,18 +36,23 @@ for($k=0;$k < count($ep);$k++)	{
 
 
   $ep[$k]['dispo']='0';
+  $ep[$k]['dispoText']='Awaiting Specimen';
   //disponibilite eprouvette
   if ($ep[$k]['d_checked']>0) {
     $ep[$k]['dispo']='6';
+    $ep[$k]['dispoText']='Completed';
   }
   elseif (isset($workflow['ST']) & $workflow['ST']>0) {
     $ep[$k]['dispo']='0';
+    $ep[$k]['dispoText']='Awaiting Specimen';
   }
   elseif (isset($workflow['local']) & $workflow['local']>0) {
     $ep[$k]['dispo']='1';
+    $ep[$k]['dispoText']='Awaiting Previous Split';
   }
   elseif (isset($ep[$k]['master_eprouvette_inOut_A']) & $ep[$k]['master_eprouvette_inOut_A']>0) {
     $ep[$k]['dispo']='3';
+    $ep[$k]['dispoText']='Ready to Test';
   }
 
 

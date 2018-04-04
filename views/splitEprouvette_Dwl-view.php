@@ -89,7 +89,7 @@
       <?php for($k=0;$k < count($ep);$k++): ?>
         <tr class="chartTR">
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
-          <td class="dispo open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><?= $ep[$k]['dispo'] ?></td>
+          <td class="dispo open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><acronym title="<?= $ep[$k]['dispoText'] ?>"><?= $ep[$k]['dispo'] ?></acronym></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td class="decimal1" <?= $epHisto2[$k]['c_temp'] ?>><?= $ep[$k]['c_temp'] ?></td>
