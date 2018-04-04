@@ -39,6 +39,7 @@ Editor::inst( $db, 'eprouvettes' )
           ->where( function ($q) {
             $q->where( 'id_consigne_type', '(SELECT c_1 FROM tbljobs WHERE id_tbljob="'.$_POST['idJob'].'")', 'IN', false );
             $q->or_where( 'id_consigne_type', '(SELECT c_2 FROM tbljobs WHERE id_tbljob="'.$_POST['idJob'].'")', 'IN', false );
+            $q->or_where( 'id_consigne_type', '0', '=' );
           })
       ),
   Field::inst( 'consigne_types.consigne_type' ),

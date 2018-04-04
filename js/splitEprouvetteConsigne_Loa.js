@@ -31,8 +31,8 @@ $(document).ready(function() {
       {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
       {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val"     },
       {       label: "eprouvettes.c_type_2_val",       name: "eprouvettes.c_type_2_val"     },
-{       label: "eprouvettes.stepcase_type",       name: "eprouvettes.stepcase_type", type:"select"     },
-{       label: "eprouvettes.stepcase_val",       name: "eprouvettes.stepcase_val"     },
+      {       label: "eprouvettes.stepcase_type",       name: "eprouvettes.stepcase_type", type:"select"     },
+      {       label: "eprouvettes.stepcase_val",       name: "eprouvettes.stepcase_val"     },
       {       label: "eprouvettes.Cycle_min",       name: "eprouvettes.Cycle_min"     },
       {       label: "eprouvettes.runout",       name: "eprouvettes.runout"     },
       {       label: "eprouvettes.cycle_estime",       name: "eprouvettes.cycle_estime"     },
@@ -63,16 +63,16 @@ $(document).ready(function() {
       { data: "eprouvettes.c_frequence" },
       { data: "eprouvettes.c_type_1_val" },
       { data: "eprouvettes.c_type_2_val" },
-{ data: "consigne_types.consigne_type", editField: "eprouvettes.stepcase_type" },
+      { data: "consigne_types.consigne_type", editField: "eprouvettes.stepcase_type" },
       { data: "eprouvettes.stepcase_val" },
       { data: "eprouvettes.Cycle_min" },
       { data: "eprouvettes.runout" },
       { data: "eprouvettes.cycle_estime" },
       {  data: "eprouvettes.c_commentaire",
-                render : function(data, type, full, meta){
-                  test=data+"a";
-                  return type === 'display' && test.length > 5 ?data.substr(0,5) + '[...]' : data;
-                }},
+      render : function(data, type, full, meta){
+        test=data+"a";
+        return type === 'display' && test.length > 5 ?data.substr(0,5) + '[...]' : data;
+      }},
       { data: "eprouvettes.n_essai" },
       { data: "enregistrementessais.n_fichier" },
       { data: "eprouvettes.Cycle_final" }
@@ -84,11 +84,11 @@ $(document).ready(function() {
     info: false,
     fixedColumns:   {leftColumns: 3},
     columnDefs: [
-        {
-            "targets": [ 0 ],
-            "visible": false,
-            "searchable": false
-        }
+      {
+        "targets": [ 0 ],
+        "visible": false,
+        "searchable": false
+      }
     ],
     autoFill: {
       columns: [3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -105,19 +105,24 @@ $(document).ready(function() {
   } );
 
   $('#table_ep').on( 'click', 'tbody td', function (e) {
-          var index = $(this).index();
+    var index = $(this).index();
 
-          if ( index === 11 ) {
-              editor.bubble( this,
-                 ['eprouvettes.c_commentaire'],
-                  { title: 'Order Comments :' ,
-                  submitOnBlur: true,
-                  buttons: false
-                  }
-                 );
-          }
+    if ( index === 11 ) {
+      editor.bubble( this,
+        ['eprouvettes.c_commentaire'],
+        {
+          title: 'Order Comments :' ,
+          submitOnBlur: true,
+          buttons: false
         }
       );
+    }
+    else {
+      editor.inline( this, {
+        onBlur: 'submit'
+      } );
+    }
+  });
 
 
 
