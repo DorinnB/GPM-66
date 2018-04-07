@@ -4,7 +4,7 @@ mailto: touisse@metcutfrance.com;pcueff@metcutfrance.com;fthomas@metcutfrance.co
 &body=
 Nouveau Job/Split créé : <?= $lstInfoJob['customer'].'&nbsp;-&nbsp;'.$lstInfoJob['job'] ?>%0D%0A
 Quantité Eprouvettes : <?= $lstInfoJob['nbep'] ?>%0D%0A
-Quantité recue : <?= $lstInfoJob['nbep'] ?>%0D%0A
+Quantité recue : ???%0D%0A
 Quantité Tests MRSAS : %0D%0A
 Soustraitance avant essais : OUI / NON%0D%0A
 Date de disponibilité matière Physique : <?= $split['available_expected']	?>%0D%0A
