@@ -117,11 +117,6 @@ $(document).ready(function() {
         }
       );
     }
-    else {
-      editor.inline( this, {
-        onBlur: 'submit'
-      } );
-    }
   });
 
 
