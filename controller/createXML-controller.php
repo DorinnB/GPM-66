@@ -62,10 +62,46 @@ $essai['tempCorrected']=$oEprouvette->getTempCorrected();
 $essai['GE']=($essai['GE'] == 1 )?'Yes':'No';
 
 //Crp
-$essai['niveau1']=($essai['c_unite']=="Mpa")?$essai['c_type_1_val']*$essai['area']/1000:$essai['c_type_1_val'];
-$essai['niveau2']=($essai['c_unite']=="Mpa")?$essai['c_type_3_val']*$essai['area']/1000:$essai['c_type_3_val'];
+$essai['niveau1']=($essai['c_unite']=="MPa")?$essai['c_type_1_val']*$essai['area']/1000:$essai['c_type_1_val'];
+$essai['niveau2']=($essai['c_unite']=="MPa")?$essai['c_type_3_val']*$essai['area']/1000:$essai['c_type_3_val'];
 $essai['rampe1']=$essai['c_type_2_val'];
 $essai['rampe2']=$essai['c_type_4_val'];
+
+
+
+//Loa & LoS
+$niveauMax=($essai['c_unite']=="MPa")?$oEprouvette->MAX()*$essai['area']/1000:$oEprouvette->MAX();
+$niveauMin=($essai['c_unite']=="MPa")?$oEprouvette->MIN()*$essai['area']/1000:$oEprouvette->MIN();
+
+$essai['ts_niveau1'] = array($niveauMax);
+$essai['ts_niveau2'] = array($niveauMin);
+$essai['ts_cycle'] = array($essai['runout']);
+$essai['ts_frequence'] = array($essai['c_frequence']);
+if ($essai['c_cycle_STL']!="") {
+  array_push($essai['ts_niveau1'], $niveauMax);
+  array_push($essai['ts_niveau2'], $niveauMin);
+  $essai['ts_cycle'] = array($essai['c_cycle_STL'],$essai['runout']);
+  array_push($essai['ts_frequence'], $essai['c_frequence_STL']);
+}
+
+if ($essai['stepcase_val']!="") {
+  for ($i=1; $i <10 ; $i++) {
+    $oEprouvette->niveaumaxmin(
+      $essai['c_1_type'],
+      $essai['c_2_type'],
+      $essai['c_type_1_val']+(($essai['c_1_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0),
+      $essai['c_type_2_val']+(($essai['c_2_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0)
+    );
+    $niveauMax=($essai['c_unite']=="MPa")?$oEprouvette->MAX()*$essai['area']/1000:$oEprouvette->MAX();
+    $niveauMin=($essai['c_unite']=="MPa")?$oEprouvette->MIN()*$essai['area']/1000:$oEprouvette->MIN();
+
+    array_push($essai['ts_niveau1'], $niveauMax);
+    array_push($essai['ts_niveau2'], $niveauMin);
+    array_push($essai['ts_cycle'], $essai['runout']*($i+1));
+    array_push($essai['ts_frequence'], $essai['c_frequence']);
+  }
+}
+
 
 
 
@@ -107,7 +143,14 @@ foreach ($variableTS_GPM as $key => $value) {
   $VariableData_node->appendChild($name_node = $xml_doc->createElement('Name', $key));
 
   $VariableData_node->appendChild($Values = $xml_doc->createElement('Values'));
+  if (is_array($value)) {
+foreach ($value as $k => $v) {
+  $Values->appendChild($Value = $xml_doc->createElement('Value', $v));
+}
+  }
+  else {
   $Values->appendChild($Value = $xml_doc->createElement('Value', $value));
+  }
 
   if (isset($variableUnit[$key])) {
     $VariableData_node->appendChild($unit_node = $xml_doc->createElement('Unit', $variableUnit[$key]));
