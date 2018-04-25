@@ -169,9 +169,9 @@
 										</div>
 										<div class="col-md-6">
 											<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="<?=	$value['id_tbljob']	?>">
-												<option value="No" data-code ="" data-pricingListUSA="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
+												<option value="No" data-code ="" data-pricingListUS="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
 												<?php foreach ($oInvoices->getAllInvoiceList($value['id_tbljob']) as $row): ?>
-													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingList'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.(($split['invoice_lang']==0)?$row['pricingListFR']:$row['pricingListUSA']) ?></option>
+													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
 												<?php endforeach ?>
 											</select>
 										</div>
@@ -243,9 +243,9 @@
 									</div>
 									<div class="col-md-6">
 										<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="">
-											<option value="No" data-code ="" data-pricingListUSA="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
+											<option value="No" data-code ="" data-pricingListUS="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
 											<?php foreach ($oInvoices->getAllInvoiceList() as $row): ?>
-												<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingList'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.(($split['invoice_lang']==0)?$row['pricingListFR']:$row['pricingListUSA']) ?></option>
+												<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUS="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
 											<?php endforeach ?>
 										</select>
 									</div>

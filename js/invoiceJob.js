@@ -30,7 +30,7 @@ $(document).ready(function() {
       var pricingList = $('option:selected', this).attr('data-pricingListFR');
     }
     else {
-      var pricingList = $('option:selected', this).attr('data-pricingListUSA');
+      var pricingList = $('option:selected', this).attr('data-pricingListUS');
     }
 
     if ($('#invoice_currency').parents().hasClass('off')) { //off = euro
