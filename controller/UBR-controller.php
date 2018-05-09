@@ -26,7 +26,7 @@ echo '
 
 window.open("createInvoice-controller.php?UBR=1&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
 
-sleep(10000);
+sleep(20000);
 ';
 
 

@@ -37,7 +37,12 @@ $(document).ready(function() {
       { data: "enregistrementessais.date" },
       { data: "op.technicien" },
       { data: "chk.technicien" },
-      { data: "extensometres.extensometre" }
+      { data: "extensometres.extensometre" },
+      { data: null,
+      render : function(data, type, full, meta){
+          return (parseInt(data.eprouvettes.temps_essais)||' ');
+      }},
+      { data: "eprouvettes.flag_qualite" }
     ],
     scrollY: '70vh',
     scrollCollapse: true,

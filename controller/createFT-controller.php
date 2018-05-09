@@ -373,7 +373,7 @@ $style_gray = array(
         );
       }
 
-
+      $val2Xls = array();
 
 
 
@@ -428,8 +428,40 @@ $style_gray = array(
         $FT->setCellValue('M22', $minkN);
       }
 
+      //calcul temps d'essai
+      $dateDebut = new DateTime($essai['date']);
+      if (isset($estimatedCycle) AND $essai['c_frequence']>0) {              //il faut la fréquence
+        if ((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)) { //et un cycle estimé
+          if (isset($essai['STL']) AND $essai['STL']>0) {                     //STL ou pas ?
+            if ($estimatedCycle['cycle_estime']>$essai['STL']) {              //avant ou après le STL ?
+              $tpsEstime=($estimatedCycle['cycle_estime']-$essai['c_cycle_STL'])/$essai['c_frequence_STL']/3600+$essai['c_cycle_STL']/$essai['c_frequence']/3600;
+              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+            }
+            else {
+              $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
+              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+            }
+          }
+          else {
+            $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
+            $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+            $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+          }
+        }
+        else {
+          $tpsEstime=' ';
+          $dateEstime=' ';
+        }
+      }
+      else {
+        $tpsEstime=' ';
+        $dateEstime=' ';
+      }
 
-      $val2Xls = array();
+
+
       $val2Xls = array(
 
         'C2' => $essai['test_type'].' Fatigue Test - Load Control',
@@ -501,6 +533,7 @@ $style_gray = array(
         'G22' => $tempCorrected,
         'I19' => $runout,
         'O22' => $area,
+        'J27' => '_',
 
         'B32' => '6',
         'C32' => '-6',
@@ -513,17 +546,22 @@ $style_gray = array(
         'C39' => $F_STL,
 
         'A53' => $essai['Cycle_min'],
-        'J27' => '_',
+        'C53' => (($essai['truecyclefinal']>0)?$essai['truecyclefinal']:' '),
+        'E53' => $essai['temps_essais'].' ',
+        'G53' => $essai['Rupture'].' ',
+        'I53' => $essai['Fracture'].' ',
         'C54' =>((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' '),
-        'E54' => '_',
-        'K54' => '_',
+        'E54' => $tpsEstime,
+        'K54' => $dateEstime,
 
 
-        'A58' => $essai['comm'].' / '.$essai['c_commentaire']
+        'A58' => $essai['comm'].' / '.$essai['c_commentaire'],
+        'P58' => (($essai['special_instruction']=='')?' ':'Special Instructions'),
+        'P59' => $essai['special_instruction']
 
       );
 
-      //acase temperature en gris
+      //case temperature en gris
       if ($essai['c_temperature']<35) {
 
         $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
@@ -543,11 +581,14 @@ $style_gray = array(
       }
 
 
+
       //tableau pour le stepcase
       if ($essai['stepcase_val']!='') {
-        $FT->setCellValue('M38', 'Stepcase n°');
-        $FT->setCellValue('N38', 'Max ('.$essai['c_unite'].')');
-        $FT->setCellValue('O38', 'Min ('.$essai['c_unite'].')');
+        $FT->setCellValue('K38', 'Stepcase n°');
+        $FT->setCellValue('L38', 'Max (MPa)');
+        $FT->setCellValue('M38', 'Min (MPa)');
+        $FT->setCellValue('N38', 'Max (kN)');
+        $FT->setCellValue('O38', 'Min (kN)');
         $FT->setCellValue('P38', 'Runout');
         for ($i=0; $i <5 ; $i++) {
           $oEprouvette->niveaumaxmin(
@@ -556,19 +597,13 @@ $style_gray = array(
             $essai['c_type_1_val']+(($essai['c_1_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0),
             $essai['c_type_2_val']+(($essai['c_2_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0)
           );
-          $FT->setCellValue('M'.(39+$i), 'Stepcase '.($i+1));
-          $FT->setCellValue('N'.(39+$i), $oEprouvette->MAX());
-          $FT->setCellValue('O'.(39+$i), $oEprouvette->MIN());
-          $FT->setCellValue('P'.(39+$i), $runout*($i+1));
 
 
           //calcul des limites avec le niveau le plus extreme des 5 stepcases
-
-          //calcul niveau + limits
+          //et des differents steps
           if ($essai['c_unite']=="MPa")	{
             $maxMPa = number_format($oEprouvette->MAX(), 0, '.', ',');
             $minMPa = number_format($oEprouvette->MIN(), 0, '.', ',');
-
             $maxkN = number_format($oEprouvette->MAX()*$area/1000, 2, '.', ',');
             $minkN = number_format($oEprouvette->MIN()*$area/1000, 2, '.', ',');
 
@@ -576,21 +611,31 @@ $style_gray = array(
             $minLimitkN = min($minLimitkN,$minkN-max(max(abs($maxkN),abs($minkN))*5/100,0.5));
           }
           Elseif ($essai['c_unite']=="kN")	{
+            $maxMPa='';
+            $minMPa='';
             $maxkN = number_format($oEprouvette->MAX(), 3, '.', ',');
             $minkN = number_format($oEprouvette->MIN(), 3, '.', ',');
 
             $maxLimitkN = max($maxLimitkN,$oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5));
             $minLimitkN = min($minLimitkN,$oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5));
-
-
           }
           Else	{
+            $maxMPa='';
+            $minMPa='';
             $maxkN = "ERREUR d'unité";
             $minkN = "ERREUR d'unité";
 
             $maxLimitkN = "ERREUR d'unité";
             $minLimitkN = "ERREUR d'unité";
           }
+
+
+          $FT->setCellValue('K'.(39+$i), ($i+1));
+          $FT->setCellValue('L'.(39+$i), $maxMPa);
+          $FT->setCellValue('M'.(39+$i), $minMPa);
+          $FT->setCellValue('N'.(39+$i), $maxkN);
+          $FT->setCellValue('O'.(39+$i), $minkN);
+          $FT->setCellValue('P'.(39+$i), $runout*($i+1));
 
         }
         //on ajoute * apres les limites pour signifier l'incertitude des limites
@@ -938,7 +983,7 @@ $style_gray = array(
         $FT1->setCellValue($key, $value);
         //->getStyle($key)->applyFromArray( $style_white )
       }
-
+      $val2Xls = array();
 
 
 
@@ -947,7 +992,39 @@ $style_gray = array(
 
       $FT=$objPHPExcel->getSheetByName('FT');
 
-      $val2Xls = array();
+      //calcul temps d'essai
+      $dateDebut = new DateTime($essai['date']);
+      if (isset($estimatedCycle) AND $essai['c_frequence']>0) {              //il faut la fréquence
+        if ((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)) { //et un cycle estimé
+          if (isset($essai['c_cycle_STL']) AND $essai['c_cycle_STL']>0) {                     //STL ou pas ?
+            if ($estimatedCycle['cycle_estime']>$essai['c_cycle_STL']) {              //avant ou après le STL ?
+              $tpsEstime=($estimatedCycle['cycle_estime']-$essai['c_cycle_STL'])/$essai['c_frequence_STL']/3600+$essai['c_cycle_STL']/$essai['c_frequence']/3600;
+              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+            }
+            else {
+              $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
+              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+            }
+          }
+          else {
+            $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
+            $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+            $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+          }
+        }
+        else {
+          $tpsEstime=' ';
+          $dateEstime=' ';
+        }
+      }
+      else {
+        $tpsEstime=' ';
+        $dateEstime=' ';
+      }
+
+
       $val2Xls = array(
 
         'C2' => $essai['test_type'].' Fatigue Test - Strain Control',
@@ -1034,6 +1111,7 @@ $style_gray = array(
 
         'A39' => $STL,
         'C39' => $F_STL,
+        'E39' => $essai['Cycle_STL'],
 
         'B41' => '_',
         'B42' => '_',
@@ -1042,12 +1120,18 @@ $style_gray = array(
         'N40' => $tempCorrected,
 
         'A53' => $essai['Cycle_min'],
+        'C53' => (($essai['truecyclefinal']>0)?$essai['truecyclefinal']:' '),
+        'E53' => $essai['temps_essais'].' ',
+        'G53' => $essai['Rupture'].' ',
+        'I53' => $essai['Fracture'].' ',
         'C54' =>((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' '),
-        'E54' => '_',
-        'K54' => '_',
+        'E54' => $tpsEstime,
+        'K54' => $dateEstime,
 
 
-        'A58' => $essai['comm'].' / '.$essai['c_commentaire']
+        'A58' => $essai['comm'].' / '.$essai['c_commentaire'],
+        'P58' => (($essai['special_instruction']=='')?' ':'Special Instructions'),
+        'P59' => $essai['special_instruction']
 
       );
 

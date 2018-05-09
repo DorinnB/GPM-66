@@ -32,7 +32,9 @@ Editor::inst( $db, 'enregistrementessais' )
   Field::inst( 'op.technicien'),
   Field::inst( 'chk.technicien'),
   Field::inst( 'tbljobs.id_tbljob'),
-  Field::inst( 'extensometres.extensometre')
+  Field::inst( 'extensometres.extensometre'),
+  Field::inst( 'eprouvettes.flag_qualite'),
+  Field::inst( 'eprouvettes.temps_essais')
   )
 ->leftJoin( 'eprouvettes',     'eprouvettes.id_eprouvette',          '=', 'enregistrementessais.id_eprouvette' )
 ->leftJoin( 'master_eprouvettes',     'master_eprouvettes.id_master_eprouvette',          '=', 'eprouvettes.id_master_eprouvette' )
