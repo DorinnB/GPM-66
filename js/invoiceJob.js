@@ -146,18 +146,6 @@ $(document).ready(function() {
     //changement de l'icone print en save
     $('#printInvoiceJob').css('display','none');
     $('#saveInvoiceJob').css('display','block');
-
-    if ($(this).parents().hasClass('off')) {
-      $('option').each(function() {
-        $(this).text($(this).attr('data-code') + " " + $(this).attr('data-pricingListFR'));
-      });
-    }
-    else {
-      $('option').each(function() {
-        $(this).text($(this).attr('data-code') + " " + $(this).attr('data-pricingListUSA'));
-      });
-
-    }
   });
 
   $('#invoice_currency').change(function(e){

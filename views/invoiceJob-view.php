@@ -105,10 +105,12 @@
 					<textarea class="form-control" name="invoice_commentaire" id="invoice_commentaire" style="width:100%;" rows="5"><?=	$split['invoice_commentaire'] ?></textarea>
 				</div>
 			</div>
+
+
 			<div class="col-md-10" style="height:100%">
 				<div style="height:93%; overflow:auto; width:100%;">
 					<?php foreach ($splits as $key => $value) :?>
-						<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="<?=	$value['split'].'-'.$value['test_type_abbr']	?>">
+						<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="<?=	$value['split'].'-'.$value['test_type_abbr'].' ('.$value['nbep'].' specimen(s) - '.$value['statut'].')'	?>">
 							<p class="title">
 								<div class="splitInvLine">
 									<div class="row titre">
@@ -171,7 +173,7 @@
 											<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="<?=	$value['id_tbljob']	?>">
 												<option value="No" data-code ="" data-pricingListUS="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
 												<?php foreach ($oInvoices->getAllInvoiceList($value['id_tbljob']) as $row): ?>
-													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUSA="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
+													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUS="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
 												<?php endforeach ?>
 											</select>
 										</div>

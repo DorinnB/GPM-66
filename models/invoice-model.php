@@ -15,11 +15,17 @@ class InvoiceModel
   public function getAllInvoiceList($id_tbljob="null") {
 
     if ($id_tbljob=="null") {
+/*
       $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif, id_test_type
       FROM `pricinglists`
       INNER JOIN test_type_pricinglists ON test_type_pricinglists.id_pricinglist=pricinglists.id_pricinglist
       WHERE id_test_type=0
       ORDER BY pricinglists.id_pricingList';
+  */
+      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif
+      FROM `pricinglists`
+
+      ORDER BY prodCode, OpnCode';
     }
     else {
       $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif
@@ -27,7 +33,7 @@ class InvoiceModel
       INNER JOIN test_type_pricinglists ON test_type_pricinglists.id_test_type=tbljobs.id_type_essai
       INNER JOIN pricinglists ON pricinglists.id_pricingList=test_type_pricinglists.id_pricingList
       WHERE id_tbljob='.$id_tbljob.'
-      ORDER BY pricinglists.id_pricingList';
+      ORDER BY prodCode, OpnCode';
     }
 
 

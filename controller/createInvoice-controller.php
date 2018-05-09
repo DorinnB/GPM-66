@@ -187,8 +187,8 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   //pour le job
   //pour chaque invoiceLine du split
   foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
-    //s'ily a une une quantité
-    if ($invoicelines['qteUser']>0) {
+    //s'ily a une une quantité ou si UBR
+    if ($invoicelines['qteUser']>0 OR isset($_GET['UBR'])) {
 
       if ($invoicelines['prodCode']=="") {
         $code="O-".$nCode;
