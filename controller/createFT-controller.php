@@ -196,6 +196,17 @@ $style_gray = array(
 
 
 
+    function copyRows(PHPExcel_Worksheet $sheet,$srcCol) {
+      for ($row = 36; $row < 49; $row++) {
+        for ($col = $srcCol; $col < $srcCol+16; $col++) {
+          $cell = $sheet->getCellByColumnAndRow($col, $row);
+          $style = $sheet->getStyleByColumnAndRow($col, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col-$srcCol) . (string)($row);
+          $sheet->setCellValue($dstCell, $cell->getValue());
+          $sheet->duplicateStyle($style, $dstCell);
+        }
+      }
+    }
 
 
 
@@ -205,18 +216,19 @@ $style_gray = array(
 
 
 
-
-
-
-
-
+    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT.xlsx");
+    $FT=$objPHPExcel->getSheetByName('FT');
 
 
     If ($essai['test_type_abbr']=="Loa"  OR $essai['test_type_abbr']=="Flx")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT Loa.xlsx");
+      //copy du template du control change
+      copyRows($FT,43);
 
-      $FT1=$objPHPExcel->getSheetByName('FTLCFHCFEFF');
+      $FT1=$objPHPExcel->getSheetByName('FT-Loa');
+      //on affiche la fenetre template
+      $FT1->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VISIBLE);
+
 
       $val2Xls = array(
         'B7' => $identification,
@@ -351,17 +363,17 @@ $style_gray = array(
 
           //calcul des limites avec le niveau le plus extreme des 5 stepcases
           if ($essai['c_unite']=="MPa")	{
-            $FT1->setCellValue('B29', number_format(max($FT1->getCellByColumnAndRow(1, 29)->getValue(),$oEprouvette->MAX()*$area/1000+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5)), 1, '.', ','));
-            $FT1->setCellValue('D29', number_format(min($FT1->getCellByColumnAndRow(3, 29)->getValue(),$oEprouvette->MIN()*$area/1000-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5)), 1, '.', ','));
+            $FT1->setCellValue('B29', number_format(max($FT1->getCellByColumnAndRow(1, 29)->getValue(),$oEprouvette->MAX()*$area/1000+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5)), 1, '.', ' '));
+            $FT1->setCellValue('D29', number_format(min($FT1->getCellByColumnAndRow(3, 29)->getValue(),$oEprouvette->MIN()*$area/1000-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*$area/1000*5/100),0.5)), 1, '.', ' '));
           }
           Elseif ($essai['c_unite']=="kN")	{
-            $FT1->setCellValue('B29', number_format(max($FT1->getCellByColumnAndRow(1, 29)->getValue(),$oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 1, '.', ','));
-            $FT1->setCellValue('D29', number_format(min($FT1->getCellByColumnAndRow(3, 29)->getValue(),$oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 1, '.', ','));
+            $FT1->setCellValue('B29', number_format(max($FT1->getCellByColumnAndRow(1, 29)->getValue(),$oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 1, '.', ' '));
+            $FT1->setCellValue('D29', number_format(min($FT1->getCellByColumnAndRow(3, 29)->getValue(),$oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 1, '.', ' '));
           }
         }
         //on ajoute * apres les limites pour signifier l'incertitude des limites
-        $FT1->setCellValue('B29', number_format($FT1->getCellByColumnAndRow(1, 29)->getValue(), 1, '.', ',').'*');
-        $FT1->setCellValue('D29', number_format($FT1->getCellByColumnAndRow(3, 29)->getValue(), 1, '.', ',').'*');
+        $FT1->setCellValue('B29', number_format($FT1->getCellByColumnAndRow(1, 29)->getValue(), 1, '.', ' ').'*');
+        $FT1->setCellValue('D29', number_format($FT1->getCellByColumnAndRow(3, 29)->getValue(), 1, '.', ' ').'*');
 
 
         //reinitialisation des calculs du stepcase
@@ -373,294 +385,15 @@ $style_gray = array(
         );
       }
 
-      $val2Xls = array();
-
-
-
-
-
-
-
-
-      $FT=$objPHPExcel->getSheetByName('FT');
-
-
-
-      //calcul niveau + limits
-      if ($essai['c_unite']=="MPa")	{
-
-        $maxMPa = number_format($oEprouvette->MAX(), 0, '.', ',');
-        $minMPa = number_format($oEprouvette->MIN(), 0, '.', ',');
-
-        $maxkN = number_format($oEprouvette->MAX()*$area/1000, 2, '.', ',');
-        $minkN = number_format($oEprouvette->MIN()*$area/1000, 2, '.', ',');
-
-        $maxLimitkN = $maxkN+max(max(abs($maxkN),abs($minkN))*5/100,0.5);
-        $minLimitkN = $minkN-max(max(abs($maxkN),abs($minkN))*5/100,0.5);
-
-        $FT->setCellValue('K21', '(MPa) MAX (kN)');
-        $FT->setCellValue('M21', '(MPa) MIN (kN)');
-        $FT->setCellValue('K22', $maxMPa);
-        $FT->setCellValue('M22', $minMPa);
-        $FT->setCellValue('L22', $maxkN);
-        $FT->setCellValue('N22', $minkN);
-      }
-      Elseif ($essai['c_unite']=="kN")	{
-        $maxkN = number_format($oEprouvette->MAX(), 3, '.', ',');
-        $minkN = number_format($oEprouvette->MIN(), 3, '.', ',');
-
-        $maxLimitkN = $oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5);
-        $minLimitkN = $oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5);
-
-        $FT->setCellValue('K21', 'MAX (kN)');
-        $FT->setCellValue('M21', 'MIN (kN)');
-        $FT->setCellValue('K22', $maxkN);
-        $FT->setCellValue('M22', $minkN);
-      }
-      Else	{
-        $maxkN = "ERREUR d'unité";
-        $minkN = "ERREUR d'unité";
-
-        $maxLimitkN = "ERREUR d'unité";
-        $minLimitkN = "ERREUR d'unité";
-
-        $FT->setCellValue('K22', $maxkN);
-        $FT->setCellValue('M22', $minkN);
-      }
-
-      //calcul temps d'essai
-      $dateDebut = new DateTime($essai['date']);
-      if (isset($estimatedCycle) AND $essai['c_frequence']>0) {              //il faut la fréquence
-        if ((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)) { //et un cycle estimé
-          if (isset($essai['STL']) AND $essai['STL']>0) {                     //STL ou pas ?
-            if ($estimatedCycle['cycle_estime']>$essai['STL']) {              //avant ou après le STL ?
-              $tpsEstime=($estimatedCycle['cycle_estime']-$essai['c_cycle_STL'])/$essai['c_frequence_STL']/3600+$essai['c_cycle_STL']/$essai['c_frequence']/3600;
-              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
-              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
-            }
-            else {
-              $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
-              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
-              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
-            }
-          }
-          else {
-            $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
-            $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
-            $dateEstime= $dateDebut->format('Y-m-d') . "\n";
-          }
-        }
-        else {
-          $tpsEstime=' ';
-          $dateEstime=' ';
-        }
-      }
-      else {
-        $tpsEstime=' ';
-        $dateEstime=' ';
-      }
-
-
-
-      $val2Xls = array(
-
-        'C2' => $essai['test_type'].' Fatigue Test - Load Control',
-        'O2' => 'FT - '.$essai['n_fichier'],
-
-        'A5' => $jobcomplet,
-        'D5' => $essai['prefixe'],
-        'G5' => $essai['nom_eprouvette'],
-        'J5' => $essai['n_fichier'],
-        'M5' => $essai['n_essai'],
-
-        'A7' => $essai['machine'],
-        'D7' => $essai['name'],
-        'G7' => $essai['operateur'],
-        'J7' => $essai['controleur'],
-        'M7' => $essai['date'],
-
-
-        'A12' => $essai['outillage_top'],
-        'C12' => $essai['outillage_bot'],
-        'E12' => (isset($essai['chauffage'])?$essai['chauffage']:' '),
-        'G12' => $compresseur,
-
-        'A14' => $essai['enregistreur'],
-        'C14' => '40001',
-        'D14' => $essai['Lo'],
-        'E14' => $ind_temp,
-
-
-        'J12' => $essai['cell_displacement_serial'],
-        'K12' => $essai['cell_displacement_gamme'],
-        'L12' => $essai['Disp_P'],
-        'M12' => $essai['Disp_i'],
-        'N12' => $essai['Disp_D'],
-        'O12' => $essai['Disp_Conv'],
-        'P12' => $essai['Disp_Sens'],
-
-        'J13' => $essai['cell_load_serial'],
-        'K13' => $essai['cell_load_gamme'],
-        'L13' => $essai['Load_P'],
-        'M13' => $essai['Load_i'],
-        'N13' => $essai['Load_D'],
-        'O13' => $essai['Load_Conv'],
-        'P13' => $essai['Load_Sens'],
-
-        'J14' => $essai['extensometre'],
-        'K14' => '_5%_',
-        'L14' => $essai['Strain_P'],
-        'M14' => $essai['Strain_i'],
-        'N14' => $essai['Strain_D'],
-        'O14' => $essai['Strain_Conv'],
-        'P14' => $essai['Strain_Sens'],
-
-
-
-        'A19' => $essai['dessin'],
-        'C19' => $essai['ref_matiere'],
-        'E19' => $essai['c_frequence'],
-        'G19' => $true.$essai['c_waveform'].$tapered,
-        'K18' => ((isset($dimDenomination[0])?$dimDenomination[0]:' ')),
-        'K19' => $essai['dim1'],
-        'M18' => ((isset($dimDenomination[1])?$dimDenomination[1]:' ')),
-        'M19' => $essai['dim2'],
-        'O18' => ((isset($dimDenomination[2])?$dimDenomination[2]:' ')),
-        'O19' => $essai['dim3'],
-
-        'B22' => '_',
-        'E22' => $essai['c_temperature'],
-        'G22' => $tempCorrected,
-        'I19' => $runout,
-        'O22' => $area,
-        'J27' => '_',
-
-        'B32' => '6',
-        'C32' => '-6',
-        'B33' => $maxLimitkN,
-        'C33' => $minLimitkN,
-        'B34' => '',
-        'C34' => '',
-
-        'A39' => $STL,
-        'C39' => $F_STL,
-
-        'A53' => $essai['Cycle_min'],
-        'C53' => (($essai['truecyclefinal']>0)?$essai['truecyclefinal']:' '),
-        'E53' => $essai['temps_essais'].' ',
-        'G53' => $essai['Rupture'].' ',
-        'I53' => $essai['Fracture'].' ',
-        'C54' =>((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' '),
-        'E54' => $tpsEstime,
-        'K54' => $dateEstime,
-
-
-        'A58' => $essai['comm'].' / '.$essai['c_commentaire'],
-        'P58' => (($essai['special_instruction']=='')?' ':'Special Instructions'),
-        'P59' => $essai['special_instruction']
-
-      );
-
-      //case temperature en gris
-      if ($essai['c_temperature']<35) {
-
-        $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
-        $FT->getStyle('E14:H14')->applyFromArray( $style_gray );
-        $FT->getStyle('K34:L34')->applyFromArray( $style_gray );
-
-        $FT->getStyle('A23:D23')->applyFromArray( $style_gray );
-        $FT->getStyle('J23:P23')->applyFromArray( $style_gray );
-        $FT->getStyle('A24:P27')->applyFromArray( $style_gray );
-
-      }
-
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $FT->setCellValue($key, $value);
-      }
-
-
-
-      //tableau pour le stepcase
-      if ($essai['stepcase_val']!='') {
-        $FT->setCellValue('K38', 'Stepcase n°');
-        $FT->setCellValue('L38', 'Max (MPa)');
-        $FT->setCellValue('M38', 'Min (MPa)');
-        $FT->setCellValue('N38', 'Max (kN)');
-        $FT->setCellValue('O38', 'Min (kN)');
-        $FT->setCellValue('P38', 'Runout');
-        for ($i=0; $i <5 ; $i++) {
-          $oEprouvette->niveaumaxmin(
-            $essai['c_1_type'],
-            $essai['c_2_type'],
-            $essai['c_type_1_val']+(($essai['c_1_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0),
-            $essai['c_type_2_val']+(($essai['c_2_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0)
-          );
-
-
-          //calcul des limites avec le niveau le plus extreme des 5 stepcases
-          //et des differents steps
-          if ($essai['c_unite']=="MPa")	{
-            $maxMPa = number_format($oEprouvette->MAX(), 0, '.', ',');
-            $minMPa = number_format($oEprouvette->MIN(), 0, '.', ',');
-            $maxkN = number_format($oEprouvette->MAX()*$area/1000, 2, '.', ',');
-            $minkN = number_format($oEprouvette->MIN()*$area/1000, 2, '.', ',');
-
-            $maxLimitkN = max($maxLimitkN,$maxkN+max(max(abs($maxkN),abs($minkN))*5/100,0.5));
-            $minLimitkN = min($minLimitkN,$minkN-max(max(abs($maxkN),abs($minkN))*5/100,0.5));
-          }
-          Elseif ($essai['c_unite']=="kN")	{
-            $maxMPa='';
-            $minMPa='';
-            $maxkN = number_format($oEprouvette->MAX(), 3, '.', ',');
-            $minkN = number_format($oEprouvette->MIN(), 3, '.', ',');
-
-            $maxLimitkN = max($maxLimitkN,$oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5));
-            $minLimitkN = min($minLimitkN,$oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5));
-          }
-          Else	{
-            $maxMPa='';
-            $minMPa='';
-            $maxkN = "ERREUR d'unité";
-            $minkN = "ERREUR d'unité";
-
-            $maxLimitkN = "ERREUR d'unité";
-            $minLimitkN = "ERREUR d'unité";
-          }
-
-
-          $FT->setCellValue('K'.(39+$i), ($i+1));
-          $FT->setCellValue('L'.(39+$i), $maxMPa);
-          $FT->setCellValue('M'.(39+$i), $minMPa);
-          $FT->setCellValue('N'.(39+$i), $maxkN);
-          $FT->setCellValue('O'.(39+$i), $minkN);
-          $FT->setCellValue('P'.(39+$i), $runout*($i+1));
-
-        }
-        //on ajoute * apres les limites pour signifier l'incertitude des limites
-        $FT->setCellValue('B33', $maxLimitkN.'*');
-        $FT->setCellValue('C33', $minLimitkN.'*');
-
-      }
-
-
-      $objPHPExcel->setActiveSheetIndex(0);
-
-
-
-
-
-
-
-
 
     }
     ElseIf ($essai['test_type_abbr']=="LoS" OR $essai['test_type_abbr']=="Dwl")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT LoS.xlsx");
 
-      $FT1=$objPHPExcel->getSheetByName('FTLCFHCFEFF');
+      $FT1=$objPHPExcel->getSheetByName('FT-LoS');
+      //on affiche la fenetre template
+      $FT1->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VISIBLE);
+
 
       $val2Xls = array(
         'B7' => $identification,
@@ -775,9 +508,11 @@ $style_gray = array(
     }
     ElseIf ($essai['test_type_abbr']=="Crp" OR $essai['test_type_abbr']=="ICr")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT Crp.xlsx");
 
-      $FT1=$objPHPExcel->getSheetByName('FTLCFHCFEFF');
+      $FT1=$objPHPExcel->getSheetByName('FT-Crp');
+      //on affiche la fenetre template
+      $FT1->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VISIBLE);
+
 
       $val2Xls = array(
         'B7' => $identification,
@@ -838,7 +573,7 @@ $style_gray = array(
           'J30' => $essai['c_type_3_val']*$area/1000,
 
 
-          'B29' =>number_format((max($essai['c_type_1_val'],$essai['c_type_3_val'])*$area/1000*1.05), 1, '.', ',').'*',
+          'B29' =>number_format((max($essai['c_type_1_val'],$essai['c_type_3_val'])*$area/1000*1.05), 1, '.', ' ').'*',
           'D29' => "-1(*)"
         );
       }
@@ -849,7 +584,7 @@ $style_gray = array(
           'J30' => $essai['c_type_3_val'],
           'I31' => $essai['c_type_4_val'].' s',
 
-          'B29' => number_format((max($essai['c_type_1_val'],$essai['c_type_3_val'])*1.05), 1, '.', ',').'*',
+          'B29' => number_format((max($essai['c_type_1_val'],$essai['c_type_3_val'])*1.05), 1, '.', ' ').'*',
           'D29' => "-1(*)"
         );
       }
@@ -892,9 +627,30 @@ $style_gray = array(
     }
     ElseIf ($essai['test_type_abbr']=="Str"  OR $essai['test_type_abbr']=="IF" OR $essai['test_type_abbr']=="IRlx")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT Str.xlsx");
+      //copy du template du control change
+      copyRows($FT,26);
+      //copy estimated STL
+      $FT->setCellValue('B41', $estimatedCycle['c2_max_stressEstimate']/$area);
+      $FT->setCellValue('B42', $estimatedCycle['c2_min_stressEstimate']/$area);
 
-      $FT1=$objPHPExcel->getSheetByName('FTLCFDEF');
+      $FT->setCellValue('E39', (($essai['Cycle_STL']>0)?$essai['Cycle_STL']:' '));
+      $FT->setCellValue('M40', $essai['c_temperature']);
+      $FT->setCellValue('O40', $tempCorrected);
+
+      //case temperature en gris
+      if ($essai['c_temperature']<35) {
+        $FT->getStyle('H40:H41')->applyFromArray( $style_gray );
+        $FT->getStyle('J40:J41')->applyFromArray( $style_gray );
+        $FT->getStyle('I42:I43')->applyFromArray( $style_gray );
+      }
+
+
+
+
+      $FT1=$objPHPExcel->getSheetByName('FT-Str');
+      //on affiche la fenetre template
+      $FT1->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VISIBLE);
+
 
       $val2Xls = array(
         'B7' => $identification,
@@ -935,7 +691,7 @@ $style_gray = array(
         'I24' => $essai['dim2'],
         'I23' => $essai['dim3'],
         'J25' => $area,
-        'J26' => $essai['Lo'],
+        'J26' => '_'.$essai['Lo'].'_',
         'J29' => $oEprouvette->MAX()-$oEprouvette->MIN(),
         'J30' => $oEprouvette->MAX(),
         'J31' => $oEprouvette->MIN(),
@@ -990,185 +746,31 @@ $style_gray = array(
 
 
 
-      $FT=$objPHPExcel->getSheetByName('FT');
-
-      //calcul temps d'essai
-      $dateDebut = new DateTime($essai['date']);
-      if (isset($estimatedCycle) AND $essai['c_frequence']>0) {              //il faut la fréquence
-        if ((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)) { //et un cycle estimé
-          if (isset($essai['c_cycle_STL']) AND $essai['c_cycle_STL']>0) {                     //STL ou pas ?
-            if ($estimatedCycle['cycle_estime']>$essai['c_cycle_STL']) {              //avant ou après le STL ?
-              $tpsEstime=($estimatedCycle['cycle_estime']-$essai['c_cycle_STL'])/$essai['c_frequence_STL']/3600+$essai['c_cycle_STL']/$essai['c_frequence']/3600;
-              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
-              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
-            }
-            else {
-              $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
-              $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
-              $dateEstime= $dateDebut->format('Y-m-d') . "\n";
-            }
-          }
-          else {
-            $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
-            $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
-            $dateEstime= $dateDebut->format('Y-m-d') . "\n";
-          }
-        }
-        else {
-          $tpsEstime=' ';
-          $dateEstime=' ';
-        }
-      }
-      else {
-        $tpsEstime=' ';
-        $dateEstime=' ';
-      }
-
-
-      $val2Xls = array(
-
-        'C2' => $essai['test_type'].' Fatigue Test - Strain Control',
-        'O2' => 'FT - '.$essai['n_fichier'],
-
-        'A5' => $jobcomplet,
-        'D5' => $essai['prefixe'],
-        'G5' => $essai['nom_eprouvette'],
-        'J5' => $essai['n_fichier'],
-        'M5' => $essai['n_essai'],
-
-        'A7' => $essai['machine'],
-        'D7' => $essai['name'],
-        'G7' => $essai['operateur'],
-        'J7' => $essai['controleur'],
-        'M7' => $essai['date'],
-
-
-        'A12' => $essai['outillage_top'],
-        'C12' => $essai['outillage_bot'],
-        'E12' => (isset($essai['chauffage'])?$essai['chauffage']:' '),
-        'G12' => $compresseur,
-
-        'A14' => $essai['enregistreur'],
-        'C14' => '40001',
-        'D14' => $essai['Lo'],
-        'E14' => $ind_temp,
-
-
-        'J12' => $essai['cell_displacement_serial'],
-        'K12' => $essai['cell_displacement_gamme'],
-        'L12' => $essai['Disp_P'],
-        'M12' => $essai['Disp_i'],
-        'N12' => $essai['Disp_D'],
-        'O12' => $essai['Disp_Conv'],
-        'P12' => $essai['Disp_Sens'],
-
-        'J13' => $essai['cell_load_serial'],
-        'K13' => $essai['cell_load_gamme'],
-        'L13' => $essai['Load_P'],
-        'M13' => $essai['Load_i'],
-        'N13' => $essai['Load_D'],
-        'O13' => $essai['Load_Conv'],
-        'P13' => $essai['Load_Sens'],
-
-        'J14' => $essai['extensometre'],
-        'K14' => '_5%_',
-        'L14' => $essai['Strain_P'],
-        'M14' => $essai['Strain_i'],
-        'N14' => $essai['Strain_D'],
-        'O14' => $essai['Strain_Conv'],
-        'P14' => $essai['Strain_Sens'],
-
-
-
-        'A19' => $essai['dessin'],
-        'C19' => $essai['ref_matiere'],
-        'E19' => $essai['c_frequence'],
-        'G19' => $true.$essai['c_waveform'].$tapered,
-        'K18' => ((isset($dimDenomination[0])?$dimDenomination[0]:' ')),
-        'K19' => $essai['dim1'],
-        'M18' => ((isset($dimDenomination[1])?$dimDenomination[1]:' ')),
-        'M19' => $essai['dim2'],
-        'O18' => ((isset($dimDenomination[2])?$dimDenomination[2]:' ')),
-        'O19' => $essai['dim3'],
-
-        'J21' => 'End level ('.$essai['c_unite'].')',
-
-        'B22' => '_',
-        'E22' => $essai['c_temperature'],
-        'G22' => $tempCorrected,
-        'I19' => $runout,
-        'K22' => $oEprouvette->MAX(),
-        'M22' => $oEprouvette->MIN(),
-        'O22' => $area,
-        'J27' => '_',
-
-        'B32' => '3',
-        'C32' => '-3',
-        'B33' => '',
-        'C33' => '',
-        'B34' => $oEprouvette->MAX()+0.15,
-        'C34' => $oEprouvette->MIN()-0.15,
-
-        'A39' => $STL,
-        'C39' => $F_STL,
-        'E39' => $essai['Cycle_STL'],
-
-        'B41' => '_',
-        'B42' => '_',
-
-        'L40' => $essai['c_temperature'],
-        'N40' => $tempCorrected,
-
-        'A53' => $essai['Cycle_min'],
-        'C53' => (($essai['truecyclefinal']>0)?$essai['truecyclefinal']:' '),
-        'E53' => $essai['temps_essais'].' ',
-        'G53' => $essai['Rupture'].' ',
-        'I53' => $essai['Fracture'].' ',
-        'C54' =>((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' '),
-        'E54' => $tpsEstime,
-        'K54' => $dateEstime,
-
-
-        'A58' => $essai['comm'].' / '.$essai['c_commentaire'],
-        'P58' => (($essai['special_instruction']=='')?' ':'Special Instructions'),
-        'P59' => $essai['special_instruction']
-
-      );
-
-      //acase temperature en gris
-      if ($essai['c_temperature']<35) {
-
-        $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
-        $FT->getStyle('E14:H14')->applyFromArray( $style_gray );
-        $FT->getStyle('K34:L34')->applyFromArray( $style_gray );
-        $FT->getStyle('K41:O42')->applyFromArray( $style_gray );
-
-        $FT->getStyle('A23:D23')->applyFromArray( $style_gray );
-        $FT->getStyle('J23:P23')->applyFromArray( $style_gray );
-        $FT->getStyle('A24:P27')->applyFromArray( $style_gray );
-
-      }
-
-
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $FT->setCellValue($key, $value);
-        //->getStyle($key)->applyFromArray( $style_white )
-      }
-
-
-      $objPHPExcel->setActiveSheetIndex(0);
-
-
-
 
     }
     ElseIf ($essai['test_type_abbr']=="PS")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT PS.xlsx");
+      //copy du template du control change
+      copyRows($FT,60);
+      if ($essai['other_1']==0) {
+      $FT->getRowDimension(42)->setVisible(false);
+        $FT->getRowDimension(43)->setVisible(false);
+      }
+      else {
+        $FT->getRowDimension(44)->setVisible(true);
+        $FT->getRowDimension(45)->setVisible(true);
+        $FT->getRowDimension(46)->setVisible(true);
 
-      $FT1=$objPHPExcel->getSheetByName('FTLCFDEF');
+        $FT->getRowDimension(71)->setVisible(false);
+        $FT->getRowDimension(72)->setVisible(false);
+        $FT->getRowDimension(73)->setVisible(false);
+        $FT->getRowDimension(74)->setVisible(false);
+      }
+
+
+      $FT1=$objPHPExcel->getSheetByName('FT-PS');
+      //on affiche la fenetre template
+      $FT1->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VISIBLE);
 
       $val2Xls = array(
         'B7' => $identification,
@@ -1262,9 +864,363 @@ $style_gray = array(
       }
 
     }
-    else {
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT INCONNU.xlsx");
+
+
+
+
+
+
+
+
+
+
+    //calcul niveau + limits
+    if ($essai['c_unite']=="MPa")	{
+
+      $maxMPa = number_format($oEprouvette->MAX(), 0, '.', ' ');
+      $minMPa = number_format($oEprouvette->MIN(), 0, '.', ' ');
+
+      $maxkN = number_format($oEprouvette->MAX()*$area/1000, 2, '.', ' ');
+      $minkN = number_format($oEprouvette->MIN()*$area/1000, 2, '.', ' ');
+
+      $maxLimitkN = $maxkN+max(max(abs($maxkN),abs($minkN))*5/100,0.5);
+      $minLimitkN = $minkN-max(max(abs($maxkN),abs($minkN))*5/100,0.5);
+
+      $FT->setCellValue('K21', '(MPa) MAX (kN)');
+      $FT->setCellValue('M21', '(MPa) MIN (kN)');
+      $FT->setCellValue('K22', $maxMPa.' ');
+      $FT->setCellValue('M22', $minMPa.' ');
+      $FT->setCellValue('L22', $maxkN.' ');
+      $FT->setCellValue('N22', $minkN.' ');
+
+      $FT->setCellValue('B32', '6');
+      $FT->setCellValue('C32', '-6');
+      $FT->setCellValue('B33', $maxLimitkN);
+      $FT->setCellValue('C33', $minLimitkN);
+      $FT->setCellValue('B34', '');
+      $FT->setCellValue('C34', '');
     }
+    Elseif ($essai['c_unite']=="kN")	{
+      $maxkN = number_format($oEprouvette->MAX(), 3, '.', ' ');
+      $minkN = number_format($oEprouvette->MIN(), 3, '.', ' ');
+
+      $maxLimitkN = $oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5);
+      $minLimitkN = $oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5);
+
+      $FT->setCellValue('K21', 'MAX (kN)');
+      $FT->setCellValue('M21', 'MIN (kN)');
+      $FT->setCellValue('K22', $maxkN.' ');
+      $FT->setCellValue('M22', $minkN.' ');
+
+      $FT->setCellValue('B32', '6');
+      $FT->setCellValue('C32', '-6');
+      $FT->setCellValue('B33', $maxLimitkN);
+      $FT->setCellValue('C33', $minLimitkN);
+      $FT->setCellValue('B34', '');
+      $FT->setCellValue('C34', '');
+    }
+    Elseif ($essai['c_unite']=="%")	{
+      $maxStrain = number_format($oEprouvette->MAX(), 3, '.', ' ');
+      $minStrain = number_format($oEprouvette->MIN(), 3, '.', ' ');
+
+      $maxLimitStrain = $oEprouvette->MAX()+0.15;
+      $minLimitStrain = $oEprouvette->MIN()-0.15;
+
+      $FT->setCellValue('K21', 'MAX (%)');
+      $FT->setCellValue('M21', 'MIN (%)');
+      $FT->setCellValue('K22', $maxStrain.' ');
+      $FT->setCellValue('M22', $minStrain.' ');
+
+      $FT->setCellValue('B32', '3');
+      $FT->setCellValue('C32', '-3');
+      $FT->setCellValue('B33', '');
+      $FT->setCellValue('C33', '');
+      $FT->setCellValue('B34', $maxLimitStrain);
+      $FT->setCellValue('C34', $minLimitStrain);
+    }
+    Else	{
+      $maxkN = "ERREUR d'unité";
+      $minkN = "ERREUR d'unité";
+
+      $maxLimitkN = "ERREUR d'unité";
+      $minLimitkN = "ERREUR d'unité";
+
+      $FT->setCellValue('K22', $maxkN);
+      $FT->setCellValue('M22', $minkN);
+    }
+
+    //calcul temps d'essai
+    $dateDebut = new DateTime($essai['date']);
+    if (isset($estimatedCycle) AND $essai['c_frequence']>0) {              //il faut la fréquence
+      if ((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)) { //et un cycle estimé
+        if (isset($essai['c_cycle_STL']) AND $essai['c_cycle_STL']>0) {             //STL ou pas ?
+          if ($estimatedCycle['cycle_estime']>$essai['c_cycle_STL']) {              //avant ou après le STL ?
+            $tpsEstime=($estimatedCycle['cycle_estime']-$essai['c_cycle_STL'])/$essai['c_frequence_STL']/3600+$essai['c_cycle_STL']/$essai['c_frequence']/3600;
+            $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+            $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+          }
+          else {
+            $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
+            $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+            $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+          }
+        }
+        else {
+          $tpsEstime=$estimatedCycle['cycle_estime']/$essai['c_frequence']/3600;
+          $dateDebut->add(new DateInterval("PT".ceil($tpsEstime+12)."H"));
+          $dateEstime= $dateDebut->format('Y-m-d') . "\n";
+        }
+      }
+      else {
+        $tpsEstime=' ';
+        $dateEstime=' ';
+      }
+    }
+    else {
+      $tpsEstime=' ';
+      $dateEstime=' ';
+    }
+
+
+    $val2Xls = array();
+    $val2Xls = array(
+
+      'C2' => $essai['test_type'].' Fatigue Test',
+      'O2' => 'FT - '.$essai['n_fichier'],
+
+      'A5' => $jobcomplet,
+      'D5' => $essai['prefixe'],
+      'G5' => $essai['nom_eprouvette'],
+      'J5' => $essai['n_fichier'],
+      'M5' => $essai['n_essai'],
+
+      'A7' => $essai['machine'],
+      'D7' => $essai['name'],
+      'G7' => $essai['operateur'],
+      'J7' => $essai['controleur'],
+      'M7' => $essai['date'],
+
+
+      'A12' => $essai['outillage_top'],
+      'C12' => $essai['outillage_bot'],
+      'E12' => (isset($essai['chauffage'])?$essai['chauffage']:' '),
+      'G12' => $compresseur,
+
+      'A14' => $essai['enregistreur'],
+      'C14' => '40001',
+      'D14' => $essai['Lo'],
+      'E14' => $ind_temp,
+
+
+      'J12' => $essai['cell_displacement_serial'],
+      'K12' => $essai['cell_displacement_gamme'],
+      'L12' => $essai['Disp_P'],
+      'M12' => $essai['Disp_i'],
+      'N12' => $essai['Disp_D'],
+      'O12' => $essai['Disp_Conv'],
+      'P12' => $essai['Disp_Sens'],
+
+      'J13' => $essai['cell_load_serial'],
+      'K13' => $essai['cell_load_gamme'],
+      'L13' => $essai['Load_P'],
+      'M13' => $essai['Load_i'],
+      'N13' => $essai['Load_D'],
+      'O13' => $essai['Load_Conv'],
+      'P13' => $essai['Load_Sens'],
+
+      'J14' => $essai['extensometre'],
+      'K14' => '_5%_',
+      'L14' => $essai['Strain_P'],
+      'M14' => $essai['Strain_i'],
+      'N14' => $essai['Strain_D'],
+      'O14' => $essai['Strain_Conv'],
+      'P14' => $essai['Strain_Sens'],
+
+
+
+      'A19' => $essai['dessin'],
+      'C19' => $essai['ref_matiere'],
+      'E19' => $essai['c_frequence'],
+      'G19' => $true.$essai['c_waveform'].$tapered,
+      'K18' => ((isset($dimDenomination[0])?$dimDenomination[0]:' ')),
+      'K19' => $essai['dim1'],
+      'M18' => ((isset($dimDenomination[1])?$dimDenomination[1]:' ')),
+      'M19' => $essai['dim2'],
+      'O18' => ((isset($dimDenomination[2])?$dimDenomination[2]:' ')),
+      'O19' => $essai['dim3'],
+
+      'B22' =>((isset($estimatedCycle) AND $estimatedCycle['E_RTEstime']>0 AND $estimatedCycle['E_RTEstime']!=1)?$estimatedCycle['E_RTEstime']:' '),
+      'B23' =>((isset($estimatedCycle) AND $estimatedCycle['E_htEstime']>0 AND $estimatedCycle['E_htEstime']!=1)?$estimatedCycle['E_htEstime']:' '),
+      'E22' => $essai['c_temperature'],
+      'G22' => $tempCorrected,
+      'I19' => $runout,
+      'O22' => number_format($area, 3, '.', ' '),
+      'J27' => ((isset($estimatedCycle) AND $estimatedCycle['dilatationEstime']!=1)?$estimatedCycle['dilatationEstime']:' '),
+
+      'A39' => $STL,
+      'C39' => $F_STL,
+
+      'A53' => $essai['Cycle_min'],
+      'C53' => (($essai['truecyclefinal']>0)?$essai['truecyclefinal']:' '),
+      'E53' => $essai['temps_essais'].' ',
+      'G53' => $essai['Rupture'].' ',
+      'I53' => $essai['Fracture'].' ',
+      'C54' =>((isset($estimatedCycle) AND $estimatedCycle['cycle_estime']>0)?$estimatedCycle['cycle_estime']:' '),
+      'E54' => $tpsEstime,
+      'K54' => $dateEstime,
+
+
+      'A59' => $essai['comm'],
+      'A60' => $essai['tbljob_instruction'],
+      'P58' => (($essai['special_instruction']=='')?' ':'Special Instructions'),
+      'P59' => $essai['special_instruction']
+
+    );
+
+    //case temperature en gris
+    if ($essai['c_temperature']<35) {
+
+      $FT->getStyle('E12:F12')->applyFromArray( $style_gray );
+      $FT->getStyle('E14:H14')->applyFromArray( $style_gray );
+      $FT->getStyle('K34:L34')->applyFromArray( $style_gray );
+
+      $FT->getStyle('A23:D23')->applyFromArray( $style_gray );
+      $FT->getStyle('J23:P23')->applyFromArray( $style_gray );
+      $FT->getStyle('A24:P27')->applyFromArray( $style_gray );
+
+    }
+
+
+    //Pour chaque element du tableau associatif, on update les cellules Excel
+    foreach ($val2Xls as $key => $value) {
+      $FT->setCellValue($key, $value);
+    }
+
+
+
+    //tableau pour le stepcase
+    if ($essai['stepcase_val']!='') {
+      $FT->setCellValue('K38', 'Stepcase n°');
+      $FT->setCellValue('L38', 'Max (MPa)');
+      $FT->setCellValue('M38', 'Min (MPa)');
+      $FT->setCellValue('N38', 'Max (kN)');
+      $FT->setCellValue('O38', 'Min (kN)');
+      $FT->setCellValue('P38', 'Runout');
+      for ($i=0; $i <5 ; $i++) {
+        $oEprouvette->niveaumaxmin(
+          $essai['c_1_type'],
+          $essai['c_2_type'],
+          $essai['c_type_1_val']+(($essai['c_1_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0),
+          $essai['c_type_2_val']+(($essai['c_2_type']==$essai['steptype'])?$i*$essai['stepcase_val']:0)
+        );
+
+
+        //calcul des limites avec le niveau le plus extreme des 5 stepcases
+        //et des differents steps
+        if ($essai['c_unite']=="MPa")	{
+          $maxMPa = number_format($oEprouvette->MAX(), 0, '.', ' ');
+          $minMPa = number_format($oEprouvette->MIN(), 0, '.', ' ');
+          $maxkN = number_format($oEprouvette->MAX()*$area/1000, 2, '.', ' ');
+          $minkN = number_format($oEprouvette->MIN()*$area/1000, 2, '.', ' ');
+
+          $maxLimitkN = number_format(max($maxLimitkN,$maxkN+max(max(abs($maxkN),abs($minkN))*5/100,0.5)), 2, '.', ' ');
+          $minLimitkN = number_format(min($minLimitkN,$minkN-max(max(abs($maxkN),abs($minkN))*5/100,0.5)), 2, '.', ' ');
+        }
+        Elseif ($essai['c_unite']=="kN")	{
+          $maxMPa='';
+          $minMPa='';
+          $maxkN = number_format($oEprouvette->MAX(), 3, '.', ' ');
+          $minkN = number_format($oEprouvette->MIN(), 3, '.', ' ');
+
+          $maxLimitkN = number_format(max($maxLimitkN,$oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 2, '.', ' ');
+          $minLimitkN = number_format(min($minLimitkN,$oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5)), 2, '.', ' ');;
+        }
+        Else	{
+          $maxMPa='';
+          $minMPa='';
+          $maxkN = "ERREUR d'unité";
+          $minkN = "ERREUR d'unité";
+
+          $maxLimitkN = "ERREUR d'unité";
+          $minLimitkN = "ERREUR d'unité";
+        }
+
+
+        $FT->setCellValue('K'.(39+$i), ($i+1));
+        $FT->setCellValue('L'.(39+$i), $maxMPa);
+        $FT->setCellValue('M'.(39+$i), $minMPa);
+        $FT->setCellValue('N'.(39+$i), $maxkN);
+        $FT->setCellValue('O'.(39+$i), $minkN);
+        $FT->setCellValue('P'.(39+$i), $runout*($i+1));
+
+      }
+      //on ajoute * apres les limites pour signifier l'incertitude des limites
+      $FT->setCellValue('B33', $maxLimitkN.'*');
+      $FT->setCellValue('C33', $minLimitkN.'*');
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $objPHPExcel->setActiveSheetIndex(0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

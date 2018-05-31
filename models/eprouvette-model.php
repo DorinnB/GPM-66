@@ -502,7 +502,7 @@ class EprouvetteModel
       Rupture, Fracture, other_1, other_2, other_3, other_4, other_5,
       info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
       signal_true, signal_tapered, young, flag_qualite, check_rupture,
-      d_commentaire, special_instruction,
+      d_commentaire, special_instruction, tbljob_instruction,
 
       IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock,
       E_RT, c1_E_montant, c1_max_strain, c1_min_strain, c1_max_stress, c1_min_stress, c2_cycle, c2_E_montant, c2_max_stress, c2_min_stress, c2_max_strain, c2_min_strain, c2_calc_inelastic_strain, c2_meas_inelastic_strain, Ni, Nf75, dilatation,
@@ -754,7 +754,13 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
 
     public function getEstimatedCycle(){
         //d_checked>0 pour activer le calcul du temps uniquement si les données sont validé, essai terminé ou ecrit manuellement (cycle_estime ecrit)
-        $req='SELECT ifnull(AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)),avg(runout)) AS cycle_estime, c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val
+        $req='SELECT c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val,
+          ifnull(AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)),avg(runout)) AS cycle_estime,
+          ifnull(AVG((dilatation-1)*100),"") AS dilatationEstime,
+          ifnull(AVG(E_RT),"") AS E_RTEstime,
+          ifnull(AVG(E_ht/1000),"") AS E_htEstime,
+          ifnull(AVG(c2_max_stress),"") AS c2_max_stressEstimate,
+          ifnull(AVG(c2_min_stress),"") AS c2_min_stressEstimate
         FROM eprouvettes
         LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
         WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')

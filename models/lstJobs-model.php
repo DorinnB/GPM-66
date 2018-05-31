@@ -334,7 +334,7 @@ class LstJobsModel
           LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
   				WHERE info_job_actif=1 and job>13333 and customer='.$customer.'
           AND master_eprouvette_actif=1 AND eprouvette_actif=1
-          AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_date is null)
+          AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2)
           GROUP BY job
   				ORDER BY job DESC
           ';

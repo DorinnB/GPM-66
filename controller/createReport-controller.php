@@ -531,7 +531,7 @@ ElseIf (isset($_GET['language']) AND $_GET['language']=="V2" AND $split['test_ty
     $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
     $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
-    $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
+    $pvEssais->setCellValueByColumnAndRow($col, 47, ceil(($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
@@ -810,7 +810,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx")	{
     $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
     $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
-    $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
+    $pvEssais->setCellValueByColumnAndRow($col, 47, ceil(($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
@@ -1097,7 +1097,7 @@ ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
     $pvEssais->setCellValueByColumnAndRow($col, 44, $value['Cycle_final']);
     $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
-    $pvEssais->setCellValueByColumnAndRow($col, 47, (($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
+    $pvEssais->setCellValueByColumnAndRow($col, 47, ceil(($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
@@ -1359,7 +1359,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
     $pvEssais->setCellValueByColumnAndRow($col, 45, $value['Rupture']);
     $pvEssais->setCellValueByColumnAndRow($col, 46, $value['Fracture']);
 
-    $pvEssais->setCellValueByColumnAndRow($col, 47, $value['temps_essais']);
+    $pvEssais->setCellValueByColumnAndRow($col, 47, ceil(($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(PHPExcel_Cell::stringFromColumnIndex($col).'44:'.PHPExcel_Cell::stringFromColumnIndex($col).'44')->applyFromArray( $style_running );
